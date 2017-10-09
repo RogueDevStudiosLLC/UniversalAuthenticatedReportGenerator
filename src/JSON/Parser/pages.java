@@ -1,4 +1,4 @@
-package JSON.Parser;
+package json.parser;
 
 public class pages {
 
