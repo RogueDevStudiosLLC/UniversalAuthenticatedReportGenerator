@@ -73,7 +73,7 @@ public class variables<N, I, V, D> {
 		 * 
 		 * @since 1.0
 		 */
-		private I getId(int){
+		private I getId(){
 			return id;
 		}
 		
