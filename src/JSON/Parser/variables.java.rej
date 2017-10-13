@@ -1,0 +1,10 @@
+diff a/src/JSON/Parser/variables.java b/src/JSON/Parser/variables.java	(rejected hunks)
+@@ -73,7 +73,7 @@
+ 		 * 
+ 		 * @since 1.0
+ 		 */
+-		private I getId(int){
++		private I getId(){
+ 			return id;
+ 		}
+ 		
