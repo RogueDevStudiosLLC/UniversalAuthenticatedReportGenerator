@@ -1,4 +1,4 @@
-diff a/src/JSON/Parser/variables.java b/src/JSON/Parser/variables.java	(rejected hunks)
+diff a/src/json/parser/variables.java b/src/json/parser/variables.java	(rejected hunks)
 @@ -73,7 +73,7 @@
  		 * 
  		 * @since 1.0

@@ -18,7 +18,7 @@
 * @author Terry Roberson
 * @since 1.0
 */
-package JSON.Parser;
+package json.parser;
 public class variables<N, I, V, D> {
 	/**
 	 * Declares the details of the variables and assign them to generic types.
