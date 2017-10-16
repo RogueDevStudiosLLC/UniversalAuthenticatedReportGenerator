@@ -1,9 +1,9 @@
 /********************************
-*   Variables Class			    *
+*   Variable Class			    *
 *   File Name: variable.class   *
 *                               *
 *   the class file for          *
-*   the variables.		        *
+*   a variable.			        *
 *                               *
 *   ©3000 SomeCompany, Inc.     *
 ********************************/
@@ -18,17 +18,17 @@
 * @author Terry Roberson
 * @since 1.0
 */
-package json.parser;
-public class variables<N, I, V, D> {
+package JSON.Parser;
+public class variable<V> {
 	/**
 	 * Declares the details of the variables and assign them to generic types.
 	 *
 	 * @since 1.0
 	 */	
-	private N name;
-	private I id;
+	private String name;
+	private String id;
 	private V value;
-	private D description;
+	private String description;
 	
 	/**
 	 * constructor
@@ -45,7 +45,7 @@ public class variables<N, I, V, D> {
 	 * 			class returns specified value
 	 * @since 1.0
 	 */
-		public void Seperation(N name, I id, V value, D description) {
+		public void Seperation(String name, String id, V value, String description) {
 			this.name = name;
 			this.id = id;
 			this.value = value;
@@ -54,26 +54,26 @@ public class variables<N, I, V, D> {
 		/**
 		 * getName method
 		 * 
-		 * @param N	the generic type associated with varName
+		 * @param String	String associated with varName
 		 * 
 		 * @return name
 		 * 
 		 * @since 1.0
 		 */
-		private N getName(String){
+		private String getName(){
 			return name;
 		}
 		
 		/**
 		 * getId method 
 		 * 
-		 * @param I	the generic type associated with varID
+		 * @param String	String associated with varID
 		 * 
 		 * @return id
 		 * 
 		 * @since 1.0
 		 */
-		private I getId(int){
+		private String getId(){
 			return id;
 		}
 		
@@ -87,20 +87,23 @@ public class variables<N, I, V, D> {
 		 * @since 1.0
 		 */
 		private V getValue(double){
-			private bool isVarIndependant;
+			private boolean isVarIndependant{
+				
+			}
+			return value;
 			
 		}
 		
 		/**
 		 * getDescription
 		 * 
-		 * @param D	the generic type associated with varDescription
+		 * @param String	String associated with varDescription
 		 * 
 		 * @return description 
 		 * 
 		 * @since 1.0
 		 */
-		private D getDescription(String){
+		private String getDescription(){
 			return description;
 		}
 		
