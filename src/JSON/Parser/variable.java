@@ -21,7 +21,7 @@
 package JSON.Parser;
 public class variable<V> {
 	/**
-	 * Declares the details of the variables and assign them to generic types.
+	 * Declares the details of the variables and assigns generic type.
 	 *
 	 * @since 1.0
 	 */	
@@ -29,13 +29,15 @@ public class variable<V> {
 	private String id;
 	private V value;
 	private String description;
-	
+	private boolean requiresInput;
 	/**
 	 * constructor
 	 *   
 	 * @param name  the names of the variables called
 	 * 
 	 * @param id  the ID of the called variable
+	 * 
+	 * @param requiresInput	declares is the variable is independant or dependant
 	 * 
 	 * @param value  the value of the called variable
 	 * 
@@ -45,9 +47,10 @@ public class variable<V> {
 	 * 			class returns specified value
 	 * @since 1.0
 	 */
-		public void Seperation(String name, String id, V value, String description) {
+		public void Seperation(String name, String id, boolean requiresInput, V value, String description) {
 			this.name = name;
 			this.id = id;
+			this.requiresInput = requiresInput;
 			this.value = value;
 			this.description = description;
 		}
@@ -60,6 +63,7 @@ public class variable<V> {
 		 * 
 		 * @since 1.0
 		 */
+		@SuppressWarnings("unused")
 		private String getName(){
 			return name;
 		}
@@ -73,8 +77,23 @@ public class variable<V> {
 		 * 
 		 * @since 1.0
 		 */
+		@SuppressWarnings("unused")
 		private String getId(){
 			return id;
+		}
+		
+		/**
+		 * requiresInput method
+		 * 
+		 * @param boolean
+		 * 
+		 * @return	requiresInput
+		 * 
+		 * @since 1.0
+		 */
+		@SuppressWarnings("unused")
+		private boolean requiresInput() {
+			return requiresInput;
 		}
 		
 		/**
@@ -86,12 +105,10 @@ public class variable<V> {
 		 *
 		 * @since 1.0
 		 */
-		private V getValue(double){
-			private boolean isVarIndependant{
-				
-			}
-			return value;
+		@SuppressWarnings("unused")
+		private V getValue() {
 			
+			return value;
 		}
 		
 		/**
@@ -103,6 +120,7 @@ public class variable<V> {
 		 * 
 		 * @since 1.0
 		 */
+		@SuppressWarnings("unused")
 		private String getDescription(){
 			return description;
 		}
