@@ -1,6 +1,6 @@
 /********************************
 *   Variable Class			    *
-*   File Name: variable.class   *
+*   File Name: variable.java   *
 *                               *
 *   the class file for          *
 *   a variable.			        *
@@ -47,86 +47,75 @@ public class variable<V> {
 	 * 			class returns specified value
 	 * @since 1.0
 	 */
-		public void Seperation(String name, String id, boolean requiresInput, V value, String description) {
-			this.name = name;
-			this.id = id;
-			this.requiresInput = requiresInput;
-			this.value = value;
-			this.description = description;
-		}
-		/**
-		 * getName method
-		 * 
-		 * @param String	String associated with varName
-		 * 
-		 * @return name
-		 * 
-		 * @since 1.0
-		 */
-		@SuppressWarnings("unused")
-		private String getName(){
-			return name;
-		}
-		
-		/**
-		 * getId method 
-		 * 
-		 * @param String	String associated with varID
-		 * 
-		 * @return id
-		 * 
-		 * @since 1.0
-		 */
-		@SuppressWarnings("unused")
-		private String getId(){
-			return id;
-		}
-		
-		/**
-		 * requiresInput method
-		 * 
-		 * @param boolean
-		 * 
-		 * @return	requiresInput
-		 * 
-		 * @since 1.0
-		 */
-		@SuppressWarnings("unused")
-		private boolean requiresInput() {
-			return requiresInput;
-		}
-		
-		/**
-		 * getValue method
-		 * 
-		 *@param V	the generic type associated with varValue
-		 *
-		 *@return	value
-		 *
-		 * @since 1.0
-		 */
-		@SuppressWarnings("unused")
-		private V getValue() {
-			
-			return value;
-		}
-		
-		/**
-		 * getDescription
-		 * 
-		 * @param String	String associated with varDescription
-		 * 
-		 * @return description 
-		 * 
-		 * @since 1.0
-		 */
-		@SuppressWarnings("unused")
-		private String getDescription(){
-			return description;
-		}
-		
+		public variable(String name, String id, boolean requiresInput, V value, String description) {
+			/**
+			 * accessor methods for variable name
+			 * 
+			 * @param name	the name of the variable
+			 * 
+			 * @return	the accessor methods should provide the variable name
+			 */
+			private String getName() {
+				return name;
+			}
+			private void setName(String name) {
+				this.name = name;
+			}
+			/**
+			 * accessor methods for variable ID
+			 * 
+			 * @param id	the ID of the variable
+			 * 
+			 * @return	the accessor methods should provide the variable ID
+			 */
+			private String getId() {
+				return id;
+			}
+			private void setId(String id) {
+				this.id = id;
+			}
+			/**
+			 * accessor methods for variable value
+			 * 
+			 * @param value	the value of the variable
+			 * 
+			 * @return	the accessor methods should provide the variable value
+			 */
+			private V getValue() {
+				return value;
+			}
+			private void setValue(V value) {
+				this.value = value;
+			}
+			/**
+			 * accessor methods for variable description
+			 * 
+			 * @param description	the description of the variable
+			 * 
+			 * @return	the accessor methods should provide the variable description
+			 */
+			private String getDescription() {
+				return description;
+			}
+			private void setDescription(String description) {
+				this.description = description;
+			}
+			/**
+			 * accessor methods for variable dependency
+			 * 
+			 * @param requiresInput	tells user if variable is independent/dependent
+			 * 
+			 * @return	the accessor methods should state if the variables is independent or dependent
+			 */
+			private boolean isRequiresInput() {
+				return requiresInput;
+			}
+			private void setRequiresInput(boolean requiresInput) {
+				this.requiresInput = requiresInput;
+			}
+
 	
-	
+		}
 	
 }
-
+	
