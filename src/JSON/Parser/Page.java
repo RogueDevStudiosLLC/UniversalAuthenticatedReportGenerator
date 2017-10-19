@@ -18,17 +18,9 @@
 */
 package JSON.Parser;
 
-public class Page(Name,Description,Id,TabId,Icon,Template,Colors,logos) 
+public class Page 
 {
-	//Declares the variables and assigns data types
-	private String Name;
-	private String Description;
-	private String Id;
-	private String TabId;
-	private String Icon;
-	private String Template;
-	private String Colors;
-	private String Logos;
+	
 	/**
 	 * constructor
 	 *   
@@ -50,7 +42,63 @@ public class Page(Name,Description,Id,TabId,Icon,Template,Colors,logos)
 	 * 
 	 * @since 1.0
 	 */
-	
-	@SuppressWarnings ("unused")	
-	
+	public Page (String PageName, String Description, String VariableId ,String Icon ,String Template, int Colors, String Logo) 
+	{
+		
+	}
+	public static String Logo;
+	public static String Icon;
+	public static int Colors;
+	public static String Template;
+	public static String VariableId;
+	public static String PageName;
+
+	public String getPageName() 
+	{
+		return PageName;
+	}
+	public void setPageName(String pageName) 
+	{
+		PageName = pageName;
+	}
+	public String getVariableId() 
+	{
+		return VariableId;
+	}
+	public void setVariableId(String variableId) 
+	{
+		VariableId = variableId;
+	}
+	public String getTemplate() 
+	{
+		return Template;
+	}
+	public void setTemplate(String template) 
+	{
+		Template = template;
+	}
+	public int getColors() 
+	{
+		return Colors;
+	}
+	public void setColors(int colors)
+	{
+		Colors = colors;
+	}
+	public String getIcon() 
+	{
+		return Icon;
+	}
+	public void setIcon(String icon) 
+	{
+		Icon = icon;
+	}
+	public String getLogo()
+	{
+		return Logo;
+	}
+	public void setLogo(String logo)
+	{
+		Logo = logo;
+	}
 }
