@@ -5,7 +5,7 @@
 *   The class file for          *
 *   the variables.              *
 *                               *
-*   ©3000 SomeCompany, Inc.     *
+*  ©2017 Rouge Dev. Studios,LLC *
 ********************************/
 /**
 * <p>
@@ -20,37 +20,47 @@ package JSON.Parser;
 
 public class Page 
 {
-	
-	/**
-	 * constructor
-	 *   
-	 * @param PageName - name of the workspace that is called 
-	 * 
-	 * @param VariableId - the ID of the called workspace
-	 * 
-	 * @param Description  the description of the called workspace
-	 * 
-	 * @param Icon - the icon called for the workspace
-	 * 
-	 * @param Template - the template used for the workspace
-	 * 
-	 * @param Colors - any color called for styling
-	 * 
-	 * @param Logo - Logo from the client organization
-	 * 
-	 * @since 1.0
-	 */
 	public Page (String PageName, String Description, String VariableId ,String Icon ,String Template, int Colors, String Logo) 
 	{
 		
 	}
+	/**
+	 *   
+	 * @param Logo - Logo from the client organization
+	 * 
+	 */
 	public static String Logo;
+	/**
+	 *   
+	 * @param Icon - the icon called for the workspace
+	 * 
+	 */
 	public static String Icon;
+	/**
+	 *   
+	 * @param Colors - any color called for styling
+	 * 
+	 */
 	public static int Colors;
+	/**
+	 *   
+	 * @param Template - the template used for the workspace
+	 * 
+	 */
 	public static String Template;
+	/**
+	 *   
+	 * @param VariableId - the ID of the called workspace
+	 * 
+	 */
 	public static String VariableId;
+	/**
+	 *   
+	 * @param PageName - name of the workspace that is called 
+	 * 
+	 */
 	public static String PageName;
-
+	
 	public String getPageName() 
 	{
 		return PageName;
