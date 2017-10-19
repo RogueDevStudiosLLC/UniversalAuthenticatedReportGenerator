@@ -24,11 +24,9 @@ public class Page
 	/**
 	 * constructor
 	 *   
-	 * @param Name - name of the workspace that is called 
+	 * @param PageName - name of the workspace that is called 
 	 * 
-	 * @param Id - the ID of the called workspace
-	 * 
-	 * @param TabId - the value of the called tab id
+	 * @param VariableId - the ID of the called workspace
 	 * 
 	 * @param Description  the description of the called workspace
 	 * 
@@ -38,7 +36,7 @@ public class Page
 	 * 
 	 * @param Colors - any color called for styling
 	 * 
-	 * @param Logos - Logo from the client organization
+	 * @param Logo - Logo from the client organization
 	 * 
 	 * @since 1.0
 	 */
