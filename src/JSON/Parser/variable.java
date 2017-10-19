@@ -47,7 +47,8 @@ public class variable<V> {
 	 * 			class returns specified value
 	 * @since 1.0
 	 */
-		public variable(String name, String id, boolean requiresInput, V value, String description) {
+}
+		public variable(String name, String id, V value, String description) {
 			/**
 			 * accessor methods for variable name
 			 * 
@@ -56,6 +57,7 @@ public class variable<V> {
 			 * @return	the accessor methods should provide the variable name
 			 */
 			private String getName() {
+				
 				return name;
 			}
 			private void setName(String name) {
@@ -68,7 +70,7 @@ public class variable<V> {
 			 * 
 			 * @return	the accessor methods should provide the variable ID
 			 */
-			private String getId() {
+			private String getId(String id) {
 				return id;
 			}
 			private void setId(String id) {
@@ -106,16 +108,7 @@ public class variable<V> {
 			 * @param requiresInput	tells user if variable is independent/dependent
 			 * 
 			 * @return	the accessor methods should state if the variables is independent or dependent
-			 */
-			private boolean isRequiresInput() {
-				return requiresInput;
-			}
-			private void setRequiresInput(boolean requiresInput) {
-				this.requiresInput = requiresInput;
-			}
-
-	
-		}
+			 */	
 	
 }
 	
