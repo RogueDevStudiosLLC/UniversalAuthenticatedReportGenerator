@@ -1,11 +1,11 @@
 /********************************
-*   UI Class                    *
-*   File Name: Uiclass.java     *
+*   Page Class                     *
+*   File Name: Page.java           *
 *                               *
 *   The class file for          *
 *   the variables.              *
 *                               *
-*  ©2017 Rouge Dev. Studios,LLC *
+*  ©2014 Rogue Dev Studios, LLC *
 ********************************/
 /**
 * <p>
@@ -20,47 +20,65 @@ package JSON.Parser;
 
 public class Page 
 {
-	public Page (String PageName, String Description, String VariableId ,String Icon ,String Template, int Colors, String Logo) 
+	private Page (String PageName, String Description, String VariableId ,String Icon ,String Template, int Colors, String Logo) 
 	{
-		
+		this.setPageName(PageName);
+		this.setColors(Colors);
+		this.setIcon(Icon);
+		this.setTemplate(Template);
+		this.setLogo(Logo);
+		this.setVariableId(VariableId);
+		this.setDescription(Description);
 	}
 	/**
 	 *   
 	 * @param Logo - Logo from the client organization
 	 * 
 	 */
-	public static String Logo;
+	private String Logo;
 	/**
 	 *   
 	 * @param Icon - the icon called for the workspace
 	 * 
 	 */
-	public static String Icon;
+	private String Icon;
 	/**
 	 *   
 	 * @param Colors - any color called for styling
 	 * 
 	 */
-	public static int Colors;
+	private int Colors;
 	/**
 	 *   
 	 * @param Template - the template used for the workspace
 	 * 
 	 */
-	public static String Template;
+	private String Template;
 	/**
 	 *   
 	 * @param VariableId - the ID of the called workspace
 	 * 
 	 */
-	public static String VariableId;
+	private String VariableId;
 	/**
 	 *   
 	 * @param PageName - name of the workspace that is called 
 	 * 
 	 */
-	public static String PageName;
+	private String PageName;
+	/**
+	 *   
+	 * @param Description  the description of the called workspace
+	 * 
+	 */
+	private String Description;
 	
+	/**
+	 *  
+	 * {@code} Getters and setters for each parameter
+	 * 
+	 */
+
 	public String getPageName() 
 	{
 		return PageName;
@@ -109,4 +127,13 @@ public class Page
 	{
 		Logo = logo;
 	}
+	public String Description() 
+	{
+		return Description;
+	}
+	public void setDescription(String description) 
+	{
+		Description = description;
+	}
+
 }
