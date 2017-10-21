@@ -31,7 +31,7 @@ public class Variable<V> {
 	private V _value;
 	/* The description of this Variable */
 	private String _description;
-	/* Whether this Variable is independant or dependant */
+	/* Whether this Variable is independent or dependent */
 	private boolean _requiresInput;
 
 	/**
