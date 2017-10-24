@@ -35,8 +35,11 @@ public class Formula {
     /* Class Methods */
     /**
     * Constructor for Formula class
-    * Sets values for object fields, calls _exp4jExpressionCompatibility() for _formulaExpression
-    * and calls _inputCount() for the length of the double array _formulaInputArray
+    * Sets values for object fields, establishes
+    * an exp4j compatible expression using the base
+    * equation given, and sets up
+    * a Double array based off of the base equation
+    * given for storing input variable object values.
     *
     * @param formulaName	A formula's name, taken from _formulaName
     * @param formulaDesc	A formula's description, taken from _formulaDesc
@@ -54,7 +57,7 @@ public class Formula {
     
     /**
     * Method that takes the formula equation and processes it into an exp4j compatible expression.
-    * Value of _formulaExpression (constructor) directly dependent on this method
+    * The formula expression is directly dependent on this method.
     *
     * @param equation	Should be _formulaEquation to be processed into exp4j compatible _formulaExpression 
     */
@@ -70,7 +73,7 @@ public class Formula {
     
     /**
     * Method that counts the variables in an equation and returns that number
-    * Used to initialize _formulaInputArray size in Formula constructor
+    * Used to initialize the formula input array size.
     *
     */
     private int _inputCount () {
@@ -82,14 +85,14 @@ public class Formula {
     }
     
     /**
-    * Checks if array size is correct,
-    * then passes the variable array to _tempArrayDoubleConversion()
-    * to convert variable array elements into Double format,
-    * then outputs variable array elements as Doubles to process() method.
-    * After that it should clean the temporary array out
-    * by calling _clearTempArray().
+    * Checks if array size is correct, then converts variable
+    * array elements into Double format. Then it outputs the variable
+    * array elements as Doubles to be processed by exp4j.
+    * Finally, it cleans out the temporary array.
     * 
     * @param vars	The Variable objects with the desired input values.
+    * @throws InvalidNumberOfArgumentsException	If the variable object array given does not have the correct amount of elements.
+    * @throws InvalidArgumentException	If array values cannot be parsed into a numerical value.
     */
     public Integer processToInteger(Variable<?>[] vars){
         // If the array is the wrong size throw an exception
@@ -116,8 +119,8 @@ public class Formula {
     
     /**
     * Populate the temporary input array with doubles of the input values
-    * @param vars The Variable objects with the desired input values.
-    *
+    * @param vars		The Variable objects with the desired input values.
+    * @throws Exception	If one of the argument values given is not capable of being parsed into a Double.
     */
     private void _tempArrayDoubleConversion(Variable<?>[] vars) throws Exception{
         int i = 0;
@@ -152,7 +155,7 @@ public class Formula {
     }
     
     /**
-     * Get method for formula name.
+     * Gets the formula name.
      * @return The formula name (String).
      */
     public String GetName(){
@@ -160,7 +163,7 @@ public class Formula {
     }
     
     /**
-     * Get method for formula description.
+     * Gets the formula description.
      * @return The formula description (String).
      */
     public String GetDesc(){
@@ -168,7 +171,7 @@ public class Formula {
     }
     
     /**
-     * Get method for formula id.
+     * Gets the formula id.
      * @return The formula id (String).
      */
     public String GetId(){
@@ -176,7 +179,7 @@ public class Formula {
     }
     
     /**
-     * Get method for formula base equation.
+     * Gets the formula base equation.
      * @return The formula base equation (String).
      */
     public String GetEquation(){
@@ -184,7 +187,7 @@ public class Formula {
     }
     
     /**
-     * Get method for formula exp4j compatible expression.
+     * Gets the formula exp4j compatible expression.
      * @return The formula expression (String).
      */
     public String GetExpression(){
@@ -192,7 +195,7 @@ public class Formula {
     }
     
     /**
-     * Get method for the formula variable input array's size.
+     * Gets the formula variable input array's size.
      * @return The size of the formula variable input array (int).
      */
     public int GetInputArraySize(){
