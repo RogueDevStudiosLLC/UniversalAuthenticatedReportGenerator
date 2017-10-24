@@ -19,7 +19,7 @@ public enum VariableType{
         private final String _value;
         
         private VariableType(String v){
-            this._value = VariableType;
+            this._value = v;
           
        }
 

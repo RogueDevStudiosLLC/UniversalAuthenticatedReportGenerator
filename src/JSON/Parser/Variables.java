@@ -405,43 +405,43 @@ public class Variables<V> {
      * @param variable
      * @param Type
      */
-    public void SetVariable(String id, Variable<?> variable, VariableType Type) {
+    public void SetVariable(String key, Variable<?> variable, VariableType Type) {
     	switch(Type) {
-    	case VariableType.INTEGER:
-    		this._setIntegerMap(key, variable);
+    	case INTEGER:
+    		this._setIntegerMap(key, (Variable<Integer>) variable);
     		break;
-    	case VariableType.INTEGERARRAY:
-    		this._setIntegerArrayMap(key, variable);
+    	case INTEGERARRAY:
+    		this._setIntegerArrayMap(key, (Variable<Integer[]>) variable);
     		break;
-    	case VariableType.STRING:
-    		this._setStringMap(key, variable);
+    	case STRING:
+    		this._setStringMap(key, (Variable<String>) variable);
     		break;
-    	case VariableType.STRINGARRAY:
-    		this._setStringArrayMap(key,variable);
+    	case STRINGARRAY:
+    		this._setStringArrayMap(key, (Variable<String[]>) variable);
     		break;
-    	case VariableType.FLOAT:
-    		this._setFloatMap(key, variable);
+    	case FLOAT:
+    		this._setFloatMap(key, (Variable<Float>) variable);
     		break;
-    	case VariableType.FLOATARRAY:
-    		this._setFloatArrayMap(key, variable);
+    	case FLOATARRAY:
+    		this._setFloatArrayMap(key, (Variable<Float[]>) variable);
     		break;
-    	case VariableType.LONG:
-    		this._setLongMap(key, variable);
+    	case LONG:
+    		this._setLongMap(key, (Variable<Long>) variable);
     		break;
-    	case VariableType.LONGARRAY:
-    		this._setLongArrayMap(key, variable);
+    	case LONGARRAY:
+    		this._setLongArrayMap(key, (Variable<Long[]>) variable);
     		break;
-    	case VariableType.DOUBLE:
-    		this._setDoubleMap(key, variable);
+    	case DOUBLE:
+    		this._setDoubleMap(key, (Variable<Double>) variable);
     		break;
-    	case VariableType.DOUBLEARRAY:
-    		this._setDoubleArrayMap(key,variable);
+    	case DOUBLEARRAY:
+    		this._setDoubleArrayMap(key, (Variable<Double[]>) variable);
     		break;
-    	case VariableType.BOOLEAN:
-    		this._setBooleanMap(key, variable);
+    	case BOOLEAN:
+    		this._setBooleanMap(key, (Variable<Boolean>) variable);
     		break;
-    	case VariableType.BOOLEANARRAY:
-    		this._setBooleanArrayMap(key, variable);
+    	case BOOLEANARRAY:
+    		this._setBooleanArrayMap(key, (Variable<Boolean[]>) variable);
     		break;
     	}
 	
