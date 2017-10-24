@@ -12,6 +12,10 @@ package JSON.Parser;
  * @author Chel
  * @since 1.0
  */
+
+// TODO:
+// Import variable.java, exp4j
+
 public class Formula {
     /* Class Attributes */
 
@@ -55,9 +59,6 @@ public class Formula {
         
         /* Take _formulaEquation
          * Rewrite to exp4j compatible _formulaExpression
-         * 
-         *
-         *
          */
         // TODO:
         return null;
@@ -77,8 +78,14 @@ public class Formula {
     }
     
     /**
-    *
-    *
+    * Checks if array size is correct,
+    * then passes the variable array to _tempArrayDoubleConversion()
+    * to convert variable array elements into Double format,
+    * then outputs variable array elements as Doubles to process() method.
+    * After that it should clean the temporary array out
+    * by calling _clearTempArray().
+    * 
+    * @param vars The Variable objects with the desired input values.
     */
     public Integer processToInteger(Variable<?>[] vars){
         // If the array is the wrong size throw an exception
@@ -90,12 +97,13 @@ public class Formula {
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
             // Process the vars to an output of Double
-            Double out = this._process();
+            Double out = this._process(); // 23 Oct 2017: process() currently undefined
             // Clean up our temp array
             this._clearTempArray();
             // Convert the output into what was asked for and return it
             return Integer.parseInt(out);
-        }Catch(Exception e){
+        }
+        catch(Exception e){
             throw new InvalidArgumentException(); // Make exception
         }
         //TODO:
@@ -103,7 +111,6 @@ public class Formula {
     }
     
     /**
-    *
     * Populate the temporary input array with doubles of the input values
     * @param vars The Variable objects with the desired input values.
     *
@@ -111,17 +118,27 @@ public class Formula {
     private void _tempArrayDoubleConversion(Variable<?>[] vars) throws Exception{
         int i = 0;
         try{
-        foreach(Variable<?> var in vars){
-            this._formulaInputArray[i] = Double.parseDouble(var.GetValue());
-        }
-        catch(Exception e){
-            throw e;
-        }
+        	for(Variable<?> var : vars){
+        		this._formulaInputArray[i] = Double.parseDouble(var.GetValue());
+        		i++;
+        	}
+        	catch(Exception e){
+        		throw e;
+        	}
     }
+        
+    // Initialize a loop counter so we can tell which index we are on
+    // == Almost always takes on the format "int i = 0"
+    // Loop through the variables and convert them to doubles, place them into array
+    // == Almost always a for or foreach iterative loop
+    // increase the index number to the next array slot
+    // == Almost always takes the form "i++" or "++i"
+    // if there's a problem we need to throw an exception
+    // == Almost always means we wrap our process in a try catch block and spit the exception back to the user
     
     private void _clearTempArray(){
         for( int i=0; i <= this._formulaInputArray.length; i++){
-            this._formulaInputArray[i] = 0d;
+            this._formulaInputArray[i] = 0d; // Set element to Double 0
         }
     }
     
