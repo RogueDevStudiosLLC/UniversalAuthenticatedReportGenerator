@@ -94,21 +94,21 @@ public class Formula {
     public Integer processToInteger(Variable<?>[] vars){
         // If the array is the wrong size throw an exception
         if(vars.length != this._formulaInputArray.length){
-            throw new InvalidNumberOfArgumentsExceptionPleaseWriteMe(); // Make exception
+            throw new InvalidNumberOfArgumentsExceptionPleaseWriteMe(); // TODO: Make exception
         }
         // If the array values can not be parsed to a numerical value, throw an invalid argument exception
         try{
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
             // Process the vars to an output of Double
-            Double out = this._process(); // 23 Oct 2017: process() currently undefined
+            Double out = this._process(); // TODO: 23 Oct 2017: process() currently undefined
             // Clean up our temp array
             this._clearTempArray();
             // Convert the output into what was asked for and return it
             return Integer.parseInt(out);
         }
         catch(Exception e){
-            throw new InvalidArgumentException(); // Make exception
+            throw new InvalidArgumentException(); // TODO: Make exception
         }
         //TODO:
         return null;
@@ -126,9 +126,10 @@ public class Formula {
         		this._formulaInputArray[i] = Double.parseDouble(var.GetValue());
         		i++;
         	}
-        	catch(Exception e){
-        		throw e;
-        	}
+        }
+        catch(Exception e){
+        	throw e;
+        }
     }
         
     // Initialize a loop counter so we can tell which index we are on
