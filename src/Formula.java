@@ -52,7 +52,7 @@ public class Formula {
         this._formulaDesc = formulaDesc;
         this._formulaId = formulaId;
         this._formulaEquation = formulaEquation;
-        this._formulaExpression = this._exp4jExpressionCompatibility(this._formulaEquation); 
+        this._formulaExpression = this._exp4jExpressionCompatibility(this._formulaEquation); // See about this
         this._formulaInputArray = new double[this._inputCount()];
     }
     
@@ -65,7 +65,6 @@ public class Formula {
     */
     private String _exp4jExpressionCompatibility (String equation) {
         // Make expression exp4j compatible.
-        
         /* Take _formulaEquation
          * Rewrite to exp4j compatible _formulaExpression
          */
