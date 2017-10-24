@@ -1,6 +1,6 @@
 package JSON.Parser;
 
-import JSON.Parser.Variables.VariableType;
+import JSON.Parser.VariableType;
 
 public enum VariableType{
         INTEGER("Integer"),
