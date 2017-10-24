@@ -33,6 +33,7 @@ public class Formula {
     private double[] _formulaInputArray;
 
     /* Class Methods */
+    
     /**
     * Constructor for Formula class
     * Sets values for object fields, establishes
@@ -59,7 +60,8 @@ public class Formula {
     * Method that takes the formula equation and processes it into an exp4j compatible expression.
     * The formula expression is directly dependent on this method.
     *
-    * @param equation	Should be _formulaEquation to be processed into exp4j compatible _formulaExpression 
+    * @param equation	Should be _formulaEquation to be processed into exp4j compatible _formulaExpression
+    * @return An expression (string) that is exp4j-compatible. 
     */
     private String _exp4jExpressionCompatibility (String equation) {
         // Make expression exp4j compatible.
@@ -72,9 +74,9 @@ public class Formula {
     }
     
     /**
-    * Method that counts the variables in an equation and returns that number
+    * Method that counts the input variables in an equation and returns that number.
     * Used to initialize the formula input array size.
-    *
+    * @return An integer representing the amount of input variables in an equation.
     */
     private int _inputCount () {
         /*
