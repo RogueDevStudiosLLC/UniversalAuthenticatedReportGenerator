@@ -28,41 +28,41 @@ public class Variables<V> {
      * constructor
      * 
      * @param _integerMap
-     *            a treemap of the variable type integer
+     *            a treeMap of the variable type integer
      * 
      * @param _integerArrayMap
-     *            a treemap of the variable type integerArray
+     *            a treeMap of the variable type integerArray
      * 
      * @param _StringMap
-     *            a treemap of the variable type String
+     *            a treeMap of the variable type String
      * 
      * @param _StringArrayMap
-     *            a treemap of the variable type StringArray
+     *            a treeMap of the variable type StringArray
      * 
      * 
      * @param _floatMap
-     *            a treemap of the variable type float
+     *            a treeMap of the variable type float
      * 
      * @param _floatArrayMap
-     *            a treemap of the variable type floatArray
+     *            a treeMap of the variable type floatArray
      * 
      * @param _longMap
-     *            a treemap of the variable type long
+     *            a treeMap of the variable type long
      * 
      * @param _longArrayMap
-     *            a treemap of the variable type longArray
+     *            a treeMap of the variable type longArray
      * 
      * @param _doubleMap
-     *            a treemap of the variable type double
+     *            a treeMap of the variable type double
      * 
      * @param _doubleArrayMap
-     *            a treemap of the variable type doubleArray
+     *            a treeMap of the variable type doubleArray
      * 
      * @param _booleanMap
-     *            a treemap of the variable type boolean
+     *            a treeMap of the variable type boolean
      * 
      * @param _booleanArrayMap
-     *            a treemap of the variable type booleanArray
+     *            a treeMap of the variable type booleanArray
      * 
      * @return <code> identifies value <code> class returns specified value
      * @since 1.0
@@ -72,9 +72,9 @@ public class Variables<V> {
 
     private TreeMap<String, Variable<Integer[]>> _integerArrayMap;
 
-    private TreeMap<String, Variable<String>> _StringMap;
+    private TreeMap<String, Variable<String>> _stringMap;
 
-    private TreeMap<String, Variable<String[]>> _StringArrayMap;
+    private TreeMap<String, Variable<String[]>> _stringArrayMap;
 
     private TreeMap<String, Variable<Float>> _floatMap;
 
@@ -112,8 +112,8 @@ public class Variables<V> {
     private void _build() {
         this._integerMap = new TreeMap<String, Variable<Integer>>();
         this._integerArrayMap = new TreeMap<String, Variable<Integer[]>>();
-        this._StringMap = new TreeMap<String, Variable<String>>();
-        this._StringArrayMap = new TreeMap<String, Variable<String[]>>();
+        this._stringMap = new TreeMap<String, Variable<String>>();
+        this._stringArrayMap = new TreeMap<String, Variable<String[]>>();
         this._floatMap = new TreeMap<String, Variable<Float>>();
         this._floatArrayMap = new TreeMap<String, Variable<Float[]>>();
         this._longMap = new TreeMap<String, Variable<Long>>();
@@ -124,7 +124,73 @@ public class Variables<V> {
         this._booleanArrayMap = new TreeMap<String, Variable<Boolean[]>>();
 
     }
+    public enum VariableType{
+        INTEGER("Integer"),
+        INTEGERARRAY("Integer Array"),
+        FLOAT("Float"),
+        FLOATARRAY("Float Array"),
+        DOUBLE("Double"),
+        DOUBLEARRAY("Double Array"),
+        STRING("String"),
+        STRINGARRAY("String Array"),
+        BOOLEAN("Boolean"),
+        BOOLEANARRAY("Boolean Array"),
+        LONG("Long"),
+        LONGARRAY("Long Array");
+        
+        private final String _value;
+        
+        private VariableType(String v){
+            this._value = VariableType;
+          
+        }
+        public SetVariable(String id, Variable<?> variable, VariableType Type) {
+        	switch(Type) {
+        	case VariableType.INTEGER:
+        		this._setIntegerMap(key, variable);
+        		break;
+        	case VariableType.INTEGERARRAY:
+        		this._setIntegerArrayMap(key, variable);
+        		break;
+        	case VariableType.STRING:
+        		this._setStringMap(key, variable);
+        		break;
+        	case VariableType.STRINGARRAY:
+        		this._setStringArrayMap(key,variable);
+        		break;
+        	case VariableType.FLOAT:
+        		this._setFloatMap(key, variable);
+        		break;
+        	case VariableType.FLOATARRAY:
+        		this._setFloatArrayMap(key, variable);
+        		break;
+        	case VariableType.LONG:
+        		this._setLongMap(key, variable);
+        		break;
+        	case VariableType.LONGARRAY:
+        		this._setLongArrayMap(key, variable);
+        		break;
+        	case VariableType.DOUBLE:
+        		this._setDoubleMap(key, variable);
+        		break;
+        	case VariableType.DOUBLEARRAY:
+        		this._setDoubleArrayMap(key,variable);
+        		break;
+        	case VariableType.BOOLEAN:
+        		this._setBooleanMap(key, variable);
+        		break;
+        	case VariableType.BOOLEANARRAY:
+        		this._setBooleanArrayMap(key, variable);
+        		break;
+        	case VariableType.NULL
+        		return null;
+        		break;
+        	}
+        	
+        }
 
+    }
+  
     /**
      * SetInteger method
      *
@@ -140,8 +206,8 @@ public class Variables<V> {
 
     }
 
-    public void SetInteger(String id) {
-        this._integerMap = _integerMap;
+    private void _setIntegerMap(String key, Variable<Integer> variable) {
+        this._integerMap.put(key,variable);
     }
 
     /**
@@ -163,12 +229,13 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void SetIntegerArray(String id) {
-        this._integerArrayMap = _integerArrayMap;
+    public void __setIntegerArrayMap(String key, Variable<Integer[]> variable) {
+        this._integerArrayMap.put(key, variable);
     }
+    
 
     public Variable<String[]> GetString(String id) {
-        return this._StringArrayMap.get(id);
+        return this._s tringArrayMap.get(id);
     }
 
     /**
@@ -180,8 +247,8 @@ public class Variables<V> {
      *
      * @since 1.0
      */
-    public void SetString(String id) {
-        this._StringMap = _StringMap;
+    public void _setStringMap(String key, Variable<String> variable) {
+        this._stringMap.put(key, variable);
     }
 
     /**
@@ -192,7 +259,7 @@ public class Variables<V> {
      * @since 1.0
      */
     public Variable<String[]> GetStringArray(String id) {
-        return this._StringArrayMap.get(id);
+        return this._stringArrayMap.get(id);
     }
 
     /**
@@ -205,8 +272,8 @@ public class Variables<V> {
      * @since 1.0
      */
 
-    public void SetStringArray(String id) {
-        this._StringArrayMap = _StringArrayMap;
+    public void _setStringArrayMap(String key, Variable<String[]> variable) {
+        this._stringArrayMap.put(key, variable);
     }
 
     /**
@@ -228,8 +295,8 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void SetFloat(String id) {
-        this._floatMap = _floatMap;
+    public void _setFloatMap(String key, Variable<Float> variable) {
+        this._floatMap.put(key, variable);
     }
 
     /**
@@ -251,8 +318,8 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void SetFloatArray(String id) {
-        this._floatArrayMap = _floatArrayMap;
+    public void _setFloatArrayMap(String key, Variable<Float[]> variable) {
+        this._floatArrayMap.put(key, variable);
     }
 
     /**
@@ -274,8 +341,8 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void SetLong(String id) {
-        this._longMap = _longMap;
+    public void _setLongMap(String key, Variable<Long> variable) {
+        this._longMap.put(key, variable);
     }
 
     /**
@@ -296,8 +363,8 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void SetLongArray(String id) {
-        this._longArrayMap = _longArrayMap;
+    public void _setLongArrayMap(String key, Variable<Long[]> variable) {
+        this._longArrayMap.put(key, variable);
     }
 
     /**
@@ -321,8 +388,8 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void SetDouble(String id) {
-        this._doubleMap = _doubleMap;
+    public void _setDoubleMap(String key, Variable<Double> variable) {
+        this._doubleMap.put(key, variable);
     }
 
     /**
@@ -343,8 +410,8 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void SetDoubleArray(String id) {
-        this._doubleArrayMap = _doubleArrayMap;
+    public void _setDoubleArrayMap(String key, Variable<Double[]> variable) {
+        this._doubleArrayMap.put(key, variable);
     }
 
     /**
@@ -367,8 +434,8 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void SetBoolean(String id) {
-        this._booleanMap = _booleanMap;
+    public void _setBooleanMap(String key, Variable<Boolean> variable) {
+        this._booleanMap.put(key, variable);
     }
 
     /**
@@ -393,11 +460,17 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void SetBooleanArray(String id) {
-        this._booleanArrayMap = _booleanArrayMap;
+    public void _setBooleanArrayMap(String key, Variable<Boolean[]>variable) {
+        this._booleanArrayMap.put(key, variable);
     }
-}
+    
+    /**
+     * @param id
+     * @param variable
+     * @param Type
+     */
 
+}
 /**
  * setBoolean method
  *
