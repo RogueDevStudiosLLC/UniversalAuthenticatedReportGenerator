@@ -124,72 +124,7 @@ public class Variables<V> {
         this._booleanArrayMap = new TreeMap<String, Variable<Boolean[]>>();
 
     }
-    public enum VariableType{
-        INTEGER("Integer"),
-        INTEGERARRAY("Integer Array"),
-        FLOAT("Float"),
-        FLOATARRAY("Float Array"),
-        DOUBLE("Double"),
-        DOUBLEARRAY("Double Array"),
-        STRING("String"),
-        STRINGARRAY("String Array"),
-        BOOLEAN("Boolean"),
-        BOOLEANARRAY("Boolean Array"),
-        LONG("Long"),
-        LONGARRAY("Long Array");
-        
-        private final String _value;
-        
-        private VariableType(String v){
-            this._value = VariableType;
-          
-        }
-        public SetVariable(String id, Variable<?> variable, VariableType Type) {
-        	switch(Type) {
-        	case VariableType.INTEGER:
-        		this._setIntegerMap(key, variable);
-        		break;
-        	case VariableType.INTEGERARRAY:
-        		this._setIntegerArrayMap(key, variable);
-        		break;
-        	case VariableType.STRING:
-        		this._setStringMap(key, variable);
-        		break;
-        	case VariableType.STRINGARRAY:
-        		this._setStringArrayMap(key,variable);
-        		break;
-        	case VariableType.FLOAT:
-        		this._setFloatMap(key, variable);
-        		break;
-        	case VariableType.FLOATARRAY:
-        		this._setFloatArrayMap(key, variable);
-        		break;
-        	case VariableType.LONG:
-        		this._setLongMap(key, variable);
-        		break;
-        	case VariableType.LONGARRAY:
-        		this._setLongArrayMap(key, variable);
-        		break;
-        	case VariableType.DOUBLE:
-        		this._setDoubleMap(key, variable);
-        		break;
-        	case VariableType.DOUBLEARRAY:
-        		this._setDoubleArrayMap(key,variable);
-        		break;
-        	case VariableType.BOOLEAN:
-        		this._setBooleanMap(key, variable);
-        		break;
-        	case VariableType.BOOLEANARRAY:
-        		this._setBooleanArrayMap(key, variable);
-        		break;
-        	case VariableType.NULL
-        		return null;
-        		break;
-        	}
-        	
-        }
-
-    }
+   
   
     /**
      * SetInteger method
@@ -229,13 +164,13 @@ public class Variables<V> {
      * @since 1.0
      * 
      */
-    public void __setIntegerArrayMap(String key, Variable<Integer[]> variable) {
+    public void _setIntegerArrayMap(String key, Variable<Integer[]> variable) {
         this._integerArrayMap.put(key, variable);
     }
     
 
     public Variable<String[]> GetString(String id) {
-        return this._s tringArrayMap.get(id);
+        return this._stringArrayMap.get(id);
     }
 
     /**
@@ -469,7 +404,70 @@ public class Variables<V> {
      * @param variable
      * @param Type
      */
+    public enum VariableType{
+        INTEGER("Integer"),
+        INTEGERARRAY("Integer Array"),
+        FLOAT("Float"),
+        FLOATARRAY("Float Array"),
+        DOUBLE("Double"),
+        DOUBLEARRAY("Double Array"),
+        STRING("String"),
+        STRINGARRAY("String Array"),
+        BOOLEAN("Boolean"),
+        BOOLEANARRAY("Boolean Array"),
+        LONG("Long"),
+        LONGARRAY("Long Array");
+        
+        private final String _value;
+        
+        private VariableType(String v){
+            this._value = VariableType;
+          
+        }
+    }
+        public SetVariable(String id, Variable<?> variable, VariableType Type) {
+        	switch(Type) {
+        	case VariableType.INTEGER:
+        		this._setIntegerMap(key, variable);
+        		break;
+        	case VariableType.INTEGERARRAY:
+        		this._setIntegerArrayMap(key, variable);
+        		break;
+        	case VariableType.STRING:
+        		this._setStringMap(key, variable);
+        		break;
+        	case VariableType.STRINGARRAY:
+        		this._setStringArrayMap(key,variable);
+        		break;
+        	case VariableType.FLOAT:
+        		this._setFloatMap(key, variable);
+        		break;
+        	case VariableType.FLOATARRAY:
+        		this._setFloatArrayMap(key, variable);
+        		break;
+        	case VariableType.LONG:
+        		this._setLongMap(key, variable);
+        		break;
+        	case VariableType.LONGARRAY:
+        		this._setLongArrayMap(key, variable);
+        		break;
+        	case VariableType.DOUBLE:
+        		this._setDoubleMap(key, variable);
+        		break;
+        	case VariableType.DOUBLEARRAY:
+        		this._setDoubleArrayMap(key,variable);
+        		break;
+        	case VariableType.BOOLEAN:
+        		this._setBooleanMap(key, variable);
+        		break;
+        	case VariableType.BOOLEANARRAY:
+        		this._setBooleanArrayMap(key, variable);
+        		break;
+        	}
+        	
+        }
 
+    }
 }
 /**
  * setBoolean method
