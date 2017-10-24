@@ -35,9 +35,13 @@ public class Formula {
     /* Class Methods */
     /**
     * Constructor for Formula class
+    * Sets values for object fields, calls _exp4jExpressionCompatibility() for _formulaExpression
+    * and calls _inputCount() for the length of the double array _formulaInputArray
     *
-    * @param ...
-    *
+    * @param formulaName	A formula's name, taken from _formulaName
+    * @param formulaDesc	A formula's description, taken from _formulaDesc
+    * @param formulaId		A formula's id, taken from _formulaId
+    * @param formulaEquation	A formula's equation, taken from _formulaEquation
     */
     public Formula (String formulaName, String formulaDesc, String formulaId, String formulaEquation) {
         this._formulaName = formulaName;
@@ -52,7 +56,7 @@ public class Formula {
     * Method that takes the formula equation and processes it into an exp4j compatible expression.
     * Value of _formulaExpression (constructor) directly dependent on this method
     *
-    * @param equation Should be _formulaEquation to be processed into exp4j compatible _formulaExpression 
+    * @param equation	Should be _formulaEquation to be processed into exp4j compatible _formulaExpression 
     */
     private String _exp4jExpressionCompatibility (String equation) {
         // Make expression exp4j compatible.
@@ -85,7 +89,7 @@ public class Formula {
     * After that it should clean the temporary array out
     * by calling _clearTempArray().
     * 
-    * @param vars The Variable objects with the desired input values.
+    * @param vars	The Variable objects with the desired input values.
     */
     public Integer processToInteger(Variable<?>[] vars){
         // If the array is the wrong size throw an exception
@@ -136,32 +140,60 @@ public class Formula {
     // if there's a problem we need to throw an exception
     // == Almost always means we wrap our process in a try catch block and spit the exception back to the user
     
+    /**
+     * Method to clear the temporary variables array.
+     * Called by processToInteger().
+     */
     private void _clearTempArray(){
         for( int i=0; i <= this._formulaInputArray.length; i++){
             this._formulaInputArray[i] = 0d; // Set element to Double 0
         }
     }
     
+    /**
+     * Get method for formula name.
+     * @return The formula name (String).
+     */
     public String GetName(){
         return this._formulaName;
     }
     
+    /**
+     * Get method for formula description.
+     * @return The formula description (String).
+     */
     public String GetDesc(){
         return this._formulaDesc;
     }
     
+    /**
+     * Get method for formula id.
+     * @return The formula id (String).
+     */
     public String GetId(){
         return this._formulaId;
     }
     
+    /**
+     * Get method for formula base equation.
+     * @return The formula base equation (String).
+     */
     public String GetEquation(){
         return this._formulaEquation;
     }
     
+    /**
+     * Get method for formula exp4j compatible expression.
+     * @return The formula expression (String).
+     */
     public String GetExpression(){
         return this._formulaExpression;
     }
     
+    /**
+     * Get method for the formula variable input array's size.
+     * @return The size of the formula variable input array (int).
+     */
     public int GetInputArraySize(){
         return this._formulaInputArray.length;
     }
