@@ -483,14 +483,66 @@ public class Variables<V> {
 
 	}
 	/**
-	 * updates the value of a variable
+	 * updates the value of an integer variable
 	 * @param key
-	 * @param variable
+	 * @param newValue
+	 * @since 1.0
 	 */
-	public void update(String key, Variable<Integer> variable) {
+	public void update(String key, int newValue) {
 
 		this._integerMap.get(key).SetValue(newValue);
 	}
 	
+	public void update(String key, int newValue, int i) {
+		//*NOT SURE IF ARRAY UPDATE IS NECESSARY*//
+	}
+	/**
+	 * updates the value of a String variable
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, String newValue) {
+		this._stringMap.get(key).SetValue(newValue);
+	}
 	
+	/**
+	 * updates the value of a Float variable
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, float newValue) {
+		this._floatMap.get(key).SetValue(newValue);
+	}
+	
+	/**
+	 * updates the value of a long variable
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, long newValue) {
+		this._longMap.get(key).SetValue(newValue);
+	}
+	
+	/**
+	 * updates the value of a double variable
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, double newValue) {
+		this._doubleMap.get(key).SetValue(newValue);
+	}
+	
+	/**
+	 * updates the value of a boolean variable
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, boolean newValue) {
+		this._booleanMap.get(key).SetValue(newValue);
+	}
 }
