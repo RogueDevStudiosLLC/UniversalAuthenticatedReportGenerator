@@ -4,7 +4,7 @@
  * The class file for a formula set.            *
  ***********************************************/
 
-package JSON.Parser;
+package ;
 
 /**
  * This class is the formula set class.

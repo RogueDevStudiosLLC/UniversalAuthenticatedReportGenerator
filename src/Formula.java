@@ -4,7 +4,7 @@
  * The class file for a formula.                *
  ***********************************************/
 
-package JSON.Parser;
+package ;
 
 /**
  * This class is a formula class.
@@ -78,7 +78,8 @@ public class Formula {
     * @return An integer representing the amount of input variables in an equation.
     */
     private int _inputCount () {
-        /*
+        /* Used in _exp4jExpressionCompatibility?
+         * Each variable replaced in the expression for exp4j will = 1 var to be expected in the array.
          * Counting variables in equation and returning that number
          */
         // TODO:
