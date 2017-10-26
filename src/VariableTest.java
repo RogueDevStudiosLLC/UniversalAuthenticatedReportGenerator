@@ -21,7 +21,7 @@ public class VariableTest<V> {
 	
 	@Test
 	public void variableValueTest() {
-		Variable<V> _value 
+		Variable<V> _value;
 		
 		
 	}
