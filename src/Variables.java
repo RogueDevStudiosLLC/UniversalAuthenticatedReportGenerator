@@ -469,15 +469,28 @@ public class Variables<V> {
 	}
 	/**
 	 * updates the value of an integer variable
+	 * 
 	 * @param key
+	 * 
 	 * @param newValue
+	 * 
 	 * @since 1.0
 	 */
 	public void update(String key, int newValue) {
 
 		this._integerMap.get(key).SetValue(newValue);
 	}
-	
+	/**
+	 * updates the value of an integer variable array
+	 * 
+	 * @param key
+	 * 
+	 * @param newValue
+	 * 
+	 * @param i
+	 * 
+	 * @since 1.0
+	 */
 	public void update(String key, int newValue, int i) {
 		this._integerArrayMap.get(key).SetValue(newValue, i);
 

@@ -30,6 +30,7 @@ public class Variable<V> {
 	private String _description;
 	/* Whether this Variable is independent or dependent */
 	private boolean _requiresInput;
+	/*The Value in an array*/
 	private int[] _array;
 
 	/**
