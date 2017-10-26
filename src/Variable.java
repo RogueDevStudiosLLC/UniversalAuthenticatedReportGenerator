@@ -31,7 +31,8 @@ public class Variable<V> {
 	/* Whether this Variable is independent or dependent */
 	private boolean _requiresInput;
 	/*The Value in an array*/
-	private int[] _array;
+	private int[] _integerArray;
+	
 
 	/**
 	 * Constructs a Variable object with a known value
@@ -186,7 +187,7 @@ public class Variable<V> {
 	 * @since 1.0
 	 */
 	public void SetValue(int newValue, int i){
-		this._array[i] = newValue;
+		this._integerArray[i] = newValue;
 	}
 
 	/**
