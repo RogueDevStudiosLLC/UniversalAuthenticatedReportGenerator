@@ -6,7 +6,7 @@
 *   Variables will construct    *
 *   the variables needed        *
 *                               *
-*  ©2049 Rogue Dev Studios, LLC *
+*  ©2017 Rogue Dev Studios, LLC *
 ********************************/
 
 import java.util.TreeMap;
@@ -22,12 +22,6 @@ import java.util.TreeMap;
  * @since 1.0
  */
 public class Variables<V> {
-
-	/**
-	 * TreeMap variables to be used later in the program
-	 *
-	 * @since 1.0
-	 */
 
 	private TreeMap<String, Variable<Integer>> _integerMap;
 
@@ -67,12 +61,7 @@ public class Variables<V> {
 		}
 	}
 
-	/**
-	 * Creates treeMap objects
-	 *
-	 * @since 1.0
-	 */
-
+	
 	private void _build() {
 		this._integerMap = new TreeMap<String, Variable<Integer>>();
 		this._integerArrayMap = new TreeMap<String, Variable<Integer[]>>();
@@ -93,9 +82,8 @@ public class Variables<V> {
 	 * 
 	 * Gets the id for _integerMap
 	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	 the id associated with the map
+	 *
 	 * @return id
 	 *
 	 * @since 1.0
@@ -123,10 +111,7 @@ public class Variables<V> {
 	 * 
 	 * Gets the id for _integerArrayMap
 	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
-	 * @return id
+	 * @param id	 the id associated with the map
 	 *
 	 * @since 1.0
 	 */
@@ -494,7 +479,8 @@ public class Variables<V> {
 	}
 	
 	public void update(String key, int newValue, int i) {
-		//*NOT SURE IF ARRAY UPDATE IS NECESSARY*//
+		this._integerArrayMap.get(key).SetValue(newValue, i);
+
 	}
 	/**
 	 * updates the value of a String variable
