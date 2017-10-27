@@ -1,3 +1,4 @@
+package VariablePackage;
 /********************************
 *   VariableType Class          *
 *   File Name: VariableType.java*
