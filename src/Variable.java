@@ -30,10 +30,18 @@ public class Variable<V> {
 	private String _description;
 	/* Whether this Variable is independent or dependent */
 	private boolean _requiresInput;
-	/*The Value in an array*/
+	/*The Integer Value in an array*/
 	private int[] _integerArray;
-	
-
+	/*the String Value in an array*/
+	private String[]_stringArray;
+	/*the float Value in an array*/
+	private float[]_floatArray;
+	/*the long Value in an array*/
+	private long[]_longArray;
+	/*the double Value in an array*/
+	private double[]_doubleArray;
+	/*the boolean Value in an array*/
+	private boolean[]_booleanArray;
 	/**
 	 * Constructs a Variable object with a known value
 	 * 
@@ -176,19 +184,6 @@ public class Variable<V> {
 	public void SetValue(V value) {
 		this._value = value;
 	}
-	
-	/**
-	 * sets value of this variable array
-	 * 
-	 * @param newValue
-	 * 
-	 * @param i
-	 * 
-	 * @since 1.0
-	 */
-	public void SetValue(int newValue, int i){
-		this._integerArray[i] = newValue;
-	}
 
 	/**
 	 * gets the description of this variable
@@ -235,5 +230,85 @@ public class Variable<V> {
 	public void SetRequiresInput(boolean requiresInput) {
 		this._requiresInput = requiresInput;
 	}
+	
+	/**
+	 * sets value of this integer variable array
+	 * 
+	 * @param newValue
+	 * 
+	 * @param i
+	 * 
+	 * @since 1.0
+	 */
+	public void SetValue(int newValue, int i){
+		this._integerArray[i] = newValue;
+	}
+	
+	/**
+	 * sets value of this String variable array
+	 * 
+	 * @param newValue
+	 * 
+	 * @param i
+	 * 
+	 * @since 1.0
+	 */
+	public void SetValue(String newValue, int i) {
+		this._stringArray[i] = newValue;
+	}
+	
+	/**
+	 * sets value of this float variable array
+	 * 
+	 * @param newValue
+	 * 
+	 * @param i
+	 * 
+	 * @since 1.0
+	 */
+	public void SetValue(float newValue, int i) {
+		this._floatArray[i] = newValue;
+	}
+
+	/**
+	 * sets value of this long variable array
+	 * 
+	 * @param newValue
+	 * 
+	 * @param i
+	 * 
+	 * @since 1.0
+	 */
+	public void SetValue(long newValue, int i) {
+		this._longArray[i] = newValue;
+	}
+
+	/**
+	 * sets value of this double variable array
+	 * 
+	 * @param newValue
+	 * 
+	 * @param i
+	 * 
+	 * @since 1.0
+	 */
+	public void SetValue(double newValue, int i) {
+		this._doubleArray[i] = newValue;
+	}
+
+	/**
+	 * sets value of this boolean variable array
+	 * 
+	 * @param newValue
+	 * 
+	 * @param i
+	 * 
+	 * @since 1.0
+	 */
+	public void SetValue(boolean newValue, int i) {
+		this._booleanArray[i] = newValue;
+	}
+
+
 
 }

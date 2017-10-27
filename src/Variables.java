@@ -504,6 +504,15 @@ public class Variables<V> {
 	public void update(String key, String newValue) {
 		this._stringMap.get(key).SetValue(newValue);
 	}
+	/**
+	 * updates the value of a String array variable
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, String newValue, int i) {
+		this._stringArrayMap.get(key).SetValue(newValue, i);
+	}
 	
 	/**
 	 * updates the value of a Float variable
@@ -513,6 +522,16 @@ public class Variables<V> {
 	 */
 	public void update(String key, float newValue) {
 		this._floatMap.get(key).SetValue(newValue);
+	}
+	
+	/**
+	 * updates the value of a float variable array
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, float newValue, int i) {
+		this._floatArrayMap.get(key).SetValue(newValue,i);
 	}
 	
 	/**
@@ -526,6 +545,16 @@ public class Variables<V> {
 	}
 	
 	/**
+	 * updates the value of a long variable array
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, long newValue, int i) {
+		this._longArrayMap.get(key).SetValue(newValue,i);
+	}
+	
+	/**
 	 * updates the value of a double variable
 	 * @param key
 	 * @param newValue
@@ -533,6 +562,16 @@ public class Variables<V> {
 	 */
 	public void update(String key, double newValue) {
 		this._doubleMap.get(key).SetValue(newValue);
+	}
+	
+	/**
+	 * updates the value of a double variable array
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, double newValue, int i) {
+		this._doubleArrayMap.get(key).SetValue(newValue,i);
 	}
 	
 	/**
@@ -544,4 +583,15 @@ public class Variables<V> {
 	public void update(String key, boolean newValue) {
 		this._booleanMap.get(key).SetValue(newValue);
 	}
+	
+	/**
+	 * updates the value of a boolean variable array
+	 * @param key
+	 * @param newValue
+	 * @since 1.0
+	 */
+	public void update(String key, boolean newValue, int i) {
+		this._booleanArrayMap.get(key).SetValue(newValue,i);
+	}
+	
 }
