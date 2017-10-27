@@ -1,11 +1,12 @@
 package VariablePackage;
+
 import static org.junit.Assert.*;
 
-import java.lang.reflect.Modifier;
-
-import java.lang.reflect.Constructor;
-
 import org.junit.Test;
+
+import java.lang.reflect.*;
+
+import java.util.*;
 
 /**
  * <P>
@@ -85,7 +86,10 @@ public class VariableTest{
 		/*get method to obtain information about Variable.java constructors*/
 		Constructor<?>[] constructors = variableClass.getConstructors();
 		/*read what parameters a given constructor takes*/
-		Class<?>[] parameterTypes = constructor.getParameterTypes();
+		Class<?>[] parameterTypes = constructors[2].getParameterTypes();
+		/**/
+		protected List<String> stringList = ...;
+		Constructor<?> variable = Variable.class.getConstructor(String.class, String.class, boolean.class, V.class String.class);
 	}
 	
 	
