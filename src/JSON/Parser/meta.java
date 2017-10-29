@@ -1,79 +1,133 @@
+/********************************
+ * 	MetaData Class              *
+ * 	File Name: meta.java        *
+ * 						        *
+ * 	The class file for          *
+ *	MetaData                    *
+ *								*
+ * 	©2014 Rouge Dev Studios, LLC *
+ ********************************/
+/***
+ * <p>
+ *This class is for parsing information from
+ *the JSON file to use for Meta Data configuration
+ *<p>
+ *
+ *
+ *
+ *@author Isaiah Rodriguez
+ *@since 1.0
+ */
+
 package JSON.Parser;
 
 public class meta 
 {
-	public meta (String name, String formId, String version, String description, String auhtor, String dataCrt, String dateEd) 
+	public meta (String Name, String FormId, String Version, String Description, String Author, String DateCrt, String DateEd) 
 	{
-		this.set_name(name);
-		this.set_formId(formId);
-		this.set_version(version);
-		this.set_description(description);
-		this.set_author(auhtor);
-		this.set_dateCrt(dataCrt);
-		this.set_dateEd(dateEd);
+		this.set_Name(Name);
+		this.set_FormId(FormId);
+		this.set_Version(Version);
+		this.set_Description(Description);
+		this.set_Author(Author);
+		this.set_DateCrt(DateCrt);
+		this.set_DateEd(DateEd);
 	}
+	/***
+	 * @parm _Name - the name of the person who is working on the file
+	 * 
+	 */
+	private String _Name;
+	/***
+	 * @parm _FormId - the Number the Form
+	 * 
+	 */
+	private String _FormId;
+	/***
+	 * @parm _Version - the Number of the Version the program is
+	 * 
+	 */
+	private String _Version;
+	/***
+	 *  @parm _Description - the description of what the form is about
+	 *  
+	 */
+	private String _Description;
+	/***
+	 *  @parm _Author - the name of the individuals name who originally worked on the form
+	 *  
+	 */
+	private String _Author;
+	/***
+	 * @parm _DateCrt - the date the form was originally was created on
+	 *  
+	 */
+	private String _DateCrt;
+	/***
+	 * @parm _DateEd - the date the form is edited on
+	 * 	
+	 */
+	private String _DateEd;
+
+	/*
+	 * {@code} Getters and Setters For each parameter
+	 * 
+	 */
 	
-	private String _name;
-	private String _formId;
-	private String _version;
-	private String _description;
-	private String _author;
-	private String _dateCrt;
-	private String _dateEd;
-	
-		public String get_name() 
+		public String get_Name() 
 		{
-			return _name;
+			return _Name;
 		}
-		public void set_name(String _name) 
+		public void set_Name(String _Name) 
 		{
-			this._name = _name;
+			this._Name = _Name;
 		}
-		public String get_formId() 
+		public String get_FormId() 
 		{
-			return _formId;
+			return _FormId;
 		}
-		public void set_formId(String _formId) 
+		public void set_FormId(String _FormId) 
 		{
-			this._formId = _formId;
+			this._FormId = _FormId;
 		}
-		public String get_version() {
-			return _version;
-		}
-		public void set_version(String _version) 
+		public String get_Version() 
 		{
-			this._version = _version;
+			return _Version;
 		}
-		public String get_description() 
+		public void set_Version(String _Version) 
 		{
-			return _description;
+			this._Version = _Version;
 		}
-		public void set_description(String _description) 
+		public String get_Description() 
 		{
-			this._description = _description;
+			return _Description;
 		}
-		public String get_author() 
+		public void set_Description(String _Description) 
 		{
-			return _author;
+			this._Description = _Description;
 		}
-		public void set_author(String _author) 
+		public String get_Author() 
 		{
-			this._author = _author;
+			return _Author;
 		}
-		public String get_dateCrt() 
+		public void set_Author(String _Author) 
 		{
-			return _dateCrt;
+			this._Author = _Author;
 		}
-		public void set_dateCrt(String _dateCrt) 
+		public String get_DateCrt() 
 		{
-			this._dateCrt = _dateCrt;
+			return _DateCrt;
 		}
-		public String get_dateEd() 
+		public void set_DateCrt(String _DateCrt) 
 		{
-			return _dateEd;
+			this._DateCrt = _DateCrt;
 		}
-		public void set_dateEd(String _dateEd) 
+		public String get_DateEd() 
 		{
-			this._dateEd = _dateEd;
+			return _DateEd;
+		}
+		public void set_DateEd(String _DateEd) 
+		{
+			this._DateEd = _DateEd;
 		}
 }
