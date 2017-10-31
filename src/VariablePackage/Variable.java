@@ -31,18 +31,7 @@ public class Variable<V> {
 	private String _description;
 	/* Whether this Variable is independent or dependent */
 	private boolean _requiresInput;
-	/*The Integer Value in an array*/
-	private int[] _integerArray;
-	/*the String Value in an array*/
-	private String[]_stringArray;
-	/*the float Value in an array*/
-	private float[]_floatArray;
-	/*the long Value in an array*/
-	private long[]_longArray;
-	/*the double Value in an array*/
-	private double[]_doubleArray;
-	/*the boolean Value in an array*/
-	private boolean[]_booleanArray;
+
 	/**
 	 * Constructs a Variable object with a known value
 	 * 
