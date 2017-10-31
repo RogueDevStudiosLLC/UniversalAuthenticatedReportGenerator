@@ -128,7 +128,7 @@ public class Variables<V> {
 	 * @since 1.0
 	 * 
 	 **/
-	public void _setIntegerArrayMap(String key, Variable<Integer[]> variable) {
+	private void _setIntegerArrayMap(String key, Variable<Integer[]> variable) {
 		this._integerArrayMap.put(key, variable);
 	}
 
@@ -157,7 +157,7 @@ public class Variables<V> {
 	 * 
 	 **/
 
-	public void _setStringMap(String key, Variable<String> variable) {
+	private void _setStringMap(String key, Variable<String> variable) {
 		this._stringMap.put(key, variable);
 	}
 
