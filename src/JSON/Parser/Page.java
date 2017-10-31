@@ -5,7 +5,7 @@
 *   The class file for          *
 *   the variables.              *
 *                               *
-*  Â©2014 Rogue Dev Studios, LLC *
+*  ©2014 Rogue Dev Studios, LLC *
 ********************************/
 /**
 * <p>
