@@ -1,5 +1,0 @@
-/**
- * @author rober
- *
- */
-package VariablePackage;

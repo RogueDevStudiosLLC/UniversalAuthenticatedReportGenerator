@@ -1,4 +1,4 @@
-package VariablePackage;
+package com.roguedevstudios.uarg.System.Core.Enum;
 /********************************
 *   VariableType Class          *
 *   File Name: VariableType.java*

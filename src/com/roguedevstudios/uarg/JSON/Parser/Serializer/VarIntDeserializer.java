@@ -1,4 +1,4 @@
-package JSON.Parser.Serializer;
+package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 
 import java.lang.reflect.Type;
 
@@ -8,7 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import VariablePackage.Variable;
+import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 
 public class VarIntDeserializer implements JsonDeserializer<Variable<Integer>> {
 
@@ -34,6 +34,7 @@ public class VarIntDeserializer implements JsonDeserializer<Variable<Integer>> {
 		
 		// Convert JsonElement into JsonObject as we know that's what we are making is an object
 		JsonObject o = json.getAsJsonObject();
+	
 		// If the object has the field, then we grab it.
 		if(o.has("name")){
 			name = o.get("name").getAsString();
