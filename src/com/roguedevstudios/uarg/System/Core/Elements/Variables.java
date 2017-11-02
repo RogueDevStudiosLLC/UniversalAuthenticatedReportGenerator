@@ -1,4 +1,4 @@
-package VariablePackage;
+package com.roguedevstudios.uarg.System.Core.Elements;
 
 /********************************
 *   Variables Class             *
@@ -10,13 +10,14 @@ package VariablePackage;
 *  ©2017 Rogue Dev Studios, LLC *
 ********************************/
 
+//Import Section
 import java.util.TreeMap;
+import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
-// Import Section
 /**
  * <p>
  * This class constructs variables for the class Variable
- * </p>
+ * <p>
  * 
  * @author Grant Richards
  * @author Terry Roberson
@@ -48,8 +49,7 @@ public class Variables<V> {
 
 	private TreeMap<String, Variable<Boolean[]>> _booleanArrayMap;
 
-	/**
-	 * Not needed
+	/**Constructs the initial state of the Variables conatainer
 	 *
 	 * @since 1.0
 	 */
@@ -62,7 +62,9 @@ public class Variables<V> {
 		}
 	}
 
-	
+/**
+ * Initializes the TreeMaps for internal variable storage	
+ */
 	private void _build() {
 		this._integerMap = new TreeMap<String, Variable<Integer>>();
 		this._integerArrayMap = new TreeMap<String, Variable<Integer[]>>();
@@ -80,13 +82,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _integerMap
-	 * 
 	 * @param id	 the id associated with the map
-	 *
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -97,9 +95,7 @@ public class Variables<V> {
 
 	/**
 	 * SetInteger method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -109,11 +105,8 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _integerArrayMap
-	 * 
 	 * @param id	 the id associated with the map
-	 *
 	 * @since 1.0
 	 */
 	public Variable<Integer[]> GetIntegerArray(String id) {
@@ -122,9 +115,7 @@ public class Variables<V> {
 
 	/**
 	 * SetIntegerArrayMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -133,14 +124,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _stringArrayMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -150,9 +136,7 @@ public class Variables<V> {
 
 	/**
 	 * SetStringMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -162,14 +146,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _stringArrayMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -179,9 +158,7 @@ public class Variables<V> {
 
 	/**
 	 * SetStringArrayMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -191,14 +168,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _floatMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -208,9 +180,7 @@ public class Variables<V> {
 
 	/**
 	 * SetfloatMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -220,14 +190,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _floatArrayMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -237,9 +202,7 @@ public class Variables<V> {
 
 	/**
 	 * SetfloatArrayMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -249,14 +212,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _longMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -266,9 +224,7 @@ public class Variables<V> {
 
 	/**
 	 * SetlongMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -278,14 +234,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _longArrayMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -295,9 +246,7 @@ public class Variables<V> {
 
 	/**
 	 * SetlongArrayMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -307,14 +256,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _doubleMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -324,9 +268,7 @@ public class Variables<V> {
 
 	/**
 	 * SetdoubleMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -335,14 +277,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _doubleArrayMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -352,9 +289,7 @@ public class Variables<V> {
 
 	/**
 	 * SetdoubleArrayMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -364,14 +299,9 @@ public class Variables<V> {
 	}
 
 	/**
-	 * 
 	 * Gets the id for _booleanMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -381,9 +311,7 @@ public class Variables<V> {
 
 	/**
 	 * SetbooleanMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -394,12 +322,8 @@ public class Variables<V> {
 	/**
 	 * 
 	 * Gets the id for _booleanArrayMap
-	 * 
-	 * @param id
-	 *            the id associated with the map
-	 * 
+	 * @param id	the id associated with the map       
 	 * @return id
-	 *
 	 * @since 1.0
 	 */
 
@@ -409,9 +333,7 @@ public class Variables<V> {
 
 	/**
 	 * SetbooleanArrayMap method
-	 *
 	 * puts the specified variable with its specified key in the map
-	 *
 	 * @since 1.0
 	 * 
 	 **/
@@ -470,30 +392,23 @@ public class Variables<V> {
 	}
 	/**
 	 * updates the value of an integer variable
-	 * 
 	 * @param key
-	 * 
 	 * @param newValue
-	 * 
 	 * @since 1.0
 	 */
-	public void update(String key, int newValue) {
+	public void updateValue(String key, Integer newValue) {
 
 		this._integerMap.get(key).SetValue(newValue);
 	}
 	/**
 	 * updates the value of an integer variable array
-	 * 
 	 * @param key
-	 * 
 	 * @param newValue
-	 * 
 	 * @param i
-	 * 
 	 * @since 1.0
 	 */
-	public void update(String key, int newValue, int i) {
-		this._integerArrayMap.get(key).SetValue(newValue, i);
+	public void updateValue(String key, Integer[] newValue) {
+		this._integerArrayMap.get(key).SetValue(newValue);
 
 	}
 	/**
@@ -502,7 +417,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, String newValue) {
+	public void updateValue(String key, String newValue) {
 		this._stringMap.get(key).SetValue(newValue);
 	}
 	/**
@@ -511,8 +426,8 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, String newValue, int i) {
-		this._stringArrayMap.get(key).SetValue(newValue, i);
+	public void updateValue(String key, String[] newValue) {
+		this._stringArrayMap.get(key).SetValue(newValue);
 	}
 	
 	/**
@@ -521,7 +436,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, float newValue) {
+	public void updateValue(String key, Float newValue) {
 		this._floatMap.get(key).SetValue(newValue);
 	}
 	
@@ -531,8 +446,8 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, float newValue, int i) {
-		this._floatArrayMap.get(key).SetValue(newValue,i);
+	public void updateValue(String key, Float[] newValue) {
+		this._floatArrayMap.get(key).SetValue(newValue);
 	}
 	
 	/**
@@ -541,7 +456,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, long newValue) {
+	public void update(String key, Long newValue) {
 		this._longMap.get(key).SetValue(newValue);
 	}
 	
@@ -551,8 +466,8 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, long newValue, int i) {
-		this._longArrayMap.get(key).SetValue(newValue,i);
+	public void update(String key, Long[] newValue) {
+		this._longArrayMap.get(key).SetValue(newValue);
 	}
 	
 	/**
@@ -561,7 +476,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, double newValue) {
+	public void update(String key, Double newValue) {
 		this._doubleMap.get(key).SetValue(newValue);
 	}
 	
@@ -571,8 +486,8 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, double newValue, int i) {
-		this._doubleArrayMap.get(key).SetValue(newValue,i);
+	public void update(String key, Double[] newValue) {
+		this._doubleArrayMap.get(key).SetValue(newValue);
 	}
 	
 	/**
@@ -581,7 +496,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, boolean newValue) {
+	public void update(String key, Boolean newValue) {
 		this._booleanMap.get(key).SetValue(newValue);
 	}
 	
@@ -591,8 +506,8 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, boolean newValue, int i) {
-		this._booleanArrayMap.get(key).SetValue(newValue,i);
+	public void update(String key, Boolean[] newValue) {
+		this._booleanArrayMap.get(key).SetValue(newValue);
 	}
 	
 }

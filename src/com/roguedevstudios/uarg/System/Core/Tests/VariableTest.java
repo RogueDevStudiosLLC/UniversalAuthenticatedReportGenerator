@@ -1,4 +1,4 @@
-package VariablePackage;
+package com.roguedevstudios.uarg.System.Core.Tests;
 
 import static org.junit.Assert.*;
 

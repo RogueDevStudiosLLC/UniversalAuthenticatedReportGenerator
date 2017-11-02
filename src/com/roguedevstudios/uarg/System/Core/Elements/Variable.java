@@ -1,4 +1,4 @@
-package VariablePackage;
+package com.roguedevstudios.uarg.System.Core.Elements;
 /********************************
 *   Variable Class			    *
 *   File Name: Variable.java    *
@@ -12,10 +12,7 @@ package VariablePackage;
 // Import Section
 
 /**
- * <p>
  * A representation of variables with added metadata.
- * </p>
- * 
  * @author Terry Roberson
  * @author Christopher E. Howard
  * @since 1.0
@@ -31,35 +28,16 @@ public class Variable<V> {
 	private String _description;
 	/* Whether this Variable is independent or dependent */
 	private boolean _requiresInput;
-	/*The Integer Value in an array*/
-	private int[] _integerArray;
-	/*the String Value in an array*/
-	private String[]_stringArray;
-	/*the float Value in an array*/
-	private float[]_floatArray;
-	/*the long Value in an array*/
-	private long[]_longArray;
-	/*the double Value in an array*/
-	private double[]_doubleArray;
-	/*the boolean Value in an array*/
-	private boolean[]_booleanArray;
+
 	/**
 	 * Constructs a Variable object with a known value
-	 * 
-	 * @param name
-	 *            String name of this variable
-	 * @param id
-	 *            String ID of this variable
-	 * @param requiresInput
-	 *            Whether this variable is dependant
-	 * @param description
-	 *            Description of this variable
-	 * @param value
-	 *            Initial value of this variable
-	 *
+	 * @param name	String name of this variable   
+	 * @param id	String ID of this variable
+	 * @param requiresInput	Whether this variable is dependent         
+	 * @param description	Description of this variable
+	 * @param value	Initial value of this variable
 	 * @since 1.0
 	 */
-
 	public Variable(String name, String id, boolean requiresInput, String description, V value) {
 
 		this._build(name, id, requiresInput, description, value);
@@ -68,20 +46,11 @@ public class Variable<V> {
 
 	/**
 	 * Constructs a Variable object with an unknown value
-	 * 
-	 * @param name
-	 *            String name of this variable
-	 * @param id
-	 *            String ID of this variable
-	 * @param requiresInput
-	 *            Whether this variable is dependent
-	 * @param description
-	 *            Description of this variable
-	 *
-	 * @throws Exception
-	 *             Passes back unknown exceptions in case of incompatible null
-	 *             typing of Generic
-	 *
+	 * @param name String name of this variable
+	 * @param id String ID of this variable
+	 * @param requiresInput Whether this variable is dependent
+	 * @param description Description of this variable
+	 * @throws Exception Passes back unknown exceptions in case of incompatible null typing of Generic
 	 * @since 1.0
 	 */
 	public Variable(String name, String id, boolean requiresInput, String description) throws Exception {
@@ -94,18 +63,11 @@ public class Variable<V> {
 
 	/**
 	 * Builds the Variable object with initial values
-	 * 
-	 * @param name
-	 *            String name of this variable
-	 * @param id
-	 *            String ID of this variable
-	 * @param requiresInput
-	 *            Whether this variable is dependent
-	 * @param description
-	 *            Description of this variable
-	 * @param value
-	 *            Initial value of this variable
-	 *
+	 * @param name String name of this variable
+	 * @param id String ID of this variable
+	 * @param requiresInput Whether this variable is independent
+	 * @param description Description of this variable
+	 * @param value Initial value of this variable
 	 * @since 1.0
 	 */
 	private void _build(String name, String id, boolean requiresInput, String description, V value) {
@@ -117,80 +79,8 @@ public class Variable<V> {
 	}
 
 	/**
-	 *
-	 * Gets the name of this variable
-	 * 
-	 * @return Name
-	 *
-	 * @since 1.0
-	 */
-	public String GetName() {
-		return this._name;
-	}
-
-	/**
-	 * Sets the name of this variable
-	 *
-	 * @param name
-	 *            String name of this variable
-	 *
-	 * @since 1.0
-	 */
-	public void SetName(String name) {
-		this._name = name;
-	}
-
-	/**
-	 * gets the ID of this variable
-	 * 
-	 * @return ID
-	 * 
-	 * @since 1.0
-	 */
-	public String GetId() {
-		return this._id;
-	}
-
-	/**
-	 * sets the ID of the variable
-	 * 
-	 * @param id
-	 *            String id of this variable
-	 * 
-	 * @since 1.0
-	 */
-	public void SetId(String id) {
-		this._id = id;
-	}
-
-	/**
-	 * gets the value of this variable
-	 * 
-	 * @return Value
-	 * 
-	 * @since 1.0
-	 */
-	public V GetValue(V value) {
-		return this._value;
-	}
-
-	/**
-	 * sets the value of this variable
-	 * 
-	 * @param value
-	 *            V value of this variable
-	 * 
-	 * @since 1.0
-	 */
-	public void SetValue(V value) {
-		this._value = value;
-	}
-
-	/**
-	 * gets the description of this variable
-	 * 
+	 * Gets the description of this variable
 	 * @return Description
-	 * 
 	 * @since 1.0
 	 */
 	public String GetDescription() {
@@ -198,22 +88,35 @@ public class Variable<V> {
 	}
 
 	/**
-	 * sets the description of this variable
-	 * 
-	 * @param description
-	 *            String description of this variable
-	 * 
+	 * Gets the ID of this variable
+	 * @return ID
 	 * @since 1.0
 	 */
-	public void SetDescription(String description) {
-		this._description = description;
+	public String GetId() {
+		return this._id;
 	}
 
 	/**
-	 * checks whether this variable is dependent
-	 * 
+	 * Gets the name of this variable
+	 * @return Name
+	 * @since 1.0
+	 */
+	public String GetName() {
+		return this._name;
+	}
+
+	/**
+	 * Gets the value of this variable
+	 * @return Value
+	 * @since 1.0
+	 */
+	public V GetValue() {
+		return this._value;
+	}
+
+	/**
+	 * Checks if variable is independent
 	 * @return RequiresInput
-	 * 
 	 * @since 1.0
 	 */
 	public boolean isRequiresInput() {
@@ -221,95 +124,53 @@ public class Variable<V> {
 	}
 
 	/**
-	 * sets the dependency of this variable
-	 * 
-	 * @param requiresInput
-	 *            boolean dependency check of this variable
-	 * 
+	 * Sets the description of this variable
+	 * @param description Description of this variable
+	 * @since 1.0
+	 */
+	public void SetDescription(String description) {
+		this._description = description;
+	}
+
+	/**
+	 * Sets the ID of the variable
+	 * @param id String id of this variable
+	 * @since 1.0
+	 */
+	public void SetId(String id) {
+		this._id = id;
+	}
+
+	/**
+	 * Sets the name of this variable
+	 * @param name String name of this variable
+	 * @since 1.0
+	 */
+	public void SetName(String name) {
+		this._name = name;
+	}
+
+	/**
+	 * Sets whether the variable is independent
+	 * @param requiresInput boolean dependency check of this variable
 	 * @since 1.0
 	 */
 	public void SetRequiresInput(boolean requiresInput) {
 		this._requiresInput = requiresInput;
 	}
-	
+
 	/**
-	 * sets value of this integer variable array
+	 * Sets the value of this variable
 	 * 
-	 * @param newValue
-	 * 
-	 * @param i
+	 * @param value Value of this variable
 	 * 
 	 * @since 1.0
 	 */
-	public void SetValue(int newValue, int i){
-		this._integerArray[i] = newValue;
+	public void SetValue(V value) {
+		this._value = value;
 	}
 	
-	/**
-	 * sets value of this String variable array
-	 * 
-	 * @param newValue
-	 * 
-	 * @param i
-	 * 
-	 * @since 1.0
-	 */
-	public void SetValue(String newValue, int i) {
-		this._stringArray[i] = newValue;
-	}
 	
-	/**
-	 * sets value of this float variable array
-	 * 
-	 * @param newValue
-	 * 
-	 * @param i
-	 * 
-	 * @since 1.0
-	 */
-	public void SetValue(float newValue, int i) {
-		this._floatArray[i] = newValue;
-	}
-
-	/**
-	 * sets value of this long variable array
-	 * 
-	 * @param newValue
-	 * 
-	 * @param i
-	 * 
-	 * @since 1.0
-	 */
-	public void SetValue(long newValue, int i) {
-		this._longArray[i] = newValue;
-	}
-
-	/**
-	 * sets value of this double variable array
-	 * 
-	 * @param newValue
-	 * 
-	 * @param i
-	 * 
-	 * @since 1.0
-	 */
-	public void SetValue(double newValue, int i) {
-		this._doubleArray[i] = newValue;
-	}
-
-	/**
-	 * sets value of this boolean variable array
-	 * 
-	 * @param newValue
-	 * 
-	 * @param i
-	 * 
-	 * @since 1.0
-	 */
-	public void SetValue(boolean newValue, int i) {
-		this._booleanArray[i] = newValue;
-	}
-
 
 
 }
