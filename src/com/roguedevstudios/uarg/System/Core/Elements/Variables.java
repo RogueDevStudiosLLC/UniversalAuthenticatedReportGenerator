@@ -456,7 +456,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, Long newValue) {
+	public void updateValue(String key, Long newValue) {
 		this._longMap.get(key).SetValue(newValue);
 	}
 	
@@ -466,7 +466,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, Long[] newValue) {
+	public void updateValue(String key, Long[] newValue) {
 		this._longArrayMap.get(key).SetValue(newValue);
 	}
 	
@@ -476,7 +476,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, Double newValue) {
+	public void updateValue(String key, Double newValue) {
 		this._doubleMap.get(key).SetValue(newValue);
 	}
 	
@@ -486,7 +486,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, Double[] newValue) {
+	public void updateValue(String key, Double[] newValue) {
 		this._doubleArrayMap.get(key).SetValue(newValue);
 	}
 	
@@ -496,7 +496,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, Boolean newValue) {
+	public void updateValue(String key, Boolean newValue) {
 		this._booleanMap.get(key).SetValue(newValue);
 	}
 	
@@ -506,7 +506,7 @@ public class Variables<V> {
 	 * @param newValue
 	 * @since 1.0
 	 */
-	public void update(String key, Boolean[] newValue) {
+	public void updateValue(String key, Boolean[] newValue) {
 		this._booleanArrayMap.get(key).SetValue(newValue);
 	}
 	
