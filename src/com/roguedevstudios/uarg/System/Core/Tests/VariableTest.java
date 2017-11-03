@@ -724,7 +724,7 @@ public class VariableTest{
 	@Test
 	public void setPrimitiveIntoFloatObjectType() {
 		Variable<Float> testVarWithPrimitive = new Variable<Float>("TEST", "TEST", false, "TEST", 3.28F);
-		assertEquals(3.28, (float) testVarWithPrimitive.GetValue(), 0);
+		assertEquals(3.28F, (float) testVarWithPrimitive.GetValue(), 0);
 		
 	}
 	
