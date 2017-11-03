@@ -1,0 +1,77 @@
+{
+   "variable":
+   
+  {
+     "Integer":
+       {
+			"ID":
+			{
+				"name":"String",
+				"requiresInput":"true/false",
+				"value": "null",
+				"description": "This Variable is an example of what all variables in the variables section will look like.",
+				"formula":"String"
+			}
+		},
+		
+		"String":
+       {
+			"ID":
+			{
+				"name":"String",
+				"requiresInput":"true/false",
+				"value": "null",
+				"description": "This Variable is an example of what all variables in the variables section will look like.",
+				"formula":"String"
+			}
+		},
+		
+		"Double":
+       {
+			"ID":
+			{
+				"name":"String",
+				"requiresInput":"true/false",
+				"value": "null",
+				"description": "This Variable is an example of what all variables in the variables section will look like.",
+				"formula":"String"
+			}
+		},
+		
+		"Long":
+       {
+			"ID":
+			{
+				"name":"String",
+				"requiresInput":"true/false",
+				"value": "null",
+				"description": "This Variable is an example of what all variables in the variables section will look like.",
+				"formula":"String"
+			}
+		},
+		
+		"Float":
+       {
+			"ID":
+			{
+				"name":"String",
+				"requiresInput":"true/false",
+				"value": "null",
+				"description": "This Variable is an example of what all variables in the variables section will look like.",
+				"formula":"String"
+			}
+		},
+		
+		"Boolean":
+       {
+			"ID":
+			{
+				"name":"String",
+				"requiresInput":"true/false",
+				"value": "null",
+				"description": "This Variable is an example of what all variables in the variables section will look like.",
+				"formula":"String"
+			}
+		}
+  }
+}
