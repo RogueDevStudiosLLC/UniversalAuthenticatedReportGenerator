@@ -1,4 +1,7 @@
 package com.roguedevstudios.uarg.System.Core.Elements;
+
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
+
 /********************************
 *   Variable Class			    *
 *   File Name: Variable.java    *
@@ -17,7 +20,7 @@ package com.roguedevstudios.uarg.System.Core.Elements;
  * @author Christopher E. Howard
  * @since 1.0
  */
-public class Variable<V> {
+public class Variable<V> implements IVariable<V> {
 	/* The name meta of this Variable */
 	private String _name;
 	/* The ID of this Variable */
@@ -27,7 +30,7 @@ public class Variable<V> {
 	/* The description of this Variable */
 	private String _description;
 	/* Whether this Variable is independent or dependent */
-	private boolean _requiresInput;
+	private Boolean _requiresInput;
 
 	/**
 	 * Constructs a Variable object with a known value
@@ -119,7 +122,7 @@ public class Variable<V> {
 	 * @return RequiresInput
 	 * @since 1.0
 	 */
-	public boolean isRequiresInput() {
+	public Boolean IsRequiredInput() {
 		return this._requiresInput;
 	}
 
@@ -155,7 +158,7 @@ public class Variable<V> {
 	 * @param requiresInput boolean dependency check of this variable
 	 * @since 1.0
 	 */
-	public void SetRequiresInput(boolean requiresInput) {
+	public void SetRequiresInput(Boolean requiresInput) {
 		this._requiresInput = requiresInput;
 	}
 
@@ -169,8 +172,5 @@ public class Variable<V> {
 	public void SetValue(V value) {
 		this._value = value;
 	}
-	
-	
-
 
 }
