@@ -139,16 +139,16 @@ public class VariableTest{
 		Variable<Integer> nullIntegerObjectVariable = new Variable<Integer>(name, id, requiresInput, description, value);
 		
 		//Test the name is correct
-		assertEquals(name, nullIntegerObjectVariable.GetName());
+		assertNull(nullIntegerObjectVariable.GetName());
 		
 		//Test the ID is correct
-		assertEquals(id, nullIntegerObjectVariable.GetId());
+		assertNull(nullIntegerObjectVariable.GetId());
 		
 		//Test the description is correct
-		assertEquals(description, nullIntegerObjectVariable.GetDescription());
+		assertNull(nullIntegerObjectVariable.GetDescription());
 		
 		//Test the value set properly
-		assertEquals(value, nullIntegerObjectVariable.GetValue());
+		assertNull(nullIntegerObjectVariable.GetValue());
 		
 	}
 	
@@ -258,7 +258,7 @@ public class VariableTest{
 		//Set value of variable to null
 		String value = null;
 		Variable<String> testNullValue = new Variable<String>("TEST", "TEST", false, "TEST", value);
-		assertEquals(value, testNullValue.GetValue());
+		assertNull(testNullValue.GetValue());
 
 	}
 		
@@ -280,16 +280,16 @@ public class VariableTest{
 		Variable<String> nullIntegerObjectVariable = new Variable<String>(name, id, requiresInput, description, value);
 		
 		//Test the name is correct
-		assertEquals(name, nullIntegerObjectVariable.GetName());
+		assertNull(nullIntegerObjectVariable.GetName());
 		
 		//Test the ID is correct
-		assertEquals(id, nullIntegerObjectVariable.GetId());
+		assertNull(nullIntegerObjectVariable.GetId());
 		
 		//Test the description is correct
-		assertEquals(description, nullIntegerObjectVariable.GetDescription());
+		assertNull(nullIntegerObjectVariable.GetDescription());
 		
 		//Test the value set properly
-		assertEquals(value, nullIntegerObjectVariable.GetValue());
+		assertNull(nullIntegerObjectVariable.GetValue());
 		
 	}
 	
@@ -399,7 +399,7 @@ public class VariableTest{
 		//Set value of variable to null
 		Double value = null;
 		Variable<Double> testNullValue = new Variable<Double>("TEST", "TEST", false, "TEST", value);
-		assertEquals(value, testNullValue.GetValue());
+		assertNull(testNullValue.GetValue());
 
 	}
 		
@@ -421,16 +421,16 @@ public class VariableTest{
 		Variable<Double> nullIntegerObjectVariable = new Variable<Double>(name, id, requiresInput, description, value);
 		
 		//Test the name is correct
-		assertEquals(name, nullIntegerObjectVariable.GetName());
+		assertNull(nullIntegerObjectVariable.GetName());
 		
 		//Test the ID is correct
-		assertEquals(id, nullIntegerObjectVariable.GetId());
+		assertNull(nullIntegerObjectVariable.GetId());
 		
 		//Test the description is correct
-		assertEquals(description, nullIntegerObjectVariable.GetDescription());
+		assertNull(nullIntegerObjectVariable.GetDescription());
 		
 		//Test the value set properly
-		assertEquals(value, nullIntegerObjectVariable.GetValue());
+		assertNull(nullIntegerObjectVariable.GetValue());
 		
 	}
 	
@@ -540,7 +540,7 @@ public class VariableTest{
 		//Set value of variable to null
 		Long value = null;
 		Variable<Long> testNullValue = new Variable<Long>("TEST", "TEST", false, "TEST", value);
-		assertEquals(value, testNullValue.GetValue());
+		assertNull(testNullValue.GetValue());
 
 	}
 		
@@ -562,16 +562,16 @@ public class VariableTest{
 		Variable<Long> nullIntegerObjectVariable = new Variable<Long>(name, id, requiresInput, description, value);
 		
 		//Test the name is correct
-		assertEquals(name, nullIntegerObjectVariable.GetName());
+		assertNull(nullIntegerObjectVariable.GetName());
 		
 		//Test the ID is correct
-		assertEquals(id, nullIntegerObjectVariable.GetId());
+		assertNull(nullIntegerObjectVariable.GetId());
 		
 		//Test the description is correct
-		assertEquals(description, nullIntegerObjectVariable.GetDescription());
+		assertNull(nullIntegerObjectVariable.GetDescription());
 		
 		//Test the value set properly
-		assertEquals(value, nullIntegerObjectVariable.GetValue());
+		assertNull(nullIntegerObjectVariable.GetValue());
 		
 	}
 	
@@ -681,7 +681,7 @@ public class VariableTest{
 		//Set value of variable to null
 		Float value = null;
 		Variable<Float> testNullValue = new Variable<Float>("TEST", "TEST", false, "TEST", value);
-		assertEquals(value, testNullValue.GetValue());
+		assertNull(testNullValue.GetValue());
 
 	}
 		
@@ -703,16 +703,16 @@ public class VariableTest{
 		Variable<Float> nullIntegerObjectVariable = new Variable<Float>(name, id, requiresInput, description, value);
 		
 		//Test the name is correct
-		assertEquals(name, nullIntegerObjectVariable.GetName());
+		assertNull(nullIntegerObjectVariable.GetName());
 		
 		//Test the ID is correct
-		assertEquals(id, nullIntegerObjectVariable.GetId());
+		assertNull(nullIntegerObjectVariable.GetId());
 		
 		//Test the description is correct
-		assertEquals(description, nullIntegerObjectVariable.GetDescription());
+		assertNull(nullIntegerObjectVariable.GetDescription());
 		
 		//Test the value set properly
-		assertEquals(value, nullIntegerObjectVariable.GetValue());
+		assertNull(nullIntegerObjectVariable.GetValue());
 		
 	}
 	
@@ -845,16 +845,16 @@ public class VariableTest{
 		Variable<Boolean> nullIntegerObjectVariable = new Variable<Boolean>(name, id, requiresInput, description, value);
 		
 		//Test the name is correct
-		assertEquals(name, nullIntegerObjectVariable.GetName());
+		assertNull(nullIntegerObjectVariable.GetName());
 		
 		//Test the ID is correct
-		assertEquals(id, nullIntegerObjectVariable.GetId());
+		assertNull(nullIntegerObjectVariable.GetId());
 		
 		//Test the description is correct
-		assertEquals(description, nullIntegerObjectVariable.GetDescription());
+		assertNull(nullIntegerObjectVariable.GetDescription());
 		
 		//Test the value set properly
-		assertEquals(value, nullIntegerObjectVariable.GetValue());
+		assertNull(nullIntegerObjectVariable.GetValue());
 		
 	}
 	

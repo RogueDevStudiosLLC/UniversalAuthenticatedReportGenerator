@@ -4,8 +4,9 @@ package com.roguedevstudios.uarg.System.Core.Elements;
 *   Variables Class             *
 *   File Name: Variables.java   *
 *                               *
-*   Variables will construct    *
-*   the variables needed        *
+*   The container for each 		*
+*   Variable created in 		*
+*   Variable.java				*
 *                               *
 *  ©2017 Rogue Dev Studios, LLC *
 ********************************/
@@ -19,7 +20,7 @@ import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
  * <p>
- * This class constructs variables for the class Variable
+ * This class implements IVariables and constructs variables for the class Variable
  * <p>
  * 
  * @author Grant Richards
@@ -219,7 +220,6 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<Boolean> GetBoolean(String id) {
 		return this._booleanMap.get(id);
 	}
@@ -231,7 +231,6 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<Boolean[]> GetBooleanArray(String id) {
 		return this._booleanArrayMap.get(id);
 	}
@@ -242,7 +241,6 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<Double> GetDouble(String id) {
 		return this._doubleMap.get(id);
 	}
@@ -253,7 +251,6 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<Double[]> GetDoubleArray(String id) {
 		return this._doubleArrayMap.get(id);
 	}
@@ -264,7 +261,6 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<Float> GetFloat(String id) {
 		return this._floatMap.get(id);
 	}
@@ -275,7 +271,6 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<Float[]> GetFloatArray(String id) {
 		return this._floatArrayMap.get(id);
 	}
@@ -286,7 +281,6 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<Integer> GetInteger(String id) {
 		return this._integerMap.get(id);
 
@@ -307,7 +301,6 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<Long> GetLong(String id) {
 		return this._longMap.get(id);
 	}
@@ -318,18 +311,16 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<Long[]> GetLongArray(String id) {
 		return this._longArrayMap.get(id);
 	}
 
 	/**
-	 * Gets the id for _stringArrayMap
+	 * Gets the id for _stringMap
 	 * @param id	the id associated with the map
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<String> GetString(String id) {
 		return this._stringMap.get(id);
 	}
@@ -340,12 +331,13 @@ public class Variables implements IVariables {
 	 * @return id
 	 * @since 1.0
 	 */
-
 	public IVariable<String[]> GetStringArray(String id) {
 		return this._stringArrayMap.get(id);
 	}
 
 	/**
+	 * Determines the value type for a Variable
+	 * 
 	 * @param id
 	 * @param variable
 	 * @param Type
@@ -393,6 +385,7 @@ public class Variables implements IVariables {
 		}
 
 	}
+	
 	/**
 	 * updates the value of a boolean variable
 	 * @param key
@@ -402,6 +395,7 @@ public class Variables implements IVariables {
 	public void UpdateValue(String key, Boolean newValue) {
 		this._booleanMap.get(key).SetValue(newValue);
 	}
+	
 	/**
 	 * updates the value of a boolean variable array
 	 * @param key
@@ -411,6 +405,7 @@ public class Variables implements IVariables {
 	public void UpdateValue(String key, Boolean[] newValue) {
 		this._booleanArrayMap.get(key).SetValue(newValue);
 	}
+	
 	/**
 	 * updates the value of a double variable
 	 * @param key
@@ -420,6 +415,7 @@ public class Variables implements IVariables {
 	public void UpdateValue(String key, Double newValue) {
 		this._doubleMap.get(key).SetValue(newValue);
 	}
+	
 	/**
 	 * updates the value of a double variable array
 	 * @param key
@@ -465,7 +461,6 @@ public class Variables implements IVariables {
 	 * updates the value of an integer variable array
 	 * @param key
 	 * @param newValue
-	 * @param i
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Integer[] newValue) {

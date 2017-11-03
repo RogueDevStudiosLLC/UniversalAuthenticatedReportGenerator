@@ -15,7 +15,7 @@ import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 // Import Section
 
 /**
- * A representation of variables with added metadata.
+ * A representation of variables implementing IVariable with added metadata.
  * @author Terry Roberson
  * @author Christopher E. Howard
  * @since 1.0
@@ -164,9 +164,7 @@ public class Variable<V> implements IVariable<V> {
 
 	/**
 	 * Sets the value of this variable
-	 * 
 	 * @param value Value of this variable
-	 * 
 	 * @since 1.0
 	 */
 	public void SetValue(V value) {
