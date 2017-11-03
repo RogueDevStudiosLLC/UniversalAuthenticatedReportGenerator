@@ -117,7 +117,7 @@ public class VariableTest{
 		//Set value of variable to null
 		Integer value = null;
 		Variable<Integer> testNullValue = new Variable<Integer>("TEST", "TEST", false, "TEST", value);
-		assertEquals(value, testNullValue.GetValue());
+		assertNull(testNullValue.GetValue());
 
 	}
 		
