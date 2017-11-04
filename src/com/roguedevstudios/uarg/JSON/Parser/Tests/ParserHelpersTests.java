@@ -135,6 +135,7 @@ public class ParserHelpersTests {
 		System.out.println(g.toJson(testElement));
 	}
 	
+	//***** LONG TESTING SECTION *****\\
 	@Test
 	public void ParseLongVariableTest() {
 		
@@ -173,6 +174,7 @@ public class ParserHelpersTests {
 		System.out.println(g.toJson(testElement));
 	}
 	
+	//***** FLOAT TESTING SECTION *****\\
 	@Test
 	public void ParseFloatVariableTest() {
 		
@@ -211,6 +213,7 @@ public class ParserHelpersTests {
 		System.out.println(g.toJson(testElement));
 	}
 	
+	//***** BOOLEAN TESTING SECTION *****\\
 	@Test
 	public void ParseBooleanVariableTest() {
 		
