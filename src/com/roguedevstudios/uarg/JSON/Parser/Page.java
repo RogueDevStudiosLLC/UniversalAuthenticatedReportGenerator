@@ -16,9 +16,9 @@
 * @author Gabriel Rosales
 * @since 1.0
 */
-package JSON.Parser;
+package com.roguedevstudios.uarg.JSON.Parser;
 
-public class Page 
+public class Page
 {
  public Page (String _name, String _description, String _variableid ,String _icon ,String _template, 
 		 int _colors, int _tabid, String _logo) 
