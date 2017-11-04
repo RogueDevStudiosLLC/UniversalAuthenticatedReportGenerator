@@ -14,7 +14,7 @@ import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
  * Interface representing Variable container requirements
- * @author Christopher E.Howard
+ * @author Christopher E. Howard
  * @author Terry Roberson
  * @since 1.0
  */
