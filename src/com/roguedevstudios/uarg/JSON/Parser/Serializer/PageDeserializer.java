@@ -21,8 +21,7 @@
 package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 import java.lang.reflect.Type;
 import com.google.gson.*;
-import JSON.Parser.Page;
-
+import com.roguedevstudios.uarg.System.Core.Elements.Page;
 public class PageDeserializer implements JsonDeserializer<Page>
 {
 	/**
