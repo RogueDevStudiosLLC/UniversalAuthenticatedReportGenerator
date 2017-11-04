@@ -20,15 +20,17 @@ package JSON.Parser;
 
 public class Page 
 {
-	private Page (String PageName, String Description, String VariableId ,String Icon ,String Template, int Colors, String Logo) 
+ public Page (String _name, String _description, String _variableid ,String _icon ,String _template, 
+		 int _colors, int _tabid, String _logo) 
 	{
-		this.setPageName(PageName);
-		this.setColors(Colors);
-		this.setIcon(Icon);
-		this.setTemplate(Template);
-		this.setLogo(Logo);
-		this.setVariableId(VariableId);
-		this.setDescription(Description);
+		this.setPageName(_name);
+		this.setDescription(_description);
+		this.setVariableId(_variableid);
+		this.setIcon(_icon);
+		this.setTemplate(_template);
+		this.setColors(_colors);
+		this.setTabId(_tabid);
+		this.setLogo(_logo);
 	}
 	/**
 	 *   
@@ -68,10 +70,16 @@ public class Page
 	private String PageName;
 	/**
 	 *   
-	 * @param Description  the description of the called workspace
+	 * @param Description - the description of the called workspace
 	 * 
 	 */
 	private String Description;
+	/**
+	 *   
+	 * @param TabId - Tab Identifier
+	 * 
+	 */
+	private int TabId;
 	
 	/**
 	 *  
@@ -134,6 +142,12 @@ public class Page
 	public void setDescription(String description) 
 	{
 		Description = description;
+	}
+	public int getTabId() {
+		return TabId;
+	}
+	public void setTabId(int tabId) {
+		TabId = tabId;
 	}
 
 }
