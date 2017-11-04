@@ -1,28 +1,26 @@
 {
-   "variable":
+   "Variable":
    
   {
      "Integer":
        {
 			"ID":
 			{
-				"name":"String",
-				"requiresInput":"true/false",
-				"value": "null",
-				"description": "This Variable is an example of what all variables in the variables section will look like.",
-				"formula":"String"
-			}
+				"Name":"String",
+				"RequiresInput":"true/false",
+				"Value": "null",
+				"Description": "This Variable is an example of what all variables in the variables section will look like.",
+			} 
 		},
 		
 		"String":
        {
 			"ID":
 			{
-				"name":"String",
-				"requiresInput":"true/false",
-				"value": "null",
-				"description": "This Variable is an example of what all variables in the variables section will look like.",
-				"formula":"String"
+				"Name":"String",
+				"Requires Input":"true/false",
+				"Value": "null",
+				"Description": "This Variable is an example of what all variables in the variables section will look like.",
 			}
 		},
 		
@@ -30,11 +28,10 @@
        {
 			"ID":
 			{
-				"name":"String",
-				"requiresInput":"true/false",
-				"value": "null",
-				"description": "This Variable is an example of what all variables in the variables section will look like.",
-				"formula":"String"
+				"Name":"String",
+				"Requires Input":"true/false",
+				"Value": "null",
+				"Description": "This Variable is an example of what all variables in the variables section will look like.",
 			}
 		},
 		
@@ -42,11 +39,10 @@
        {
 			"ID":
 			{
-				"name":"String",
-				"requiresInput":"true/false",
-				"value": "null",
-				"description": "This Variable is an example of what all variables in the variables section will look like.",
-				"formula":"String"
+				"Name":"String",
+				"Requires Input":"true/false",
+				"Value": "null",
+				"Description": "This Variable is an example of what all variables in the variables section will look like.",
 			}
 		},
 		
@@ -54,11 +50,10 @@
        {
 			"ID":
 			{
-				"name":"String",
-				"requiresInput":"true/false",
-				"value": "null",
-				"description": "This Variable is an example of what all variables in the variables section will look like.",
-				"formula":"String"
+				"Name":"String",
+				"Requires Input":"true/false",
+				"Value": "null",
+				"Description": "This Variable is an example of what all variables in the variables section will look like.",
 			}
 		},
 		
@@ -66,11 +61,10 @@
        {
 			"ID":
 			{
-				"name":"String",
-				"requiresInput":"true/false",
-				"value": "null",
-				"description": "This Variable is an example of what all variables in the variables section will look like.",
-				"formula":"String"
+				"Name":"String",
+				"Requires Input":"true/false",
+				"Value": "null",
+				"Description": "This Variable is an example of what all variables in the variables section will look like.",
 			}
 		}
   }

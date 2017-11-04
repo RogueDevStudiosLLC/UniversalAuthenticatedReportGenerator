@@ -1,6 +1,10 @@
 package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
@@ -24,24 +28,35 @@ public class ParserHelpers {
 	public static <V> Variable<V> ParseVariable(JsonElement json, String ID, VariableType Type){
 		// Get the inner portion of this json
 		// Deserialize this into the variable
-		Variable<V> var;
-		switch(Type) {
-		case INTEGER:
-			//things
-			//drop into which deserializer needed
-			//call it
-			//do task 
-			
-			
-			// var = (Variable<V>) DeserializedItem; (Force casting back to V will be required here)
-			//take variable v and spit it back out 
-			
-			
-		}
+		
 		// Set the ID of this variable
 		// Return the constructed variable
 		
 		return null;
+	}
+	
+	public static Variable<Integer> ParseIntegerVariable(JsonElement json, String ID){
+		// Convert the JsonElement into JsonObject
+		JsonObject o = json.getAsJsonObject();
+		// Start the GsonBuilder so we can customize it with our custom deserializer
+		GsonBuilder gsonBuild = new GsonBuilder();
+		// Grab our custom deserializer and create an instance of it for use
+		JsonDeserializer<Variable<Integer>> cDeserializer = new IntegerVariableDeserializer();
+		// Register the deserializer, notice we do not type cast the class we are pushing to
+		// This can be DANGEROUS if not properly tested!
+		gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+		// Initialize our custom Gson object
+		Gson customGson = gsonBuild.create();
+		// Deserialize the object to a Variable<Integer> object
+		Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+		// Manually set the ID as the deserializer can not do so normally
+		retVar.SetId(ID);
+		// Clean up
+		gsonBuild = null;
+		o = null;
+		customGson = null;
+		// Return the constructed object to the caller
+		return retVar;
 	}
 	
 }

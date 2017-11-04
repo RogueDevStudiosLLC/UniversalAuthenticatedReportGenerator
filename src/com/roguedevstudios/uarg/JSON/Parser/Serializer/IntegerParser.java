@@ -4,9 +4,7 @@ import com.google.gson.*;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
-public class IntegerParser {
-	
-	public static Variable<Integer> ParseVariable(JsonElement json, String ID){
+public static Variable<Integer> ParseVariable(JsonElement json, String ID){
 		JsonObject jsonObject = json.getAsJsonObject();
 		Variable<Integer> var;
 		
@@ -15,8 +13,9 @@ public class IntegerParser {
 		return new Variable<Integer>(
 				jsonObject.get("name").getAsString(),
 				jsonObject.get("ID").getAsString(),
-				jsonObject.get("value").getAsInt);
-	}
+				jsonObject.get("requiresInput").getAsBoolean(),
+				jsonObject.get("description").getAsString(),
+				jsonObject.get("value").getAsInt());
 
 
 
