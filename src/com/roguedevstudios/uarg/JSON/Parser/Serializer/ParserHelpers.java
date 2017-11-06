@@ -1,5 +1,9 @@
 package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
@@ -10,7 +14,8 @@ import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
  * Helper class for static methods
- * @author rober
+ * @author Terry Roberson
+ * @author Christopher E. Howard
  *
  */
 public class ParserHelpers {
@@ -25,15 +30,6 @@ public class ParserHelpers {
 	 * @author Christopher E. Howard
 	 * @since 1.0
 	 */
-	public static <V> Variable<V> ParseVariable(JsonElement json, String ID, VariableType Type){
-		// Get the inner portion of this json
-		// Deserialize this into the variable
-		// Set the ID of this variable
-		// Return the constructed variable
-		
-		return null;
-	}
-	
 	public static Variable<Integer> ParseIntegerVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with our custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
@@ -54,6 +50,29 @@ public class ParserHelpers {
 		// Return the constructed object to the caller
 		return retVar;
 	}
+	
+	/**		
+	 * Parses a Variable<> Object into a Variable TreeMap
+	 * @return 
+	 *  
+	 * @Terry Roberson 
+	 * @since 1.0
+	 */
+	public static TreeMap<String, Variable<Integer>> IntegerSection(JsonElement json, String ID){
+		//take jsonElement and convert to jsonObject
+		JsonObject o = json.getAsJsonObject();
+		// Get the entry set of variables to parse
+		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+		// Start up the tree map for these variables
+		TreeMap<String,Variable<Integer>> map = new TreeMap<>();
+		// Loop through the variables
+		for(Map.Entry<String,JsonElement> var: JsonVars){
+		// Construct the variable and put it in the tree map
+		map.put(var.getKey(),ParserHelpers.ParseIntegerVariable(var.getValue(),var.getKey()));
+		}
+		return map;
+	}
+		
 	
 	public static Variable<String> ParseStringVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with out custom deserializer
