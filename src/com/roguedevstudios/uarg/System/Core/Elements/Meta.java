@@ -23,49 +23,50 @@ package com.roguedevstudios.uarg.System.Core.Elements;
 
 public class Meta 
 {
-	public Meta (String name, String formId, String version, String description, String author, String dateCrt, String dateEd) 
+	public Meta (String Name, String FormId, String Version, String Description, 
+				 String Author, String DateCrt, String DateEd) 
 	{
-		this.set_name(name);
-		this.set_formId(formId);
-		this.set_version(version);
-		this.set_description(description);
-		this.set_author(author);
-		this.set_dateCrt(dateCrt);
-		this.set_dateEd(dateEd);
+		this.SetName(Name);
+		this.SetFormId(FormId);
+		this.SetVersion(Version);
+		this.SetDescription(Description);
+		this.SetAuthor(Author);
+		this.SetDateCrt(DateCrt);
+		this.SetDateEd(DateEd);
 	}
 	/**
 	 * 
-	 * @parm _name - the name of the person who is working on the file
+	 * @param _name - the name of the person who is working on the file
 	 * 
 	 */
 	private String _name;
 	/***
-	 * @parm _formId - the Number the Form
+	 * @param _formId - the Number the Form
 	 * 
 	 */
 	private String _formId;
 	/***
-	 * @parm _version - the Number of the Version the program is
+	 * @param _version - the Number of the Version the program is
 	 * 
 	 */
 	private String _version;
 	/***
-	 *  @parm _description - the description of what the form is about
+	 *  @param _description - the description of what the form is about
 	 *  
 	 */
 	private String _description;
 	/***
-	 *  @parm _author - the name of the individuals name who originally worked on the form
+	 *  @param _author - the name of the individuals name who originally worked on the form
 	 *  
 	 */
 	private String _author;
 	/***
-	 * @parm _dateCrt - the date the form was originally was created on
+	 * @param _dateCrt - the date the form was originally was created on
 	 *  
 	 */
 	private String _dateCrt;
 	/***
-	 * @parm _dateEd - the date the form is edited on
+	 * @param _dateEd - the date the form is edited on
 	 * 	
 	 */
 	private String _dateEd;
@@ -75,60 +76,142 @@ public class Meta
 	 * 
 	 */
 	
-		public String get_name() 
+	
+		/**
+		 * Getter for Name 
+		 * return @Name
+		 */
+		public String GetName() 
 		{
 			return _name;
 		}
-		public void set_name(String _name) 
+		
+		/**
+		 * Setter for Name
+		 * _name set to @Name
+		 * @param Name
+		 */
+		public void SetName(String Name) 
 		{
-			this._name = _name;
+			this._name = Name;
 		}
-		public String get_formId() 
+		
+		/**
+		 * Getter for Form ID 
+		 * return @FormId
+		 */
+		public String GetFormId() 
 		{
 			return _formId;
 		}
-		public void set_formId(String _formId) 
+		
+		/**
+		 * Setter for FormId
+		 * _formId set to FormId
+		 * @param FormId
+		 */
+		public void SetFormId(String FormId) 
 		{
-			this._formId = _formId;
+			this._formId = FormId;
 		}
-		public String get_version() 
+		
+		/**
+		 * Getter for Version
+		 * return @Version
+		 * @return
+		 */
+		public String GetVersion() 
 		{
 			return _version;
 		}
-		public void set_version(String _version) 
+		
+		/**
+		 * Setter for Version
+		 * _version set to Version 
+		 * @param Version
+		 */
+		public void SetVersion(String Version) 
 		{
-			this._version = _version;
+			this._version = Version;
 		}
-		public String get_description() 
+		
+		/**
+		 * Getter for Descriptions
+		 * return @Description
+		 * @return
+		 */
+		public String GetDescription() 
 		{
 			return _description;
 		}
-		public void set_description(String _description) 
+		
+		/**
+		 * Setter for Description
+		 * _description set to Description
+		 * @param Description
+		 */
+		public void SetDescription(String Description) 
 		{
-			this._description = _description;
+			this._description = Description;
 		}
-		public String get_author() 
+		
+		/**
+		 * Getter for Author
+		 * return @Author
+		 * @return
+		 */
+		public String GetAuthor() 
 		{
 			return _author;
 		}
-		public void set_author(String _author) 
+		
+		/**
+		 * Setter for Author 
+		 * _author set to Author
+		 * @param Author
+		 */
+		public void SetAuthor(String Author) 
 		{
-			this._author = _author;
+			this._author = Author;
 		}
-		public String get_dateCrt() 
+		
+		/**
+		 * Getter for Date Created 
+		 * return @DateCrt
+		 * @return
+		 */
+		public String GetDateCrt() 
 		{
 			return _dateCrt;
 		}
-		public void set_dateCrt(String _dateCrt) 
+		
+		/**
+		 * Setter for Date Created 
+		 * _dateCrt set to DateCrt
+		 * @param DateCrt
+		 */
+		public void SetDateCrt(String DateCrt) 
 		{
-			this._dateCrt = _dateCrt;
+			this._dateCrt = DateCrt;
 		}
-		public String get_dateEd() 
+		
+		/**
+		 * Getter for Date Edited 
+		 * return @DateEd
+		 * @return
+		 */
+		public String GetDateEd() 
 		{
 			return _dateEd;
 		}
-		public void set_dateEd(String _dateEd) 
+		
+		/**
+		 * Setter for DateEd 
+		 * _dateEd set to DateEd
+		 * @param DateEd
+		 */
+		public void SetDateEd(String DateEd) 
 		{
-			this._dateEd = _dateEd;
+			this._dateEd = DateEd;
 		}
 }
