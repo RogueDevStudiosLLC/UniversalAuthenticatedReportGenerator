@@ -9,6 +9,11 @@
 *                               *
 *  ©2017 Rogue Dev Studios, LLC *
 ********************************/
+
+package com.roguedevstudios.uarg.JSON.Parser.Serializer;
+import java.lang.reflect.Type;
+import com.google.gson.*;
+import com.roguedevstudios.uarg.System.Core.Elements.Meta;
 /**
  * <p>
  * This class is deserializing the JSON objects from the page class
@@ -18,24 +23,39 @@
  * @author Gabriel Rosales 
  * @since 1.0
  */
-package com.roguedevstudios.uarg.JSON.Parser.Serializer;
-import java.lang.reflect.Type;
-import com.google.gson.*;
-import com.roguedevstudios.uarg.System.Core.Elements.Meta;
-
-
 public class MetaDataDeserializer implements JsonDeserializer<Meta>
 {
+	/**
+	 * Deserilizes into MetaData object type
+	 * from give JSONElement type and context
+	 * @parm JsonElement
+	 * @param Type
+	 * @parm JsonDeserializationContext
+	 * @return Meta
+	 */
 	@Override
 	public Meta deserialize(JsonElement json, Type typeofT, JsonDeserializationContext context) 
 			throws JsonParseException 
 	{
+		/*Temporary slot for name*/
 		String _name = null;
+		
+		/*Temporary slot for Form ID */
 		String _formId = null;
+		
+		/*Temporary slot for Version of the program */
 		String _version = null;
+		
+		/*Temporary slot for Description*/
 		String _description = null;
+		
+		/*Temporary slot for Original author of the file*/
 		String _author = null;
+		
+		/*Temporary slot for Date Create of the file */
 		String _dateCrt = null;
+		
+		/*Temporary slot for Date Edited*/
 		String _dateEd = null;
 		
 		Meta m;
