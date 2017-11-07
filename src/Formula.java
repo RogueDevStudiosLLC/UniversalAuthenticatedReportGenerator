@@ -4,7 +4,7 @@
  * The class file for a formula.                *
  ***********************************************/
 
-package ;
+package com.roguedevstudios.uarg.System.Core.Elements;
 
 /**
  * This class is a formula class.

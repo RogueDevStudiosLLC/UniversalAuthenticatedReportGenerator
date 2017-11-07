@@ -3,7 +3,7 @@
  * File name: FormulaParser.java                *
  * The class file for the formula parser.       *
  ***********************************************/
-package JSON.Parser;
+package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
