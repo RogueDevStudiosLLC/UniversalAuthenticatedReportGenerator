@@ -69,10 +69,18 @@ public class ParserHelpers {
 		for(Map.Entry<String,JsonElement> var: JsonVars){
 		// Construct the variable and put it in the tree map
 		map.put(var.getKey(),ParserHelpers.ParseIntegerVariable(var.getValue(),var.getKey()));
+		for(Map.Entry<String,JsonElement> entry: o.entrySet())
+		{
+			map.put(
+				null, ParserHelpers.ParseIntegerVariable(
+											entry.getValue(),
+											entry.getKey()
+				));
 		}
-		return map;
-	}
 		
+	}
+		return map;
+}	
 	
 	public static Variable<String> ParseStringVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with out custom deserializer

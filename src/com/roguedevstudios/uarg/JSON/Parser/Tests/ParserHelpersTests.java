@@ -1,12 +1,8 @@
 package com.roguedevstudios.uarg.JSON.Parser.Tests;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
 import java.util.*;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -65,18 +61,59 @@ public class ParserHelpersTests {
 	public void TestIntegerMap() {
 		
 		// Set up initial conditions
-		String[] Name = {"name1", "name2", "name3"};
-		String[] NameValue = {"TestName1", "TestName2", "TestName3"};
-		String[] ID = {"ID1", "ID2", "ID3"};
-		String[] idValue = {"TestID1", "TestID2", "TestID3"};
-		String[] Description = {"Description1", "Description2", "Desciption3"};
-		String[] DescriptionValue = {"TestDescription1", "TestDescription2", "TestDescription3"};
-		String[] Value = {"Value1", "Value2", "Value3"};
-		int[] ValueValue = {50,32,52};
+		String Name = "name";
+		String Name1 = "name";
+		String NameValue = "TestName";
+		String NameValue1 = "TestName1";
+		String ID = "ID";
+		String ID1 = "ID";
+		String idValue = "TestID";
+		String idValue1 = "TestID2";
+		String Description = "Description";
+		String Description1 = "Description";
+		String DescriptionValue = "TestDescription";
+		String DescriptionValue1 = "TestDescription1";
+		String Value = "Value";
+		String Value1 = "Value";
+		int ValueValue = 50;
+		int ValueValue1 = 500;
 		
-		// Create test variable objects
-		JsonArray a = new JsonArray();
-	
+		// Create test variable Objects
+		JsonObject var1 = new JsonObject();
+		JsonObject var2 = new JsonObject();
+		JsonObject section1 = new JsonObject();
+		
+		// Add variable properties
+		var1.addProperty(Name, NameValue);
+		var1.addProperty(ID, idValue);
+		var1.addProperty(Description, DescriptionValue);
+		var1.addProperty(Value, ValueValue);
+		var2.addProperty(Name1, NameValue1);
+		var2.addProperty(ID1, idValue1);
+		var2.addProperty(Description1, DescriptionValue1);
+		var2.addProperty(Value1, ValueValue1);
+		// Convert to JsonElement tree
+		Gson g = new Gson();
+		
+		// Assign variable objects to JsonElement tree
+		JsonElement testElement1 = g.toJsonTree(var1);
+		JsonElement testElement2 = g.toJsonTree(var2);
+		
+		// Add variable elements to section1 object
+		section1.add(ID, testElement1);
+		section1.add(ID1, testElement2);
+		
+		// Convert section1 to JsonElement
+		
+		JsonElement s1 = g.toJsonTree(section1);
+		
+		// Assign s1 to TreeMap and parse
+		 TreeMap<String, Variable<Integer>> testMap = ParserHelpers.ParseIntegerVariableSection(s1, "ID");
+		
+		// Fetch Information about Integer TreeMap
+		assertEquals(s1, testMap);
+		
+		System.out.println(g.toJson(section1));
 		
 		
 	}
