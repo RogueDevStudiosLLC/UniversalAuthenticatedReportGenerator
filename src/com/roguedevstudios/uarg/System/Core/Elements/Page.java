@@ -1,6 +1,6 @@
 /********************************
-*   Page Class                     *
-*   File Name: Page.java           *
+ *   Page Class                  *
+*   File Name: Page.java        *
 *                               *
 *   The class file for          *
 *   the variables.              *
@@ -20,134 +20,145 @@ package com.roguedevstudios.uarg.System.Core.Elements;
 
 public class Page
 {
- /**
- *   
- * @param Colors - any color called for styling
- * 
- */
-private int Colors;
+	/**
+	 *   
+	 * @param Colors - any color called for styling
+	 * 
+	 */
+	private int _colors;
 	/**
 	 *   
 	 * @param Description - the description of the called workspace
 	 * 
 	 */
-	private String Description;
+	private String _description;
 	/**
 	 *   
 	 * @param Icon - the icon called for the workspace
 	 * 
 	 */
-	private String Icon;
+	private String _icon;
 	/**
 	 *   
 	 * @param Logo - Logo from the client organization
 	 * 
 	 */
-	private String Logo;
+	private String _logo;
 	/**
 	 *   
 	 * @param PageName - name of the workspace that is called 
 	 * 
 	 */
-	private String PageName;
+	private String _pageName;
 	/**
 	 *   
 	 * @param TabId - Tab Identifier
 	 * 
 	 */
-	private int TabId;
+	private String _tabId;
 	/**
 	 *   
 	 * @param Template - the template used for the workspace
 	 * 
 	 */
-	private String Template;
+	private String _template;
 	/**
 	 *   
 	 * @param VariableId - the ID of the called workspace
 	 * 
 	 */
-	private String VariableId;
-	public Page (String _name, String _description, String _variableid ,String _icon ,String _template, 
-			 int _colors, int _tabid, String _logo) 
-		{
-			this.setPageName(_name);
-			this.setDescription(_description);
-			this.setVariableId(_variableid);
-			this.setIcon(_icon);
-			this.setTemplate(_template);
-			this.setColors(_colors);
-			this.setTabId(_tabid);
-			this.setLogo(_logo);
-		}
+	private String _variableId;
 	
-	public String Description() 
-	{
-		return Description;
-	}
-	public int getColors() 
-	{
-		return Colors;
-	}
-	public String getIcon() 
-	{
-		return Icon;
-	}
-	public String getLogo()
-	{
-		return Logo;
-	}
-	/**
-	 *  
-	 * {@code} Getters and setters for each parameter
-	 * 
-	 */
+	public Page (String Name, String Description, String Variableid ,String Icon ,String Template, 
+			 int Colors, String TabId, String Logo) 
+		{
+			this.SetPageName(Name);
+			this.SetDescription(Description);
+			this.SetVariableId(Variableid);
+			this.SetIcon(Icon);
+			this.SetTemplate(Template);
+			this.SetColors(Colors);
+			this.SetTabId(TabId);
+			this.SetLogo(Logo);
+		}
 
-	public String getPageName() 
+	public int GetColors() 
 	{
-		return PageName;
-	}
-	public int getTabId() {
-		return TabId;
-	}
-	public String getTemplate() 
-	{
-		return Template;
-	}
-	public String getVariableId() 
-	{
-		return VariableId;
-	}
-	public void setColors(int colors)
-	{
-		Colors = colors;
-	}
-	public void setDescription(String description) 
-	{
-		Description = description;
-	}
-	public void setIcon(String icon) 
-	{
-		Icon = icon;
-	}
-	public void setLogo(String logo)
-	{
-		Logo = logo;
-	}
-	public void setPageName(String pageName) 
-	{
-		PageName = pageName;
-	}
-	public void setTabId(int tabId) {
-		TabId = tabId;
-	}
-	public void setTemplate(String template) 
-	{
-		Template = template;
-	}
-	public void setVariableId(String variableId) 
-	{
-		VariableId = variableId;
+		return _colors;
 	}
 
+	public void SetColors(int Colors) 
+	{
+		this._colors = Colors;
+	}
+
+	public String GetDescription() 
+	{
+		return _description;
+	}
+
+	public void SetDescription(String Description) 
+	{
+		this._description = Description;
+	}
+
+	public String GetIcon() 
+	{
+		return _icon;
+	}
+
+	public void SetIcon(String Icon) 
+	{
+		this._icon = Icon;
+	}
+
+	public String getLogo() 
+	{
+		return _logo;
+	}
+
+	public void SetLogo(String Logo) 
+	{
+		this._logo = Logo;
+	}
+
+	public String GetPageName() 
+	{
+		return _pageName;
+	}
+
+	public void SetPageName(String PageName) 
+	{
+		this._pageName = PageName;
+	}
+
+	public String GetTabId() 
+	{
+		return _tabId;
+	}
+
+	public void SetTabId(String TabId) 
+	{
+		this._tabId = TabId;
+	}
+
+	public String GetTemplate() 
+	{
+		return _template;
+	}
+
+	public void SetTemplate(String Template) 
+	{
+		this._template = Template;
+	}
+
+	public String GetVariableId() 
+	{
+		return _variableId;
+	}
+
+	public void SetVariableId(String VariableId) 
+	{
+		this._variableId = VariableId;
+	}
 }
