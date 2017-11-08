@@ -1,10 +1,14 @@
 package com.roguedevstudios.uarg.JSON.Parser.Tests;
 
 import static org.junit.Assert.*;
-
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
+import java.util.*;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.ParserHelpers;
@@ -55,6 +59,26 @@ public class ParserHelpersTests {
 		
 		// Display results
 		System.out.println(g.toJson(testElement));
+	}
+	
+	@Test
+	public void TestIntegerMap() {
+		
+		// Set up initial conditions
+		String[] Name = {"name1", "name2", "name3"};
+		String[] NameValue = {"TestName1", "TestName2", "TestName3"};
+		String[] ID = {"ID1", "ID2", "ID3"};
+		String[] idValue = {"TestID1", "TestID2", "TestID3"};
+		String[] Description = {"Description1", "Description2", "Desciption3"};
+		String[] DescriptionValue = {"TestDescription1", "TestDescription2", "TestDescription3"};
+		String[] Value = {"Value1", "Value2", "Value3"};
+		int[] ValueValue = {50,32,52};
+		
+		// Create test variable objects
+		JsonArray a = new JsonArray();
+	
+		
+		
 	}
 	
 	//***** STRING TESTING SECTION *****\\
