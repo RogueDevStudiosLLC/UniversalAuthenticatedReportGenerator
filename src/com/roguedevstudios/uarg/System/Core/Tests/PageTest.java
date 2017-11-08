@@ -2,8 +2,7 @@ package com.roguedevstudios.uarg.System.Core.Tests;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import com.roguedevstudios.uarg.System.Core.Elements.Page;
-import java.lang.reflect.*;
-import java.util.*;
+
 /**
  * <P>
  * this will test the page.java file
@@ -15,7 +14,6 @@ import java.util.*;
 public class PageTest 
 {
 						
-			//******* INTEGER TEST SECTION *****\\
 	/**
 	 * Test creation of Integer Variable
 	 * Expectation: Success
@@ -24,8 +22,9 @@ public class PageTest
 	
 	public void createIntegerObjectPage() 
 	{
-		//setting up initial conditions
-		
+		/**
+		 * setting up initial conditions
+		 */
 		String name  ="TestPage";
 		String ID = "TestTabID";
 		String Description = "A Test Description";
@@ -33,29 +32,49 @@ public class PageTest
 			
 	
 	
-	//wrap in try/catch 
+	/**
+	 * wrap in try/catch 
+	 */
 	try 
 		{
-			//Setup a valid test variable both with and without values
+			/**
+			 * Setup a valid test variable both with and without values
+			 */
 		Page testVarNoValue = new Page (name,ID,Description, Description, Description, value, value, Description);
 		Page testVarWithValue = new Page (name,ID,Description,Description, Description, value, value, Description);
 		
-			//Test the name 
+			/**
+			 * Test the name 
+			 */
 		assertEquals(name, testVarNoValue.getPageName());
 		assertEquals(name, testVarWithValue.getPageName());
 		
-			// Test the ID is correct
+			/**
+			 *  Test the ID is correct
+			 */
 		assertEquals(ID, testVarNoValue.getTabId());
 		assertEquals(ID, testVarWithValue.getTabId());
 					
-			// Test the Description is correct
+			/**
+			 *  Test the Description is correct
+			 */
 		assertEquals(Description, testVarNoValue.Description());
 		assertEquals(Description, testVarWithValue.Description());
 					
-			// Test the value set properly or is properly null
-		assertEquals(value, testVarWithValue.getVariableId())
+			/**
+			 *  Test the value set properly or is properly null
+			 */
+		assertEquals(value, testVarWithValue.getVariableId());
 		assertNull(testVarNoValue.getVariableId());
 		}
+	catch (Exception e)
+		{
+		/**
+		 * queue rocky Russian fighter scene "If it fails, it fails"
+		 */
+			assertFalse(true);
+		}
+	
 	}
 	
 }
