@@ -28,9 +28,9 @@ public class MetaDataDeserializer implements JsonDeserializer<Meta>
 	/**
 	 * Deserilizes into MetaData object type
 	 * from give JSONElement type and context
-	 * @parm JsonElement
+	 * @param JsonElement
 	 * @param Type
-	 * @parm JsonDeserializationContext
+	 * @param JsonDeserializationContext
 	 * @return Meta
 	 */
 	@Override
@@ -62,6 +62,9 @@ public class MetaDataDeserializer implements JsonDeserializer<Meta>
 		
 		JsonObject b = json.getAsJsonObject();
 		
+		/**
+		 * If the 
+		 */
 		if(b.has(_name))
 		{
 			_name = b.get("name").getAsString();
