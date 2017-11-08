@@ -25,7 +25,7 @@ public class Page
 	 * @param Colors - any color called for styling
 	 * 
 	 */
-	private int _colors;
+	private Integer _colors;
 	/**
 	 *   
 	 * @param Description - the description of the called workspace
@@ -49,13 +49,7 @@ public class Page
 	 * @param PageName - name of the workspace that is called 
 	 * 
 	 */
-	private String _pageName;
-	/**
-	 *   
-	 * @param TabId - Tab Identifier
-	 * 
-	 */
-	private String _tabId;
+	private String _pageId;
 	/**
 	 *   
 	 * @param Template - the template used for the workspace
@@ -69,16 +63,15 @@ public class Page
 	 */
 	private String _variableId;
 	
-	public Page (String Name, String Description, String Variableid ,String Icon ,String Template, 
-			 int Colors, String TabId, String Logo) 
+	public Page (String Pageid, String Description, String Variableid ,String Icon ,String Template, 
+			 Integer Colors, String Logo) 
 		{
-			this.SetPageName(Name);
+			this.SetPageid(Pageid);
 			this.SetDescription(Description);
 			this.SetVariableId(Variableid);
 			this.SetIcon(Icon);
 			this.SetTemplate(Template);
 			this.SetColors(Colors);
-			this.SetTabId(TabId);
 			this.SetLogo(Logo);
 		}
 
@@ -87,7 +80,7 @@ public class Page
 		return _colors;
 	}
 
-	public void SetColors(int Colors) 
+	public void SetColors(Integer Colors) 
 	{
 		this._colors = Colors;
 	}
@@ -112,7 +105,7 @@ public class Page
 		this._icon = Icon;
 	}
 
-	public String getLogo() 
+	public String GetLogo() 
 	{
 		return _logo;
 	}
@@ -122,24 +115,14 @@ public class Page
 		this._logo = Logo;
 	}
 
-	public String GetPageName() 
+	public String GetPageid() 
 	{
-		return _pageName;
+		return _pageId;
 	}
 
-	public void SetPageName(String PageName) 
+	public void SetPageid(String Pageid) 
 	{
-		this._pageName = PageName;
-	}
-
-	public String GetTabId() 
-	{
-		return _tabId;
-	}
-
-	public void SetTabId(String TabId) 
-	{
-		this._tabId = TabId;
+		this._pageId = Pageid;
 	}
 
 	public String GetTemplate() 
