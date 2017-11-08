@@ -48,6 +48,13 @@
                           <columns>
                             <TableColumn prefWidth="75.0" text="C1" />
                             <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
                           </columns>
                         </TableView>
                         <Button layoutX="86.0" layoutY="625.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Enter" />
