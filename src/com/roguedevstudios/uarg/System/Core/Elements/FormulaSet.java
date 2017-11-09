@@ -15,9 +15,9 @@ public class FormulaSet {
 	/*Class Attributes*/
 	
 	/*Name of the formula set*/
-	private String _formulaSetName
+	private String _formulaSetName;
 	/*Description of the formula set*/
-	private String _formulaSetDescription
+	private String _formulaSetDescription;
 	
 	/*Class Methods */
 	

@@ -43,11 +43,7 @@ public class FormulaDeserializer implements JsonDeserializer<Formula>{
 		String _formulaId = null;
 		/* Temp slot for base equation used by formula */
 		String _formulaEquation = null;
-		/* Temp slot for base equation Exp4j rewrite */
-		String _formulaExpression = null;
 		/* Temp slot for input array of variables */
-		Double[] _formulaInputArray = null;
-		/* Temp output object holder*/
 		Formula f;
 		
 		/* Convert JsonElement into JsonObject */
@@ -73,18 +69,10 @@ public class FormulaDeserializer implements JsonDeserializer<Formula>{
 			_formulaEquation = o.get("Equation").getAsString();
 		}
 		
-		// Grab the Exp4j conversion
-		if(o.has("Formula Expression")) {
-			_formulaExpression = o.get("Formula Expression").getAsString();
-		}
-		
-		// Grab variable input array
-		//if(o.has("Input Array")) {
-			// to do
-		//}
+
 		
 		// Build the Formula object to return
-		f = new Formula(_formulaName, _formulaId, _formulaExpression, _formulaEquation);
+		f = new Formula(_formulaName,_formulaDesc, _formulaId, _formulaEquation);
 		
 		
 		

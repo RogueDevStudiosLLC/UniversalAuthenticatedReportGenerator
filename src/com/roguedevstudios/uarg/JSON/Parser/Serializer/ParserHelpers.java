@@ -38,8 +38,6 @@ public class ParserHelpers {
 		Gson customGson = gsonBuild.create();
 		// Deserialize the object to a Formula object
 		Formula retForm = customGson.fromJson(json, Formula.class);
-		// Manually set the ID
-		retForm.SetId(ID);
 		// Clean up
 		gsonBuild = null;
 		customGson = null;
