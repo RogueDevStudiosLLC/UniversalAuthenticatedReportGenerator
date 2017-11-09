@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.*;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.ParserHelpers;
