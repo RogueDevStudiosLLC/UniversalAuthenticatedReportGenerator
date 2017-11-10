@@ -49,24 +49,6 @@ public class ParserHelpers {
 		// Return the constructed object to the caller
 		return retForm;
 	}
-	
-	public static TreeMap<String, Formula> ParseFormulaSet(JsonElement json) {
-		// Take JsonElement and convert to JsonObject
-		JsonObject o = json.getAsJsonObject();
-		// Get the entry set of formulas to parse
-		Set<Map.Entry<String, JsonElement>> JsonFormulas = o.entrySet();
-		// Start up the tree map for these variables
-		TreeMap<String, Formula> map = new TreeMap<>();
-		// Loop through the variables
-		for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
-		// Construct the variable and put it in the tree map
-		map.put(entry.getKey(), ParserHelpers.ParseFormula(entry.getValue()));
-		}
-		
-		
-		return null;
-		
-	}
 
 	
 	public static <V> Variable<V> ParseVariable(JsonElement json, String ID, VariableType Type){
