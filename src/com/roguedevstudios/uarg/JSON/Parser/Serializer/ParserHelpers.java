@@ -1,11 +1,16 @@
 package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
+import com.roguedevstudios.uarg.System.Core.Elements.Variables;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
@@ -54,6 +59,9 @@ public class ParserHelpers {
 		// Return the constructed object to the caller
 		return retVar;
 	}
+	
+	
+	
 	
 	public static Variable<String> ParseStringVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with out custom deserializer
@@ -155,5 +163,532 @@ public class ParserHelpers {
 		return retVar;
 	}
 	
+	// trying to write VariablesParser here 
+	
+	/*
+Break the JSON Element into it's entry set, 
+send each entry into VariableSection Parser of the type it needs to go into, 
+take the returned 12 maps and construct a Variables object, return the new object.
+
+
+
+Variable Section Parser has to use the EntrySet commands already so there will be an example for that in there,
+ the use of a child parser is done by that parser as well so again you will have a direct example to work from,
+ and you just need to make a new Variables object with the returned maps which will be puked back out to the caller. 
+ The most time consuming will be modding the Variables class to have a new constructor for such a format, 
+  which will be nearly the same as your _build command
+	
+	
+1. Turn JsonElement into JsonObject
+2. Get Entry Set from JsonObject
+3. Loop through Entry Set selecting the child parser and output temp var based on the key value
+4. Take the maps and make variables object
+5. Return the created object
+	
+	*/
+	//***** INTEGER SECTION ******\\
+
+
+	 	public static Variables<Integer> ParseIntegerVariables(JsonElement json, String ID){
+
+
+	 		// Start the GsonBuilder so we can customize it with our custom deserializer
+
+
+	 		GsonBuilder gsonBuild = new GsonBuilder();
+
+
+
+
+	 		// Start up the tree map for these variables
+
+
+	 		TreeMap<String,Variable<Integer>> map = new TreeMap<>();
+
+
+	 		// Loop through the variables
+
+			for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+
+
+	 		// Construct the variable and put it in the tree map
+
+			map.put(entry.getKey(), ParserHelpers.ParseIntegerVariable(entry.getValue(), entry.getKey()));
+
+
+	 		
+
+
+	 	}
+
+
+	 		return map;
+
+
+	 }	
+
+
+	 	
+
+
+		//***** STRING SECTION *****\\
+
+
+	 	public static Variables<String> ParseStringVariables(JsonElement json, String ID){
+
+
+	 		// Start the GsonBuilder so we can customize it with out custom deserializer
+
+
+	 		GsonBuilder gsonBuild = new GsonBuilder();
+
+
+
+
+	 		return retVar;
+
+
+	 	}
+
+
+	 	
+
+
+		/**		
+
+
+		 * Parses a Variable<> Object into a Variable TreeMap
+
+
+		 * @return 
+
+
+		 *  
+
+
+		 * @Grant Richards 
+
+
+		 * @since 1.0
+
+
+		 */
+
+
+		public static TreeMap<String, Variable<String>> ParseStringVariablesSection(JsonElement json, String ID){
+
+
+			//take jsonElement and convert to jsonObject
+
+
+			JsonObject o = json.getAsJsonObject();
+
+
+			// Get the entry set of variables to parse
+
+
+			Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+
+
+			// Start up the tree map for these variables
+
+
+			TreeMap<String,Variables<String>> map = new TreeMap<>();
+
+
+			// Loop through the variables
+
+
+			for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+
+
+			// Construct the variable and put it in the tree map
+
+
+			map.put(entry.getKey(), ParserHelpers.ParseStringVariables(entry.getValue(), entry.getKey()));
+
+
+			
+
+
+		}
+
+
+			return map;
+
+
+	}	
+
+
+		
+
+
+		//***** DOUBLE SECTION *****\\
+
+
+	 	public static Variables<Double> ParseDoubleVariables(JsonElement json, String ID){
+
+
+	 		// Start the GsonBuilder so we can customize it with out custom deserializer
+
+
+	 		GsonBuilder gsonBuild = new GsonBuilder();
+
+
+
+
+	 		return retVar;
+
+
+	 	}
+
+
+	 	
+
+
+		/**		
+
+
+		 * Parses a Variable<> Object into a Variable TreeMap
+
+
+		 * @return 
+
+
+		 *  
+
+
+		 * @Grant Richards 
+
+
+		 * @since 1.0
+
+
+		 */
+
+
+		public static TreeMap<String, Variables<Double>> ParseDoubleVariablesSection(JsonElement json, String ID){
+
+
+			//take jsonElement and convert to jsonObject
+
+
+			JsonObject o = json.getAsJsonObject();
+
+
+			// Get the entry set of variables to parse
+
+
+			Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+
+
+			// Start up the tree map for these variables
+
+
+			TreeMap<String,Variables<Double>> map = new TreeMap<>();
+
+
+			// Loop through the variables
+
+
+			for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+
+
+			// Construct the variable and put it in the tree map
+
+
+			map.put(entry.getKey(), ParserHelpers.ParseDoubleVariables(entry.getValue(), entry.getKey()));
+
+
+			
+
+
+		}
+
+
+			return map;
+
+
+	}	
+
+
+		
+
+
+		//***** LONG SECTION *****\\
+
+
+	 	public static Variables<Long> ParseLongVariables(JsonElement json, String ID){
+
+
+	 		// Start the GsonBuilder so we can customize it with out custom deserializer
+
+
+	 		GsonBuilder gsonBuild = new GsonBuilder();
+
+
+
+
+	 		return retVar;
+
+
+	 	}
+
+
+	 	
+
+
+		/**		
+
+
+		 * Parses a Variable<> Object into a Variable TreeMap
+
+
+		 * @return 
+
+
+		 *  
+
+
+		 * @Grant Richards
+
+
+		 * @since 1.0
+
+
+		 */
+
+
+		public static TreeMap<String, Variable<Long>> ParseLongVariablesSection(JsonElement json, String ID){
+
+
+			//take jsonElement and convert to jsonObject
+
+
+			JsonObject o = json.getAsJsonObject();
+
+
+			// Get the entry set of variables to parse
+
+
+			Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+
+
+			// Start up the tree map for these variables
+
+
+			TreeMap<String,Variables<Long>> map = new TreeMap<>();
+
+
+			// Loop through the variables
+
+
+			for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+
+
+			// Construct the variable and put it in the tree map
+
+
+			map.put(entry.getKey(), ParserHelpers.ParseLongVariables(entry.getValue(), entry.getKey()));
+
+
+			
+
+
+		}
+
+
+			return map;
+
+
+	}	
+
+
+		
+
+
+		//***** FLOAT SECTION *****\\
+
+
+	 	public static Variables<Float> ParseFloatVariables(JsonElement json, String ID){
+
+
+	 		// Start the GsonBuilder so we can customize it with out custom deserializer
+
+
+	 		GsonBuilder gsonBuild = new GsonBuilder();
+
+
+
+
+	 		return retVar;
+
+
+	 	}
+
+
+	 	
+
+
+		/**		
+
+
+		 * Parses a Variable<> Object into a Variable TreeMap
+
+
+		 * @return 
+
+
+		 *  
+
+
+		 * @Grant Richards 
+
+
+		 * @since 1.0
+
+
+		 */
+
+
+		public static TreeMap<String, Variables<Float>> ParseFloatVariablesSection(JsonElement json, String ID){
+
+
+			//take jsonElement and convert to jsonObject
+
+
+			JsonObject o = json.getAsJsonObject();
+
+
+			// Get the entry set of variables to parse
+
+
+			Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+
+
+			// Start up the tree map for these variables
+
+
+			TreeMap<String,Variables<Float>> map = new TreeMap<>();
+
+
+			// Loop through the variables
+
+
+			for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+
+
+			// Construct the variable and put it in the tree map
+
+
+			map.put(entry.getKey(), ParserHelpers.ParseFloatVariables(entry.getValue(), entry.getKey()));
+
+
+			
+
+
+		}
+
+
+			return map;
+
+
+	}	
+
+
+	
+
+
+		
+
+
+		//***** BOOLEAN SECTION *****\\
+
+
+	 	public static Variables<Boolean> ParseBooleanVariables(JsonElement json, String ID){
+
+
+	 		// Start the GsonBuilder so we can customize it with out custom deserializer
+
+
+	 		GsonBuilder gsonBuild = new GsonBuilder();
+
+
+
+
+	 		return retVar;
+
+
+	 	}
+
+
+	 	
+
+
+		/**		
+
+
+		 * Parses a Variable<> Object into a Variable TreeMap
+
+
+		 * @return 
+
+
+		 *  
+
+
+		 * @Grant Richards
+
+
+		 * @since 1.0
+
+
+		 */
+
+
+		public static TreeMap<String, Variables<Boolean>> ParseBooleanVariablesSection(JsonElement json, String ID){
+
+
+			//take jsonElement and convert to jsonObject
+
+
+			JsonObject o = json.getAsJsonObject();
+
+
+			// Get the entry set of variables to parse
+
+
+			Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+
+
+			// Start up the tree map for these variables
+
+
+			TreeMap<String,Variables<Boolean>> map = new TreeMap<>();
+
+
+			// Loop through the variables
+
+
+			for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+
+
+			// Construct the variable and put it in the tree map
+
+
+			map.put(entry.getKey(), ParserHelpers.ParseBooleanVariables(entry.getValue(), entry.getKey()));
+	
+
+
+		}
+			return map;
+
+
+
+
+	 	
+
+
+	 }
 	
 }
