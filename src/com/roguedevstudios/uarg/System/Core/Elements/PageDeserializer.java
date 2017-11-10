@@ -18,7 +18,7 @@
 * @author Terry Roberson
 * @since 1.0
 */
-package com.roguedevstudios.uarg.System.Core.Elements;
+package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 import java.lang.reflect.Type;
 import com.google.gson.*;
 import com.roguedevstudios.uarg.System.Core.Elements.Page;
@@ -40,8 +40,6 @@ public class PageDeserializer implements JsonDeserializer<Page>
 		String _name = null;
 		/*Temporary slot for description*/
 		String _description = null;
-		/*Temporary slot for tab id*/
-		Integer _tabid = null;
 		/*Temporary slot for icon*/
 		String _icon = null;
 		/*Temporary slot for template*/
@@ -69,7 +67,6 @@ public class PageDeserializer implements JsonDeserializer<Page>
 		//If the page has a tab id, then we grab it
 		if(a.has("tabid"))
 		{
-			_tabid = a.get("tabid").getAsInt();
 		}
 		//If the page has a icon, then we grab it
 		if(a.has("icon"))
@@ -97,7 +94,7 @@ public class PageDeserializer implements JsonDeserializer<Page>
 			_variableid = a.get("logo").getAsString();
 		}
 		//Build the new page objects to return
-		p = new Page(_name, _description, _logo, _icon, _template, _colors, _tabid,_variableid);
+		p = new Page(_name, _description, _variableid, _icon , _template, _colors, _logo);
 		
 		return p;
 		}
