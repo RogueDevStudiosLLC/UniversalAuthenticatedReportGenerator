@@ -189,7 +189,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	//***** INTEGER SECTION ******\\
 
 
-	 	public static Variables<Integer> ParseIntegerVariables(JsonElement json, String ID){
+	 	public static Variables ParseIntegerVariables(JsonElement json, String ID){
 
 
 	 		// Start the GsonBuilder so we can customize it with our custom deserializer
@@ -234,7 +234,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		//***** STRING SECTION *****\\
 
 
-	 	public static Variables<String> ParseStringVariables(JsonElement json, String ID){
+	 	public static Variables ParseStringVariables(JsonElement json, String ID){
 
 
 	 		// Start the GsonBuilder so we can customize it with out custom deserializer
@@ -293,7 +293,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 			// Start up the tree map for these variables
 
 
-			TreeMap<String,Variables<String>> map = new TreeMap<>();
+			TreeMap<String,Variables> map = new TreeMap<>();
 
 
 			// Loop through the variables
@@ -326,7 +326,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		//***** DOUBLE SECTION *****\\
 
 
-	 	public static Variables<Double> ParseDoubleVariables(JsonElement json, String ID){
+	 	public static Variables ParseDoubleVariables(JsonElement json, String ID){
 
 
 	 		// Start the GsonBuilder so we can customize it with out custom deserializer
@@ -367,7 +367,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		 */
 
 
-		public static TreeMap<String, Variables<Double>> ParseDoubleVariablesSection(JsonElement json, String ID){
+		public static TreeMap<String, Variables> ParseDoubleVariablesSection(JsonElement json, String ID){
 
 
 			//take jsonElement and convert to jsonObject
@@ -385,7 +385,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 			// Start up the tree map for these variables
 
 
-			TreeMap<String,Variables<Double>> map = new TreeMap<>();
+			TreeMap<String,Variables> map = new TreeMap<>();
 
 
 			// Loop through the variables
@@ -418,7 +418,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		//***** LONG SECTION *****\\
 
 
-	 	public static Variables<Long> ParseLongVariables(JsonElement json, String ID){
+	 	public static Variables ParseLongVariables(JsonElement json, String ID){
 
 
 	 		// Start the GsonBuilder so we can customize it with out custom deserializer
@@ -477,7 +477,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 			// Start up the tree map for these variables
 
 
-			TreeMap<String,Variables<Long>> map = new TreeMap<>();
+			TreeMap<String,Variables> map = new TreeMap<>();
 
 
 			// Loop through the variables
@@ -510,7 +510,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		//***** FLOAT SECTION *****\\
 
 
-	 	public static Variables<Float> ParseFloatVariables(JsonElement json, String ID){
+	 	public static Variables ParseFloatVariables(JsonElement json, String ID){
 
 
 	 		// Start the GsonBuilder so we can customize it with out custom deserializer
@@ -551,7 +551,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		 */
 
 
-		public static TreeMap<String, Variables<Float>> ParseFloatVariablesSection(JsonElement json, String ID){
+		public static TreeMap<String, Variables> ParseFloatVariablesSection(JsonElement json, String ID){
 
 
 			//take jsonElement and convert to jsonObject
@@ -569,7 +569,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 			// Start up the tree map for these variables
 
 
-			TreeMap<String,Variables<Float>> map = new TreeMap<>();
+			TreeMap<String,Variables> map = new TreeMap<>();
 
 
 			// Loop through the variables
@@ -605,7 +605,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		//***** BOOLEAN SECTION *****\\
 
 
-	 	public static Variables<Boolean> ParseBooleanVariables(JsonElement json, String ID){
+	 	public static Variables ParseBooleanVariables(JsonElement json, String ID){
 
 
 	 		// Start the GsonBuilder so we can customize it with out custom deserializer
@@ -646,7 +646,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		 */
 
 
-		public static TreeMap<String, Variables<Boolean>> ParseBooleanVariablesSection(JsonElement json, String ID){
+		public static TreeMap<String, Variables> ParseBooleanVariablesSection(JsonElement json, String ID){
 
 
 			//take jsonElement and convert to jsonObject
@@ -664,7 +664,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 			// Start up the tree map for these variables
 
 
-			TreeMap<String,Variables<Boolean>> map = new TreeMap<>();
+			TreeMap<String,Variables> map = new TreeMap<>();
 
 
 			// Loop through the variables
