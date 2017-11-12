@@ -102,7 +102,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Integer>> testMap = ParserHelpers.ParseIntegerVariableSection(s1, idValue);
+		TreeMap<String,Variable<Integer>> testMap = ParserHelpers.ParseIntegerVariableSection(s1);
 		
 		
 		// Fetch key information for variables

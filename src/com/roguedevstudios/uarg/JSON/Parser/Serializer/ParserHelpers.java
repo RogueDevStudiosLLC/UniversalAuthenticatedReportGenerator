@@ -60,7 +60,7 @@ public class ParserHelpers {
 	 * @Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Integer>> ParseIntegerVariableSection(JsonElement json, String ID){
+	public static TreeMap<String, Variable<Integer>> ParseIntegerVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
