@@ -264,8 +264,46 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		}
 	}
 	
+	/*** Null Check ***/
+	if(IntMap == null)
+		IntMap = new TreeMap<String,Variable<Integer>>();
+	
+	if(IntegerArrayMap == null)
+		IntegerArrayMap = new TreeMap<String,Variable<Integer[]>>();
+	
+	if(StringMap == null)
+		StringMap = new TreeMap<String,Variable<String>>();
+	
+	if(StringArrayMap == null)
+		StringArrayMap = new TreeMap<String,Variable<String[]>>();
+	
+	if(FloatMap == null)
+		FloatMap = new TreeMap<String,Variable<Float>>();
+	
+	if(FloatArrayMap == null)
+		StringMap = new TreeMap<String,Variable<Float[]>>();
+	
+	if(LongMap == null)
+		LongMap = new TreeMap<String,Variable<Long>>();
+	
+	if(LongArrayMap == null)
+		LongArrayMap = new TreeMap<String,Variable<Long[]>>();
+	
+	if(DoubleMap == null)
+		DoubleMap = new TreeMap<String,Variable<Double>>();
+	
+	if(DoubleArrayMap == null)
+		DoubleArrayMap = new TreeMap<String,Variable<DoubleArray>>();
+	
+	if(BooleanMap == null)
+		IntMap = new TreeMap<String,Variable<Boolean>>();
+	
+	if(BooleanArrayMap == null)
+		BooleanArrayMap = new TreeMap<String,Variable<BooleanArray>>();
+	
 	Variables v = new Variables(IntMap, IntegerArrayMap, StringMap, StringArrayMap, FloatMap, FloatArrayMap, LongMap, LongArrayMap, DoubleMap, DoubleArrayMap, BooleanMap, BooleanArrayMap);
 	
 	
 	return v;	
 	}
+}
