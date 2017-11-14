@@ -6,10 +6,18 @@
 
 package com.roguedevstudios.uarg.System.Core.Elements;
 
+import net.objecthunter.exp4j.*;
+import net.objecthunter.exp4j.function.*;
+import net.objecthunter.exp4j.operator.*;
+import net.objecthunter.exp4j.tokenizer.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * This class is a formula class.
  * 
- * @author Chel
+ * @author Chelsea Hunter
+ * @u
  * @since 1.0
  */
 
@@ -27,8 +35,6 @@ public class Formula {
     private String _formulaId;
     /* The base equation this formula uses */
     private String _formulaEquation;
-    /* Exp4j compatible rewrite of _formulaEquation*/
-    private String _formulaExpression;
     /* Input array of variables converted to doubles*/
     private double[] _formulaInputArray;
 
@@ -52,25 +58,10 @@ public class Formula {
         this._formulaDesc = formulaDesc;
         this._formulaId = formulaId;
         this._formulaEquation = formulaEquation;
-        this._formulaExpression = this._exp4jExpressionCompatibility(this._formulaEquation); // See about this
+        /* Build and Validate Expression using Exp4j here*/
         this._formulaInputArray = new double[this._inputCount()];
     }
     
-    /**
-    * Method that takes the formula equation and processes it into an exp4j compatible expression.
-    * The formula expression is directly dependent on this method.
-    *
-    * @param equation	Should be _formulaEquation to be processed into exp4j compatible _formulaExpression
-    * @return An expression (string) that is exp4j-compatible. 
-    */
-    private String _exp4jExpressionCompatibility (String equation) {
-        // Make expression exp4j compatible.
-        /* Take _formulaEquation
-         * Rewrite to exp4j compatible _formulaExpression
-         */
-        // TODO:
-        return null;
-    }
     
     /**
     * Method that counts the input variables in an equation and returns that number.
@@ -78,10 +69,10 @@ public class Formula {
     * @return An integer representing the amount of input variables in an equation.
     */
     private int _inputCount () {
-        /* Used in _exp4jExpressionCompatibility?
-         * Each variable replaced in the expression for exp4j will = 1 var to be expected in the array.
+         /* Each variable counted by RegEx = one variable expected in array.
          * Counting variables in equation and returning that number
          */
+    	
         // TODO:
         return 0;
     }
