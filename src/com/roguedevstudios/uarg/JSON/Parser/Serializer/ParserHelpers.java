@@ -242,40 +242,40 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		switch(element.getKey()) {
 		
 		case "Integer":
-		IntMap = ParserIntegerSection(element.getValue());
+		IntMap = ParserIntegerSection(element.GetInteger());
 		
 		case "IntegerArray":
-		IntegerArrayMap = ParserIntegerArraySection(element.getValue());
+		IntegerArrayMap = ParserIntegerArraySection(element.GetIntegerArray());
 		
 		case "String":
-	    StringMap = ParserStringSection(element.getValue());
+	    StringMap = ParserStringSection(element.GetString());
 			
 		case "StringArray":
-		StringArrayMap = ParserStringArraySection(element.getValue());
+		StringArrayMap = ParserStringArraySection(element.GetStringArray());
 		
 		case "Float":
-		FloatMap = ParserFloatSection(element.getValue());
+		FloatMap = ParserFloatSection(element.GetFloat());
 			
 		case "FloatArray":
-		FloatArrayMap = ParserFloatArraySection(element.getValue());
+		FloatArrayMap = ParserFloatArraySection(element.GetFloatArray());
 		
 		case "Long":
-		LongMap = ParserLongSection(element.getValue());
+		LongMap = ParserLongSection(element.GetLong());
 			
 		case "LongArray":
-		LongArrayMap = ParserLongArraySection(element.getValue());
+		LongArrayMap = ParserLongArraySection(element.GetLongArray());
 		
 		case "Double":
-		DoubleMap = ParserDoubleSection(element.getValue());
+		DoubleMap = ParserDoubleSection(element.GetDouble());
 			
 		case "DoubleArray":
-		DoubleArrayMap = ParserDoubleArraySection(element.getValue());
+		DoubleArrayMap = ParserDoubleArraySection(element.GetDoubleArray());
 		
 		case "Boolean":
-		BooleanMap = ParserBooleanSection(element.getValue());
+		BooleanMap = ParserBooleanSection(element.GetBoolean());
 			
 		case "BooleanArray":
-		BooleanArrayMap = ParserBooleanArraySection(element.getValue());
+		BooleanArrayMap = ParserBooleanArraySection(element.GetBooleanArray());
 		}
 	}
 	
@@ -316,7 +316,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	if(BooleanArrayMap == null)
 		BooleanArrayMap = new TreeMap<String,Variable<Boolean[]>>();
 	
-	Variables v = new Variables(IntMap, IntegerArrayMap, StringMap, StringArrayMap, FloatMap, FloatArrayMap, LongMap, LongArrayMap, DoubleMap, DoubleArrayMap, BooleanMap, BooleanArrayMap);
+	Variables v = new Variables();
 	
 	
 	return v;	

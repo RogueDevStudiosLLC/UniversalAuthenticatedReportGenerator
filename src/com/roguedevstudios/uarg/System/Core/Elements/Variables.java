@@ -54,30 +54,27 @@ public class Variables implements IVariables {
 	private TreeMap<String, IVariable<Boolean[]>> _booleanArrayMap;
 
 	/**Constructs the initial state of the Variables conatainer
-	 * @param booleanArrayMap 
-	 * @param booleanMap 
-	 * @param doubleArrayMap 
-	 * @param doubleMap 
-	 * @param longArrayMap 
-	 * @param longMap 
-	 * @param floatArrayMap 
-	 * @param floatMap 
-	 * @param stringArrayMap 
-	 * @param stringMap 
-	 * @param integerArrayMap 
-	 * @param intMap 
 	 *
 	 * @since 1.0
 	 */
 
-	public Variables(TreeMap<String, Variable<Integer>> intMap, TreeMap<String, Variable<Integer[]>> integerArrayMap, TreeMap<String, Variable<String>> stringMap, TreeMap<String, Variable<String[]>> stringArrayMap, TreeMap<String, Variable<Float>> floatMap, TreeMap<String, Variable<Float[]>> floatArrayMap, TreeMap<String, Variable<Long>> longMap, TreeMap<String, Variable<Long[]>> longArrayMap, TreeMap<String, Variable<Double>> doubleMap, TreeMap<String, Variable<Double[]>> doubleArrayMap, TreeMap<String, Variable<Boolean>> booleanMap, TreeMap<String, Variable<Boolean[]>> booleanArrayMap) throws Exception {
-		try {
-			this._build();
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
+	public Variables() throws Exception {
+		
+		this._integerMap = IntegerMap;
+		this._integerArrayMap = IntegerArrayMap;
+		this._stringMap = StringMap;
+		this._stringArrayMap = StringArrayMap;
+		this._floatMap = FloatMap;
+		this._floatArrayMap = FloatArrayMap;
+		this._longMap = LongMap;
+		this._longArrayMap = LongArrayMap;
+		this._doubleMap = DoubleMap;
+		this._doubleArrayMap = DoubleArrayMap;
+		this._booleanMap = BooleanMap;
+		this._booleanArrayMap = BooleanArrayMap;
+		
+	}	
+		
 /**
  * Initializes the TreeMaps for internal variable storage	
  */
