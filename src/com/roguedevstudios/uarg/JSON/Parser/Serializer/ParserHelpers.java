@@ -201,7 +201,22 @@ Variable Section Parser has to use the EntrySet commands already so there will b
  * 
  */
 	
-	
+	/**
+	 * Parses a variable into a Variable<> object
+	 * @param JsonElement JsonElement Representation of this Variable
+	 * @param ID String ID of this Variable
+	 * @param Type VariableType of this Variable
+	 * @return Variable<> The non-type specific Variable object of this variable
+	 * @author Grant Richards
+	 * @since 1.0
+	 */
+	public static <V> Variables ParseVariables(JsonElement json, String ID, VariableType Type){
+		// Get the inner portion of this json
+		// Deserialize this into the variable
+		// Set the ID of this variable
+		// Return the constructed variable
+		
+		return null;
 	
 	
 	
@@ -281,7 +296,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		FloatMap = new TreeMap<String,Variable<Float>>();
 	
 	if(FloatArrayMap == null)
-		StringMap = new TreeMap<String,Variable<Float[]>>();
+		FloatArrayMap = new TreeMap<String,Variable<Float[]>>();
 	
 	if(LongMap == null)
 		LongMap = new TreeMap<String,Variable<Long>>();
@@ -293,13 +308,13 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		DoubleMap = new TreeMap<String,Variable<Double>>();
 	
 	if(DoubleArrayMap == null)
-		DoubleArrayMap = new TreeMap<String,Variable<DoubleArray>>();
+		DoubleArrayMap = new TreeMap<String,Variable<Double[]>>();
 	
 	if(BooleanMap == null)
-		IntMap = new TreeMap<String,Variable<Boolean>>();
+		BooleanMap = new TreeMap<String,Variable<Boolean>>();
 	
 	if(BooleanArrayMap == null)
-		BooleanArrayMap = new TreeMap<String,Variable<BooleanArray>>();
+		BooleanArrayMap = new TreeMap<String,Variable<Boolean[]>>();
 	
 	Variables v = new Variables(IntMap, IntegerArrayMap, StringMap, StringArrayMap, FloatMap, FloatArrayMap, LongMap, LongArrayMap, DoubleMap, DoubleArrayMap, BooleanMap, BooleanArrayMap);
 	
