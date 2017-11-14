@@ -8,7 +8,7 @@ package com.roguedevstudios.uarg.System.Core.Elements;
 *   Variable created in 		*
 *   Variable.java				*
 *                               *
-*  ©2017 Rogue Dev Studios, LLC *
+*  ï¿½2017 Rogue Dev Studios, LLC *
 ********************************/
 
 //Import Section
@@ -54,11 +54,23 @@ public class Variables implements IVariables {
 	private TreeMap<String, IVariable<Boolean[]>> _booleanArrayMap;
 
 	/**Constructs the initial state of the Variables conatainer
+	 * @param booleanArrayMap 
+	 * @param booleanMap 
+	 * @param doubleArrayMap 
+	 * @param doubleMap 
+	 * @param longArrayMap 
+	 * @param longMap 
+	 * @param floatArrayMap 
+	 * @param floatMap 
+	 * @param stringArrayMap 
+	 * @param stringMap 
+	 * @param integerArrayMap 
+	 * @param intMap 
 	 *
 	 * @since 1.0
 	 */
 
-	public Variables() throws Exception {
+	public Variables(TreeMap<String, Variable<Integer>> intMap, TreeMap<String, Variable<Integer[]>> integerArrayMap, TreeMap<String, Variable<String>> stringMap, TreeMap<String, Variable<String[]>> stringArrayMap, TreeMap<String, Variable<Float>> floatMap, TreeMap<String, Variable<Float[]>> floatArrayMap, TreeMap<String, Variable<Long>> longMap, TreeMap<String, Variable<Long[]>> longArrayMap, TreeMap<String, Variable<Double>> doubleMap, TreeMap<String, Variable<Double[]>> doubleArrayMap, TreeMap<String, Variable<Boolean>> booleanMap, TreeMap<String, Variable<Boolean[]>> booleanArrayMap) throws Exception {
 		try {
 			this._build();
 		} catch (Exception e) {
