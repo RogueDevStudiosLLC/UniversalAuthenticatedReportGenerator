@@ -40,6 +40,7 @@ public class MetaTest
 		
 		try 
 		{
+			//Setup a valid test variable 
 			Meta testMetaAllInfo = new Meta (Name, FormId, Version, Description, Author, DateCrt, DateEd);
 			
 			//Test the name is correct

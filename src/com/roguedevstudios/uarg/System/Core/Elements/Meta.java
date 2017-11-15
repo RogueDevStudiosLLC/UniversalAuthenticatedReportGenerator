@@ -20,9 +20,19 @@ package com.roguedevstudios.uarg.System.Core.Elements;
  */
 
 
-
 public class Meta 
 {
+	/**
+	 * Builds the Meta Object with initial values
+	 * @param Name String name of this variable 
+	 * @param FormId String FormId of this variable 
+	 * @param Version String Version of this variable 
+	 * @param Description String Description of this variable 
+	 * @param Author String Author of this variable 
+	 * @param DateCrt String DateCrt of this variable
+	 * @param DateEd String DateEd of this variable
+	 * @since 1.0
+	 */
 	public Meta (String Name, String FormId, String Version, String Description, 
 				 String Author, String DateCrt, String DateEd) 
 	{
@@ -34,40 +44,52 @@ public class Meta
 		this.SetDateCrt(DateCrt);
 		this.SetDateEd(DateEd);
 	}
+	
 	/**
 	 * 
-	 * @param _name - the name of the person who is working on the file
+	 * Gets the Name of person 
+	 * @return _name
+	 * @since 1.0
 	 * 
 	 */
 	private String _name;
 	/***
-	 * @param _formId - the Number the Form
+	 * Gets the ID of the Form 
+	 * @return _formID
+	 * @since 1.0
 	 * 
 	 */
 	private String _formId;
 	/***
-	 * @param _version - the Number of the Version the program is
+	 * Gets the Version of program 
+	 * @return _version
+	 * @since 1.0
 	 * 
 	 */
 	private String _version;
 	/***
-	 *  @param _description - the description of what the form is about
+	 *  Gets the Description of the form 
+	 *  @return _description
+	 *  @since 1.0
 	 *  
 	 */
 	private String _description;
 	/***
-	 *  @param _author - the name of the individuals name who originally worked on the form
-	 *  
+	 * Gets the Name of the Form
+	 *  @return _author
+	 *  @since 1.0
 	 */
 	private String _author;
 	/***
-	 * @param _dateCrt - the date the form was originally was created on
-	 *  
+	 * Gets the Date when the form was originally created from the computer 
+	 *  @return _dateCrt
+	 *  @since 1.0
 	 */
 	private String _dateCrt;
 	/***
-	 * @param _dateEd - the date the form is edited on
-	 * 	
+	 * Gets the Date when the form was edited from the computer 
+	 * @return _dateEd
+	 * @since 1.0
 	 */
 	private String _dateEd;
 
@@ -79,7 +101,8 @@ public class Meta
 	
 		/**
 		 * Getter for Name 
-		 * return @Name
+		 * @return Name
+		 * @since 1.0
 		 */
 		public String GetName() 
 		{
@@ -88,8 +111,8 @@ public class Meta
 		
 		/**
 		 * Setter for Name
-		 * _name set to @Name
-		 * @param Name
+		 * @param Name 
+		 * @since 1.0
 		 */
 		public void SetName(String Name) 
 		{
@@ -98,7 +121,8 @@ public class Meta
 		
 		/**
 		 * Getter for Form ID 
-		 * return @FormId
+		 * @return FormId
+		 * @since 1.0
 		 */
 		public String GetFormId() 
 		{
@@ -107,8 +131,8 @@ public class Meta
 		
 		/**
 		 * Setter for FormId
-		 * _formId set to FormId
 		 * @param FormId
+		 * @since 1.0
 		 */
 		public void SetFormId(String FormId) 
 		{
@@ -117,8 +141,8 @@ public class Meta
 		
 		/**
 		 * Getter for Version
-		 * return @Version
-		 * @return
+		 * @return Version
+		 * @since 1.0
 		 */
 		public String GetVersion() 
 		{
@@ -127,8 +151,8 @@ public class Meta
 		
 		/**
 		 * Setter for Version
-		 * _version set to Version 
 		 * @param Version
+		 * @since 1.0
 		 */
 		public void SetVersion(String Version) 
 		{
@@ -137,8 +161,8 @@ public class Meta
 		
 		/**
 		 * Getter for Descriptions
-		 * return @Description
-		 * @return
+		 * @return Description
+		 * @since 1.0
 		 */
 		public String GetDescription() 
 		{
@@ -147,8 +171,8 @@ public class Meta
 		
 		/**
 		 * Setter for Description
-		 * _description set to Description
 		 * @param Description
+		 * @since 1.0
 		 */
 		public void SetDescription(String Description) 
 		{
@@ -157,8 +181,8 @@ public class Meta
 		
 		/**
 		 * Getter for Author
-		 * return @Author
-		 * @return
+		 * @return Author
+		 * @since 1.0
 		 */
 		public String GetAuthor() 
 		{
@@ -167,8 +191,8 @@ public class Meta
 		
 		/**
 		 * Setter for Author 
-		 * _author set to Author
 		 * @param Author
+		 * @since 1.0
 		 */
 		public void SetAuthor(String Author) 
 		{
@@ -177,8 +201,8 @@ public class Meta
 		
 		/**
 		 * Getter for Date Created 
-		 * return @DateCrt
-		 * @return
+		 * @return DateCrt
+		 * @since 1.0
 		 */
 		public String GetDateCrt() 
 		{
@@ -187,8 +211,8 @@ public class Meta
 		
 		/**
 		 * Setter for Date Created 
-		 * _dateCrt set to DateCrt
 		 * @param DateCrt
+		 * @since 1.0
 		 */
 		public void SetDateCrt(String DateCrt) 
 		{
@@ -197,8 +221,8 @@ public class Meta
 		
 		/**
 		 * Getter for Date Edited 
-		 * return @DateEd
-		 * @return
+		 * @return DateEd
+		 * @since 1.0
 		 */
 		public String GetDateEd() 
 		{
@@ -207,8 +231,8 @@ public class Meta
 		
 		/**
 		 * Setter for DateEd 
-		 * _dateEd set to DateEd
 		 * @param DateEd
+		 * @since 1.0
 		 */
 		public void SetDateEd(String DateEd) 
 		{
