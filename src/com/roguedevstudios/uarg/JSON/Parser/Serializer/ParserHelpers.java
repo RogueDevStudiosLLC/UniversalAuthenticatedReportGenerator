@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javax.swing.text.html.parser.Element;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
@@ -216,13 +218,8 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		// Deserialize this into the variable
 		// Set the ID of this variable
 		// Return the constructed variable
-		
-		
-		
-	
-		
-	
-	JsonObject o = ElementgetAsObject();
+			
+	JsonObject o = Element.getAsObject();
 	
 	TreeMap<String, Variable<Integer>> IntMap;
 	TreeMap<String, Variable<Integer[]>> IntegerArrayMap;
