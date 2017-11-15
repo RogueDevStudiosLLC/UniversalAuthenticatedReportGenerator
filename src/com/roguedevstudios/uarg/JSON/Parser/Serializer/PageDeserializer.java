@@ -38,10 +38,10 @@ public class PageDeserializer implements JsonDeserializer<Page>
 	{
 		/*Temporary slot for page name*/
 		String _name = null;
+		/*Temporary slot for pageid*/
+		String _pageId = null;
 		/*Temporary slot for description*/
 		String _description = null;
-		/*Temporary slot for tab id*/
-		String _tabid = null;
 		/*Temporary slot for icon*/
 		String _icon = null;
 		/*Temporary slot for template*/
@@ -56,6 +56,11 @@ public class PageDeserializer implements JsonDeserializer<Page>
 		Page p;
 		/* Convert JsonElement into JsonObject */
 		JsonObject a = json.getAsJsonObject();
+		//If page has a ID we grab it
+		if(a.has("_pageId"))
+		{
+			_pageId = a.get("_pageId").getAsString();
+		}
 		//If the object has a page name, then we grab it
 		if(a.has("name"))
 		{
@@ -69,7 +74,6 @@ public class PageDeserializer implements JsonDeserializer<Page>
 		//If the page has a tab id, then we grab it
 		if(a.has("tabid"))
 		{
-			_tabid = a.get("tabid").getAsString();
 		}
 		//If the page has a icon, then we grab it
 		if(a.has("icon"))
@@ -97,7 +101,7 @@ public class PageDeserializer implements JsonDeserializer<Page>
 			_variableid = a.get("logo").getAsString();
 		}
 		//Build the new page objects to return
-		p = new Page(_name, _description, _variableid, _icon , _template, _colors, _logo, _tabid);
+		p = new Page(_name, _description, _variableid, _icon , _template, _colors, _logo);
 		
 		return p;
 		}
