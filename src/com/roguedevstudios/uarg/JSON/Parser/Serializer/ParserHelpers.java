@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Elements.Variables;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
@@ -216,11 +217,10 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		// Set the ID of this variable
 		// Return the constructed variable
 		
-		return null;
+		
+		
 	
-	
-	
-	
+		
 	
 	JsonObject o = ElementgetAsObject();
 	
@@ -237,45 +237,59 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	TreeMap<String, Variable<Boolean>> BooleanMap;
 	TreeMap<String, Variable<Boolean[]>> BooleanArrayMap;
 	
-	for(Map<String, JsonElement> element: o.getEntrySet()) {
+	
+	this._integerMap = IntMap;
+	this._integerArrayMap = IntegerArrayMap;
+	this._stringMap = StringMap;
+	this._stringArrayMap = StringArrayMap;
+	this._floatMap = FloatMap;
+	this._floatArrayMap = FloatArrayMap;
+	this._longMap = DoubleMap;
+	this._longArrayMap = DoubleArrayMap;
+	this._doubleMap = DoubleMap;
+	this._doubleArrayMap = DoubleArrayMap;
+	this._booleanMap = BooleanMap;
+	this._booleanArrayMap = BooleanArrayMap;
+	
+	for(Map.Entry<String, JsonElement> element: o.entrySet()) {
 		
 		switch(element.getKey()) {
 		
 		case "Integer":
-		IntMap = ParserIntegerSection(element.GetInteger());
+		IntMap = ParserIntegerSection(element.get("Integer"));
 		
 		case "IntegerArray":
-		IntegerArrayMap = ParserIntegerArraySection(element.GetIntegerArray());
+		IntegerArrayMap = ParserIntegerArraySection(element.get("IntegerArray"));
 		
 		case "String":
-	    StringMap = ParserStringSection(element.GetString());
+	    StringMap = ParserStringSection(element.get("String"));
 			
 		case "StringArray":
-		StringArrayMap = ParserStringArraySection(element.GetStringArray());
+		StringArrayMap = ParserStringArraySection(element.get("StringArray"));
 		
 		case "Float":
-		FloatMap = ParserFloatSection(element.GetFloat());
+		FloatMap = ParserFloatSection(element.get("Float"));
 			
 		case "FloatArray":
-		FloatArrayMap = ParserFloatArraySection(element.GetFloatArray());
+		FloatArrayMap = ParserFloatArraySection(element.get("FloatArray"));
 		
 		case "Long":
-		LongMap = ParserLongSection(element.GetLong());
+		LongMap = ParserLongSection(element.get("Long"));
 			
 		case "LongArray":
-		LongArrayMap = ParserLongArraySection(element.GetLongArray());
+		LongArrayMap = ParserLongArraySection(element.get("LongArray"));
 		
 		case "Double":
-		DoubleMap = ParserDoubleSection(element.GetDouble());
+		DoubleMap = ParserDoubleSection(element.get("Double"));
 			
 		case "DoubleArray":
-		DoubleArrayMap = ParserDoubleArraySection(element.GetDoubleArray());
+		DoubleArrayMap = ParserDoubleArraySection(element.get("DoubleArray"));
 		
 		case "Boolean":
-		BooleanMap = ParserBooleanSection(element.GetBoolean());
+		BooleanMap = ParserBooleanSection(element.get("Boolean"));
 			
 		case "BooleanArray":
-		BooleanArrayMap = ParserBooleanArraySection(element.GetBooleanArray());
+		BooleanArrayMap = ParserBooleanArraySection(element.get("BooleanArray"));
 		}
 	}
 	
@@ -316,7 +330,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	if(BooleanArrayMap == null)
 		BooleanArrayMap = new TreeMap<String,Variable<Boolean[]>>();
 	
-	Variables v = new Variables();
+	Variables v = new Variables(IntMap,IntegerArrayMap, StringMap, StringArrayMap, FloatMap, FloatArrayMap, LongMap, LongArrayMap, DoubleMap, DoubleArrayMap, BooleanMap, BooleanArrayMap );
 	
 	
 	return v;	
