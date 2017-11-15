@@ -214,11 +214,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	 * @since 1.0
 	 */
 	public static <V> Variables ParseVariables(JsonElement json, String ID, VariableType Type){
-		// Get the inner portion of this json
-		// Deserialize this into the variable
-		// Set the ID of this variable
-		// Return the constructed variable
-	
+
 	// Convert JsonElement into JsonObject to get at the entry sets
 	JsonObject o = Element.getAsObject();
 	
@@ -237,7 +233,8 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	TreeMap<String, Variable<Boolean>> BooleanMap;
 	TreeMap<String, Variable<Boolean[]>> BooleanArrayMap;
 	
-	
+	// i know i need this just don't know where to implement this
+	/*
 	this._integerMap = IntMap;
 	this._integerArrayMap = IntegerArrayMap;
 	this._stringMap = StringMap;
@@ -250,6 +247,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	this._doubleArrayMap = DoubleArrayMap;
 	this._booleanMap = BooleanMap;
 	this._booleanArrayMap = BooleanArrayMap;
+	*/
 	
 	// Loop through the Entry Set and call the correct parser
 	// assigning the parsers output to the correct TreeMap
