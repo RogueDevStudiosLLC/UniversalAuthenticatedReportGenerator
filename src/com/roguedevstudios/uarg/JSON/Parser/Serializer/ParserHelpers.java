@@ -257,40 +257,65 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		switch(element.getKey()) {
 		
 		case "Integer":
-		IntMap = ParserIntegerSection(element.get("Integer"));
+		IntMap = ParserIntegerSection(element.GetInteger("Integer"));
+		
+		break;
 		
 		case "IntegerArray":
-		IntegerArrayMap = ParserIntegerArraySection(element.get("IntegerArray"));
+		IntegerArrayMap = ParserIntegerArraySection(element.GetIntegerArray("IntegerArray"));
+		
+		break;
 		
 		case "String":
-	    StringMap = ParserStringSection(element.get("String"));
+	    StringMap = ParserStringSection(element.GetString("String"));
 			
+	    break;
+	    
 		case "StringArray":
-		StringArrayMap = ParserStringArraySection(element.get("StringArray"));
+		StringArrayMap = ParserStringArraySection(element.GetStringArray("StringArray"));
+		
+		break;
 		
 		case "Float":
-		FloatMap = ParserFloatSection(element.get("Float"));
-			
+		FloatMap = ParserFloatSection(element.GetFloat("Float"));
+		
+		break;
+		
 		case "FloatArray":
-		FloatArrayMap = ParserFloatArraySection(element.get("FloatArray"));
+		FloatArrayMap = ParserFloatArraySection(element.GetFloatArray("FloatArray"));
+		
+		break;
 		
 		case "Long":
-		LongMap = ParserLongSection(element.get("Long"));
-			
+		LongMap = ParserLongSection(element.GetLong("Long"));
+		
+		break;
+		
 		case "LongArray":
-		LongArrayMap = ParserLongArraySection(element.get("LongArray"));
+		LongArrayMap = ParserLongArraySection(element.GetLongArray("LongArray"));
+		
+		break;
 		
 		case "Double":
-		DoubleMap = ParserDoubleSection(element.get("Double"));
-			
+		DoubleMap = ParserDoubleSection(element.GetDouble("Double"));
+		
+		break;
+		
 		case "DoubleArray":
-		DoubleArrayMap = ParserDoubleArraySection(element.get("DoubleArray"));
+		DoubleArrayMap = ParserDoubleArraySection(element.GetDoubleArray("DoubleArray"));
+		
+		break;
 		
 		case "Boolean":
-		BooleanMap = ParserBooleanSection(element.get("Boolean"));
-			
+		BooleanMap = ParserBooleanSection(element.GetBoolean("Boolean"));
+		
+		break;
+		
 		case "BooleanArray":
-		BooleanArrayMap = ParserBooleanArraySection(element.get("BooleanArray"));
+		BooleanArrayMap = ParserBooleanArraySection(element.GetBooleanArray("BooleanArray"));
+		
+		break;
+		
 		}
 	}
 	
@@ -333,7 +358,9 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	
 	// Create a Variables Object using the 12 TreeMaps we got
 	
-	Variables v = new Variables(IntMap,IntegerArrayMap, StringMap, StringArrayMap, FloatMap, FloatArrayMap, LongMap, LongArrayMap, DoubleMap, DoubleArrayMap, BooleanMap, BooleanArrayMap );
+	Variables v = new Variables(IntMap,IntegerArrayMap, StringMap,
+			                    StringArrayMap, FloatMap, FloatArrayMap, LongMap, 
+			                    LongArrayMap, DoubleMap, DoubleArrayMap, BooleanMap, BooleanArrayMap );
 	
 	// Return the Variables object
 	
