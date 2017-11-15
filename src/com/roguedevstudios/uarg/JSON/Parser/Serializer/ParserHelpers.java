@@ -218,9 +218,12 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 		// Deserialize this into the variable
 		// Set the ID of this variable
 		// Return the constructed variable
-			
+	
+	// Convert JsonElement into JsonObject to get at the entry sets
 	JsonObject o = Element.getAsObject();
 	
+	
+	// Declare the 12 TreeMaps needed
 	TreeMap<String, Variable<Integer>> IntMap;
 	TreeMap<String, Variable<Integer[]>> IntegerArrayMap;
 	TreeMap<String, Variable<String>> StringMap;
@@ -247,6 +250,9 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	this._doubleArrayMap = DoubleArrayMap;
 	this._booleanMap = BooleanMap;
 	this._booleanArrayMap = BooleanArrayMap;
+	
+	// Loop through the Entry Set and call the correct parser
+	// assigning the parsers output to the correct TreeMap
 	
 	for(Map.Entry<String, JsonElement> element: o.entrySet()) {
 		
@@ -327,8 +333,11 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	if(BooleanArrayMap == null)
 		BooleanArrayMap = new TreeMap<String,Variable<Boolean[]>>();
 	
+	// Create a Variables Object using the 12 TreeMaps we got
+	
 	Variables v = new Variables(IntMap,IntegerArrayMap, StringMap, StringArrayMap, FloatMap, FloatArrayMap, LongMap, LongArrayMap, DoubleMap, DoubleArrayMap, BooleanMap, BooleanArrayMap );
 	
+	// Return the Variables object
 	
 	return v;	
 	}
