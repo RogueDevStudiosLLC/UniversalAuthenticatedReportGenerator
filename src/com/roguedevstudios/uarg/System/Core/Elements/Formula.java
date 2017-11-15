@@ -1,10 +1,18 @@
 /************************************************
  * Formula Class File                           *
  * File name: Formula.java                      *
- * The class file for a formula.                *
+ * The class file for formulas.                *
  ***********************************************/
 
 package com.roguedevstudios.uarg.System.Core.Elements;
+
+/**
+ * This class is the formula class.
+ * 
+ * @author Chelsea Hunter
+ * @author Christopher E. Howard
+ * @since 1.0
+ */
 
 import net.objecthunter.exp4j.*;
 import net.objecthunter.exp4j.function.*;
@@ -12,17 +20,6 @@ import net.objecthunter.exp4j.operator.*;
 import net.objecthunter.exp4j.tokenizer.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-/**
- * This class is a formula class.
- * 
- * @author Chelsea Hunter
- * @u
- * @since 1.0
- */
-
-// TODO:
-// Import variable.java, exp4j
 
 public class Formula {
     /* Class Attributes */
@@ -35,6 +32,8 @@ public class Formula {
     private String _formulaId;
     /* The base equation this formula uses */
     private String _formulaEquation;
+    /* The exp4j expression of the formula object*/
+    private Expression _formulaExp4jExpression; // Does this need a getter?
     /* Input array of variables converted to doubles*/
     private double[] _formulaInputArray;
 
@@ -52,6 +51,7 @@ public class Formula {
     * @param formulaDesc	A formula's description, taken from _formulaDesc
     * @param formulaId		A formula's id, taken from _formulaId
     * @param formulaEquation	A formula's equation, taken from _formulaEquation
+    * @throws An exception if validation of the exp4j expression is unsuccessful.
     */
     public Formula (String formulaName, String formulaDesc, String formulaId, String formulaEquation) {
         this._formulaName = formulaName;
@@ -59,9 +59,32 @@ public class Formula {
         this._formulaId = formulaId;
         this._formulaEquation = formulaEquation;
         /* Build and Validate Expression using Exp4j here*/
+        this._formulaExp4jExpression = _buildExpression();
+        // Validate new exp4j expression here
+        // if validate unsuccessful then throw and abort?
+        // if success continue
+        // ==See what to do for this in terms of how to do
         this._formulaInputArray = new double[this._inputCount()];
     }
     
+    /**
+     * A method to build an exp4j expression for a formula object,
+     * given that a valid formula equation was input by the configuration file.
+     * @throws An exception if _formulaEquation cannot be parsed.
+     * @return A new exp4j expression to be re-used by the object.
+     */
+    private Expression _buildExpression() {
+    	// Expression e = new ExpressionBuilder(this._formulaEquation)
+    		//RegEx should separate _variableX_ between operators or functions
+    		//Make an expression variable for _variableX_
+    		//Parse operator or function into expression
+    		//Do as many times as needed
+    		//==(Exp4j may be able to do this without any RegEx?)
+    		//==Are we making this a new string to use in builder oooor?
+    		//==Either way, once done setting up
+    		//.build
+    	// Return e
+    }
     
     /**
     * Method that counts the input variables in an equation and returns that number.
@@ -69,11 +92,9 @@ public class Formula {
     * @return An integer representing the amount of input variables in an equation.
     */
     private int _inputCount () {
-         /* Each variable counted by RegEx = one variable expected in array.
-         * Counting variables in equation and returning that number
+         /* Maybe every string in expression.getVariableNames() = one input expected
          */
-    	
-        // TODO:
+        // TODO: Return an integer that is the number of inputs expected by a formula.
         return 0;
     }
     
@@ -137,6 +158,15 @@ public class Formula {
     // if there's a problem we need to throw an exception
     // == Almost always means we wrap our process in a try catch block and spit the exception back to the user
     
+   private double _process() {
+    	// Exp4j processing here using expression
+    	// For loop
+    		// For string in this.expression.getVariableNames()
+    		// this.expression.setVariable(String, this._formulaInputArray[i])
+    		// i++
+    	// Return this.expression.evaluate()
+    }
+    
     /**
      * Method to clear the temporary variables array.
      * Called by processToInteger().
@@ -177,14 +207,6 @@ public class Formula {
      */
     public String GetEquation(){
         return this._formulaEquation;
-    }
-    
-    /**
-     * Gets the formula exp4j compatible expression.
-     * @return The formula expression (String).
-     */
-    public String GetExpression(){
-        return this._formulaExpression;
     }
     
     /**
