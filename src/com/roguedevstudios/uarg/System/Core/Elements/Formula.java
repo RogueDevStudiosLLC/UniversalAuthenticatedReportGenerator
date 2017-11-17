@@ -30,10 +30,8 @@ public class Formula {
     private String _formulaDesc;
     /* The ID of a formula */
     private String _formulaId;
-    /* The base equation this formula uses */
+    /* The equation string this formula uses to build an exp4j expression */
     private String _formulaEquation;
-    /* The exp4j expression of the formula object*/
-    private Expression _formulaExp4jExpression; // Does this need a getter?
     /* Input array of variables converted to doubles*/
     private double[] _formulaInputArray;
 
@@ -59,7 +57,6 @@ public class Formula {
         this._formulaId = formulaId;
         this._formulaEquation = formulaEquation;
         /* Build and Validate Expression using Exp4j here*/
-        this._formulaExp4jExpression = _buildExpression();
         // Validate new exp4j expression here
         // if validate unsuccessful then throw and abort?
         // if success continue
@@ -71,19 +68,28 @@ public class Formula {
      * A method to build an exp4j expression for a formula object,
      * given that a valid formula equation was input by the configuration file.
      * @throws An exception if _formulaEquation cannot be parsed.
-     * @return A new exp4j expression to be re-used by the object.
+     * @return ?
      */
+    //TODO: Add exceptions for nulls, bad ins, w.e.
     private Expression _buildExpression() {
-    	// Expression e = new ExpressionBuilder(this._formulaEquation)
-    		//RegEx should separate _variableX_ between operators or functions
-    		//Make an expression variable for _variableX_
-    		//Parse operator or function into expression
-    		//Do as many times as needed
-    		//==(Exp4j may be able to do this without any RegEx?)
-    		//==Are we making this a new string to use in builder oooor?
-    		//==Either way, once done setting up
-    		//.build
-    	// Return e
+    	// Make base Exp4j ExpressionBuilder using _formulaEquation string as input
+    	ExpressionBuilder _formulaExpressionBuilder = new ExpressionBuilder(this._formulaEquation);
+    	// Setup regex pattern we want to use to isolate formula variables from _formulaEquation string
+    	// ==In terms of modularity, should we keep the regex string we use as a field for formulas that can be changed by config? Dunno, probably not, would be interesting though
+    	Pattern _formulaRegex = new Pattern.compile("\s?_[a-zA-z0-9_]*_\s?");
+    	// Make a matcher to get the variables out of the formula equation string given, using above pattern
+    	Matcher _formulaVarMatcher = new _formulaRegex.matcher(this._formulaEquation);
+    	// While regex matcher can find matching values, set them as variables in exp4j expressionbuilder
+    	while (_formulaVarMatcher.find()) {
+    		// While index i, starting at 1, is less than matcher.groupCount(), which inherently does not include groupCount(0)
+    		for (int i=1; i<=_formulaVarMatcher.groupCount(); i++) {
+    			// Set ith match from regex as a variable in the formula expression builder
+    			_formulaExpressionBuilder.variable(_formulaVarMatcher.group(i));
+    		}
+    	}
+    	// Once regex stuff is done and variables are set, properly build the expression.
+    	Expression _formulaExpression = _formulaExpressionBuilder.build();
+    	return _formulaExpression;
     }
     
     /**
@@ -108,7 +114,7 @@ public class Formula {
     * @throws InvalidNumberOfArgumentsException	If the variable object array given does not have the correct amount of elements.
     * @throws InvalidArgumentException	If array values cannot be parsed into a numerical value.
     */
-    public Integer processToInteger(Variable<?>[] vars){
+    public Integer GetIntegerResult(IVariable<?>[] vars){
         // If the array is the wrong size throw an exception
         if(vars.length != this._formulaInputArray.length){
             throw new InvalidNumberOfArgumentsExceptionPleaseWriteMe(); // TODO: Make exception
@@ -136,7 +142,7 @@ public class Formula {
     * @param vars		The Variable objects with the desired input values.
     * @throws Exception	If one of the argument values given is not capable of being parsed into a Double.
     */
-    private void _tempArrayDoubleConversion(Variable<?>[] vars) throws Exception{
+    private void _tempArrayDoubleConversion(IVariable<?>[] vars) throws Exception{
         int i = 0;
         try{
         	for(Variable<?> var : vars){
