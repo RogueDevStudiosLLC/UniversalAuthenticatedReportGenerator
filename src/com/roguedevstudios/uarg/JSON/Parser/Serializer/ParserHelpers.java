@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
 import com.roguedevstudios.uarg.System.Core.Elements.FormulaSet;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
+import com.roguedevstudios.uarg.System.Core.Elements.Variables;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
@@ -138,6 +139,27 @@ public class ParserHelpers {
 		return map;
 }	
 	
+	
+	/**		
+	 * Parses a Variable TreeMap Object into a Variables TreeMap
+	 * @return map
+	 * @author Terry Roberson 
+	 * @since 1.0
+	 */
+	public static TreeMap<String, TreeMap<String, Variable<Integer>>> ParseVariables(JsonElement json, String ID){
+		JsonObject o = json.getAsJsonObject();
+		Set<Map.Entry<String, JsonElement>> JsonVars = o.entrySet();
+		TreeMap<String, TreeMap<String, Variable<Integer>>> intMap = new TreeMap<>();
+		for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
+			
+			intMap.put(entry.getKey(), ParserHelpers.ParseIntegerVariableSection(entry.getValue()));
+			
+		}
+		
+		return intMap;
+		
+	}
+	
 	//***** STRING SECTION *****\\
 	public static Variable<String> ParseStringVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with out custom deserializer
@@ -165,7 +187,7 @@ public class ParserHelpers {
 	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<String>> ParseStringVariableSection(JsonElement json, String ID){
+	public static TreeMap<String, Variable<String>> ParseStringVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
@@ -208,7 +230,7 @@ public class ParserHelpers {
 	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Double>> ParseDoubleVariableSection(JsonElement json, String ID){
+	public static TreeMap<String, Variable<Double>> ParseDoubleVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
@@ -252,7 +274,7 @@ public class ParserHelpers {
 	 * @Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Long>> ParseLongVariableSection(JsonElement json, String ID){
+	public static TreeMap<String, Variable<Long>> ParseLongVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
@@ -296,7 +318,7 @@ public class ParserHelpers {
 	 * @Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Float>> ParseFloatVariableSection(JsonElement json, String ID){
+	public static TreeMap<String, Variable<Float>> ParseFloatVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
@@ -341,7 +363,7 @@ public class ParserHelpers {
 	 * @Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Boolean>> ParseBooleanVariableSection(JsonElement json, String ID){
+	public static TreeMap<String, Variable<Boolean>> ParseBooleanVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse

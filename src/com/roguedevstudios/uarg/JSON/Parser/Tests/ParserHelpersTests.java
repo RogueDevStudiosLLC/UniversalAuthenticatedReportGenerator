@@ -200,7 +200,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<String>> testMap = ParserHelpers.ParseStringVariableSection(s1, idValue);
+		TreeMap<String,Variable<String>> testMap = ParserHelpers.ParseStringVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -296,7 +296,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Double>> testMap = ParserHelpers.ParseDoubleVariableSection(s1, idValue);
+		TreeMap<String,Variable<Double>> testMap = ParserHelpers.ParseDoubleVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -394,7 +394,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Long>> testMap = ParserHelpers.ParseLongVariableSection(s1, idValue);
+		TreeMap<String,Variable<Long>> testMap = ParserHelpers.ParseLongVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -492,7 +492,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Float>> testMap = ParserHelpers.ParseFloatVariableSection(s1, idValue);
+		TreeMap<String,Variable<Float>> testMap = ParserHelpers.ParseFloatVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -590,7 +590,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Boolean>> testMap = ParserHelpers.ParseBooleanVariableSection(s1, idValue);
+		TreeMap<String,Variable<Boolean>> testMap = ParserHelpers.ParseBooleanVariableSection(s1);
 		
 		
 		// Fetch key information for variables
