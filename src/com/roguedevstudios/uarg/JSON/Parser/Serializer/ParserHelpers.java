@@ -397,10 +397,21 @@ public static TreeMap<String, Variable<String>> ParseIntegerVariablesSection(Jso
 
 
 	 		// Start the GsonBuilder so we can customize it with out custom deserializer
-
-
 	 		GsonBuilder gsonBuild = new GsonBuilder();
-
+	 	    // Grab our custom deserializer and create an instance of
+			JsonDeserializer<Variable<Integer>> cDeserializer = new IntegerVariableDeserializer();
+			// Register the deserializer
+			gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+			//Initialize our custom Gson object
+			Gson customGson = gsonBuild.create();
+			// Deserialize the object to a Variable<Boolean> object
+			Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+			// Manually set the ID as deserializer can not do so normally
+			retVar.SetId(ID);
+			// Clean up
+			gsonBuild = null;
+			customGson = null;
+			// Return the constructed object to the caller
 
 
 
@@ -472,7 +483,20 @@ public static TreeMap<String, Variable<String>> ParseIntegerVariablesSection(Jso
 
 
 	 		GsonBuilder gsonBuild = new GsonBuilder();
-
+	 	    // Grab our custom deserializer and create an instance of
+			JsonDeserializer<Variable<Integer>> cDeserializer = new IntegerVariableDeserializer();
+			// Register the deserializer
+			gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+			//Initialize our custom Gson object
+			Gson customGson = gsonBuild.create();
+			// Deserialize the object to a Variable<Boolean> object
+			Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+			// Manually set the ID as deserializer can not do so normally
+			retVar.SetId(ID);
+			// Clean up
+			gsonBuild = null;
+			customGson = null;
+			// Return the constructed object to the caller
 
 
 
@@ -538,12 +562,22 @@ public static TreeMap<String, Variable<String>> ParseIntegerVariablesSection(Jso
 
 	 	public static Variables ParseLongVariables(JsonElement json, String ID){
 
-
-	 		// Start the GsonBuilder so we can customize it with out custom deserializer
-
-
+	 	    // Start the GsonBuilder so we can customize it with our custom deserializer
 	 		GsonBuilder gsonBuild = new GsonBuilder();
-
+	 	    // Grab our custom deserializer and create an instance of
+			JsonDeserializer<Variable<Integer>> cDeserializer = new IntegerVariableDeserializer();
+			// Register the deserializer
+			gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+			//Initialize our custom Gson object
+			Gson customGson = gsonBuild.create();
+			// Deserialize the object to a Variable<Boolean> object
+			Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+			// Manually set the ID as deserializer can not do so normally
+			retVar.SetId(ID);
+			// Clean up
+			gsonBuild = null;
+			customGson = null;
+			// Return the constructed object to the caller
 
 
 
@@ -609,18 +643,23 @@ public static TreeMap<String, Variable<String>> ParseIntegerVariablesSection(Jso
 
 	 	public static Variables ParseFloatVariables(JsonElement json, String ID){
 
-
-	 		// Start the GsonBuilder so we can customize it with out custom deserializer
-
-
+	 	    // Start the GsonBuilder so we can customize it with our custom deserializer
 	 		GsonBuilder gsonBuild = new GsonBuilder();
-
-
-
-
+	 	    // Grab our custom deserializer and create an instance of
+			JsonDeserializer<Variable<Integer>> cDeserializer = new IntegerVariableDeserializer();
+			// Register the deserializer
+			gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+			//Initialize our custom Gson object
+			Gson customGson = gsonBuild.create();
+			// Deserialize the object to a Variable<Boolean> object
+			Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+			// Manually set the ID as deserializer can not do so normally
+			retVar.SetId(ID);
+			// Clean up
+			gsonBuild = null;
+			customGson = null;
+			// Return the constructed object to the caller
 	 		return retVar;
-
-
 	 	}
 
 		/**		
@@ -680,12 +719,22 @@ public static TreeMap<String, Variable<String>> ParseIntegerVariablesSection(Jso
 
 	 	public static Variables ParseBooleanVariables(JsonElement json, String ID){
 
-
-	 		// Start the GsonBuilder so we can customize it with out custom deserializer
-
-
+	 	    // Start the GsonBuilder so we can customize it with our custom deserializer
 	 		GsonBuilder gsonBuild = new GsonBuilder();
-
+	 	    // Grab our custom deserializer and create an instance of
+			JsonDeserializer<Variable<Integer>> cDeserializer = new IntegerVariableDeserializer();
+			// Register the deserializer
+			gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+			//Initialize our custom Gson object
+			Gson customGson = gsonBuild.create();
+			// Deserialize the object to a Variable<Boolean> object
+			Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+			// Manually set the ID as deserializer can not do so normally
+			retVar.SetId(ID);
+			// Clean up
+			gsonBuild = null;
+			customGson = null;
+			// Return the constructed object to the caller
 
 
 
