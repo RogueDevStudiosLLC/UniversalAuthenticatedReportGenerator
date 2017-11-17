@@ -9,6 +9,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.roguedevstudios.uarg.System.Core.Elements.Formula;
+import com.roguedevstudios.uarg.System.Core.Elements.FormulaSet;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
@@ -30,8 +32,40 @@ public class ParserHelpers {
 	 * @author Christopher E. Howard
 	 * @since 1.0
 	 */
+<<<<<<< HEAD
 
 	//***** INTEGER SECTION ******\\
+=======
+	
+	public static Formula ParseFormula(JsonElement json) {
+		// Start the GsonBuilder
+		GsonBuilder gsonBuild = new GsonBuilder();
+		// Grab custom deserializer and create an instance of it for use
+		JsonDeserializer<Formula> cDeserializer = new FormulaDeserializer();
+		// Register the deserializer
+		gsonBuild.registerTypeAdapter(Formula.class, cDeserializer);
+		// Initialize out custom Gson object
+		Gson customGson = gsonBuild.create();
+		// Deserialize the object to a Formula object
+		Formula retForm = customGson.fromJson(json, Formula.class);
+		// Clean up
+		gsonBuild = null;
+		customGson = null;
+		// Return the constructed object to the caller
+		return retForm;
+	}
+
+	
+	public static <V> Variable<V> ParseVariable(JsonElement json, String ID, VariableType Type){
+		// Get the inner portion of this json
+		// Deserialize this into the variable
+		// Set the ID of this variable
+		// Return the constructed variable
+		
+		return null;
+	}
+	
+>>>>>>> af2a1efb76e3655096bf2195bc3b99246b7b2008
 	public static Variable<Integer> ParseIntegerVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with our custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
