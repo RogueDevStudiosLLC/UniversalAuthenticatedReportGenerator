@@ -1,3 +1,5 @@
+package com.roguedevstudios.uarg.System.Core.Elements.Interface;
+
 public interface IFormula {
 	/**
 	 * Takes in an array of Number based Variables and
@@ -6,7 +8,7 @@ public interface IFormula {
 	 * @param args
 	 * @return
 	 */
-	Integer CalculateToInteger(Variable<?>[] args);
+	Integer CalculateToInteger(IVariable<?>[] args);
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
@@ -14,7 +16,7 @@ public interface IFormula {
 	 * @param args
 	 * @return
 	 */
-	Double CalculateToDouble(Variable<?>[] args);
+	Double CalculateToDouble(IVariable<?>[] args);
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
@@ -22,7 +24,7 @@ public interface IFormula {
 	 * @param args
 	 * @return
 	 */
-	Float CalculateToFloat(Variable<?>[] args);
+	Float CalculateToFloat(IVariable<?>[] args);
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
@@ -30,7 +32,7 @@ public interface IFormula {
 	 * @param args
 	 * @return
 	 */
-	Long CalculateToLong(Variable<?>[] args);
+	Long CalculateToLong(IVariable<?>[] args);
 	/**
 	 * Gets the string representation of the
 	 * derived formula.
