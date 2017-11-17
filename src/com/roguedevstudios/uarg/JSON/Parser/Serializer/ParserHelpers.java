@@ -21,22 +21,16 @@ import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
  *
  */
 public class ParserHelpers {
-
+	
 	/**
-	 * Parses a variable into a Variable<> object
-	 * @param JsonElement JsonElement Representation of this Variable
-	 * @param ID String ID of this Variable
-	 * @param Type VariableType of this Variable
-	 * @return Variable<> The non-type specific Variable object of this variable
+	 * Parses a Formula into a Formula object
+	 * @param JsonElement JsonElement Representation of this Formula
+	 * @param ID String ID of this Formula
+	 * @param Type FormulaType of this Formula
+	 * @return Formula The specific Formula object of this formula
 	 * @author Terry Roberson
-	 * @author Christopher E. Howard
 	 * @since 1.0
 	 */
-<<<<<<< HEAD
-
-	//***** INTEGER SECTION ******\\
-=======
-	
 	public static Formula ParseFormula(JsonElement json) {
 		// Start the GsonBuilder
 		GsonBuilder gsonBuild = new GsonBuilder();
@@ -54,6 +48,30 @@ public class ParserHelpers {
 		// Return the constructed object to the caller
 		return retForm;
 	}
+	
+	/**
+	 * Parses a Formula object into a Formula TreeMap
+	 * @return map
+	 * @author Terry Roberson
+	 * @since 1.0
+	 */
+	public static TreeMap<String, Formula> ParseFormulaSet(JsonElement json, String ID){
+		// Take jsonElement and convert to jsonObject
+		JsonObject o = json.getAsJsonObject();
+		// Get the entry set of Formulas to parse
+		Set<Map.Entry<String, JsonElement>> JsonForm = o.entrySet();
+		// Start up the tree map of the formulas
+		TreeMap<String, Formula> map = new TreeMap<>();
+		// Loop through the formulas
+		for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
+		// Construct the formula and put it in the tree map
+			map.put(entry.getKey(), ParserHelpers.ParseFormula(entry.getValue()));
+		}
+		
+		return map;
+	}
+
+
 
 	
 	public static <V> Variable<V> ParseVariable(JsonElement json, String ID, VariableType Type){
@@ -65,7 +83,18 @@ public class ParserHelpers {
 		return null;
 	}
 	
->>>>>>> af2a1efb76e3655096bf2195bc3b99246b7b2008
+	//***** INTEGER SECTION ******\\
+
+	/**
+	 * Parses a variable into a Variable<> object
+	 * @param JsonElement JsonElement Representation of this Variable
+	 * @param ID String ID of this Variable
+	 * @param Type VariableType of this Variable
+	 * @return Variable<> The non-type specific Variable object of this variable
+	 * @author Terry Roberson
+	 * @author Christopher E. Howard
+	 * @since 1.0
+	 */
 	public static Variable<Integer> ParseIntegerVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with our custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
@@ -89,9 +118,8 @@ public class ParserHelpers {
 	
 	/**		
 	 * Parses a Variable<> Object into a Variable TreeMap
-	 * @return 
-	 *  
-	 * @Terry Roberson 
+	 * @return map
+	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
 	public static TreeMap<String, Variable<Integer>> ParseIntegerVariableSection(JsonElement json){
@@ -133,9 +161,8 @@ public class ParserHelpers {
 	
 	/**		
 	 * Parses a Variable<> Object into a Variable TreeMap
-	 * @return 
-	 *  
-	 * @Terry Roberson 
+	 * @return map
+	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
 	public static TreeMap<String, Variable<String>> ParseStringVariableSection(JsonElement json, String ID){
@@ -177,9 +204,8 @@ public class ParserHelpers {
 	
 	/**		
 	 * Parses a Variable<> Object into a Variable TreeMap
-	 * @return 
-	 *  
-	 * @Terry Roberson 
+	 * @return map
+	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
 	public static TreeMap<String, Variable<Double>> ParseDoubleVariableSection(JsonElement json, String ID){
