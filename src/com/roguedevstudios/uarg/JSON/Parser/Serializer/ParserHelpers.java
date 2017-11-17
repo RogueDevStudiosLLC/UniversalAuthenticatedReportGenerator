@@ -330,44 +330,66 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 
 	 		// Start the GsonBuilder so we can customize it with our custom deserializer
-
-
 	 		GsonBuilder gsonBuild = new GsonBuilder();
-
-
-
-
-	 		// Start up the tree map for these variables
-
-
-	 		TreeMap<String,Variable<Integer>> map = new TreeMap<>();
-
-
-	 		// Loop through the variables
-
-			for(Map.Entry<String,JsonElement> entry: o.entrySet()){
-
-
-	 		// Construct the variable and put it in the tree map
-
-			map.put(entry.getKey(), ParserHelpers.ParseIntegerVariable(entry.getValue(), entry.getKey()));
-
-
-	 		
+	 	    // Grab our custom deserializer and create an instance of
+			JsonDeserializer<Variable<Integer>> cDeserializer = new IntegerVariableDeserializer();
+			// Register the deserializer
+			gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+			//Initialize our custom Gson object
+			Gson customGson = gsonBuild.create();
+			// Deserialize the object to a Variable<Boolean> object
+			Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+			// Manually set the ID as deserializer can not do so normally
+			retVar.SetId(ID);
+			// Clean up
+			gsonBuild = null;
+			customGson = null;
+			// Return the constructed object to the caller
+			return retVar;
 
 
 	 	}
 
-
-	 		return map;
-
-
-	 }	
+public static TreeMap<String, Variable<String>> ParseIntegerVariablesSection(JsonElement json, String ID){
 
 
+	//take jsonElement and convert to jsonObject
+
+
+	JsonObject o = json.getAsJsonObject();
+
+
+	// Get the entry set of variables to parse
+
+
+	Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+
+
+	// Start up the tree map for these variables
+
+
+	TreeMap<String,Variables> map = new TreeMap<>();
+
+
+	// Loop through the variables
+
+
+	for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+
+
+	// Construct the variable and put it in the tree map
+
+
+	map.put(entry.getKey(), ParserHelpers.ParseIntegerVariables(entry.getValue(), entry.getKey()));
+
+	}
+
+
+	return map;
+
+
+}	
 	 	
-
-
 		//***** STRING SECTION *****\\
 
 
@@ -387,28 +409,12 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 	 	}
 
-
-	 	
-
-
 		/**		
-
-
 		 * Parses a Variable<> Object into a Variable TreeMap
-
-
 		 * @return 
-
-
-		 *  
-
-
+		 * 
 		 * @Grant Richards 
-
-
 		 * @since 1.0
-
-
 		 */
 
 
@@ -456,10 +462,6 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 	}	
 
-
-		
-
-
 		//***** DOUBLE SECTION *****\\
 
 
@@ -479,30 +481,13 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 	 	}
 
-
-	 	
-
-
 		/**		
-
-
 		 * Parses a Variable<> Object into a Variable TreeMap
-
-
 		 * @return 
-
-
-		 *  
-
-
+		 * 
 		 * @Grant Richards 
-
-
 		 * @since 1.0
-
-
 		 */
-
 
 		public static TreeMap<String, Variables> ParseDoubleVariablesSection(JsonElement json, String ID){
 
@@ -548,10 +533,6 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 	}	
 
-
-		
-
-
 		//***** LONG SECTION *****\\
 
 
@@ -570,31 +551,14 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 
 	 	}
-
-
 	 	
-
-
 		/**		
-
-
 		 * Parses a Variable<> Object into a Variable TreeMap
-
-
 		 * @return 
-
-
-		 *  
-
-
+		 * 
 		 * @Grant Richards
-
-
 		 * @since 1.0
-
-
 		 */
-
 
 		public static TreeMap<String, Variable<Long>> ParseLongVariablesSection(JsonElement json, String ID){
 
@@ -640,10 +604,6 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 	}	
 
-
-		
-
-
 		//***** FLOAT SECTION *****\\
 
 
@@ -663,30 +623,13 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 	 	}
 
-
-	 	
-
-
 		/**		
-
-
 		 * Parses a Variable<> Object into a Variable TreeMap
-
-
 		 * @return 
-
-
 		 *  
-
-
 		 * @Grant Richards 
-
-
 		 * @since 1.0
-
-
 		 */
-
 
 		public static TreeMap<String, Variables> ParseFloatVariablesSection(JsonElement json, String ID){
 
@@ -732,13 +675,6 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 	}	
 
-
-	
-
-
-		
-
-
 		//***** BOOLEAN SECTION *****\\
 
 
@@ -758,30 +694,13 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 
 	 	}
 
-
-	 	
-
-
 		/**		
-
-
 		 * Parses a Variable<> Object into a Variable TreeMap
-
-
 		 * @return 
-
-
 		 *  
-
-
 		 * @Grant Richards
-
-
 		 * @since 1.0
-
-
 		 */
-
 
 		public static TreeMap<String, Variables> ParseBooleanVariablesSection(JsonElement json, String ID){
 
