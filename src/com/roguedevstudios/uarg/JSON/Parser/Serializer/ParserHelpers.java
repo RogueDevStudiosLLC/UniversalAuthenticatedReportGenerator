@@ -1073,7 +1073,7 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	for(j = 0; j<=entries; j++){
 		
 	// copy to corresponding map	
-		
+	entries.putAll(Map map);	
 		
 		
 		
