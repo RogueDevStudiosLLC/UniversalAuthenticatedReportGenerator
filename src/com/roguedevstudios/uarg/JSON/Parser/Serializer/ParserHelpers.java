@@ -13,6 +13,8 @@ import com.roguedevstudios.uarg.System.Core.Elements.Formula;
 import com.roguedevstudios.uarg.System.Core.Elements.FormulaSet;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Elements.Variables;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
@@ -379,5 +381,56 @@ public class ParserHelpers {
 		return map;
 }	
 
+	/**		
+	 * Parses a Variable TreeMap Object into a Variables TreeMap
+	 * @return map
+	 * @author Terry Roberson 
+	 * @since 1.0
+	 */
+	public static Variables ParseVariables(JsonElement json) {
+		
 	
+		// Convert passed jsonelement into json object
+		JsonObject o = json.getAsJsonObject();
+		// Initialize 12 temp treemaps to match req treemaps for variables.java constructor
+		TreeMap<String, IVariable<Integer>> _tempIntMap = new TreeMap<>();
+		TreeMap<String, IVariable<Integer[]>> _tempIntArrayMap = new TreeMap<>();
+		// Loop over entries in the jsonobjects entry sets 
+		for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
+			
+		// switch based on key of this entry
+			public void SectionLoop(String key, Variables variables, VariableType Type) {
+				switch(Type) {
+				// Case Integer for all six possible spellings .toUpperCase
+				case INTEGER: // Need to compensate for user stupidity
+					// Declare temp map the same as integer version of temp map at top with different name make it
+					// equal to output for section parser for integers which takes in the value of this entry
+					TreeMap<String, IVariable<Integer>> _tempIntMap =  variables._integerMap;
+					
+					
+				}
+			}
+			
+			
+		
+		
+		
+		
+		// Take the previous temp map created from previous section parser and loop over its entries!!
+		
+		// call the first temp integer map from top and put key and value as this entries value
+		
+		// break from switch statement
+		
+		// Build the Variables Object 
+		
+		// Return Variables Object
+		
+		
+		
+		
+	}
+
 }
+
+
