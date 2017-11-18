@@ -352,41 +352,12 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 	TreeMap<String, Variable<Boolean>> BooleanMap;
 	TreeMap<String, Variable<Boolean[]>> BooleanArrayMap;
 	
-    // 	12 temp maps ?
-	TreeMap IntMap = new TreeMap();
-	TreeMap IntegerArrayMap = new TreeMap();
-	TreeMap StringMap = new TreeMap();
-	TreeMap StringArrayMap = new TreeMap();
-	TreeMap FloatMap = new TreeMap();
-	TreeMap FloatArrayMap = new TreeMap();
-	TreeMap LongMap = new TreeMap();
-	TreeMap LongArrayMap = new TreeMap();
-	TreeMap DoubleMap = new TreeMap();
-	TreeMap DoubleArrayMap = new TreeMap();
-	TreeMap BooleanMap = new TreeMap();
-	TreeMap BooleanArrayMap = new TreeMap();
-	
-	
-	// i know i need this just don't know where to implement this
-	/*
-	this._integerMap = IntMap;
-	this._integerArrayMap = IntegerArrayMap;
-	this._stringMap = StringMap;
-	this._stringArrayMap = StringArrayMap;
-	this._floatMap = FloatMap;
-	this._floatArrayMap = FloatArrayMap;
-	this._longMap = DoubleMap;
-	this._longArrayMap = DoubleArrayMap;
-	this._doubleMap = DoubleMap;
-	this._doubleArrayMap = DoubleArrayMap;
-	this._booleanMap = BooleanMap;
-	this._booleanArrayMap = BooleanArrayMap;
-	*/
+
 	
 	// Loop through the Entry Set and call the correct parser
 	// assigning the parsers output to the correct TreeMap
 	
-	for(Map.Entry<String, JsonElement> element: o.entrySet()) {
+	for(i = 0; i<sections; i++) {
 		
 		switch(element.getKey()) {
 		
@@ -1097,6 +1068,15 @@ Variable Section Parser has to use the EntrySet commands already so there will b
 			break;
 		
 		}
+	}
+	
+	for(j = 0; j<=entries; j++){
+		
+	// copy to corresponding map	
+		
+		
+		
+		
 	}
 	
 	/*** Null Check ***/
