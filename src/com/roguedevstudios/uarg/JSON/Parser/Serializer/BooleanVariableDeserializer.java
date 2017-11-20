@@ -85,7 +85,8 @@ public class BooleanVariableDeserializer
 									_id, 
 									_requiresInput, 
 									_description,
-									_value );
+									_value 
+								);
 		// Return the constructed variable object
 		return v;
 	}
