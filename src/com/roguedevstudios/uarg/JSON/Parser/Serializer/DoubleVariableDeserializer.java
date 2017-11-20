@@ -61,7 +61,7 @@ public class DoubleVariableDeserializer
 		/*Temp output object holder*/
 		Variable<Double> v;
 		
-		/* Convert JsonElement into JsonObject */
+		// Convert JsonElement into JsonObject
 		JsonObject o = json.getAsJsonObject();
 		
 		// If the object has a name, then we grab it
