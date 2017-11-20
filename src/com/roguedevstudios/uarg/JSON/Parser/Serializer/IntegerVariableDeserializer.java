@@ -17,9 +17,8 @@ import com.google.gson.*;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 
 /**
- * <p>
- * converts Variable.json information into Java Objects
- * <p>
+ * 
+ * Adapter class to Deserialize Variable objects of subtype Integer
  * 
  * @author Christopher Howard
  * @author Terry Roberson
