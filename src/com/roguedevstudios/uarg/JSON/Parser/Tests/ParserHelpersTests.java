@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.ParserHelpers;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 /**
  * <p>
  * This will test the ParserHelper.java file
@@ -44,7 +45,7 @@ public class ParserHelpersTests {
 		JsonElement testElement = g.toJsonTree(j);
 		
 		// Assign Variable<> to testVar and Parse
-		Variable<Integer> testVar = ParserHelpers.ParseIntegerVariable(testElement, "TestID");
+		IVariable<Integer> testVar = ParserHelpers.ParseIntegerVariable(testElement, "TestID");
 		
 		// Fetch Information about Integer Variable
 		assertEquals(nameValue ,testVar.GetName());
@@ -102,7 +103,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Integer>> testMap = ParserHelpers.ParseIntegerVariableSection(s1);
+		TreeMap<String, IVariable<Integer>> testMap = ParserHelpers.ParseIntegerVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -200,7 +201,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<String>> testMap = ParserHelpers.ParseStringVariableSection(s1);
+		TreeMap<String, IVariable<String>> testMap = ParserHelpers.ParseStringVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -238,7 +239,7 @@ public class ParserHelpersTests {
 		JsonElement testElement = g.toJsonTree(j);
 		
 		// Assign Variable<> to testVar and Parse
-		Variable<Double> testVar = ParserHelpers.ParseDoubleVariable(testElement, "TestID");
+		IVariable<Double> testVar = ParserHelpers.ParseDoubleVariable(testElement, "TestID");
 		
 		// Fetch Information about Double Variable
 		assertEquals(nameValue ,testVar.GetName());
@@ -296,7 +297,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Double>> testMap = ParserHelpers.ParseDoubleVariableSection(s1);
+		TreeMap<String, IVariable<Double>> testMap = ParserHelpers.ParseDoubleVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -336,7 +337,7 @@ public class ParserHelpersTests {
 		JsonElement testElement = g.toJsonTree(j);
 		
 		// Assign Variable<> to testVar and Parse
-		Variable<Long> testVar = ParserHelpers.ParseLongVariable(testElement, "TestID");
+		IVariable<Long> testVar = ParserHelpers.ParseLongVariable(testElement, "TestID");
 		
 		// Fetch Information about Double Variable
 		assertEquals(nameValue ,testVar.GetName());
@@ -394,7 +395,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Long>> testMap = ParserHelpers.ParseLongVariableSection(s1);
+		TreeMap<String, IVariable<Long>> testMap = ParserHelpers.ParseLongVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -434,7 +435,7 @@ public class ParserHelpersTests {
 		JsonElement testElement = g.toJsonTree(j);
 		
 		// Assign Variable<> to testVar and Parse
-		Variable<Float> testVar = ParserHelpers.ParseFloatVariable(testElement, "TestID");
+		IVariable<Float> testVar = ParserHelpers.ParseFloatVariable(testElement, "TestID");
 		
 		// Fetch Information about Float Variable
 		assertEquals(nameValue ,testVar.GetName());
@@ -492,7 +493,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Float>> testMap = ParserHelpers.ParseFloatVariableSection(s1);
+		TreeMap<String, IVariable<Float>> testMap = ParserHelpers.ParseFloatVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -532,7 +533,7 @@ public class ParserHelpersTests {
 		JsonElement testElement = g.toJsonTree(j);
 		
 		// Assign Variable<> to testVar and Parse
-		Variable<Boolean> testVar = ParserHelpers.ParseBooleanVariable(testElement, "TestID");
+		IVariable<Boolean> testVar = ParserHelpers.ParseBooleanVariable(testElement, "TestID");
 		
 		// Fetch Information about Boolean Variable
 		assertEquals(nameValue ,testVar.GetName());
@@ -590,7 +591,7 @@ public class ParserHelpersTests {
 		JsonElement s1 = g.toJsonTree(section1);
 		
 		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String,Variable<Boolean>> testMap = ParserHelpers.ParseBooleanVariableSection(s1);
+		TreeMap<String, IVariable<Boolean>> testMap = ParserHelpers.ParseBooleanVariableSection(s1);
 		
 		
 		// Fetch key information for variables
@@ -601,6 +602,7 @@ public class ParserHelpersTests {
 		System.out.println(g.toJson(section1));
 		
 	}
+	
 	
 	
 }

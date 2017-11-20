@@ -1,15 +1,15 @@
 package com.roguedevstudios.uarg.JSON.Parser.Serializer;
-/****************************************
-*  String Variable Deserializer			*
-*   File Name: 							*
-*   StringVariableDeserializer.java 	*
-*                            	   	    *
-*   Deserializes JSON					*
-*   information and converts			*
-*   into Java objects	        		*
-*                               		*
-*  ©2017 Rogue Dev Studios, LLC 		*
-*****************************************/
+/********************************************
+*  Double[] Variable Deserializer			*
+*   File Name: 								*
+*   DoubleArrayVariableDeserializer.java 	*
+*                            	   	    	*
+*   Deserializes JSON						*
+*   information and converts				*
+*   into Java objects	        			*
+*                               			*
+*  ©2017 Rogue Dev Studios, LLC 			*
+*********************************************/
 
 import java.lang.reflect.Type;
 
@@ -25,30 +25,31 @@ import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
  * @author Terry Roberson
  * @since 1.0
  */
-public class StringVariableDeserializer implements JsonDeserializer<IVariable<String>> {
+public class DoubleArrayVariableDeserializer implements JsonDeserializer<IVariable<Double[]>> {
+
 	/**
-	 * Deserializes into a Variable<String> type
+	 * Deserializes into a Variable<Double> type
 	 * from a given JsonElement, Type, and context
 	 * @param JsonElement
 	 * @param Type
 	 * @param JsonDeserializationContext
-	 * @return Variable<String>
+	 * @return Variable<Double>
 	 */
 	
-	public IVariable<String> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+	public IVariable<Double[]> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 			throws JsonParseException {
 		/*Temp slot for variable name*/
 		String _name = null;
 		/*Temp slot for variable ID*/
 		String _id = null;
 		/*Temp slot for variable value*/
-		String _value = null;
+		Double[] _value = null;
 		/*Temp slot for variable description*/
 		String _description = null;
 		/*Temp slot for variable requiresInput*/
 		boolean _requiresInput = false;
 		/*Temp output object holder*/
-		IVariable<String> v;
+		IVariable<Double[]> v;
 		
 		/* Convert JsonElement into JsonObject */
 		JsonObject o = json.getAsJsonObject();
@@ -65,7 +66,8 @@ public class StringVariableDeserializer implements JsonDeserializer<IVariable<St
 		
 		//If the object has a value, then we grab it
 		if(o.has("value")) {
-			_value = o.get("value").getAsString();
+			JsonArray jsonArray = json.getAsJsonObject().getAsJsonArray("value");
+			return context.deserialize(jsonArray, IVariable.class);
 		}
 		
 		//If the object has a description, then we grab it
@@ -74,7 +76,7 @@ public class StringVariableDeserializer implements JsonDeserializer<IVariable<St
 		}
 		
 		//Build the Variable object to return
-		v = new Variable<String>(_name, _id, _requiresInput, _description, _value);
+		v = new Variable<Double[]>(_name, _id, _requiresInput, _description, _value);
 			
 		return v;
 	}

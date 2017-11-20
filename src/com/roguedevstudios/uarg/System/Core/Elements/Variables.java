@@ -59,11 +59,8 @@ public class Variables implements IVariables {
 	 */
 
 	public Variables() throws Exception {
-		try {
+		
 			this._build();
-		} catch (Exception e) {
-			throw e;
-		}
 	}
 	
 	
@@ -73,19 +70,18 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public Variables(TreeMap<String, IVariable<Integer>> _integerMap, TreeMap<String, IVariable<Integer[]>> _integerArrayMap, 
-			TreeMap<String, IVariable<String>> _stringMap, TreeMap<String, IVariable<String[]>> _stringArrayMap, 
-			TreeMap<String, IVariable<Float>> _floatMap, TreeMap<String, IVariable<Float[]>> _floatArrayMap, 
-			TreeMap<String, IVariable<Long>> _longMap, TreeMap<String, IVariable<Long[]>> _longArrayMap, 
-			TreeMap<String, IVariable<Double>> _doubleMap, TreeMap<String, IVariable<Double[]>> _doubleArrayMap, 
-			TreeMap<String, IVariable<Boolean>> _booleanMap, TreeMap<String, IVariable<Boolean[]>> _booleanArrayMap) 
-					throws Exception {
-				try {
-					this._build();
-				} catch (Exception e) {
-		
-					throw e;
+					TreeMap<String, IVariable<String>> _stringMap, TreeMap<String, IVariable<String[]>> _stringArrayMap, 
+					TreeMap<String, IVariable<Float>> _floatMap, TreeMap<String, IVariable<Float[]>> _floatArrayMap, 
+					TreeMap<String, IVariable<Long>> _longMap, TreeMap<String, IVariable<Long[]>> _longArrayMap, 
+					TreeMap<String, IVariable<Double>> _doubleMap, TreeMap<String, IVariable<Double[]>> _doubleArrayMap, 
+					TreeMap<String, IVariable<Boolean>> _booleanMap, TreeMap<String, IVariable<Boolean[]>> _booleanArrayMap) 
+					{
+	// For each of the twelve lines below. If a null Variable object is passed, a blank TreeMap
+					this._integerMap = (_integerMap != null)?_integerMap:new TreeMap<String, IVariable<Integer>>();
+					this._integerArrayMap = (_integerArrayMap != null)?_integerArrayMap:new TreeMap<String, IVariable<Integer[]>>();
+					
 				}
-			}
+			
 /**
  * Initializes the TreeMaps for internal variable storage	
  */

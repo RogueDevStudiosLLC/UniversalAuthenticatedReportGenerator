@@ -15,6 +15,7 @@ import java.lang.reflect.Type;
 
 import com.google.gson.*;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 
 /**
  * <p>
@@ -24,7 +25,7 @@ import com.roguedevstudios.uarg.System.Core.Elements.Variable;
  * @author Terry Roberson
  * @since 1.0
  */
-public class DoubleVariableDeserializer implements JsonDeserializer<Variable<Double>> {
+public class DoubleVariableDeserializer implements JsonDeserializer<IVariable<Double>> {
 	/**
 	 * Deserializes into a Variable<Double> type
 	 * from a given JsonElement, Type, and context
@@ -34,7 +35,7 @@ public class DoubleVariableDeserializer implements JsonDeserializer<Variable<Dou
 	 * @return Variable<Double>
 	 */
 	
-	public Variable<Double> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+	public IVariable<Double> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 			throws JsonParseException {
 		/*Temp slot for variable name*/
 		String _name = null;
@@ -47,7 +48,7 @@ public class DoubleVariableDeserializer implements JsonDeserializer<Variable<Dou
 		/*Temp slot for variable requiresInput*/
 		boolean _requiresInput = false;
 		/*Temp output object holder*/
-		Variable<Double> v;
+		IVariable<Double> v;
 		
 		/* Convert JsonElement into JsonObject */
 		JsonObject o = json.getAsJsonObject();

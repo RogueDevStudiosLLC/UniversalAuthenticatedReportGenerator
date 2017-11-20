@@ -1,5 +1,6 @@
 package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 
+import java.security.KeyStore.Entry;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -98,18 +99,18 @@ public class ParserHelpers {
 	 * @author Christopher E. Howard
 	 * @since 1.0
 	 */
-	public static Variable<Integer> ParseIntegerVariable(JsonElement json, String ID){
+	public static IVariable<Integer> ParseIntegerVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with our custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
 		// Grab our custom deserializer and create an instance of it for use
-		JsonDeserializer<Variable<Integer>> cDeserializer = new IntegerVariableDeserializer();
+		JsonDeserializer<IVariable<Integer>> cDeserializer = new IntegerVariableDeserializer();
 		// Register the deserializer, notice we do not type cast the class we are pushing to
 		// This can be DANGEROUS if not properly tested!
-		gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
 		// Initialize our custom Gson object
 		Gson customGson = gsonBuild.create();
 		// Deserialize the object to a Variable<Integer> object
-		Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+		IVariable<Integer> retVar = customGson.fromJson(json, Variable.class);
 		// Manually set the ID as the deserializer can not do so normally
 		retVar.SetId(ID);
 		// Clean up
@@ -125,13 +126,13 @@ public class ParserHelpers {
 	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Integer>> ParseIntegerVariableSection(JsonElement json){
+	public static TreeMap<String, IVariable<Integer>> ParseIntegerVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
 		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
 		// Start up the tree map for these variables
-		TreeMap<String,Variable<Integer>> map = new TreeMap<>();
+		TreeMap<String, IVariable<Integer>> map = new TreeMap<>();
 		// Loop through the variables
 		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
 		// Construct the variable and put it in the tree map
@@ -139,35 +140,67 @@ public class ParserHelpers {
 		
 	}
 		return map;
-}	
+}
 	
+	/**
+	 * Parses a variable into a Variable<> object
+	 * @param JsonElement JsonElement Representation of this Variable
+	 * @param ID String ID of this Variable
+	 * @param Type VariableType of this Variable
+	 * @return Variable<> The non-type specific Variable object of this variable
+	 * @author Terry Roberson
+	 * @author Christopher E. Howard
+	 * @since 1.0
+	 */
+	public static IVariable<Integer[]> ParseIntegerArrayVariable(JsonElement json, String ID){
+		// Start the GsonBuilder so we can customize it with our custom deserializer
+		GsonBuilder gsonBuild = new GsonBuilder();
+		// Grab our custom deserializer and create an instance of it for use
+		JsonDeserializer<IVariable<Integer[]>> cDeserializer = new IntegerArrayVariableDeserializer();
+		// Register the deserializer, notice we do not type cast the class we are pushing to
+		// This can be DANGEROUS if not properly tested!
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
+		// Initialize our custom Gson object
+		Gson customGson = gsonBuild.create();
+		// Deserialize the object to a Variable<Integer> object
+		IVariable<Integer[]> retVar = customGson.fromJson(json, IVariable.class);
+		// Manually set the ID as the deserializer can not do so normally
+		retVar.SetId(ID);
+		// Clean up
+		gsonBuild = null;
+		customGson = null;
+		// Return the constructed object to the caller
+		return retVar;
+	}
 	
 	/**		
-	 * Parses a Variable TreeMap Object into a Variables TreeMap
+	 * Parses a Variable<> Object into a Variable TreeMap
 	 * @return map
 	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, TreeMap<String, Variable<Integer>>> ParseVariables(JsonElement json, String ID){
+	public static TreeMap<String, IVariable<Integer[]>> ParseIntegerArrayVariableSection(JsonElement json){
+		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
-		Set<Map.Entry<String, JsonElement>> JsonVars = o.entrySet();
-		TreeMap<String, TreeMap<String, Variable<Integer>>> intMap = new TreeMap<>();
-		for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
-			
-			intMap.put(entry.getKey(), ParserHelpers.ParseIntegerVariableSection(entry.getValue()));
-			
-		}
-		
-		return intMap;
+		// Get the entry set of variables to parse
+		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+		// Start up the tree map for these variables
+		TreeMap<String, IVariable<Integer[]>> map = new TreeMap<>();
+		// Loop through the variables
+		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+		// Construct the variable and put it in the tree map
+		map.put(entry.getKey(), ParserHelpers.ParseIntegerArrayVariable(entry.getValue(), entry.getKey()));
 		
 	}
+		return map;
+}
 	
 	//***** STRING SECTION *****\\
 	public static Variable<String> ParseStringVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with out custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
 		// Grab our custom deserializer and create an instance of
-		JsonDeserializer<Variable<String>> cDeserializer = new StringVariableDeserializer();
+		JsonDeserializer<IVariable<String>> cDeserializer = new StringVariableDeserializer();
 		// Register the deserializer
 		gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
 		//Initialize our custom Gson object
@@ -189,13 +222,13 @@ public class ParserHelpers {
 	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<String>> ParseStringVariableSection(JsonElement json){
+	public static TreeMap<String, IVariable<String>> ParseStringVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
 		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
 		// Start up the tree map for these variables
-		TreeMap<String,Variable<String>> map = new TreeMap<>();
+		TreeMap<String, IVariable<String>> map = new TreeMap<>();
 		// Loop through the variables
 		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
 		// Construct the variable and put it in the tree map
@@ -205,18 +238,71 @@ public class ParserHelpers {
 		return map;
 }	
 	
+	/**
+	 * Parses a variable into a Variable<> object
+	 * @param JsonElement JsonElement Representation of this Variable
+	 * @param ID String ID of this Variable
+	 * @param Type VariableType of this Variable
+	 * @return Variable<> The non-type specific Variable object of this variable
+	 * @author Terry Roberson
+	 * @author Christopher E. Howard
+	 * @since 1.0
+	 */
+	public static IVariable<String[]> ParseStringArrayVariable(JsonElement json, String ID){
+		// Start the GsonBuilder so we can customize it with our custom deserializer
+		GsonBuilder gsonBuild = new GsonBuilder();
+		// Grab our custom deserializer and create an instance of it for use
+		JsonDeserializer<IVariable<String[]>> cDeserializer = new StringArrayVariableDeserializer();
+		// Register the deserializer, notice we do not type cast the class we are pushing to
+		// This can be DANGEROUS if not properly tested!
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
+		// Initialize our custom Gson object
+		Gson customGson = gsonBuild.create();
+		// Deserialize the object to a Variable<Integer> object
+		IVariable<String[]> retVar = customGson.fromJson(json, IVariable.class);
+		// Manually set the ID as the deserializer can not do so normally
+		retVar.SetId(ID);
+		// Clean up
+		gsonBuild = null;
+		customGson = null;
+		// Return the constructed object to the caller
+		return retVar;
+	}
+	
+	/**		
+	 * Parses a Variable<> Object into a Variable TreeMap
+	 * @return map
+	 * @author Terry Roberson 
+	 * @since 1.0
+	 */
+	public static TreeMap<String, IVariable<String[]>> ParseStringArrayVariableSection(JsonElement json){
+		//take jsonElement and convert to jsonObject
+		JsonObject o = json.getAsJsonObject();
+		// Get the entry set of variables to parse
+		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+		// Start up the tree map for these variables
+		TreeMap<String, IVariable<String[]>> map = new TreeMap<>();
+		// Loop through the variables
+		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+		// Construct the variable and put it in the tree map
+		map.put(entry.getKey(), ParserHelpers.ParseStringArrayVariable(entry.getValue(), entry.getKey()));
+		
+	}
+		return map;
+}
+	
 	//***** DOUBLE SECTION *****\\
-	public static Variable<Double> ParseDoubleVariable(JsonElement json, String ID){
+	public static IVariable<Double> ParseDoubleVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with out custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
 		// Grab our custom deserializer and create an instance of
-		JsonDeserializer<Variable<Double>> cDeserializer = new DoubleVariableDeserializer();
+		JsonDeserializer<IVariable<Double>> cDeserializer = new DoubleVariableDeserializer();
 		// Register the deserializer
-		gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
 		//Initialize our custom Gson object
 		Gson customGson = gsonBuild.create();
 		// Deserialize the object to a Variable<Double> object
-		Variable<Double> retVar = customGson.fromJson(json, Variable.class);
+		IVariable<Double> retVar = customGson.fromJson(json, IVariable.class);
 		// Manually set the ID as deserializer can not do so normally
 		retVar.SetId(ID);
 		// Clean up
@@ -232,13 +318,13 @@ public class ParserHelpers {
 	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Double>> ParseDoubleVariableSection(JsonElement json){
+	public static TreeMap<String, IVariable<Double>> ParseDoubleVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
 		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
 		// Start up the tree map for these variables
-		TreeMap<String,Variable<Double>> map = new TreeMap<>();
+		TreeMap<String, IVariable<Double>> map = new TreeMap<>();
 		// Loop through the variables
 		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
 		// Construct the variable and put it in the tree map
@@ -247,19 +333,71 @@ public class ParserHelpers {
 	}
 		return map;
 }	
+	/**
+	 * Parses a variable into a Variable<> object
+	 * @param JsonElement JsonElement Representation of this Variable
+	 * @param ID String ID of this Variable
+	 * @param Type VariableType of this Variable
+	 * @return Variable<> The non-type specific Variable object of this variable
+	 * @author Terry Roberson
+	 * @author Christopher E. Howard
+	 * @since 1.0
+	 */
+	public static IVariable<Double[]> ParseDoubleArrayVariable(JsonElement json, String ID){
+		// Start the GsonBuilder so we can customize it with our custom deserializer
+		GsonBuilder gsonBuild = new GsonBuilder();
+		// Grab our custom deserializer and create an instance of it for use
+		JsonDeserializer<IVariable<Double[]>> cDeserializer = new DoubleArrayVariableDeserializer();
+		// Register the deserializer, notice we do not type cast the class we are pushing to
+		// This can be DANGEROUS if not properly tested!
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
+		// Initialize our custom Gson object
+		Gson customGson = gsonBuild.create();
+		// Deserialize the object to a Variable<Integer> object
+		IVariable<Double[]> retVar = customGson.fromJson(json, IVariable.class);
+		// Manually set the ID as the deserializer can not do so normally
+		retVar.SetId(ID);
+		// Clean up
+		gsonBuild = null;
+		customGson = null;
+		// Return the constructed object to the caller
+		return retVar;
+	}
+	
+	/**		
+	 * Parses a Variable<> Object into a Variable TreeMap
+	 * @return map
+	 * @author Terry Roberson 
+	 * @since 1.0
+	 */
+	public static TreeMap<String, IVariable<Double[]>> ParseDoubleArrayVariableSection(JsonElement json){
+		//take jsonElement and convert to jsonObject
+		JsonObject o = json.getAsJsonObject();
+		// Get the entry set of variables to parse
+		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+		// Start up the tree map for these variables
+		TreeMap<String, IVariable<Double[]>> map = new TreeMap<>();
+		// Loop through the variables
+		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+		// Construct the variable and put it in the tree map
+		map.put(entry.getKey(), ParserHelpers.ParseDoubleArrayVariable(entry.getValue(), entry.getKey()));
+		
+	}
+		return map;
+}
 	
 	//***** LONG SECTION *****\\
-	public static Variable<Long> ParseLongVariable(JsonElement json, String ID){
+	public static IVariable<Long> ParseLongVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with out custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
 		// Grab our custom deserializer and create an instance of
-		JsonDeserializer<Variable<Long>> cDeserializer = new LongVariableDeserializer();
+		JsonDeserializer<IVariable<Long>> cDeserializer = new LongVariableDeserializer();
 		// Register the deserializer
-		gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
 		//Initialize our custom Gson object
 		Gson customGson = gsonBuild.create();
 		// Deserialize the object to a Variable<Long> object
-		Variable<Long> retVar = customGson.fromJson(json, Variable.class);
+		IVariable<Long> retVar = customGson.fromJson(json, IVariable.class);
 		// Manually set the ID as deserializer can not do so normally
 		retVar.SetId(ID);
 		// Clean up
@@ -276,13 +414,13 @@ public class ParserHelpers {
 	 * @Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Long>> ParseLongVariableSection(JsonElement json){
+	public static TreeMap<String, IVariable<Long>> ParseLongVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
 		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
 		// Start up the tree map for these variables
-		TreeMap<String,Variable<Long>> map = new TreeMap<>();
+		TreeMap<String, IVariable<Long>> map = new TreeMap<>();
 		// Loop through the variables
 		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
 		// Construct the variable and put it in the tree map
@@ -292,18 +430,71 @@ public class ParserHelpers {
 		return map;
 }	
 	
+	/**
+	 * Parses a variable into a Variable<> object
+	 * @param JsonElement JsonElement Representation of this Variable
+	 * @param ID String ID of this Variable
+	 * @param Type VariableType of this Variable
+	 * @return Variable<> The non-type specific Variable object of this variable
+	 * @author Terry Roberson
+	 * @author Christopher E. Howard
+	 * @since 1.0
+	 */
+	public static IVariable<Long[]> ParseLongArrayVariable(JsonElement json, String ID){
+		// Start the GsonBuilder so we can customize it with our custom deserializer
+		GsonBuilder gsonBuild = new GsonBuilder();
+		// Grab our custom deserializer and create an instance of it for use
+		JsonDeserializer<IVariable<Long[]>> cDeserializer = new LongArrayVariableDeserializer();
+		// Register the deserializer, notice we do not type cast the class we are pushing to
+		// This can be DANGEROUS if not properly tested!
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
+		// Initialize our custom Gson object
+		Gson customGson = gsonBuild.create();
+		// Deserialize the object to a Variable<Integer> object
+		IVariable<Long[]> retVar = customGson.fromJson(json, IVariable.class);
+		// Manually set the ID as the deserializer can not do so normally
+		retVar.SetId(ID);
+		// Clean up
+		gsonBuild = null;
+		customGson = null;
+		// Return the constructed object to the caller
+		return retVar;
+	}
+	
+	/**		
+	 * Parses a Variable<> Object into a Variable TreeMap
+	 * @return map
+	 * @author Terry Roberson 
+	 * @since 1.0
+	 */
+	public static TreeMap<String, IVariable<Long[]>> ParseLongArrayVariableSection(JsonElement json){
+		//take jsonElement and convert to jsonObject
+		JsonObject o = json.getAsJsonObject();
+		// Get the entry set of variables to parse
+		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+		// Start up the tree map for these variables
+		TreeMap<String, IVariable<Long[]>> map = new TreeMap<>();
+		// Loop through the variables
+		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+		// Construct the variable and put it in the tree map
+		map.put(entry.getKey(), ParserHelpers.ParseLongArrayVariable(entry.getValue(), entry.getKey()));
+		
+	}
+		return map;
+}
+	
 	//***** FLOAT SECTION *****\\
-	public static Variable<Float> ParseFloatVariable(JsonElement json, String ID){
+	public static IVariable<Float> ParseFloatVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with out custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
 		// Grab our custom deserializer and create an instance of
-		JsonDeserializer<Variable<Float>> cDeserializer = new FloatVariableDeserializer();
+		JsonDeserializer<IVariable<Float>> cDeserializer = new FloatVariableDeserializer();
 		// Register the deserializer
-		gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
 		//Initialize our custom Gson object
 		Gson customGson = gsonBuild.create();
 		// Deserialize the object to a Variable<Float> object
-		Variable<Float> retVar = customGson.fromJson(json, Variable.class);
+		IVariable<Float> retVar = customGson.fromJson(json, IVariable.class);
 		// Manually set the ID as deserializer can not do so normally
 		retVar.SetId(ID);
 		// Clean up
@@ -320,13 +511,13 @@ public class ParserHelpers {
 	 * @Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Float>> ParseFloatVariableSection(JsonElement json){
+	public static TreeMap<String, IVariable<Float>> ParseFloatVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
 		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
 		// Start up the tree map for these variables
-		TreeMap<String,Variable<Float>> map = new TreeMap<>();
+		TreeMap<String, IVariable<Float>> map = new TreeMap<>();
 		// Loop through the variables
 		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
 		// Construct the variable and put it in the tree map
@@ -336,19 +527,71 @@ public class ParserHelpers {
 		return map;
 }	
 
+	/**
+	 * Parses a variable into a Variable<> object
+	 * @param JsonElement JsonElement Representation of this Variable
+	 * @param ID String ID of this Variable
+	 * @param Type VariableType of this Variable
+	 * @return Variable<> The non-type specific Variable object of this variable
+	 * @author Terry Roberson
+	 * @author Christopher E. Howard
+	 * @since 1.0
+	 */
+	public static IVariable<Float[]> ParseFloatArrayVariable(JsonElement json, String ID){
+		// Start the GsonBuilder so we can customize it with our custom deserializer
+		GsonBuilder gsonBuild = new GsonBuilder();
+		// Grab our custom deserializer and create an instance of it for use
+		JsonDeserializer<IVariable<Float[]>> cDeserializer = new FloatArrayVariableDeserializer();
+		// Register the deserializer, notice we do not type cast the class we are pushing to
+		// This can be DANGEROUS if not properly tested!
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
+		// Initialize our custom Gson object
+		Gson customGson = gsonBuild.create();
+		// Deserialize the object to a Variable<Integer> object
+		IVariable<Float[]> retVar = customGson.fromJson(json, IVariable.class);
+		// Manually set the ID as the deserializer can not do so normally
+		retVar.SetId(ID);
+		// Clean up
+		gsonBuild = null;
+		customGson = null;
+		// Return the constructed object to the caller
+		return retVar;
+	}
+	
+	/**		
+	 * Parses a Variable<> Object into a Variable TreeMap
+	 * @return map
+	 * @author Terry Roberson 
+	 * @since 1.0
+	 */
+	public static TreeMap<String, IVariable<Float[]>> ParseFloatArrayVariableSection(JsonElement json){
+		//take jsonElement and convert to jsonObject
+		JsonObject o = json.getAsJsonObject();
+		// Get the entry set of variables to parse
+		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+		// Start up the tree map for these variables
+		TreeMap<String, IVariable<Float[]>> map = new TreeMap<>();
+		// Loop through the variables
+		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+		// Construct the variable and put it in the tree map
+		map.put(entry.getKey(), ParserHelpers.ParseFloatArrayVariable(entry.getValue(), entry.getKey()));
+		
+	}
+		return map;
+}
 	
 	//***** BOOLEAN SECTION *****\\
-	public static Variable<Boolean> ParseBooleanVariable(JsonElement json, String ID){
+	public static IVariable<Boolean> ParseBooleanVariable(JsonElement json, String ID){
 		// Start the GsonBuilder so we can customize it with out custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
 		// Grab our custom deserializer and create an instance of
-		JsonDeserializer<Variable<Boolean>> cDeserializer = new BooleanVariableDeserializer();
+		JsonDeserializer<IVariable<Boolean>> cDeserializer = new BooleanVariableDeserializer();
 		// Register the deserializer
-		gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
 		//Initialize our custom Gson object
 		Gson customGson = gsonBuild.create();
 		// Deserialize the object to a Variable<Boolean> object
-		Variable<Boolean> retVar = customGson.fromJson(json, Variable.class);
+		IVariable<Boolean> retVar = customGson.fromJson(json, IVariable.class);
 		// Manually set the ID as deserializer can not do so normally
 		retVar.SetId(ID);
 		// Clean up
@@ -365,13 +608,13 @@ public class ParserHelpers {
 	 * @Terry Roberson 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Variable<Boolean>> ParseBooleanVariableSection(JsonElement json){
+	public static TreeMap<String, IVariable<Boolean>> ParseBooleanVariableSection(JsonElement json){
 		//take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of variables to parse
 		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
 		// Start up the tree map for these variables
-		TreeMap<String,Variable<Boolean>> map = new TreeMap<>();
+		TreeMap<String, IVariable<Boolean>> map = new TreeMap<>();
 		// Loop through the variables
 		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
 		// Construct the variable and put it in the tree map
@@ -380,57 +623,249 @@ public class ParserHelpers {
 	}
 		return map;
 }	
-
+	
+	/**
+	 * Parses a variable into a Variable<> object
+	 * @param JsonElement JsonElement Representation of this Variable
+	 * @param ID String ID of this Variable
+	 * @param Type VariableType of this Variable
+	 * @return Variable<> The non-type specific Variable object of this variable
+	 * @author Terry Roberson
+	 * @author Christopher E. Howard
+	 * @since 1.0
+	 */
+	public static IVariable<Boolean[]> ParseBooleanArrayVariable(JsonElement json, String ID){
+		// Start the GsonBuilder so we can customize it with our custom deserializer
+		GsonBuilder gsonBuild = new GsonBuilder();
+		// Grab our custom deserializer and create an instance of it for use
+		JsonDeserializer<IVariable<Boolean[]>> cDeserializer = new BooleanArrayVariableDeserializer();
+		// Register the deserializer, notice we do not type cast the class we are pushing to
+		// This can be DANGEROUS if not properly tested!
+		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
+		// Initialize our custom Gson object
+		Gson customGson = gsonBuild.create();
+		// Deserialize the object to a Variable<Integer> object
+		IVariable<Boolean[]> retVar = customGson.fromJson(json, IVariable.class);
+		// Manually set the ID as the deserializer can not do so normally
+		retVar.SetId(ID);
+		// Clean up
+		gsonBuild = null;
+		customGson = null;
+		// Return the constructed object to the caller
+		return retVar;
+	}
+	
 	/**		
-	 * Parses a Variable TreeMap Object into a Variables TreeMap
+	 * Parses a Variable<> Object into a Variable TreeMap
 	 * @return map
 	 * @author Terry Roberson 
 	 * @since 1.0
 	 */
-	public static Variables ParseVariables(JsonElement json) {
+	public static TreeMap<String, IVariable<Boolean[]>> ParseBooleanArrayVariableSection(JsonElement json){
+		//take jsonElement and convert to jsonObject
+		JsonObject o = json.getAsJsonObject();
+		// Get the entry set of variables to parse
+		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
+		// Start up the tree map for these variables
+		TreeMap<String, IVariable<Boolean[]>> map = new TreeMap<>();
+		// Loop through the variables
+		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
+		// Construct the variable and put it in the tree map
+		map.put(entry.getKey(), ParserHelpers.ParseBooleanArrayVariable(entry.getValue(), entry.getKey()));
 		
-	
+	}
+		return map;
+}
+
+	/**		
+	 * Parses a Variable sections into the Variables container
+	 * @return map
+	 * @author Terry Roberson 
+	 * @author Christopher Howard
+	 * @since 1.0
+	 */
+	public static Variables ParseVariables(JsonElement json) {
 		// Convert passed jsonelement into json object
 		JsonObject o = json.getAsJsonObject();
 		// Initialize 12 temp treemaps to match req treemaps for variables.java constructor
-		TreeMap<String, IVariable<Integer>> _tempIntMap = new TreeMap<>();
-		TreeMap<String, IVariable<Integer[]>> _tempIntArrayMap = new TreeMap<>();
+		TreeMap<String, IVariable<Integer>> intMap = new TreeMap<>();
+		TreeMap<String, IVariable<Integer[]>> intArrayMap = new TreeMap<>();
+		TreeMap<String, IVariable<String>> stringMap = new TreeMap<>();
+		TreeMap<String, IVariable<String[]>> stringArrayMap = new TreeMap<>();
+		TreeMap<String, IVariable<Float>> floatMap = new TreeMap<>();
+		TreeMap<String, IVariable<Float[]>> floatArrayMap = new TreeMap<>();
+		TreeMap<String, IVariable<Long>> longMap = new TreeMap<>();
+		TreeMap<String, IVariable<Long[]>> longArrayMap = new TreeMap<>();
+		TreeMap<String, IVariable<Double>> doubleMap = new TreeMap<>();
+		TreeMap<String, IVariable<Double[]>> doubleArrayMap = new TreeMap<>();
+		TreeMap<String, IVariable<Boolean>> boolMap = new TreeMap<>();
+		TreeMap<String, IVariable<Boolean[]>> boolArrayMap = new TreeMap<>();
+		
 		// Loop over entries in the jsonobjects entry sets 
-		for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
-			
+		for(Map.Entry<String, JsonElement> sectionEntry: o.entrySet()) {
 		// switch based on key of this entry
-			public void SectionLoop(String key, Variables variables, VariableType Type) {
-				switch(Type) {
-				// Case Integer for all six possible spellings .toUpperCase
-				case INTEGER: // Need to compensate for user stupidity
-					// Declare temp map the same as integer version of temp map at top with different name make it
-					// equal to output for section parser for integers which takes in the value of this entry
-					TreeMap<String, IVariable<Integer>> _tempIntMap =  variables._integerMap;
-					
-					
-				}
-			}
 			
-			
-		
-		
-		
-		
-		// Take the previous temp map created from previous section parser and loop over its entries!!
-		
+			switch(sectionEntry.getKey().toUpperCase()) {
+		// Case Integer for all possible variations of input
+			case "INTEGER":
+			case "INTEGERS":
+		// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, IVariable<Integer>> variableEntry: ParseIntegerVariableSection(sectionEntry.getValue()).entrySet()) {
 		// call the first temp integer map from top and put key and value as this entries value
+					intMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+		// Case IntegerArray for all possible variations of input
+			case "INTEGERARRAY":
+			case "INTEGERSARRAY":
+			case "INTEGERARRAYS":
+			case "INTEGERSARRAYS":
+			case "INTEGER ARRAY":
+			case "INTEGERS ARRAY":
+			case "INTEGER ARRAYS":
+			case "INTEGERS ARRAYS":
+		// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Integer[]>> variableEntry: ParseIntegerArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp Integer[] map from top and put key and value as this entries value
+					intArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+		// Case String for all possible variations of input
+			case "STRING":
+			case "STRINGS":
+		// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, IVariable<String>> variableEntry: ParseStringVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp String map from the top and put key and value as this entries value
+					stringMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+		// Case String[] for all possible variations of input
+			case "STRINGARRAY":
+			case "STRINGSARRAY":
+			case "STRINGARRAYS":
+			case "STRINGSARRAYS":
+			case "STRING ARRAY":
+			case "STRINGS ARRAY":
+			case "STRING ARRAYS":
+			case "STRINGS ARRAYS":
+		// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, IVariable<String[]>> variableEntry: ParseStringArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp String[] map from top and put key and value as this entries value
+					stringArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+		// Case Double for all possible variations of input
+			case "DOUBLE":
+			case "DOUBLES":
+		// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, IVariable<Double>> variableEntry: ParseDoubleVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp double map from the top and put key and value as this entries value
+					doubleMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+		// Case Float for all possible variations of input
+			case "FLOAT":
+			case "FLOATS":
+		// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, IVariable<Float>> variableEntry: ParseFloatVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp Float map from the tope and put key and value as this entries value
+					floatMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+		// Case Long[] for all possible variations of input
+			case "FLOATARRAY":
+			case "FLOATSARRAY":
+			case "FLOATARRAYS":
+			case "FLOATSARRAYS":
+			case "FLOAT ARRAY":
+			case "FLOATS ARRAY":
+			case "FLOAT ARRAYS":
+			case "FLOATS ARRAYS":
+		// Take the previous temp map created from previous section parser and loop over its entries 
+			for(Map.Entry<String, IVariable<Float[]>> variableEntry: ParseFloatArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp Float[] map from top and put key and value as this entries value
+				floatArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+			}
+			break;
+		// Case Long for all possible variations of input
+			case "LONG":
+			case "LONGS":
+		// Take the previous temp map created from previous section parser and loop over its entries
+			for(Map.Entry<String, IVariable<Long>> variableEntry: ParseLongVariableSection(sectionEntry.getValue()).entrySet()) {
+		// call the first temp long map from top and put key and value as this entries value
+				longMap.put(variableEntry.getKey(), variableEntry.getValue());
+			}
+			break;
+		// Case Long[] for all possible variations of input
+			case "LONGARRAY":
+			case "LONGSARRAY":
+			case "LONGARRAYS":
+			case "LONGSARRAYS":
+			case "LONG ARRAY":
+			case "LONGS ARRAY":
+			case "LONG ARRAYS":
+			case "LONGS ARRAYS":
+		// Take the previous temp map created from previous section parser and loop over its entries 
+			for(Map.Entry<String, IVariable<Long[]>> variableEntry: ParseLongArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp Integer[] map from top and put key and value as this entries value
+					longArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+			}
+			break;			
+		// Case Double[] for all possible variations of input
+			case "DOUBLEARRAY":
+			case "DOUBLESARRAY":
+			case "DOUBLEARRAYS":
+			case "DOUBLESARRAYS":
+			case "DOUBLE ARRAY":
+			case "DOUBLES ARRAY":
+			case "DOUBLE ARRAYS":
+			case "DOUBLES ARRAYS":
+		// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, IVariable<Double[]>> variableEntry: ParseDoubleArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp double[] map from top and put key and value as this entries value
+					doubleArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+		// Case Boolean for all possible variations of input
+			case "BOOLEAN":
+			case "BOOLEANS":
+		// Take the previous temp map created from previous section parser and loop over its entries
+			for(Map.Entry<String, IVariable<Boolean>> variableEntry: ParseBooleanVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp Boolean map from top and put key and value as this entries value		
+				boolMap.put(variableEntry.getKey(), variableEntry.getValue());
+			}
+			break;
+		// Case Long[] for all possible variations of input
+			case "BOOLEANARRAY":
+			case "BOOLEANSARRAY":
+			case "BOOLEANARRAYS":
+			case "BOOLEANSARRAYS":
+			case "BOOLEAN ARRAY":
+			case "BOOLEANS ARRAY":
+			case "BOOLEAN ARRAYS":
+			case "BOOLEANS ARRAYS":
+		// Take the previous temp map created from previous section parser and loop over its entries
+			for(Map.Entry<String, IVariable<Boolean[]>> variableEntry: ParseBooleanArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+		// Call the first temp Boolean[] map from top and put key and value as this entries value				
+				boolArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+			}
+			break;
+		// Break from the switch statement
+			default:
+				break;
+				}
 		
-		// break from switch statement
-		
+		}
 		// Build the Variables Object 
-		
-		// Return Variables Object
-		
-		
-		
-		
+				Variables v = new Variables(intMap, intArrayMap, 
+											stringMap, stringArrayMap, 
+											floatMap, floatArrayMap, 
+											longMap, longArrayMap,
+											doubleMap, doubleArrayMap, 
+											boolMap, boolArrayMap);
+				// Return Variables Object
+				return v;
+				
 	}
-
 }
-
 
