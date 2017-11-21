@@ -99,19 +99,18 @@ public class ParserHelpers {
 	 * @author Christopher E. Howard
 	 * @since 1.0
 	 */
-	public static IVariable<Integer> ParseIntegerVariable(JsonElement json, String ID){
-		// Start the GsonBuilder so we can customize it with our custom deserializer
+	public static Variable<Integer> ParseIntegerVariable(JsonElement json, String ID){
+		// Start the GsonBuilder so we can customize it with out custom deserializer
 		GsonBuilder gsonBuild = new GsonBuilder();
-		// Grab our custom deserializer and create an instance of it for use
+		// Grab our custom deserializer and create an instance of
 		JsonDeserializer<IVariable<Integer>> cDeserializer = new IntegerVariableDeserializer();
-		// Register the deserializer, notice we do not type cast the class we are pushing to
-		// This can be DANGEROUS if not properly tested!
-		gsonBuild.registerTypeAdapter(IVariable.class, cDeserializer);
-		// Initialize our custom Gson object
+		// Register the deserializer
+		gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+		//Initialize our custom Gson object
 		Gson customGson = gsonBuild.create();
-		// Deserialize the object to a Variable<Integer> object
-		IVariable<Integer> retVar = customGson.fromJson(json, Variable.class);
-		// Manually set the ID as the deserializer can not do so normally
+		// Deserialize the object to a Variable<String> object
+		Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+		// Manually set the ID as deserializer can not do so normally
 		retVar.SetId(ID);
 		// Clean up
 		gsonBuild = null;
@@ -119,7 +118,6 @@ public class ParserHelpers {
 		// Return the constructed object to the caller
 		return retVar;
 	}
-	
 	/**		
 	 * Parses a Variable<> Object into a Variable TreeMap
 	 * @return map

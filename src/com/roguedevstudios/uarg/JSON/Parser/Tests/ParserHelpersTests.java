@@ -1,11 +1,10 @@
 package com.roguedevstudios.uarg.JSON.Parser.Tests;
 
 import static org.junit.Assert.*;
-import org.junit.Test;
+
+import org.junit.*;
 import java.util.*;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.ParserHelpers;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
@@ -116,6 +115,58 @@ public class ParserHelpersTests {
 		
 	}
 	
+	//***** INTEGER ARRAY TESTING SECTION *****\\
+	@Test
+	public void ParseIntegerArrayVariableTest() {
+		// Set up initial conditions
+		String name = "name";
+		String nameValue = "TestName";
+		String ID = "ID";
+		String idValue = "TestID";
+		String description = "description"; 
+		String descriptionValue = "TestDescription";
+		String value = "value";
+		int[] valueValue = {500, 5, 7};
+		
+		// Create a test variable object
+		JsonObject j = new JsonObject();
+		j.addProperty(name, nameValue);
+		j.addProperty(ID, idValue);
+		j.addProperty(description, descriptionValue);
+		JsonArray l = new JsonArray();
+		l.add(valueValue.toString());
+		j.add(value, l);
+		// Convert it to a JsonElement tree
+		Gson g = new Gson();
+		
+		// Assign  elements to JsonElement tree
+		JsonElement testElement = g.toJsonTree(j);
+		
+		
+		// Assign Variable<> to testVar and Parse
+		IVariable<Integer[]> testVar = ParserHelpers.ParseIntegerArrayVariable(testElement, "TestID");
+		
+		// Fetch Information about Integer Variable
+		assertEquals(nameValue ,testVar.GetName());
+		assertEquals(idValue ,testVar.GetId());
+		assertEquals(descriptionValue ,testVar.GetDescription());
+		assertEquals(valueValue, testVar.GetValue());
+		
+		// Display results
+		System.out.println(g.toJson(testElement));
+	}
+	
+
+
+
+
+
+
+	private void JsonArray() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	//***** STRING TESTING SECTION *****\\
 	@Test
 	public void ParseStringVariableTest() {
