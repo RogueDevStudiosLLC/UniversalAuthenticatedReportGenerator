@@ -3,8 +3,11 @@ package com.roguedevstudios.uarg.JSON.Parser.Tests;
 import static org.junit.Assert.*;
 
 import org.junit.*;
+
+import java.io.*;
 import java.util.*;
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.ParserHelpers;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
@@ -119,39 +122,33 @@ public class ParserHelpersTests {
 	@Test
 	public void ParseIntegerArrayVariableTest() {
 		// Set up initial conditions
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description"; 
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		int[] valueValue = {500, 5, 7};
+		String IntArrayVar =
+		"{\"name\":\"TestName\"}"+
+		"{\"ID\":\"TestID\"}"+
+		"{\"description\":\"descriptionValue\"}"+
+		"{\"value\":\"[500,50,7,8]\"}";
+		
 		
 		// Create a test variable object
-		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		JsonArray l = new JsonArray();
-		l.add(valueValue.toString());
-		j.add(value, l);
+		JsonParser parser = new JsonParser();
+		JsonObject o = parser.parse(IntArrayVar).getAsJsonObject();
 		// Convert it to a JsonElement tree
 		Gson g = new Gson();
-		
+		JsonReader reader = new JsonReader(new StringReader(IntArrayVar));
+		reader.setLenient(true);
+		Variable<Integer[]> ParseIntArray = g.fromJson(reader, Variable.class);
 		// Assign  elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
+		JsonElement testElement = g.toJsonTree(o);
 		
 		
 		// Assign Variable<> to testVar and Parse
 		IVariable<Integer[]> testVar = ParserHelpers.ParseIntegerArrayVariable(testElement, "TestID");
 		
 		// Fetch Information about Integer Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue, testVar.GetValue());
-		
+		assertEquals(ParseIntArray, testVar.GetName());
+		assertEquals(ParseIntArray, testVar.GetId());
+		assertEquals(ParseIntArray, testVar.GetDescription());
+		assertEquals(ParseIntArray, testVar.GetValue());
 		// Display results
 		System.out.println(g.toJson(testElement));
 	}
