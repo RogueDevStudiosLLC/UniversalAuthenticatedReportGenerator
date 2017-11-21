@@ -45,52 +45,22 @@ public class Meta
 		this.SetDateEd(DateEd);
 	}
 	
-	/**
-	 * 
-	 * Gets the Name of person 
-	 * @return _name
-	 * @since 1.0
-	 * 
-	 */
+	
+	/* The Name of the configuration being used */
 	private String _name;
-	/***
-	 * Gets the ID of the Form 
-	 * @return _formID
-	 * @since 1.0
-	 * 
-	 */
+
+	
+	/* The Form ID of the Form */
 	private String _formId;
-	/***
-	 * Gets the Version of program 
-	 * @return _version
-	 * @since 1.0
-	 * 
-	 */
+	/* The Version for program */
 	private String _version;
-	/***
-	 *  Gets the Description of the form 
-	 *  @return _description
-	 *  @since 1.0
-	 *  
-	 */
+	/* The description of the form */
 	private String _description;
-	/***
-	 * Gets the Name of the Form
-	 *  @return _author
-	 *  @since 1.0
-	 */
+	/* The original name of User who created the form */
 	private String _author;
-	/***
-	 * Gets the Date when the form was originally created from the computer 
-	 *  @return _dateCrt
-	 *  @since 1.0
-	 */
+	/* The date when the form was created */
 	private String _dateCrt;
-	/***
-	 * Gets the Date when the form was edited from the computer 
-	 * @return _dateEd
-	 * @since 1.0
-	 */
+	/*  The date when the form was edited */
 	private String _dateEd;
 
 	/*
@@ -100,9 +70,11 @@ public class Meta
 	
 	
 		/**
-		 * Getter for Name 
-		 * @return Name
+		 * 
+		 * Gets the Name of the configuration being used
+		 * @return _name
 		 * @since 1.0
+		 * 
 		 */
 		public String GetName() 
 		{
@@ -110,7 +82,7 @@ public class Meta
 		}
 		
 		/**
-		 * Setter for Name
+		 * Sets the Name of the configuration being used 
 		 * @param Name 
 		 * @since 1.0
 		 */
@@ -119,10 +91,11 @@ public class Meta
 			this._name = Name;
 		}
 		
-		/**
-		 * Getter for Form ID 
-		 * @return FormId
+		/***
+		 * Gets the ID of the Form 
+		 * @return _formID
 		 * @since 1.0
+		 * 
 		 */
 		public String GetFormId() 
 		{
@@ -130,7 +103,7 @@ public class Meta
 		}
 		
 		/**
-		 * Setter for FormId
+		 * Sets the ID for the Form
 		 * @param FormId
 		 * @since 1.0
 		 */
@@ -139,10 +112,11 @@ public class Meta
 			this._formId = FormId;
 		}
 		
-		/**
-		 * Getter for Version
-		 * @return Version
+		/***
+		 * Gets the Version of the program 
+		 * @return _version
 		 * @since 1.0
+		 * 
 		 */
 		public String GetVersion() 
 		{
@@ -150,7 +124,7 @@ public class Meta
 		}
 		
 		/**
-		 * Setter for Version
+		 * Sets the Version of the program
 		 * @param Version
 		 * @since 1.0
 		 */
@@ -159,10 +133,11 @@ public class Meta
 			this._version = Version;
 		}
 		
-		/**
-		 * Getter for Descriptions
-		 * @return Description
-		 * @since 1.0
+		/***
+		 *  Gets the Description of the form 
+		 *  @return _description
+		 *  @since 1.0
+		 *  
 		 */
 		public String GetDescription() 
 		{
@@ -170,7 +145,7 @@ public class Meta
 		}
 		
 		/**
-		 * Setter for Description
+		 * Sets the Description of the form
 		 * @param Description
 		 * @since 1.0
 		 */
@@ -179,10 +154,10 @@ public class Meta
 			this._description = Description;
 		}
 		
-		/**
-		 * Getter for Author
-		 * @return Author
-		 * @since 1.0
+		/***
+		 * Gets the Name of the Author
+		 *  @return _author
+		 *  @since 1.0
 		 */
 		public String GetAuthor() 
 		{
@@ -190,7 +165,7 @@ public class Meta
 		}
 		
 		/**
-		 * Setter for Author 
+		 * Sets the Name of the Author 
 		 * @param Author
 		 * @since 1.0
 		 */
@@ -199,10 +174,10 @@ public class Meta
 			this._author = Author;
 		}
 		
-		/**
-		 * Getter for Date Created 
-		 * @return DateCrt
-		 * @since 1.0
+		/***
+		 * Gets the Date when the form was originally created from the computer 
+		 *  @return _dateCrt
+		 *  @since 1.0
 		 */
 		public String GetDateCrt() 
 		{
@@ -210,7 +185,7 @@ public class Meta
 		}
 		
 		/**
-		 * Setter for Date Created 
+		 * Sets the Date when the form was originally created from the computer 
 		 * @param DateCrt
 		 * @since 1.0
 		 */
@@ -219,9 +194,9 @@ public class Meta
 			this._dateCrt = DateCrt;
 		}
 		
-		/**
-		 * Getter for Date Edited 
-		 * @return DateEd
+		/***
+		 * Gets the Date when the form was edited  
+		 * @return _dateEd
 		 * @since 1.0
 		 */
 		public String GetDateEd() 
@@ -230,7 +205,7 @@ public class Meta
 		}
 		
 		/**
-		 * Setter for DateEd 
+		 * Sets the Date when the form was edited  
 		 * @param DateEd
 		 * @since 1.0
 		 */
