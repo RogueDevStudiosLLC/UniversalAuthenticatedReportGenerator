@@ -123,21 +123,23 @@ public class ParserHelpersTests {
 	public void ParseIntegerArrayVariableTest() {
 		// Set up initial conditions
 		String IntArrayVar =
-		"{\"name\":\"TestName\"}"+
-		"{\"ID\":\"TestID\"}"+
-		"{\"description\":\"descriptionValue\"}"+
-		"{\"value\":\"[500,50,7,8]\"}";
-		
-		
+				"{"+
+						"\"name\":\"TestName\","+
+						"\"ID\":\"TestID\","+
+						"\"description\":\"DescriptionValue\","+
+						"\"value\":[5,10,15,20]"+
+				"}";
+		Integer fVal = 5;
+		Integer sVal = 10;
+		Integer tVal = 15;
+		Integer foVal = 20;
 		// Create a test variable object
 		JsonParser parser = new JsonParser();
 		JsonObject o = parser.parse(IntArrayVar).getAsJsonObject();
 		// Convert it to a JsonElement tree
 		Gson g = new Gson();
 		JsonReader reader = new JsonReader(new StringReader(IntArrayVar));
-		reader.setLenient(true);
-		Variable<Integer[]> ParseIntArray = g.fromJson(reader, Variable.class);
-		// Assign  elements to JsonElement tree
+		
 		JsonElement testElement = g.toJsonTree(o);
 		
 		
@@ -145,23 +147,15 @@ public class ParserHelpersTests {
 		IVariable<Integer[]> testVar = ParserHelpers.ParseIntegerArrayVariable(testElement, "TestID");
 		
 		// Fetch Information about Integer Variable
-		assertEquals(ParseIntArray, testVar.GetName());
-		assertEquals(ParseIntArray, testVar.GetId());
-		assertEquals(ParseIntArray, testVar.GetDescription());
-		assertEquals(ParseIntArray, testVar.GetValue());
+		assertEquals("TestName", testVar.GetName());
+		assertEquals("TestID", testVar.GetId());
+		assertEquals("DescriptionValue", testVar.GetDescription());
+		assertEquals(fVal, testVar.GetValue()[0]);
+		assertEquals(sVal, testVar.GetValue()[1]);
+		assertEquals(tVal, testVar.GetValue()[2]);
+		assertEquals(foVal, testVar.GetValue()[3]);
 		// Display results
 		System.out.println(g.toJson(testElement));
-	}
-	
-
-
-
-
-
-
-	private void JsonArray() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	//***** STRING TESTING SECTION *****\\
