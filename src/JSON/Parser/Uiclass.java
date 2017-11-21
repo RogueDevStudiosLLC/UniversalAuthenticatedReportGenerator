@@ -1,3 +1,4 @@
+//TODO: Cleanup #2 - Determine if this class necessary, possibly destroy.
 /********************************
 *   UI Class                    *
 *   File Name: Uiclass.java     *
