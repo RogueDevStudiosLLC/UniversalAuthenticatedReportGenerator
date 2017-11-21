@@ -106,8 +106,7 @@ public class ParserHelpersTests {
 		
 		// Assign TreeMap<> to testMap and Parse
 		TreeMap<String, IVariable<Integer>> testMap = ParserHelpers.ParseIntegerVariableSection(s1);
-		
-		
+
 		// Fetch key information for variables
 		assertEquals(idValue, testMap.firstKey());
 		assertEquals(idValue1, testMap.lastKey());
@@ -139,13 +138,10 @@ public class ParserHelpersTests {
 		// Convert it to a JsonElement tree
 		Gson g = new Gson();
 		JsonReader reader = new JsonReader(new StringReader(IntArrayVar));
-		
+		// Assign variable to JsonElement tree
 		JsonElement testElement = g.toJsonTree(o);
-		
-		
 		// Assign Variable<> to testVar and Parse
 		IVariable<Integer[]> testVar = ParserHelpers.ParseIntegerArrayVariable(testElement, "TestID");
-		
 		// Fetch Information about Integer Variable
 		assertEquals("TestName", testVar.GetName());
 		assertEquals("TestID", testVar.GetId());
@@ -156,6 +152,62 @@ public class ParserHelpersTests {
 		assertEquals(foVal, testVar.GetValue()[3]);
 		// Display results
 		System.out.println(g.toJson(testElement));
+	}
+	
+	@Test
+	public void TestIntegerArraySectionMap() {
+		
+		// Set up initial conditions
+		String IntArrayVar =
+				"{"+
+						"\"name\":\"TestName\","+
+						"\"ID\":\"TestID\","+
+						"\"description\":\"DescriptionValue\","+
+						"\"value\":[5,10,15,20]"+
+				"}";
+		String ID = "idValue";
+		
+		String IntArrayVar2 =
+				"{"+
+						"\"name\":\"TestName\","+
+						"\"ID\":\"TestID\","+
+						"\"description\":\"DescriptionValue\","+
+						"\"value\":[15,0,15]"+
+				"}";
+		ID = "idValue2";
+		
+		// Create test variable Objects
+		JsonParser parser = new JsonParser();
+		JsonObject o = parser.parse(IntArrayVar).getAsJsonObject();
+		o = parser.parse(IntArrayVar2).getAsJsonObject();	
+		JsonObject section = new JsonObject();
+		// Convert to JsonElement tree
+		Gson g = new Gson();
+		JsonReader reader = new JsonReader(new StringReader(IntArrayVar));
+		reader = new JsonReader(new StringReader(IntArrayVar2));
+		// Assign variable objects to JsonElement tree
+		JsonElement testElement1 = g.toJsonTree(IntArrayVar);
+		JsonElement testElement2 = g.toJsonTree(IntArrayVar2);
+		
+		// Add variable elements to section1 object
+		section.add("idValue", testElement1);
+		section.add("idValue2", testElement2);
+		
+		// Convert section1 to JsonElement
+		JsonElement s = g.toJsonTree(section);
+		
+		// Assign TreeMap<> to testMap and Parse
+		TreeMap<String, IVariable<Integer[]>> testMap = ParserHelpers.ParseIntegerArrayVariableSection(s);
+		
+		
+		// Fetch key information for variables
+		assertEquals("idValue", testMap.firstKey());
+		assertEquals("idValue2", testMap.lastKey());
+		
+		// Display results
+		System.out.println(g.toJson(section));
+		
+		
 	}
 
 	//***** STRING TESTING SECTION *****\\

@@ -23,6 +23,7 @@ import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
  * converts Variable.json information into Java Objects
  * <p>
  * 
+ * @author Christopher Howard
  * @author Terry Roberson
  * @since 1.0
  */
@@ -73,13 +74,13 @@ public class IntegerArrayVariableDeserializer implements JsonDeserializer<IVaria
 			_value = new Integer[t.size()];
 			//Iterate through json array
 			Iterator <JsonElement> it = t.iterator();
-			//start at first location in array
+			//Start at first location in array
 			int counter = 0;
+			//While there exists more values, loop through
 			while(it.hasNext()) {
 				_value[counter] = it.next().getAsInt();
 				counter++;
 			}
-			//return context.deserialize(t.getAsJsonObject(), IVariable.class); <== Not needed.
 		}
 		
 		//If the object has a description, then we grab it
