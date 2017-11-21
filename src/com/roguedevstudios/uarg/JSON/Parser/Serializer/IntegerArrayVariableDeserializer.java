@@ -70,19 +70,16 @@ public class IntegerArrayVariableDeserializer implements JsonDeserializer<IVaria
 			//Retrieve value as json array
 			JsonArray t = o.get("value").getAsJsonArray();
 			//Array contains values of t size
-			Integer[] in = new Integer[t.size()];
+			_value = new Integer[t.size()];
 			//Iterate through json array
 			Iterator <JsonElement> it = t.iterator();
 			//start at first location in array
 			int counter = 0;
 			while(it.hasNext()) {
-				in [counter] = it.next().getAsInt();
+				_value[counter] = it.next().getAsInt();
 				counter++;
 			}
-			return context.deserialize(t.getAsJsonObject(), IVariable.class);
-			
-			
-			
+			//return context.deserialize(t.getAsJsonObject(), IVariable.class); <== Not needed.
 		}
 		
 		//If the object has a description, then we grab it
