@@ -1,5 +1,4 @@
 package com.roguedevstudios.uarg.System.Core.Elements;
-
 /*********************************
  * 	MetaData Class               *
  * 	File Name: Meta.java         *
@@ -33,8 +32,8 @@ public class Meta
 	 * @param DateEd String DateEd of this variable
 	 * @since 1.0
 	 */
-	public Meta (String Name, String FormId, String Version, String Description, 
-				 String Author, String DateCrt, String DateEd) 
+	public Meta(String Name, String FormId, String Version, String Description, 
+				 String Author, String DateCrt, String DateEd)
 	{
 		this.SetName(Name);
 		this.SetFormId(FormId);
@@ -49,7 +48,6 @@ public class Meta
 	/* The Name of the configuration being used */
 	private String _name;
 
-	
 	/* The Form ID of the Form */
 	private String _formId;
 	/* The Version for program */
@@ -78,7 +76,7 @@ public class Meta
 		 */
 		public String GetName() 
 		{
-			return _name;
+			return this._name;
 		}
 		
 		/**
@@ -99,7 +97,7 @@ public class Meta
 		 */
 		public String GetFormId() 
 		{
-			return _formId;
+			return this._formId;
 		}
 		
 		/**
@@ -120,7 +118,7 @@ public class Meta
 		 */
 		public String GetVersion() 
 		{
-			return _version;
+			return this._version;
 		}
 		
 		/**
@@ -141,7 +139,7 @@ public class Meta
 		 */
 		public String GetDescription() 
 		{
-			return _description;
+			return this._description;
 		}
 		
 		/**
@@ -161,7 +159,7 @@ public class Meta
 		 */
 		public String GetAuthor() 
 		{
-			return _author;
+			return this._author;
 		}
 		
 		/**
@@ -181,7 +179,7 @@ public class Meta
 		 */
 		public String GetDateCrt() 
 		{
-			return _dateCrt;
+			return this._dateCrt;
 		}
 		
 		/**
@@ -201,7 +199,7 @@ public class Meta
 		 */
 		public String GetDateEd() 
 		{
-			return _dateEd;
+			return this._dateEd;
 		}
 		
 		/**
@@ -213,4 +211,6 @@ public class Meta
 		{
 			this._dateEd = DateEd;
 		}
+
+		
 }
