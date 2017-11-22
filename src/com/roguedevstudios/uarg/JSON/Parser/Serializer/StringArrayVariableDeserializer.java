@@ -12,6 +12,7 @@ package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 *********************************************/
 
 import java.lang.reflect.Type;
+import java.util.Iterator;
 
 import com.google.gson.*;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
@@ -66,8 +67,19 @@ public class StringArrayVariableDeserializer implements JsonDeserializer<IVariab
 		
 		//If the object has a value, then we grab it
 		if(o.has("value")) {
-			JsonArray jsonArray = json.getAsJsonObject().getAsJsonArray("value");
-			return context.deserialize(jsonArray, IVariable.class);
+			//Retrieve value as json array
+			JsonArray t = o.get("value").getAsJsonArray();
+			//Array contains values of t size
+			_value = new String[t.size()];
+			//Iterate through json array
+			Iterator <JsonElement> it = t.iterator();
+			//Start at first location in array
+			int counter = 0;
+			//While there exists more values, loop through
+			while(it.hasNext()) {
+				_value[counter] = it.next().getAsString();
+				counter++;
+			}
 		}
 		
 		//If the object has a description, then we grab it
