@@ -709,7 +709,7 @@ public class ParserHelpers {
 			case "INTEGERS":
 		// Take the previous temp map created from previous section parser and loop over its entries
 				for(Map.Entry<String, IVariable<Integer>> variableEntry: ParseIntegerVariableSection(sectionEntry.getValue()).entrySet()) {
-		// call the first temp integer map from top and put key and value as this entries value
+		// Call the first temp integer map from top and put key and value as this entries value
 					intMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
