@@ -2,6 +2,7 @@ package com.roguedevstudios.uarg.JSON.Parser.Tests;
 
 import static org.junit.Assert.*;
 
+import org.eclipse.jdt.internal.compiler.parser.Parser;
 import org.junit.*;
 
 import java.io.*;
@@ -19,41 +20,157 @@ import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
  * @author Terry Roberson
  * @since 1.0
  */
+
 public class ParserHelpersTests {
+	
+	
+	public String  IntVar =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":5"+
+			"}";
+	public String IntArrayVar =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[5,10,15,20]"+
+			"}";
+	public Integer ifVal = 5;
+	public Integer isVal = 10;
+	public Integer itVal = 15;
+	public Integer ifoVal = 20;
+	
+	
+	public String IntArrayVar2 =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID2\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[15,0,15]"+
+			"}";
+	
+	public String StringArrayVar =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[A,B,C,D]"+
+			"}";
+	public String sfVal = "A";
+	public String ssVal = "B";
+	public String stVal = "C";
+	public String sfoVal = "D";
+	public String StringArrayVar2 =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID2\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[A,B,C]"+
+			"}";
+	public String DoubleArrayVar =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[5.21, 6.35, 7.8, 8.2]"+
+			"}";
+	public Double dfVal = 5.21;
+	public Double dsVal = 6.35;
+	public Double dtVal = 7.8;
+	public Double dfoVal = 8.2;
+	public String DoubleArrayVar2 =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID2\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[15.2,0.1,15.14]"+
+			"}";
+	public String LongArrayVar =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[5,10,15,20]"+
+			"}";
+	public String LongArrayVar2 =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID2\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[15,0,15]"+
+			"}";
+	public Long lfVal = 5L;
+	public Long lsVal = 60L;
+	public Long ltVal = 78L;
+	public Long lfoVal = 800L;
+	public String FloatArrayVar =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[5,10,15,20]"+
+			"}";
+	public String FloatArrayVar2 =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID2\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[15,0,15]"+
+			"}";
+	public Float ffVal = 5.33F;
+	public Float fsVal = 60.51F;
+	public Float ftVal = 78.27F;
+	public Float ffoVal = 800.848F;
+	public String BoolArrayVar =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[true,false,true,true]"+
+			"}";			
+	public String BoolArrayVar2 =
+			"{"+
+					"\"name\":\"TestName\","+
+					"\"ID\":\"TestID2\","+
+					"\"description\":\"DescriptionValue\","+
+					"\"value\":[false,false,false]"+
+			"}";
+	public Boolean bfVal = true;
+	public Boolean bsVal = false;
+	
+	@Before
+	public JsonElement getSectionCondition(String key){
+		JsonParser parser = new JsonParser();
+		JsonObject o = parser.parse(IntVar).getAsJsonObject();
+		return o.get(key);
+		}
 	
 	//***** INTEGER TESTING SECTION ******\\
 	@Test
 	public void TestParseIntegerVariable() {
 		// Set up initial conditions
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description"; 
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		int valueValue = 500;
+		JsonElement IntVar = getSectionCondition("Integer");
 		
 		// Create a test variable object
 		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		j.addProperty(value, valueValue);
+		
 		// Convert it to a JsonElement tree
 		Gson g = new Gson();
 		
 		// Assign  elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
+		JsonElement testElement = g.toJsonTree(IntVar);
 		
 		// Assign Variable<> to testVar and Parse
-		IVariable<Integer> testVar = ParserHelpers.ParseIntegerVariable(testElement, "TestID");
+		IVariable<Integer> testVar = ParserHelpers.ParseIntegerVariable(IntVar, "TestID");
 		
 		// Fetch Information about Integer Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue,(int)testVar.GetValue());
+		assertEquals("TestName" ,testVar.GetName());
+		assertEquals("TestID" ,testVar.GetId());
+		assertEquals("TestDescription" ,testVar.GetDescription());
+		assertEquals(ifVal, testVar.GetValue());
 		
 		// Display results
 		System.out.println(g.toJson(testElement));
@@ -1152,177 +1269,6 @@ public class ParserHelpersTests {
 	//***** VARIABLES TESTING SECTION *****\\
 	@Test
 	public void TestVariables() {
-		// Set up initial conditions
-		String IntegerVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":1"+
-				"}";
-		String ID = "TestIntID";
-		String IntegerArrayVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[1,2,3,4]"+
-				"}";
-		ID = "TestIntID2";
-		String StringVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":A"+
-				"}";
-		ID = "TestStringID";
-		String StringArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[A,B,C,D]"+
-				"}";
-		ID = "TestStringID2";
-		String DoubleVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":2.3"+
-				"}";
-		ID = "TestStringID";
-		String DoubleArrayVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[1.5,2.31,3.5,4.4]"+
-				"}";
-		ID = "TestDoubleID";
-		String LongVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":50"+
-				"}";
-		ID = "TestLongID";
-		String LongArrayVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[15,231,35,44]"+
-				"}";
-		ID = "TestLongID2";
-		String FloatVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":2.3"+
-				"}";
-		ID = "TestFloatID";
-		String FloatArrayVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[15.25,23.15,35.57,44.2]"+
-				"}";
-		ID = "TestFloatID2";
-		String BooleanVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":true"+
-				"}";
-		ID = "TestBoolID";
-		String BooleanArrayVar = 
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[true,false,false]"+
-				"}";
-		ID = "TestBoolID2";
-		// Create test variable Objects
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(IntegerVar).getAsJsonObject();
-		JsonObject q = parser.parse(IntegerArrayVar).getAsJsonObject();	
-		JsonObject r = parser.parse(StringVar).getAsJsonObject();
-		JsonObject s = parser.parse(StringArrayVar).getAsJsonObject();
-		JsonObject t = parser.parse(DoubleVar).getAsJsonObject();
-		JsonObject u = parser.parse(DoubleArrayVar).getAsJsonObject();
-		JsonObject v = parser.parse(LongVar).getAsJsonObject();
-		JsonObject w = parser.parse(LongArrayVar).getAsJsonObject();
-		JsonObject x = parser.parse(FloatVar).getAsJsonObject();
-		JsonObject y = parser.parse(FloatArrayVar).getAsJsonObject();
-		JsonObject z = parser.parse(BooleanVar).getAsJsonObject();
-		JsonObject aa = parser.parse(BooleanArrayVar).getAsJsonObject();
-		JsonObject intSection = new JsonObject();
-		JsonObject StringSection = new JsonObject();
-		JsonObject DoubleSection = new JsonObject();
-		JsonObject LongSection = new JsonObject();
-		JsonObject FloatSection = new JsonObject();
-		JsonObject BooleanSection = new JsonObject();
-		JsonObject VariablesSection = new JsonObject();
-		// Convert to JsonElement tree
-		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(IntegerVar));
-		reader = new JsonReader(new StringReader(IntegerArrayVar));
-		reader = new JsonReader(new StringReader(StringVar));
-		reader = new JsonReader(new StringReader(StringArrayVar));
-		reader = new JsonReader(new StringReader(DoubleVar));
-		reader = new JsonReader(new StringReader(DoubleArrayVar));
-		reader = new JsonReader(new StringReader(LongVar));
-		reader = new JsonReader(new StringReader(LongArrayVar));
-		reader = new JsonReader(new StringReader(FloatVar));
-		reader = new JsonReader(new StringReader(FloatArrayVar));
-		reader = new JsonReader(new StringReader(BooleanVar));
-		reader = new JsonReader(new StringReader(BooleanArrayVar));
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(o);
-		JsonElement testElement2 = g.toJsonTree(q);
-		JsonElement testElement3 = g.toJsonTree(r);
-		JsonElement testElement4 = g.toJsonTree(s);
-		JsonElement testElement5 = g.toJsonTree(t);
-		JsonElement testElement6 = g.toJsonTree(u);
-		JsonElement testElement7 = g.toJsonTree(v);
-		JsonElement testElement8 = g.toJsonTree(w);
-		JsonElement testElement9 = g.toJsonTree(x);
-		JsonElement testElement10 = g.toJsonTree(y);
-		JsonElement testElement11 = g.toJsonTree(z);
-		JsonElement testElement12 = g.toJsonTree(aa);
-		// Add variable elements to section objects
-		intSection.add("TestIntID", testElement1);
-		intSection.add("TestIntID2", testElement2);	
-		StringSection.add("TestStringID", testElement3);
-		StringSection.add("TestStringID2", testElement4);
-		DoubleSection.add("TestDoubleID", testElement5);
-		DoubleSection.add("TestDoubleID", testElement6);
-		LongSection.add("TestLongID", testElement7);
-		LongSection.add("TestLongID2", testElement8);
-		FloatSection.add("TestFloatID", testElement9);
-		FloatSection.add("TestFloatID2", testElement10);
-		BooleanSection.add("TestBoolID", testElement11);
-		BooleanSection.add("TestBoolID2", testElement12);
-		// Convert sections to JsonElement
-		JsonElement integer = g.toJsonTree(intSection);
-		JsonElement String = g.toJsonTree(StringSection);
-		JsonElement Double = g.toJsonTree(DoubleSection);
-		JsonElement Long = g.toJsonTree(LongSection);
-		JsonElement Float = g.toJsonTree(FloatSection);
-		JsonElement Boolean = g.toJsonTree(BooleanSection);
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Integer[]>> testMap = ParserHelpers.ParseIntegerArrayVariableSection(s);		
-		// Fetch key information for variables
-		assertEquals("TestID", testMap.firstKey());
-		assertEquals("TestID2", testMap.lastKey());
-		// Display results
-		System.out.println(g.toJson(intSection));
+		
 	}
 }
