@@ -23,157 +23,155 @@ import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 
 public class ParserHelpersTests {
 	
+	//***** Variables Initial Condition Properties *****\\
+	private JsonElement _initialVariableCond;
+	private ArrayList<Integer> _initialVariableCondIntVals;
+	private ArrayList<Float> _initialVariableCondFloatVals;
+	private ArrayList<String> _initialVariableCondStringVals;
+	private ArrayList<Long> _initialVariableCondLongVals;
+	private ArrayList<Boolean> _initialVariableCondBoolVals;
+	private ArrayList<Integer[]> _initialVariableCondIntArrVals;
+	private ArrayList<Float[]> _initialVariableCondFloaArrtVals;
+	private ArrayList<String[]> _initialVariableCondStringArrVals;
+	private ArrayList<Long[]> _initialVariableCondLongArrVals;
+	private ArrayList<Boolean[]> _initialVariableCondBoolArrVals;
 	
-	public String  IntVar =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":5"+
-			"}";
-	public String IntArrayVar =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[5,10,15,20]"+
-			"}";
-	public Integer ifVal = 5;
-	public Integer isVal = 10;
-	public Integer itVal = 15;
-	public Integer ifoVal = 20;
+	//***** INITIAL BUILDERS *****\\
+	@Before 
+	public void VariablesStart() {
+		//Populate initial int values
+		this._initialVariableCondIntVals = new ArrayList<Integer>();
+		// 0 slot = 99
+		this._initialVariableCondIntVals.add(99);
+		// 1 slot = 10
+		this._initialVariableCondIntVals.add(10);
+		// 2 slot = 15
+		this._initialVariableCondIntVals.add(15);
+		//Populate initial Float values
+		this._initialVariableCondFloatVals = new ArrayList<Float>();
+		// 0 slot = 99
+		this._initialVariableCondFloatVals.add(99F);
+		// 1 slot = 10
+		this._initialVariableCondFloatVals.add(10F);
+		// 2 slot = 15
+		this._initialVariableCondFloatVals.add(15F);
+		// Let us create 1 large JsonElement using the format that
+		// we would actually see in a config file.
+		String initVars =
+				"{"+
+						"\"Integers\":"+
+						"{"+
+							"\"IntX\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondIntVals.get(0)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"IntY\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondIntVals.get(1)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"IntZ\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondIntVals.get(2)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"Floats\":"+
+						"{"+
+							"\"FloatX\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondFloatVals.get(0)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"FloatY\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondFloatVals.get(1)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"FloatZ\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondFloatVals.get(2)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"}"+
+				"}";
+		//System.out.println(initVars);
+		// Convert the text to a JsonElement just as we will get
+		// in the programs loading stages. This emulates actual
+		// initial condition states.
+		JsonParser p = new JsonParser();
+		this._initialVariableCond = p.parse(initVars);
+	}
 	
-	
-	public String IntArrayVar2 =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID2\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[15,0,15]"+
-			"}";
-	
-	public String StringArrayVar =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[A,B,C,D]"+
-			"}";
-	public String sfVal = "A";
-	public String ssVal = "B";
-	public String stVal = "C";
-	public String sfoVal = "D";
-	public String StringArrayVar2 =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID2\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[A,B,C]"+
-			"}";
-	public String DoubleArrayVar =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[5.21, 6.35, 7.8, 8.2]"+
-			"}";
-	public Double dfVal = 5.21;
-	public Double dsVal = 6.35;
-	public Double dtVal = 7.8;
-	public Double dfoVal = 8.2;
-	public String DoubleArrayVar2 =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID2\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[15.2,0.1,15.14]"+
-			"}";
-	public String LongArrayVar =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[5,10,15,20]"+
-			"}";
-	public String LongArrayVar2 =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID2\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[15,0,15]"+
-			"}";
-	public Long lfVal = 5L;
-	public Long lsVal = 60L;
-	public Long ltVal = 78L;
-	public Long lfoVal = 800L;
-	public String FloatArrayVar =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[5,10,15,20]"+
-			"}";
-	public String FloatArrayVar2 =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID2\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[15,0,15]"+
-			"}";
-	public Float ffVal = 5.33F;
-	public Float fsVal = 60.51F;
-	public Float ftVal = 78.27F;
-	public Float ffoVal = 800.848F;
-	public String BoolArrayVar =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[true,false,true,true]"+
-			"}";			
-	public String BoolArrayVar2 =
-			"{"+
-					"\"name\":\"TestName\","+
-					"\"ID\":\"TestID2\","+
-					"\"description\":\"DescriptionValue\","+
-					"\"value\":[false,false,false]"+
-			"}";
-	public Boolean bfVal = true;
-	public Boolean bsVal = false;
-	
-	@Before
+	//***** HELPERS *****\\
+	/**
+	 * Grabs a section from the Variable conditions for use in tests
+	 * @param key
+	 * @return JsonElement
+	 */
 	public JsonElement getSectionCondition(String key){
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(IntVar).getAsJsonObject();
-		return o.get(key);
+			return this._initialVariableCond.getAsJsonObject().get(key);
 		}
+	/**
+	 * Gets a specific variable from a section in the Variable conditions for use in teset
+	 * @param sectionKey
+	 * @param variableKey
+	 * @return JsonElement
+	 */
+	public JsonElement getVariableCondition(String sectionKey, String variableKey) {
+		return this.getSectionCondition(sectionKey).getAsJsonObject().get(variableKey);
+	}
 	
 	//***** INTEGER TESTING SECTION ******\\
 	@Test
 	public void TestParseIntegerVariable() {
-		// Set up initial conditions
-		JsonElement IntVar = getSectionCondition("Integer");
-		
-		// Create a test variable object
-		JsonObject j = new JsonObject();
-		
-		// Convert it to a JsonElement tree
+
 		Gson g = new Gson();
 		
-		// Assign  elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(IntVar);
 		
-		// Assign Variable<> to testVar and Parse
-		IVariable<Integer> testVar = ParserHelpers.ParseIntegerVariable(IntVar, "TestID");
+		// Parse IntX from the Integers section into an IVariable<Integer> compliant container
+		IVariable<Integer> testVar = ParserHelpers.
+										ParseIntegerVariable(
+												this.getVariableCondition(
+														"Integers", "IntX"), 
+														"IntX");
 		
 		// Fetch Information about Integer Variable
-		assertEquals("TestName" ,testVar.GetName());
-		assertEquals("TestID" ,testVar.GetId());
-		assertEquals("TestDescription" ,testVar.GetDescription());
-		assertEquals(ifVal, testVar.GetValue());
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"IntX",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondIntVals.get(0), 
+						testVar.GetValue()
+					);
 		
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(testVar));
 	}
 	
 
@@ -893,43 +891,43 @@ public class ParserHelpersTests {
 	}
 	
 	//***** FLOAT TESTING SECTION *****\\
-	@Test
-	public void TestParseFloatVariable() {
-		
-		// Set up initial conditions
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description"; 
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		Float valueValue = 67F;
-		
-		// Create a test variable object
-		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		j.addProperty(value, valueValue);
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
-		
-		// Assign elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
-		
-		// Assign Variable<> to testVar and Parse
-		IVariable<Float> testVar = ParserHelpers.ParseFloatVariable(testElement, "TestID");
-		
-		// Fetch Information about Float Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue, testVar.GetValue());
-		
-		// Display results
-		System.out.println(g.toJson(testElement));
-	}
+		@Test
+		public void TestParseFloatVariable() {
+			
+			Gson g = new Gson();
+			
+			
+			// Parse FloatX from the Integers section into an IVariable<Float> compliant container
+			IVariable<Float> testVar = ParserHelpers.
+											ParseFloatVariable(
+													this.getVariableCondition(
+															"Floats", "FloatX"), 
+															"FloatX");
+			
+			// Fetch Information about Integer Variable
+			assertEquals(
+							"TestName",
+							testVar.GetName()
+						);
+			
+			assertEquals(
+							"FloatX",
+							testVar.GetId()
+						);
+			
+			assertEquals(
+							"TestDescription",
+							testVar.GetDescription()
+						);
+			
+			assertEquals(
+							this._initialVariableCondFloatVals.get(0), 
+							testVar.GetValue()
+						);
+			
+			// Display results
+			System.out.println(g.toJson(testVar));
+		}
 	
 	@Test
 	public void TestParseFloatArrayVariable() {

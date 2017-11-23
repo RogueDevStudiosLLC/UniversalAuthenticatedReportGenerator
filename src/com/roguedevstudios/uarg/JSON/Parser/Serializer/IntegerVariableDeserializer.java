@@ -56,8 +56,8 @@ public class IntegerVariableDeserializer implements JsonDeserializer<IVariable<I
 		JsonObject o = json.getAsJsonObject();
 		
 		//If the object has a name, then we grab it
-		if(o.has("name")) {
-			_name = o.get("name").getAsString();
+		if(o.has("Name")) {
+			_name = o.get("Name").getAsString();
 		}
 		
 		//If the object has an ID, then we grab it
@@ -66,13 +66,13 @@ public class IntegerVariableDeserializer implements JsonDeserializer<IVariable<I
 		}
 		
 		//If the object has a value, then we grab it
-		if(o.has("value")) {
-			_value = o.get("value").getAsInt();
+		if(o.has("Value")) {
+			_value = o.get("Value").getAsInt();
 		}
 		
 		//If the object has a description, then we grab it
-		if(o.has("description")) {
-			_description = o.get("description").getAsString();
+		if(o.has("Description")) {
+			_description = o.get("Description").getAsString();
 		}
 		
 		//Build the Variable object to return
