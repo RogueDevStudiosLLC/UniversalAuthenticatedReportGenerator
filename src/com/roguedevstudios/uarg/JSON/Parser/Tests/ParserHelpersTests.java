@@ -290,21 +290,27 @@ public class ParserHelpersTests {
 							"\"Int[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondIntArrVals.get(0)+","+
+									"\"Value\":"+this._initialVariableCondIntArrVals.get(0)[0]+","+
+									this._initialVariableCondIntArrVals.get(0)[1]+","+
+									this._initialVariableCondIntArrVals.get(0)[2]+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Int[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondIntArrVals.get(1)+","+
+									"\"Value\":"+this._initialVariableCondIntArrVals.get(1)[0]+","+
+									this._initialVariableCondIntArrVals.get(1)[1]+","+
+									this._initialVariableCondIntArrVals.get(1)[2]+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Int[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondIntArrVals.get(2)+","+
+									"\"Value\":"+this._initialVariableCondIntArrVals.get(2)[0]+","+
+									this._initialVariableCondIntArrVals.get(2)[1]+","+
+									this._initialVariableCondIntArrVals.get(2)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
@@ -314,21 +320,27 @@ public class ParserHelpersTests {
 							"\"String[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondStringArrVals.get(0)+","+
+									"\"Value\":"+this._initialVariableCondStringArrVals.get(0)[0]+","+
+									this._initialVariableCondStringArrVals.get(0)[1]+","+
+									this._initialVariableCondStringArrVals.get(0)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"String[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondStringArrVals.get(1)+","+
+									"\"Value\":"+this._initialVariableCondStringArrVals.get(1)[0]+","+
+									this._initialVariableCondStringArrVals.get(1)[1]+","+
+									this._initialVariableCondStringArrVals.get(1)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"String[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondStringArrVals.get(2)+","+
+									"\"Value\":"+this._initialVariableCondStringArrVals.get(2)[0]+","+
+									this._initialVariableCondStringArrVals.get(2)[1]+","+
+									this._initialVariableCondStringArrVals.get(2)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
@@ -338,21 +350,27 @@ public class ParserHelpersTests {
 							"\"Double[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondDoubleArrVals.get(0)+","+
+									"\"Value\":"+this._initialVariableCondDoubleArrVals.get(0)[0]+","+
+									this._initialVariableCondDoubleArrVals.get(0)[1]+","+
+									this._initialVariableCondDoubleArrVals.get(0)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Double[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondDoubleArrVals.get(1)+","+
+									"\"Value\":"+this._initialVariableCondDoubleArrVals.get(1)[0]+","+
+									this._initialVariableCondDoubleArrVals.get(1)[1]+","+
+									this._initialVariableCondDoubleArrVals.get(1)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Double[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondDoubleArrVals.get(2)+","+
+									"\"Value\":"+this._initialVariableCondDoubleArrVals.get(2)[0]+","+
+									this._initialVariableCondDoubleArrVals.get(2)[1]+","+
+									this._initialVariableCondDoubleArrVals.get(2)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
@@ -362,7 +380,9 @@ public class ParserHelpersTests {
 							"\"Long[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondLongArrVals.get(0)+","+
+									"\"Value\":"+this._initialVariableCondLongArrVals.get(0)[0]+","+
+									this._initialVariableCondLongArrVals.get(0)[1]+","+
+									this._initialVariableCondLongArrVals.get(0)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
@@ -386,21 +406,27 @@ public class ParserHelpersTests {
 							"\"Float[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondFloatArrVals.get(0)+","+
+									"\"Value\":"+this._initialVariableCondFloatArrVals.get(0)[0]+","+
+									this._initialVariableCondFloatArrVals.get(0)[1]+","+
+									this._initialVariableCondFloatArrVals.get(0)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Float[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondFloatArrVals.get(1)+","+
+									"\"Value\":"+this._initialVariableCondFloatArrVals.get(1)[0]+","+
+									this._initialVariableCondFloatArrVals.get(1)[1]+","+
+									this._initialVariableCondFloatArrVals.get(1)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Float[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondFloatArrVals.get(2)+","+
+									"\"Value\":"+this._initialVariableCondFloatArrVals.get(2)[0]+","+
+									this._initialVariableCondFloatArrVals.get(2)[1]+","+
+									this._initialVariableCondFloatArrVals.get(2)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
@@ -410,21 +436,27 @@ public class ParserHelpersTests {
 							"\"Bool[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondBoolArrVals.get(0)+","+
+									"\"Value\":"+this._initialVariableCondBoolArrVals.get(0)[0]+","+
+									this._initialVariableCondBoolArrVals.get(0)[1]+","+
+									this._initialVariableCondBoolArrVals.get(0)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":true"+
 								"},"+
 							"\"Bool[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondBoolArrVals.get(1)+","+
+									"\"Value\":"+this._initialVariableCondBoolArrVals.get(1)[0]+","+
+									this._initialVariableCondBoolArrVals.get(1)[1]+","+
+									this._initialVariableCondBoolArrVals.get(1)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Bool[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondBoolArrVals.get(2)+","+
+									"\"Value\":"+this._initialVariableCondBoolArrVals.get(2)[0]+","+
+									this._initialVariableCondBoolArrVals.get(1)[1]+","+
+									this._initialVariableCondBoolArrVals.get(2)[2]+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
@@ -535,58 +567,43 @@ public class ParserHelpersTests {
 	
 	@Test
 	public void TestIntegerSectionMap() {
-		
-		// Set up initial conditions
-		String Name = "name";
-		String NameValue = "TestName";
-		String NameValue1 = "TestName1";
-		String ID = "ID";
-		String idValue = "TestID";
-		String idValue1 = "TestID2";
-		String Description = "Description";
-		String DescriptionValue = "TestDescription";
-		String DescriptionValue1 = "TestDescription1";
-		String Value = "Value";
-		int ValueValue = 50;
-		int ValueValue1 = 500;
-		
-		// Create test variable Objects
-		JsonObject var1 = new JsonObject();
-		JsonObject var2 = new JsonObject();
-		JsonObject section1 = new JsonObject();
-		
-		// Add variable properties
-		var1.addProperty(Name, NameValue);
-		var1.addProperty(ID, idValue);
-		var1.addProperty(Description, DescriptionValue);
-		var1.addProperty(Value, ValueValue);
-		var2.addProperty(Name, NameValue1);
-		var2.addProperty(ID, idValue1);
-		var2.addProperty(Description, DescriptionValue1);
-		var2.addProperty(Value, ValueValue1);
-		// Convert to JsonElement tree
 		Gson g = new Gson();
+		// Parse IntX, IntY, IntZ from the Integers section into an IVariable<Integer> compliant container
+		IVariable<Integer> testVar = ParserHelpers.
+										ParseIntegerVariable(
+												this.getVariableCondition(
+														"Integers", "IntX"), 
+														"IntX");
+		IVariable<Integer> testVar2 = ParserHelpers.
+										ParseIntegerVariable(
+												this.getVariableCondition(
+														"Integers", "IntY"), 
+														"IntY");
+		IVariable<Integer> testVar3 = ParserHelpers.
+										ParseIntegerVariable(
+												this.getVariableCondition(
+														"Integers", "IntZ"), 
+														"IntZ");
+		// Parse Integer Section into a TreeMap
+		TreeMap<String, IVariable<Integer>> section = ParserHelpers.
+														ParseIntegerVariableSection(
+																this.getSectionCondition(
+																		"Integers"));
 		
 		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(var1);
-		JsonElement testElement2 = g.toJsonTree(var2);
-		
-		// Add variable elements to section1 object
-		section1.add(idValue, testElement1);
-		section1.add(idValue1, testElement2);
+		JsonElement testElement1 = g.toJsonTree(testVar);
+		JsonElement testElement2 = g.toJsonTree(testVar2);
+		JsonElement testElement3 = g.toJsonTree(testVar3);
 		
 		// Convert section1 to JsonElement
-		JsonElement s1 = g.toJsonTree(section1);
-		
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Integer>> testMap = ParserHelpers.ParseIntegerVariableSection(s1);
+		JsonElement s1 = g.toJsonTree(section);
 	
 		// Fetch key information for variables
-		assertEquals(idValue, testMap.firstKey());
-		assertEquals(idValue1, testMap.lastKey());
+		assertEquals("IntX", section.firstKey());
+		assertEquals("IntZ", section.lastKey());
 		
 		// Display results
-		System.out.println(g.toJson(section1));
+		System.out.println(g.toJson(section));
 		
 		
 	}
@@ -1027,7 +1044,7 @@ Gson g = new Gson();
 	@Test
 	public void TestParseLongVariable() {
 		
-Gson g = new Gson();
+		Gson g = new Gson();
 		
 		
 		// Parse IntX from the Integers section into an IVariable<Long> compliant container
