@@ -850,8 +850,8 @@ public class ParserHelpers {
 			break;
 		// Break from the switch statement
 			default:
-				break;
-				}
+			break;
+			}
 		
 		}
 		// Build the Variables Object 
