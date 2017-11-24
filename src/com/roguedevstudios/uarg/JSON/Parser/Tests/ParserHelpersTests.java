@@ -1,17 +1,13 @@
 package com.roguedevstudios.uarg.JSON.Parser.Tests;
 
 import static org.junit.Assert.*;
-
-import org.eclipse.jdt.internal.compiler.parser.Parser;
 import org.junit.*;
-
-import java.io.*;
 import java.util.*;
 import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.ParserHelpers;
-import com.roguedevstudios.uarg.System.Core.Elements.Variable;
+import com.roguedevstudios.uarg.System.Core.Elements.Variables;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
 /**
  * <p>
  * This will test the ParserHelper.java file
@@ -119,8 +115,8 @@ public class ParserHelpersTests {
 		this._initialVariableCondLongArrVals.add(new Long[] {99L,50L,8L});
 		// 1 slot = [10,5,8000]
 		this._initialVariableCondLongArrVals.add(new Long[] {10L,5L,8000L});
-		// 2 slot = [15,8,9023456]
-		this._initialVariableCondLongArrVals.add(new Long[] {15L,8L,9023456L});
+		// 2 slot = [15,8,56]
+		this._initialVariableCondLongArrVals.add(new Long[] {15L,8L,56L});
 		//Populate initial Float values
 		this._initialVariableCondFloatArrVals = new ArrayList<Float[]>();
 		// 0 slot = [99, 12,5.2]
@@ -290,57 +286,69 @@ public class ParserHelpersTests {
 							"\"Int[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondIntArrVals.get(0)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondIntArrVals.get(0)[0]+","+
 									this._initialVariableCondIntArrVals.get(0)[1]+","+
-									this._initialVariableCondIntArrVals.get(0)[2]+","+
+									this._initialVariableCondIntArrVals.get(0)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Int[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondIntArrVals.get(1)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondIntArrVals.get(1)[0]+","+
 									this._initialVariableCondIntArrVals.get(1)[1]+","+
-									this._initialVariableCondIntArrVals.get(1)[2]+","+
+									this._initialVariableCondIntArrVals.get(1)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Int[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondIntArrVals.get(2)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondIntArrVals.get(2)[0]+","+
 									this._initialVariableCondIntArrVals.get(2)[1]+","+
 									this._initialVariableCondIntArrVals.get(2)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
 						"},"+
 						"\"StringArrays\":"+
-						"{"+
-							"\"String[]X\":"+
-								"{"+
+							"{"+
+						"\"String[]X\":"+
+							"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondStringArrVals.get(0)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondStringArrVals.get(0)[0]+","+
 									this._initialVariableCondStringArrVals.get(0)[1]+","+
 									this._initialVariableCondStringArrVals.get(0)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
-								"},"+
-							"\"String[]Y\":"+
-								"{"+
+							"},"+
+						"\"String[]Y\":"+
+							"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondStringArrVals.get(1)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondStringArrVals.get(1)[0]+","+
 									this._initialVariableCondStringArrVals.get(1)[1]+","+
 									this._initialVariableCondStringArrVals.get(1)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
-								"},"+
-							"\"String[]Z\":"+
-								"{"+
+							"},"+
+						"\"String[]Z\":"+
+							"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondStringArrVals.get(2)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondStringArrVals.get(2)[0]+","+
 									this._initialVariableCondStringArrVals.get(2)[1]+","+
 									this._initialVariableCondStringArrVals.get(2)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
@@ -350,27 +358,33 @@ public class ParserHelpersTests {
 							"\"Double[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondDoubleArrVals.get(0)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondDoubleArrVals.get(0)[0]+","+
 									this._initialVariableCondDoubleArrVals.get(0)[1]+","+
 									this._initialVariableCondDoubleArrVals.get(0)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Double[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondDoubleArrVals.get(1)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondDoubleArrVals.get(1)[0]+","+
 									this._initialVariableCondDoubleArrVals.get(1)[1]+","+
 									this._initialVariableCondDoubleArrVals.get(1)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Double[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondDoubleArrVals.get(2)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondDoubleArrVals.get(2)[0]+","+
 									this._initialVariableCondDoubleArrVals.get(2)[1]+","+
 									this._initialVariableCondDoubleArrVals.get(2)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
@@ -380,23 +394,33 @@ public class ParserHelpersTests {
 							"\"Long[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondLongArrVals.get(0)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondLongArrVals.get(0)[0]+","+
 									this._initialVariableCondLongArrVals.get(0)[1]+","+
 									this._initialVariableCondLongArrVals.get(0)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Long[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondLongArrVals.get(1)+","+
+									"\"Value\":["+
+									this._initialVariableCondLongArrVals.get(1)[0]+","+
+									this._initialVariableCondLongArrVals.get(1)[1]+","+
+									this._initialVariableCondLongArrVals.get(1)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Long[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondLongArrVals.get(2)+","+
+									"\"Value\":["+
+									this._initialVariableCondLongArrVals.get(2)[0]+","+
+									this._initialVariableCondLongArrVals.get(2)[1]+","+
+									this._initialVariableCondLongArrVals.get(2)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
@@ -406,27 +430,33 @@ public class ParserHelpersTests {
 							"\"Float[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondFloatArrVals.get(0)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondFloatArrVals.get(0)[0]+","+
 									this._initialVariableCondFloatArrVals.get(0)[1]+","+
 									this._initialVariableCondFloatArrVals.get(0)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Float[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondFloatArrVals.get(1)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondFloatArrVals.get(1)[0]+","+
 									this._initialVariableCondFloatArrVals.get(1)[1]+","+
 									this._initialVariableCondFloatArrVals.get(1)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Float[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondFloatArrVals.get(2)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondFloatArrVals.get(2)[0]+","+
 									this._initialVariableCondFloatArrVals.get(2)[1]+","+
 									this._initialVariableCondFloatArrVals.get(2)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
@@ -436,33 +466,39 @@ public class ParserHelpersTests {
 							"\"Bool[]X\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondBoolArrVals.get(0)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondBoolArrVals.get(0)[0]+","+
 									this._initialVariableCondBoolArrVals.get(0)[1]+","+
 									this._initialVariableCondBoolArrVals.get(0)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":true"+
 								"},"+
 							"\"Bool[]Y\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondBoolArrVals.get(1)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondBoolArrVals.get(1)[0]+","+
 									this._initialVariableCondBoolArrVals.get(1)[1]+","+
 									this._initialVariableCondBoolArrVals.get(1)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"},"+
 							"\"Bool[]Z\":"+
 								"{"+
 									"\"Name\":\"TestName\","+
-									"\"Value\":"+this._initialVariableCondBoolArrVals.get(2)[0]+","+
+									"\"Value\":["+
+									this._initialVariableCondBoolArrVals.get(2)[0]+","+
 									this._initialVariableCondBoolArrVals.get(1)[1]+","+
 									this._initialVariableCondBoolArrVals.get(2)[2]+
+									"]"+","+
 									"\"Description\":\"TestDescription\","+
 									"\"Requires Input\":false"+
 								"}"+
 						"}"+
 				"}";
-		//System.out.println(initVars);
+		// System.out.println(initVars);
 		// Convert the text to a JsonElement just as we will get
 		// in the programs loading stages. This emulates actual
 		// initial condition states.
@@ -492,17 +528,14 @@ public class ParserHelpersTests {
 	//***** INTEGER TESTING SECTION ******\\
 	@Test
 	public void TestParseIntegerVariable() {
-
-		Gson g = new Gson();
-		
-		
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
 		// Parse IntX from the Integers section into an IVariable<Integer> compliant container
 		IVariable<Integer> testVar = ParserHelpers.
 										ParseIntegerVariable(
 												this.getVariableCondition(
 														"Integers", "IntX"), 
 														"IntX");
-		
 		// Fetch Information about Integer Variable
 		assertEquals(
 						"TestName",
@@ -523,7 +556,6 @@ public class ParserHelpersTests {
 						this._initialVariableCondIntVals.get(0), 
 						testVar.GetValue()
 					);
-		
 		// Display results
 		System.out.println(g.toJson(testVar));
 	}
@@ -531,42 +563,50 @@ public class ParserHelpersTests {
 
 	@Test
 	public void TestParseIntegerArrayVariable() {
-		// Set up initial conditions
-		String IntArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[5,10,15,20]"+
-				"}";
-		Integer fVal = 5;
-		Integer sVal = 10;
-		Integer tVal = 15;
-		Integer foVal = 20;
-		// Create a test variable object
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(IntArrayVar).getAsJsonObject();
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(IntArrayVar));
-		// Assign variable to JsonElement tree
-		JsonElement testElement = g.toJsonTree(o);
-		// Assign Variable<> to testVar and Parse
-		IVariable<Integer[]> testVar = ParserHelpers.ParseIntegerArrayVariable(testElement, "TestID");
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse IntX from the Integers section into an IVariable<Integer> compliant container
+		IVariable<Integer[]> testVar = ParserHelpers.
+										ParseIntegerArrayVariable(
+												this.getVariableCondition(
+														"IntegerArrays", "Int[]X"), 
+														"Int[]X");
+		
 		// Fetch Information about Integer Variable
-		assertEquals("TestName", testVar.GetName());
-		assertEquals("TestID", testVar.GetId());
-		assertEquals("DescriptionValue", testVar.GetDescription());
-		assertEquals(fVal, testVar.GetValue()[0]);
-		assertEquals(sVal, testVar.GetValue()[1]);
-		assertEquals(tVal, testVar.GetValue()[2]);
-		assertEquals(foVal, testVar.GetValue()[3]);
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"Int[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondIntArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondIntArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondIntArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(testVar));
 	}
 	
 	@Test
 	public void TestIntegerSectionMap() {
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
 		// Parse IntX, IntY, IntZ from the Integers section into an IVariable<Integer> compliant container
 		IVariable<Integer> testVar = ParserHelpers.
@@ -589,103 +629,99 @@ public class ParserHelpersTests {
 														ParseIntegerVariableSection(
 																this.getSectionCondition(
 																		"Integers"));
-		
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(testVar);
-		JsonElement testElement2 = g.toJsonTree(testVar2);
-		JsonElement testElement3 = g.toJsonTree(testVar3);
-		
-		// Convert section1 to JsonElement
-		JsonElement s1 = g.toJsonTree(section);
-	
 		// Fetch key information for variables
 		assertEquals("IntX", section.firstKey());
 		assertEquals("IntZ", section.lastKey());
 		
 		// Display results
 		System.out.println(g.toJson(section));
-		
-		
 	}
 
 	@Test
 	public void TestIntegerArraySectionMap() {
-		
-		// Set up initial conditions
-		String IntArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[5,10,15,20]"+
-				"}";
-		String ID = "TestID";
-		
-		String IntArrayVar2 =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID2\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[15,0,15]"+
-				"}";
-		ID = "TestID2";
-		
-		// Create test variable Objects
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(IntArrayVar).getAsJsonObject();
-		JsonObject q = parser.parse(IntArrayVar2).getAsJsonObject();	
-		JsonObject section = new JsonObject();
-		// Convert to JsonElement tree
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(IntArrayVar));
-		reader = new JsonReader(new StringReader(IntArrayVar2));
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(o);
-		JsonElement testElement2 = g.toJsonTree(q);
-		
-		// Add variable elements to section1 object
-		section.add("TestID", testElement1);
-		section.add("TestID2", testElement2);
-		
-		// Convert section1 to JsonElement
-		JsonElement s = g.toJsonTree(section);
-		
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Integer[]>> testMap = ParserHelpers.ParseIntegerArrayVariableSection(s);
-		
-		
+		// Parse IntX, IntY, IntZ from the Integers section into an IVariable<Integer> compliant container
+		IVariable<Integer[]> testVar = ParserHelpers.
+										ParseIntegerArrayVariable(
+												this.getVariableCondition(
+														"IntegerArrays", "Int[]X"), 
+														"Int[]X");
+		IVariable<Integer[]> testVar2 = ParserHelpers.
+										ParseIntegerArrayVariable(
+												this.getVariableCondition(
+														"IntegerArrays", "Int[]Y"), 
+														"Int[]Y");
+		IVariable<Integer[]> testVar3 = ParserHelpers.
+										ParseIntegerArrayVariable(
+												this.getVariableCondition(
+														"IntegerArrays", "Int[]Z"), 
+														"Int[]Z");
+		// Parse Integer Section into a TreeMap
+		TreeMap<String, IVariable<Integer[]>> section = ParserHelpers.
+														ParseIntegerArrayVariableSection(
+																this.getSectionCondition(
+																		"IntegerArrays"));
 		// Fetch key information for variables
-		assertEquals("TestID", testMap.firstKey());
-		assertEquals("TestID2", testMap.lastKey());
-		
+		assertEquals("Int[]X", section.firstKey());
+		assertEquals("Int[]Z", section.lastKey());
 		// Display results
 		System.out.println(g.toJson(section));
-		
-		
 	}
 
 	//***** STRING TESTING SECTION *****\\
 	@Test
 	public void TestParseStringVariable() {
-		
-Gson g = new Gson();
-		
-		
-		// Parse StringX from the Integers section into an IVariable<Integer> compliant container
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse StringX, StringY, StringZ from the Strings section into an IVariable<String> compliant container
 		IVariable<String> testVar = ParserHelpers.
 										ParseStringVariable(
 												this.getVariableCondition(
 														"Strings", "StringX"), 
 														"StringX");
 		
-		// Fetch Information about Integer Variable
+		// Fetch key information for variables
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		assertEquals(
+						"StringX",
+						testVar.GetId()
+					);
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		assertEquals(
+						this._initialVariableCondStringVals.get(0),
+						testVar.GetValue()
+					);
+	
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+	@Test
+	public void TestParseStringArrayVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse StringX from the Strings section into an IVariable<String> compliant container
+		IVariable<String[]> testVar = ParserHelpers.
+										ParseStringArrayVariable(
+												this.getVariableCondition(
+														"StringArrays", "String[]X"), 
+														"String[]X");
+		
+		// Fetch Information about String Variable
 		assertEquals(
 						"TestName",
 						testVar.GetName()
 					);
 		
 		assertEquals(
-						"StringX",
+						"String[]X",
 						testVar.GetId()
 					);
 		
@@ -695,365 +731,241 @@ Gson g = new Gson();
 					);
 		
 		assertEquals(
-						this._initialVariableCondStringVals.get(0), 
-						testVar.GetValue()
+						this._initialVariableCondStringArrVals.get(0)[0], 
+						testVar.GetValue()[0]
 					);
-		
+		assertEquals(
+						this._initialVariableCondStringArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondStringArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
 		// Display results
 		System.out.println(g.toJson(testVar));
-	}
-	
-	@Test
-	public void TestParseStringArrayVariable() {
-		// Set up initial conditions
-		String StringArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[A,B,C,D]"+
-				"}";
-		String fVal = "A";
-		String sVal = "B";
-		String tVal = "C";
-		String foVal = "D";
-		// Create a test variable object
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(StringArrayVar).getAsJsonObject();
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(StringArrayVar));
-		// Assign variable to JsonElement tree
-		JsonElement testElement = g.toJsonTree(o);
-		// Assign Variable<> to testVar and Parse
-		IVariable<String[]> testVar = ParserHelpers.ParseStringArrayVariable(testElement, "TestID");
-		// Fetch Information about Integer Variable
-		assertEquals("TestName", testVar.GetName());
-		assertEquals("TestID", testVar.GetId());
-		assertEquals("DescriptionValue", testVar.GetDescription());
-		assertEquals(fVal, testVar.GetValue()[0]);
-		assertEquals(sVal, testVar.GetValue()[1]);
-		assertEquals(tVal, testVar.GetValue()[2]);
-		assertEquals(foVal, testVar.GetValue()[3]);
-		// Display results
-		System.out.println(g.toJson(testElement));
 	}
 
 	@Test
 	public void TestStringSectionMap() {
-		
-		// Set up initial conditions
-		String Name = "name";
-		String NameValue = "TestName";
-		String NameValue1 = "TestName1";
-		String ID = "ID";
-		String idValue = "TestID";
-		String idValue1 = "TestID2";
-		String Description = "Description";
-		String DescriptionValue = "TestDescription";
-		String DescriptionValue1 = "TestDescription1";
-		String Value = "Value";
-		String ValueValue = "A";
-		String ValueValue1 = "B";
-		
-		// Create test variable Objects
-		JsonObject var1 = new JsonObject();
-		JsonObject var2 = new JsonObject();
-		JsonObject section1 = new JsonObject();
-		
-		// Add variable properties
-		var1.addProperty(Name, NameValue);
-		var1.addProperty(ID, idValue);
-		var1.addProperty(Description, DescriptionValue);
-		var1.addProperty(Value, ValueValue);
-		var2.addProperty(Name, NameValue1);
-		var2.addProperty(ID, idValue1);
-		var2.addProperty(Description, DescriptionValue1);
-		var2.addProperty(Value, ValueValue1);
-		// Convert to JsonElement tree
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(var1);
-		JsonElement testElement2 = g.toJsonTree(var2);
-		
-		// Add variable elements to section1 object
-		section1.add(idValue, testElement1);
-		section1.add(idValue1, testElement2);
-		
-		// Convert section1 to JsonElement
-		JsonElement s1 = g.toJsonTree(section1);
-		
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<String>> testMap = ParserHelpers.ParseStringVariableSection(s1);
-		
-		
+		// Parse StringX, StringY, StringZ from the Strings section into an IVariable<String> compliant container
+		IVariable<String> testVar = ParserHelpers.
+										ParseStringVariable(
+												this.getVariableCondition(
+														"Strings", "StringX"), 
+														"StringX");
+		IVariable<String> testVar2 = ParserHelpers.
+										ParseStringVariable(
+												this.getVariableCondition(
+														"Strings", "StringY"), 
+														"StringY");
+		IVariable<String> testVar3 = ParserHelpers.
+										ParseStringVariable(
+												this.getVariableCondition(
+														"Strings", "StringZ"), 
+														"StringZ");
+		// Parse String Section into a TreeMap
+		TreeMap<String, IVariable<String>> section = ParserHelpers.
+														ParseStringVariableSection(
+																this.getSectionCondition(
+																		"Strings"));
 		// Fetch key information for variables
-		assertEquals(idValue, testMap.firstKey());
-		assertEquals(idValue1, testMap.lastKey());
+		assertEquals("StringX", section.firstKey());
+		assertEquals("StringZ", section.lastKey());
 		
 		// Display results
-		System.out.println(g.toJson(section1));
+		System.out.println(g.toJson(section));
 	}
 	
 	@Test
 	public void TestStringArraySectionMap() {
-		
-		// Set up initial conditions
-		String StringArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[A,B,C,D]"+
-				"}";
-		String ID = "TestID";	
-		String StringArrayVar2 =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID2\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[E,F,G]"+
-				"}";
-		ID = "TestID2";
-			
-		// Create test variable Objects
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(StringArrayVar).getAsJsonObject();
-		JsonObject q = parser.parse(StringArrayVar2).getAsJsonObject();	
-		JsonObject section = new JsonObject();
-		// Convert to JsonElement tree
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(StringArrayVar));
-		reader = new JsonReader(new StringReader(StringArrayVar2));
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(o);
-		JsonElement testElement2 = g.toJsonTree(q);
-			
-		// Add variable elements to section1 object
-		section.add("TestID", testElement1);
-		section.add("TestID2", testElement2);
-			
-		// Convert section1 to JsonElement
-		JsonElement s = g.toJsonTree(section);
-			
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<String[]>> testMap = ParserHelpers.ParseStringArrayVariableSection(s);
-			
-			
+		// Parse StringX, StringY, StringZ from the Strings section into an IVariable<String> compliant container
+		IVariable<String[]> testVar = ParserHelpers.
+										ParseStringArrayVariable(
+												this.getVariableCondition(
+														"StringArrays", "String[]X"), 
+														"String[]X");
+		IVariable<String[]> testVar2 = ParserHelpers.
+										ParseStringArrayVariable(
+												this.getVariableCondition(
+														"StringArrays", "String[]Y"), 
+														"String[]Y");
+		IVariable<String[]> testVar3 = ParserHelpers.
+										ParseStringArrayVariable(
+												this.getVariableCondition(
+														"StringArrays", "String[]Z"), 
+														"String[]Z");
+		// Parse String Section into a TreeMap
+		TreeMap<String, IVariable<String[]>> section = ParserHelpers.
+														ParseStringArrayVariableSection(
+																this.getSectionCondition(
+																		"StringArrays"));
 		// Fetch key information for variables
-		assertEquals("TestID", testMap.firstKey());
-		assertEquals("TestID2", testMap.lastKey());
-			
+		assertEquals("String[]X", section.firstKey());
+		assertEquals("String[]Z", section.lastKey());
 		// Display results
 		System.out.println(g.toJson(section));
-			
-			
 	}
 	
 	//***** DOUBLE TESTING SECTION *****\\
 	@Test
 	public void TestParseDoubleVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse DoubleX from the Doubles section into an IVariable<Double> compliant container
+		IVariable<Double> testVar = ParserHelpers.
+										ParseDoubleVariable(
+												this.getVariableCondition(
+														"Doubles", "DoubleX"), 
+														"DoubleX");
+		// Fetch Information about Integer Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
 		
-		//Set up initial conditions
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description"; 
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		Double valueValue = 5.4;
+		assertEquals(
+						"DoubleX",
+						testVar.GetId()
+					);
 		
-		// Create a test variable object
-		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		j.addProperty(value, valueValue);
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
 		
-		// Assign elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
-		
-		// Assign Variable<> to testVar and Parse
-		IVariable<Double> testVar = ParserHelpers.ParseDoubleVariable(testElement, "TestID");
-		
-		// Fetch Information about Double Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue, testVar.GetValue());
-		
-		//Display results
-		System.out.println(g.toJson(testElement));
+		assertEquals(
+						this._initialVariableCondDoubleVals.get(0), 
+						testVar.GetValue()
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
 	}
 	
 	@Test
 	public void TestParseDoubleArrayVariable() {
-		// Set up initial conditions
-		String DoubleArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[5.21, 6.35, 7.8, 8.2]"+
-				"}";
-		Double fVal = 5.21;
-		Double sVal = 6.35;
-		Double tVal = 7.8;
-		Double foVal = 8.2;
-		// Create a test variable object
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(DoubleArrayVar).getAsJsonObject();
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(DoubleArrayVar));
-		// Assign variable to JsonElement tree
-		JsonElement testElement = g.toJsonTree(o);
-		// Assign Variable<> to testVar and Parse
-		IVariable<Double[]> testVar = ParserHelpers.ParseDoubleArrayVariable(testElement, "TestID");
-		// Fetch Information about Integer Variable
-		assertEquals("TestName", testVar.GetName());
-		assertEquals("TestID", testVar.GetId());
-		assertEquals("DescriptionValue", testVar.GetDescription());
-		assertEquals(fVal, testVar.GetValue()[0]);
-		assertEquals(sVal, testVar.GetValue()[1]);
-		assertEquals(tVal, testVar.GetValue()[2]);
-		assertEquals(foVal, testVar.GetValue()[3]);
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse IntX from the Doubles section into an IVariable<Double> compliant container
+		IVariable<Double[]> testVar = ParserHelpers.
+										ParseDoubleArrayVariable(
+												this.getVariableCondition(
+														"DoubleArrays", "Double[]X"), 
+														"Double[]X");
+		
+		// Fetch Information about Double Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"Double[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondDoubleArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondDoubleArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondDoubleArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(testVar));
 	}
 
 	@Test
 	public void TestDoubleSectionMap() {
 		
-		// Set up initial conditions
-		String Name = "name";
-		String NameValue = "TestName";
-		String NameValue1 = "TestName1";
-		String ID = "ID";
-		String idValue = "TestID";
-		String idValue1 = "TestID2";
-		String Description = "Description";
-		String DescriptionValue = "TestDescription";
-		String DescriptionValue1 = "TestDescription1";
-		String Value = "Value";
-		Double ValueValue = 575.2;
-		Double ValueValue1 = 52.6;
-		
-		// Create test variable Objects
-		JsonObject var1 = new JsonObject();
-		JsonObject var2 = new JsonObject();
-		JsonObject section1 = new JsonObject();
-		
-		// Add variable properties
-		var1.addProperty(Name, NameValue);
-		var1.addProperty(ID, idValue);
-		var1.addProperty(Description, DescriptionValue);
-		var1.addProperty(Value, ValueValue);
-		var2.addProperty(Name, NameValue1);
-		var2.addProperty(ID, idValue1);
-		var2.addProperty(Description, DescriptionValue1);
-		var2.addProperty(Value, ValueValue1);
-		// Convert to JsonElement tree
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(var1);
-		JsonElement testElement2 = g.toJsonTree(var2);
-		
-		// Add variable elements to section1 object
-		section1.add(idValue, testElement1);
-		section1.add(idValue1, testElement2);
-		
-		// Convert section1 to JsonElement
-		JsonElement s1 = g.toJsonTree(section1);
-		
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Double>> testMap = ParserHelpers.ParseDoubleVariableSection(s1);
-		
-		
+		// Parse DoubleX, DoubleY, DoubleZ from the Doubles section into an IVariable<Double> compliant container
+		IVariable<Double> testVar = ParserHelpers.
+										ParseDoubleVariable(
+												this.getVariableCondition(
+														"Doubles", "DoubleX"), 
+														"DoubleX");
+		IVariable<Double> testVar2 = ParserHelpers.
+										ParseDoubleVariable(
+												this.getVariableCondition(
+														"Doubles", "DoubleY"), 
+														"DoubleY");
+		IVariable<Double> testVar3 = ParserHelpers.
+										ParseDoubleVariable(
+												this.getVariableCondition(
+														"Doubles", "DoubleZ"), 
+														"DoubleZ");
+		// Parse Double Section into a TreeMap
+		TreeMap<String, IVariable<Double>> section = ParserHelpers.
+														ParseDoubleVariableSection(
+																this.getSectionCondition(
+																		"Doubles"));
 		// Fetch key information for variables
-		assertEquals(idValue, testMap.firstKey());
-		assertEquals(idValue1, testMap.lastKey());
+		assertEquals("DoubleX", section.firstKey());
+		assertEquals("DoubleZ", section.lastKey());
 		
 		// Display results
-		System.out.println(g.toJson(section1));
-		
+		System.out.println(g.toJson(section));
 	}
 	
 	@Test
 	public void TestDoubleArraySectionMap() {
-			
-		// Set up initial conditions
-		String DoubleArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[5.1,10.34,15.8,20.6]"+
-				"}";
-		String ID = "TestID";
-				
-		String DoubleArrayVar2 =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID2\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[15.2,0.1,15.14]"+
-				"}";
-		ID = "TestID2";
-				
-		// Create test variable Objects
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(DoubleArrayVar).getAsJsonObject();
-		JsonObject q = parser.parse(DoubleArrayVar2).getAsJsonObject();	
-		JsonObject section = new JsonObject();
-		// Convert to JsonElement tree
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(DoubleArrayVar));
-		reader = new JsonReader(new StringReader(DoubleArrayVar2));
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(o);
-		JsonElement testElement2 = g.toJsonTree(q);
-				
-		// Add variable elements to section1 object
-		section.add("TestID", testElement1);
-		section.add("TestID2", testElement2);
-				
-		// Convert section1 to JsonElement
-		JsonElement s = g.toJsonTree(section);
-				
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Double[]>> testMap = ParserHelpers.ParseDoubleArrayVariableSection(s);
-				
-				
+		// Parse DoubleX, DoubleY, DoubleZ from the Doubles section into an IVariable<Double> compliant container
+		IVariable<Double[]> testVar = ParserHelpers.
+										ParseDoubleArrayVariable(
+												this.getVariableCondition(
+														"DoubleArrays", "Double[]X"), 
+														"Double[]X");
+		IVariable<Double[]> testVar2 = ParserHelpers.
+										ParseDoubleArrayVariable(
+												this.getVariableCondition(
+														"DoubleArrays", "Double[]Y"), 
+														"Double[]Y");
+		IVariable<Double[]> testVar3 = ParserHelpers.
+										ParseDoubleArrayVariable(
+												this.getVariableCondition(
+														"DoubleArrays", "Double[]Z"), 
+														"Double[]Z");
+		// Parse Double Section into a TreeMap
+		TreeMap<String, IVariable<Double[]>> section = ParserHelpers.
+														ParseDoubleArrayVariableSection(
+																this.getSectionCondition(
+																		"DoubleArrays"));
 		// Fetch key information for variables
-		assertEquals("TestID", testMap.firstKey());
-		assertEquals("TestID2", testMap.lastKey());
-				
+		assertEquals("Double[]X", section.firstKey());
+		assertEquals("Double[]Z", section.lastKey());
 		// Display results
 		System.out.println(g.toJson(section));
-				
-				
 	}
 	
 	//***** LONG TESTING SECTION *****\\
 	@Test
 	public void TestParseLongVariable() {
-		
-		Gson g = new Gson();
-		
-		
-		// Parse IntX from the Integers section into an IVariable<Long> compliant container
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse LongX from the Longs section into an IVariable<Long> compliant container
 		IVariable<Long> testVar = ParserHelpers.
 										ParseLongVariable(
 												this.getVariableCondition(
 														"Longs", "LongX"), 
 														"LongX");
-		
 		// Fetch Information about Long Variable
 		assertEquals(
 						"TestName",
@@ -1074,365 +986,275 @@ Gson g = new Gson();
 						this._initialVariableCondLongVals.get(0), 
 						testVar.GetValue()
 					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+
+	@Test
+	public void TestParseLongArrayVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse LongX from the Longs section into an IVariable<Long> compliant container
+		IVariable<Long[]> testVar = ParserHelpers.
+										ParseLongArrayVariable(
+												this.getVariableCondition(
+														"LongArrays", "Long[]X"), 
+														"Long[]X");
 		
+		// Fetch Information about Long Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"Long[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondLongArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondLongArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondLongArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
 		// Display results
 		System.out.println(g.toJson(testVar));
 	}
 	
 	@Test
-	public void TestParseLongArrayVariable() {
-		// Set up initial conditions
-		String LongArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[5, 60, 78, 800]"+
-				"}";
-		Long fVal = 5L;
-		Long sVal = 60L;
-		Long tVal = 78L;
-		Long foVal = 800L;
-		// Create a test variable object
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(LongArrayVar).getAsJsonObject();
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(LongArrayVar));
-		// Assign variable to JsonElement tree
-		JsonElement testElement = g.toJsonTree(o);
-		// Assign Variable<> to testVar and Parse
-		IVariable<Long[]> testVar = ParserHelpers.ParseLongArrayVariable(testElement, "TestID");
-		// Fetch Information about Integer Variable
-		assertEquals("TestName", testVar.GetName());
-		assertEquals("TestID", testVar.GetId());
-		assertEquals("DescriptionValue", testVar.GetDescription());
-		assertEquals(fVal, testVar.GetValue()[0]);
-		assertEquals(sVal, testVar.GetValue()[1]);
-		assertEquals(tVal, testVar.GetValue()[2]);
-		assertEquals(foVal, testVar.GetValue()[3]);
-		// Display results
-		System.out.println(g.toJson(testElement));
-	}
-
-	@Test
 	public void TestLongSectionMap() {
-		
-		// Set up initial conditions
-		String Name = "name";
-		String NameValue = "TestName";
-		String NameValue1 = "TestName1";
-		String ID = "ID";
-		String idValue = "TestID";
-		String idValue1 = "TestID2";
-		String Description = "Description";
-		String DescriptionValue = "TestDescription";
-		String DescriptionValue1 = "TestDescription1";
-		String Value = "Value";
-		Long ValueValue = 50L;
-		Long ValueValue1 = 500L;
-		
-		// Create test variable Objects
-		JsonObject var1 = new JsonObject();
-		JsonObject var2 = new JsonObject();
-		JsonObject section1 = new JsonObject();
-		
-		// Add variable properties
-		var1.addProperty(Name, NameValue);
-		var1.addProperty(ID, idValue);
-		var1.addProperty(Description, DescriptionValue);
-		var1.addProperty(Value, ValueValue);
-		var2.addProperty(Name, NameValue1);
-		var2.addProperty(ID, idValue1);
-		var2.addProperty(Description, DescriptionValue1);
-		var2.addProperty(Value, ValueValue1);
-		// Convert to JsonElement tree
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(var1);
-		JsonElement testElement2 = g.toJsonTree(var2);
-		
-		// Add variable elements to section1 object
-		section1.add(idValue, testElement1);
-		section1.add(idValue1, testElement2);
-		
-		// Convert section1 to JsonElement
-		JsonElement s1 = g.toJsonTree(section1);
-		
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Long>> testMap = ParserHelpers.ParseLongVariableSection(s1);
-		
-		
+		// Parse LongX, LongY, LongZ from the Longs section into an IVariable<Long> compliant container
+		IVariable<Long> testVar = ParserHelpers.
+										ParseLongVariable(
+												this.getVariableCondition(
+														"Longs", "LongX"), 
+														"LongX");
+		IVariable<Long> testVar2 = ParserHelpers.
+										ParseLongVariable(
+												this.getVariableCondition(
+														"Longs", "LongY"), 
+														"LongY");
+		IVariable<Long> testVar3 = ParserHelpers.
+										ParseLongVariable(
+												this.getVariableCondition(
+														"Longs", "LongZ"), 
+														"LongZ");
+		// Parse Long Section into a TreeMap
+		TreeMap<String, IVariable<Long>> section = ParserHelpers.
+														ParseLongVariableSection(
+																this.getSectionCondition(
+																		"Longs"));
 		// Fetch key information for variables
-		assertEquals(idValue, testMap.firstKey());
-		assertEquals(idValue1, testMap.lastKey());
-		
-		// Display results
-		System.out.println(g.toJson(section1));
-		
-	}
-	
-	@Test
-	public void TestLongArraySectionMap() {
-		
-	// Set up initial conditions
-		String LongArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[5,10,15,20]"+
-				"}";
-		String ID = "TestID";
-		
-		String LongArrayVar2 =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID2\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[15,0,15]"+
-				"}";
-		ID = "TestID2";
-		
-		// Create test variable Objects
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(LongArrayVar).getAsJsonObject();
-		JsonObject q = parser.parse(LongArrayVar2).getAsJsonObject();	
-		JsonObject section = new JsonObject();
-		// Convert to JsonElement tree
-		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(LongArrayVar));
-		reader = new JsonReader(new StringReader(LongArrayVar2));
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(o);
-		JsonElement testElement2 = g.toJsonTree(q);
-		
-		// Add variable elements to section1 object
-		section.add("TestID", testElement1);
-		section.add("TestID2", testElement2);
-		
-		// Convert section1 to JsonElement
-		JsonElement s = g.toJsonTree(section);
-		
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Long[]>> testMap = ParserHelpers.ParseLongArrayVariableSection(s);
-		
-		
-		// Fetch key information for variables
-		assertEquals("TestID", testMap.firstKey());
-		assertEquals("TestID2", testMap.lastKey());
+		assertEquals("LongX", section.firstKey());
+		assertEquals("LongZ", section.lastKey());
 		
 		// Display results
 		System.out.println(g.toJson(section));
-		
-		
+	}
+
+	@Test
+	public void TestLongArraySectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse LongX, LongY, LongZ from the Longs section into an IVariable<Long> compliant container
+		IVariable<Long[]> testVar = ParserHelpers.
+										ParseLongArrayVariable(
+												this.getVariableCondition(
+														"LongArrays", "Long[]X"), 
+														"Long[]X");
+		IVariable<Long[]> testVar2 = ParserHelpers.
+										ParseLongArrayVariable(
+												this.getVariableCondition(
+														"LongArrays", "Long[]Y"), 
+														"Long[]Y");
+		IVariable<Long[]> testVar3 = ParserHelpers.
+										ParseLongArrayVariable(
+												this.getVariableCondition(
+														"LongArrays", "Long[]Z"), 
+														"Long[]Z");
+		// Parse Long Section into a TreeMap
+		TreeMap<String, IVariable<Long[]>> section = ParserHelpers.
+														ParseLongArrayVariableSection(
+																this.getSectionCondition(
+																		"LongArrays"));
+		// Fetch key information for variables
+		assertEquals("Long[]X", section.firstKey());
+		assertEquals("Long[]Z", section.lastKey());
+		// Display results
+		System.out.println(g.toJson(section));
 	}
 	
 	//***** FLOAT TESTING SECTION *****\\
-		@Test
-		public void TestParseFloatVariable() {
-			
-			Gson g = new Gson();
-			
-			
-			// Parse FloatX from the Integers section into an IVariable<Float> compliant container
-			IVariable<Float> testVar = ParserHelpers.
-											ParseFloatVariable(
-													this.getVariableCondition(
-															"Floats", "FloatX"), 
-															"FloatX");
-			
-			// Fetch Information about Integer Variable
-			assertEquals(
-							"TestName",
-							testVar.GetName()
-						);
-			
-			assertEquals(
-							"FloatX",
-							testVar.GetId()
-						);
-			
-			assertEquals(
-							"TestDescription",
-							testVar.GetDescription()
-						);
-			
-			assertEquals(
-							this._initialVariableCondFloatVals.get(0), 
-							testVar.GetValue()
-						);
-			
-			// Display results
-			System.out.println(g.toJson(testVar));
-		}
+	@Test
+	public void TestParseFloatVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse FloatX from the Floats section into an IVariable<Float> compliant container
+		IVariable<Float> testVar = ParserHelpers.
+										ParseFloatVariable(
+												this.getVariableCondition(
+														"Floats", "FloatX"), 
+														"FloatX");
+		// Fetch Information about Float Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"FloatX",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondFloatVals.get(0), 
+						testVar.GetValue()
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
 	
+
 	@Test
 	public void TestParseFloatArrayVariable() {
-		// Set up initial conditions
-		String FloatArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[5.33, 60.51, 78.27, 800.848]"+
-				"}";
-		Float fVal = 5.33F;
-		Float sVal = 60.51F;
-		Float tVal = 78.27F;
-		Float foVal = 800.848F;
-		// Create a test variable object
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(FloatArrayVar).getAsJsonObject();
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(FloatArrayVar));
-		// Assign variable to JsonElement tree
-		JsonElement testElement = g.toJsonTree(o);
-		// Assign Variable<> to testVar and Parse
-		IVariable<Float[]> testVar = ParserHelpers.ParseFloatArrayVariable(testElement, "TestID");
-		// Fetch Information about Integer Variable
-		assertEquals("TestName", testVar.GetName());
-		assertEquals("TestID", testVar.GetId());
-		assertEquals("DescriptionValue", testVar.GetDescription());
-		assertEquals(fVal, testVar.GetValue()[0]);
-		assertEquals(sVal, testVar.GetValue()[1]);
-		assertEquals(tVal, testVar.GetValue()[2]);
-		assertEquals(foVal, testVar.GetValue()[3]);
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse FloatX from the Floats section into an IVariable<Float> compliant container
+		IVariable<Float[]> testVar = ParserHelpers.
+										ParseFloatArrayVariable(
+												this.getVariableCondition(
+														"FloatArrays", "Float[]X"), 
+														"Float[]X");
+		
+		// Fetch Information about Float Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"Float[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondFloatArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondFloatArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondFloatArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(testVar));
+	}
+	
+	@Test
+	public void TestFloatSectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse FloatX, FloatY, FloatZ from the Floats section into an IVariable<Float> compliant container
+		IVariable<Float> testVar = ParserHelpers.
+										ParseFloatVariable(
+												this.getVariableCondition(
+														"Floats", "FloatX"), 
+														"FloatX");
+		IVariable<Float> testVar2 = ParserHelpers.
+										ParseFloatVariable(
+												this.getVariableCondition(
+														"Floats", "FloatY"), 
+														"FloatY");
+		IVariable<Float> testVar3 = ParserHelpers.
+										ParseFloatVariable(
+												this.getVariableCondition(
+														"Floats", "FloatZ"), 
+														"FloatZ");
+		// Parse Float Section into a TreeMap
+		TreeMap<String, IVariable<Float>> section = ParserHelpers.
+														ParseFloatVariableSection(
+																this.getSectionCondition(
+																		"Floats"));
+		// Fetch key information for variables
+		assertEquals("FloatX", section.firstKey());
+		assertEquals("FloatZ", section.lastKey());
+		
+		// Display results
+		System.out.println(g.toJson(section));
 	}
 
 	@Test
-	public void TestFloatSectionMap() {
-		
-		// Set up initial conditions
-		String Name = "name";
-		String NameValue = "TestName";
-		String NameValue1 = "TestName1";
-		String ID = "ID";
-		String idValue = "TestID";
-		String idValue1 = "TestID2";
-		String Description = "Description";
-		String DescriptionValue = "TestDescription";
-		String DescriptionValue1 = "TestDescription1";
-		String Value = "Value";
-		Float ValueValue = 50F;
-		Float ValueValue1 = 500F;
-		
-		// Create test variable Objects
-		JsonObject var1 = new JsonObject();
-		JsonObject var2 = new JsonObject();
-		JsonObject section1 = new JsonObject();
-		
-		// Add variable properties
-		var1.addProperty(Name, NameValue);
-		var1.addProperty(ID, idValue);
-		var1.addProperty(Description, DescriptionValue);
-		var1.addProperty(Value, ValueValue);
-		var2.addProperty(Name, NameValue1);
-		var2.addProperty(ID, idValue1);
-		var2.addProperty(Description, DescriptionValue1);
-		var2.addProperty(Value, ValueValue1);
-		// Convert to JsonElement tree
-		Gson g = new Gson();
-		
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(var1);
-		JsonElement testElement2 = g.toJsonTree(var2);
-		
-		// Add variable elements to section1 object
-		section1.add(idValue, testElement1);
-		section1.add(idValue1, testElement2);
-		
-		// Convert section1 to JsonElement
-		JsonElement s1 = g.toJsonTree(section1);
-		
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Float>> testMap = ParserHelpers.ParseFloatVariableSection(s1);
-		
-		
-		// Fetch key information for variables
-		assertEquals(idValue, testMap.firstKey());
-		assertEquals(idValue1, testMap.lastKey());
-		
-		// Display results
-		System.out.println(g.toJson(section1));
-		
-	}
-	
-	@Test
 	public void TestFloatArraySectionMap() {
-				
-		// Set up initial conditions
-		String FloatArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[5,10,15,20]"+
-				"}";
-		String ID = "TestID";
-				
-		String FloatArrayVar2 =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID2\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[15,0,15]"+
-				"}";
-		ID = "TestID2";
-				
-		// Create test variable Objects
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(FloatArrayVar).getAsJsonObject();
-		JsonObject q = parser.parse(FloatArrayVar2).getAsJsonObject();	
-		JsonObject section = new JsonObject();
-		// Convert to JsonElement tree
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(FloatArrayVar));
-		reader = new JsonReader(new StringReader(FloatArrayVar2));
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(o);
-		JsonElement testElement2 = g.toJsonTree(q);
-				
-		// Add variable elements to section1 object
-		section.add("TestID", testElement1);
-		section.add("TestID2", testElement2);
-				
-		// Convert section1 to JsonElement
-		JsonElement s = g.toJsonTree(section);
-				
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Float[]>> testMap = ParserHelpers.ParseFloatArrayVariableSection(s);
-				
-				
+		// Parse FloatX, FloatY, FloatZ from the Floats section into an IVariable<Float> compliant container
+		IVariable<Float[]> testVar = ParserHelpers.
+										ParseFloatArrayVariable(
+												this.getVariableCondition(
+														"FloatArrays", "Float[]X"), 
+														"Float[]X");
+		IVariable<Float[]> testVar2 = ParserHelpers.
+										ParseFloatArrayVariable(
+												this.getVariableCondition(
+														"FloatArrays", "Float[]Y"), 
+														"Float[]Y");
+		IVariable<Float[]> testVar3 = ParserHelpers.
+										ParseFloatArrayVariable(
+												this.getVariableCondition(
+														"FloatArrays", "Float[]Z"), 
+														"Float[]Z");
+		// Parse Float Section into a TreeMap
+		TreeMap<String, IVariable<Float[]>> section = ParserHelpers.
+														ParseFloatArrayVariableSection(
+																this.getSectionCondition(
+																		"FloatArrays"));
 		// Fetch key information for variables
-		assertEquals("TestID", testMap.firstKey());
-		assertEquals("TestID2", testMap.lastKey());
-				
+		assertEquals("Float[]X", section.firstKey());
+		assertEquals("Float[]Z", section.lastKey());
 		// Display results
 		System.out.println(g.toJson(section));
-				
-				
 	}
 	
 	//***** BOOLEAN TESTING SECTION *****\\
 	@Test
 	public void TestParseBooleanVariable() {
-		
-Gson g = new Gson();
-		
-		
-		// Parse IntX from the Boolean section into an IVariable<Integer> compliant container
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse BoolX from the Booleans section into an IVariable<Boolean> compliant container
 		IVariable<Boolean> testVar = ParserHelpers.
 										ParseBooleanVariable(
 												this.getVariableCondition(
 														"Booleans", "BoolX"), 
 														"BoolX");
-		
-		// Fetch Information about Integer Variable
+		// Fetch Information about Boolean Variable
 		assertEquals(
 						"TestName",
 						testVar.GetName()
@@ -1452,160 +1274,200 @@ Gson g = new Gson();
 						this._initialVariableCondBoolVals.get(0), 
 						testVar.GetValue()
 					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+
+	@Test
+	public void TestParseBooleanArrayVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse BoolX from the Booleans section into an IVariable<Boolean> compliant container
+		IVariable<Boolean[]> testVar = ParserHelpers.
+										ParseBooleanArrayVariable(
+												this.getVariableCondition(
+														"BooleanArrays", "Bool[]X"), 
+														"Bool[]X");
 		
+		// Fetch Information about Boolean Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"Bool[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondBoolArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondBoolArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondBoolArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
 		// Display results
 		System.out.println(g.toJson(testVar));
 	}
 	
 	@Test
-	public void TestParseBooleanArrayVariable() {
-		// Set up initial conditions
-		String BoolArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[true, false, false, true]"+
-				"}";
-		Boolean fVal = true;
-		Boolean sVal = false;
-		Boolean tVal = false;
-		Boolean foVal = true;
-		// Create a test variable object
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(BoolArrayVar).getAsJsonObject();
-		// Convert it to a JsonElement tree
+	public void TestBooleanSectionMap() {
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(BoolArrayVar));
-		// Assign variable to JsonElement tree
-		JsonElement testElement = g.toJsonTree(o);
-		// Assign Variable<> to testVar and Parse
-		IVariable<Boolean[]> testVar = ParserHelpers.ParseBooleanArrayVariable(testElement, "TestID");
-		// Fetch Information about Integer Variable
-		assertEquals("TestName", testVar.GetName());
-		assertEquals("TestID", testVar.GetId());
-		assertEquals("DescriptionValue", testVar.GetDescription());
-		assertEquals(fVal, testVar.GetValue()[0]);
-		assertEquals(sVal, testVar.GetValue()[1]);
-		assertEquals(tVal, testVar.GetValue()[2]);
-		assertEquals(foVal, testVar.GetValue()[3]);
+		// Parse BoolX, BoolY, BoolZ from the Booleans section into an IVariable<Boolean> compliant container
+		IVariable<Boolean> testVar = ParserHelpers.
+										ParseBooleanVariable(
+												this.getVariableCondition(
+														"Booleans", "BoolX"), 
+														"BoolX");
+		IVariable<Boolean> testVar2 = ParserHelpers.
+										ParseBooleanVariable(
+												this.getVariableCondition(
+														"Booleans", "BoolY"), 
+														"BoolY");
+		IVariable<Boolean> testVar3 = ParserHelpers.
+										ParseBooleanVariable(
+												this.getVariableCondition(
+														"Booleans", "BoolZ"), 
+														"BoolZ");
+		// Parse Boolean Section into a TreeMap
+		TreeMap<String, IVariable<Boolean>> section = ParserHelpers.
+														ParseBooleanVariableSection(
+																this.getSectionCondition(
+																		"Booleans"));
+		// Fetch key information for variables
+		assertEquals("BoolX", section.firstKey());
+		assertEquals("BoolZ", section.lastKey());
+		
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(section));
 	}
 
 	@Test
-	public void TestBooleanSectionMap() {
-		
-		// Set up initial conditions
-		String Name = "name";
-		String NameValue = "TestName";
-		String NameValue1 = "TestName1";
-		String ID = "ID";
-		String idValue = "TestID";
-		String idValue1 = "TestID2";
-		String Description = "Description";
-		String DescriptionValue = "TestDescription";
-		String DescriptionValue1 = "TestDescription1";
-		String Value = "Value";
-		Boolean ValueValue = false;
-		Boolean ValueValue1 = true;
-		
-		// Create test variable Objects
-		JsonObject var1 = new JsonObject();
-		JsonObject var2 = new JsonObject();
-		JsonObject section1 = new JsonObject();
-		
-		// Add variable properties
-		var1.addProperty(Name, NameValue);
-		var1.addProperty(ID, idValue);
-		var1.addProperty(Description, DescriptionValue);
-		var1.addProperty(Value, ValueValue);
-		var2.addProperty(Name, NameValue1);
-		var2.addProperty(ID, idValue1);
-		var2.addProperty(Description, DescriptionValue1);
-		var2.addProperty(Value, ValueValue1);
-		// Convert to JsonElement tree
+	public void TestBooleanArraySectionMap() {
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(var1);
-		JsonElement testElement2 = g.toJsonTree(var2);
-		
-		// Add variable elements to section1 object
-		section1.add(idValue, testElement1);
-		section1.add(idValue1, testElement2);
-		
-		// Convert section1 to JsonElement
-		JsonElement s1 = g.toJsonTree(section1);
-		
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Boolean>> testMap = ParserHelpers.ParseBooleanVariableSection(s1);
-		
-		
+		// Parse BoolX, BoolY, BoolZ from the Booleans section into an IVariable<Boolean> compliant container
+		IVariable<Boolean[]> testVar = ParserHelpers.
+										ParseBooleanArrayVariable(
+												this.getVariableCondition(
+														"BooleanArrays", "Bool[]X"), 
+														"Bool[]X");
+		IVariable<Boolean[]> testVar2 = ParserHelpers.
+										ParseBooleanArrayVariable(
+												this.getVariableCondition(
+														"BooleanArrays", "Bool[]Y"), 
+														"Bool[]Y");
+		IVariable<Boolean[]> testVar3 = ParserHelpers.
+										ParseBooleanArrayVariable(
+												this.getVariableCondition(
+														"BooleanArrays", "Bool[]Z"), 
+														"Bool[]Z");
+		// Parse Boolean Section into a TreeMap
+		TreeMap<String, IVariable<Boolean[]>> section = ParserHelpers.
+														ParseBooleanArrayVariableSection(
+																this.getSectionCondition(
+																		"BooleanArrays"));
 		// Fetch key information for variables
-		assertEquals(idValue, testMap.firstKey());
-		assertEquals(idValue1, testMap.lastKey());
-		
-		// Display results
-		System.out.println(g.toJson(section1));
-		
-	}
-	
-	@Test
-	public void TestBooleanArraySectionMap() {			
-		// Set up initial conditions
-		String BoolArrayVar =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[true,false,true,true]"+
-				"}";
-		String ID = "TestID";			
-		String BoolArrayVar2 =
-				"{"+
-						"\"name\":\"TestName\","+
-						"\"ID\":\"TestID2\","+
-						"\"description\":\"DescriptionValue\","+
-						"\"value\":[false,false,false]"+
-				"}";
-		ID = "TestID2";			
-		// Create test variable Objects
-		JsonParser parser = new JsonParser();
-		JsonObject o = parser.parse(BoolArrayVar).getAsJsonObject();
-		JsonObject q = parser.parse(BoolArrayVar2).getAsJsonObject();	
-		JsonObject section = new JsonObject();
-		// Convert to JsonElement tree
-		Gson g = new Gson();
-		JsonReader reader = new JsonReader(new StringReader(BoolArrayVar));
-		reader = new JsonReader(new StringReader(BoolArrayVar2));
-		// Assign variable objects to JsonElement tree
-		JsonElement testElement1 = g.toJsonTree(o);
-		JsonElement testElement2 = g.toJsonTree(q);
-				
-		// Add variable elements to section1 object
-		section.add("TestID", testElement1);
-		section.add("TestID2", testElement2);
-				
-		// Convert section1 to JsonElement
-		JsonElement s = g.toJsonTree(section);
-			
-		// Assign TreeMap<> to testMap and Parse
-		TreeMap<String, IVariable<Boolean[]>> testMap = ParserHelpers.ParseBooleanArrayVariableSection(s);
-				
-				
-		// Fetch key information for variables
-		assertEquals("TestID", testMap.firstKey());
-		assertEquals("TestID2", testMap.lastKey());
-				
+		assertEquals("Bool[]X", section.firstKey());
+		assertEquals("Bool[]Z", section.lastKey());
 		// Display results
 		System.out.println(g.toJson(section));
-		
 	}
 	
 	//***** VARIABLES TESTING SECTION *****\\
 	@Test
 	public void TestVariables() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse each variable section into TreeMaps
+		TreeMap<String, IVariable<Integer>> IntSection = ParserHelpers.
+															ParseIntegerVariableSection(
+																	this.getSectionCondition(
+																			"Integers"
+																			)
+																	);
+		TreeMap<String, IVariable<String>> StringSection = ParserHelpers.
+															ParseStringVariableSection(
+																	this.getSectionCondition(
+																			"Strings"
+																			)
+																	);
+		TreeMap<String, IVariable<Double>> DoubleSection = ParserHelpers.
+															ParseDoubleVariableSection(
+																	this.getSectionCondition(
+																			"Doubles"
+																			)
+																	);
+		TreeMap<String, IVariable<Long>> LongSection = ParserHelpers.
+															ParseLongVariableSection(
+																	this.getSectionCondition(
+																			"Longs"
+																			)
+																	);
+		TreeMap<String, IVariable<Float>> FloatSection = ParserHelpers.
+															ParseFloatVariableSection(
+																	this.getSectionCondition(
+																			"Floats"
+																			)
+																	);
+		TreeMap<String, IVariable<Boolean>> BooleanSection = ParserHelpers.
+															ParseBooleanVariableSection(
+																	this.getSectionCondition(
+																			"Booleans"
+																			)
+																	);
+		TreeMap<String, IVariable<Integer[]>> IntArrSection = ParserHelpers.
+															ParseIntegerArrayVariableSection(
+																	this.getSectionCondition(
+																			"IntegerArrays"
+																			)
+																	);
+		TreeMap<String, IVariable<String[]>> StringArrSection = ParserHelpers.
+															ParseStringArrayVariableSection(
+																	this.getSectionCondition(
+																			"StringArrays"
+																			)
+																	);
+		TreeMap<String, IVariable<Double[]>> DoubleArrSection = ParserHelpers.
+															ParseDoubleArrayVariableSection(
+																	this.getSectionCondition(
+																			"DoubleArrays"
+																			)
+																	);
+		TreeMap<String, IVariable<Long[]>> LongArrSection = ParserHelpers.
+														ParseLongArrayVariableSection(
+																this.getSectionCondition(
+																		"LongArrays"
+																		)
+																);
+		TreeMap<String, IVariable<Float[]>> FloatArrSection = ParserHelpers.
+														ParseFloatArrayVariableSection(
+																this.getSectionCondition(
+																		"FloatArrays"
+																		)
+																);
+		TreeMap<String, IVariable<Boolean[]>> BooleanArrSection = ParserHelpers.
+														ParseBooleanArrayVariableSection(
+																this.getSectionCondition(
+																		"BooleanArrays"
+																		)
+																);
+		// Parse all Sections into a Variables Container
+		Variables TestContainer = ParserHelpers.ParseVariables(this.getSectionCondition(key));
+													
 		
 	}
 }

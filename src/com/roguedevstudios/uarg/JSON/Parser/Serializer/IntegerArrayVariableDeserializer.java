@@ -57,8 +57,8 @@ public class IntegerArrayVariableDeserializer implements JsonDeserializer<IVaria
 		JsonObject o = json.getAsJsonObject();
 		
 		//If the object has a name, then we grab it
-		if(o.has("name")) {
-			_name = o.get("name").getAsString();
+		if(o.has("Name")) {
+			_name = o.get("Name").getAsString();
 		}
 		
 		//If the object has an ID, then we grab it
@@ -67,9 +67,9 @@ public class IntegerArrayVariableDeserializer implements JsonDeserializer<IVaria
 		}
 		
 		//If the object has a value, then we grab it
-		if(o.has("value")) {
+		if(o.has("Value")) {
 			//Retrieve value as json array
-			JsonArray t = o.get("value").getAsJsonArray();
+			JsonArray t = o.get("Value").getAsJsonArray();
 			//Array contains values of t size
 			_value = new Integer[t.size()];
 			//Iterate through json array
@@ -84,8 +84,8 @@ public class IntegerArrayVariableDeserializer implements JsonDeserializer<IVaria
 		}
 		
 		//If the object has a description, then we grab it
-		if(o.has("description")) {
-			_description = o.get("description").getAsString();
+		if(o.has("Description")) {
+			_description = o.get("Description").getAsString();
 		}
 		
 		//Build the Variable object to return
