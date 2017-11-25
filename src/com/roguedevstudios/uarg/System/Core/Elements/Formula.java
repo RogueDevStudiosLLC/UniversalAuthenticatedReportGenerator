@@ -74,7 +74,7 @@ public class Formula {
      * A method to build an exp4j expression for a formula object,
      * given that a valid formula equation was input by the configuration file.
      * @throws An exception if _formulaEquation cannot be parsed.
-     * @return ?
+     * @return An Exp4j Expression object for use in calculating formulas.
      */
     //TODO: Add exceptions for nulls, bad ins, w.e.
     private Expression _buildExpression() {
