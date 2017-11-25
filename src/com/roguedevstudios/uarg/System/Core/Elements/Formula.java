@@ -15,6 +15,8 @@ package com.roguedevstudios.uarg.System.Core.Elements;
  */
 
 import net.objecthunter.exp4j.*;
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.*;
 import net.objecthunter.exp4j.operator.*;
 import net.objecthunter.exp4j.tokenizer.*;
@@ -32,6 +34,8 @@ public class Formula {
     private String _formulaId;
     /* The equation string this formula uses to build an exp4j expression */
     private String _formulaEquation;
+    /* The Exp4j Expression this formula builds from _formulaEquation*/
+    private Expression _formulaExpression;
     /* Input array of variables converted to doubles*/
     private double[] _formulaInputArray;
 
@@ -57,6 +61,7 @@ public class Formula {
         this._formulaId = formulaId;
         this._formulaEquation = formulaEquation;
         /* Build and Validate Expression using Exp4j here*/
+        this._formulaExpression = _buildExpression();
         // Validate new exp4j expression here
         // if validate unsuccessful then throw and abort?
         // if success continue
@@ -76,14 +81,14 @@ public class Formula {
     	ExpressionBuilder _formulaExpressionBuilder = new ExpressionBuilder(this._formulaEquation);
     	// Setup regex pattern we want to use to isolate formula variables from _formulaEquation string
     	// ==In terms of modularity, should we keep the regex string we use as a field for formulas that can be changed by config? Dunno, probably not, would be interesting though
-    	Pattern _formulaRegex = new Pattern.compile("\s?_[a-zA-z0-9_]*_\s?");
+    	Pattern _formulaRegex = Pattern.compile("\\s?_[a-zA-z0-9_]*_\\s?");
     	// Make a matcher to get the variables out of the formula equation string given, using above pattern
-    	Matcher _formulaVarMatcher = new _formulaRegex.matcher(this._formulaEquation);
+    	Matcher _formulaVarMatcher = _formulaRegex.matcher(this._formulaEquation);
     	// While regex matcher can find matching values, set them as variables in exp4j expressionbuilder
     	while (_formulaVarMatcher.find()) {
-    		// While index i, starting at 1, is less than matcher.groupCount(), which inherently does not include groupCount(0)
-    		for (int i=1; i<=_formulaVarMatcher.groupCount(); i++) {
-    			// Set ith match from regex as a variable in the formula expression builder
+    		// While index i is less than matcher.groupCount(), which inherently does not include groupCount(0)
+			// Set ith match from regex as a variable in the formula expression builder
+    		for (int i=0; i<=_formulaVarMatcher.groupCount(); i++) {
     			_formulaExpressionBuilder.variable(_formulaVarMatcher.group(i));
     		}
     	}
