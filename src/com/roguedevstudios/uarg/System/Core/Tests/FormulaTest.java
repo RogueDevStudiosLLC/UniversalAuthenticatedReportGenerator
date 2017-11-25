@@ -91,13 +91,13 @@ public class FormulaTest {
 		// variable name against what variables are expected.
 		// Must test each name against each variable name expected
 		// As the method used does not return an ordered set.
-		// See Formula.java comments for details.
+		// See Formula.java comments on the method GetExpressionVariableNames() for details.
 		try {
 			for (int i=0; i<=ourTestFormula.GetNumberOfExpressionVars(); i++) {
 				assertTrue(testFormulaVarNamesList.get(i).equals("_varA_") ||
 						testFormulaVarNamesList.get(i).equals("_varB_") ||
 						testFormulaVarNamesList.get(i).equals("_varC_") ||
-						testFormulaVarNamesList.get(i).equals("_varD"));
+						testFormulaVarNamesList.get(i).equals("_varD_"));
 			} 
 		} catch (Exception e) {
 				// If exception here, one variable did not match expected
