@@ -6,6 +6,12 @@ import org.junit.Test;
 
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
 
+import net.objecthunter.exp4j.Expression;
+
+import net.objecthunter.exp4j.ExpressionBuilder;
+
+import java.util.Set;
+
 import java.lang.reflect.*;
 
 import java.util.*;
@@ -59,6 +65,46 @@ public class FormulaTest {
 			// If exception tossed, test failed
 			assertFalse(true);
 		}
+		
+	}
+	/**
+	 * Test that assigning variables using _buildExpression() works
+	 * Expectation: success, lists expression vars
+	 * @throws An exception if unexpected variable in expression
+	 * @return An ArrayList<String> of the test expression's variable names
+	 */
+	@Test
+	public ArrayList<String> testBuildExpressionMethod() {
+		// Set up initial Formula object
+		// TODO: CURRENTLY TESTING ON CONSTRUCTOR ONLY UP TO _BUILDEXPRESSION(), AS CONSTRUCTOR
+		// 			GETS BUILT THIS TEST MUST BE UPDATED
+		String testFormulaName = "testFormula";
+		String testFormulaDesc = "A test formula.";
+		String formulaID = "TSTFRM1";
+		String testFormulaEquation = "_varA_*_varB_+_varC_-_varD_";
+		Formula ourTestFormula = new Formula(testFormulaName, testFormulaDesc, formulaID, testFormulaEquation);
+		// Now get a set of our expression's variable names for testing
+		Set<String> testFormulaVarNamesSet = ourTestFormula.GetExpressionVariableNames();
+		// Convert set to a list because a Set does not have get for elements and iterator would be annoying to work with
+		ArrayList<String> testFormulaVarNamesList = new ArrayList<String>(testFormulaVarNamesSet);
+		// Now test if variables gotten are proper; test each
+		// variable name against what variables are expected.
+		// Must test each name against each variable name expected
+		// As the method used does not return an ordered set.
+		// See Formula.java comments for details.
+		try {
+			for (int i=0; i<=ourTestFormula.GetNumberOfExpressionVars(); i++) {
+				assertTrue(testFormulaVarNamesList.get(i).equals("_varA_") ||
+						testFormulaVarNamesList.get(i).equals("_varB_") ||
+						testFormulaVarNamesList.get(i).equals("_varC_") ||
+						testFormulaVarNamesList.get(i).equals("_varD"));
+			} 
+		} catch (Exception e) {
+				// If exception here, one variable did not match expected
+				assertFalse(true);
+		}
+		// Return the set of strings gotten by GetExpressionVariableNames.
+		return testFormulaVarNamesList;
 	}
 	
 }

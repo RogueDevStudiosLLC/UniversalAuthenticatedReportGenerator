@@ -22,6 +22,7 @@ import net.objecthunter.exp4j.operator.*;
 import net.objecthunter.exp4j.tokenizer.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Set;
 
 public class Formula {
     /* Class Attributes */
@@ -66,7 +67,7 @@ public class Formula {
         // if validate unsuccessful then throw and abort?
         // if success continue
         // ==See what to do for this in terms of how to do
-        this._formulaInputArray = new double[this._inputCount()];
+        //this._formulaInputArray = new double[this._inputCount()];
     }
     
     /**
@@ -220,6 +221,26 @@ public class Formula {
         return this._formulaEquation;
     }
     
+    /**
+     * Gets the number of variables in the formula expression.
+     * @return The number of variables in the formula expression (int).
+     */
+    public int GetNumberOfExpressionVars() {
+    	return this._formulaExpression.getVariableNames().size();
+    }
+    
+    /**
+     * Gets the formula expression variable names.
+     * @return The names of variables in the formula expression (Set<String>)
+     */
+    public Set<String> GetExpressionVariableNames() {
+    	// This uses exp4j's built in method, getVariableNames(), to get a Set<String>
+    	// of variable names in the expression for this formula.
+    	// However, this method is known to not truly get the variable names in the order in which they were put in
+    	// Don't know if this is an issue, but be prepared for an unordered set returned.
+    	// This must be a set because of exp4j built-in methods.
+    	return this._formulaExpression.getVariableNames();
+    }
     /**
      * Gets the formula variable input array's size.
      * @return The size of the formula variable input array (int).
