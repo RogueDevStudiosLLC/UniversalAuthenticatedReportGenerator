@@ -23,6 +23,7 @@ import net.objecthunter.exp4j.tokenizer.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Set;
+import java.util.ArrayList;
 
 public class Formula {
     /* Class Attributes */
@@ -35,6 +36,8 @@ public class Formula {
     private String _formulaId;
     /* The equation string this formula uses to build an exp4j expression */
     private String _formulaEquation;
+    /* An ArrayList<String> of formula input variable names*/
+    private ArrayList<String> _formulaVariableNames;
     /* The Exp4j Expression this formula builds from _formulaEquation*/
     private Expression _formulaExpression;
     /* Input array of variables converted to doubles*/
@@ -62,52 +65,52 @@ public class Formula {
         this._formulaId = formulaId;
         this._formulaEquation = formulaEquation;
         /* Build and Validate Expression using Exp4j here*/
+        this._formulaVariableNames = _initializeVarNames();
         this._formulaExpression = _buildExpression();
         // Validate new exp4j expression here
         // if validate unsuccessful then throw and abort?
         // if success continue
         // ==See what to do for this in terms of how to do
-        //this._formulaInputArray = new double[this._inputCount()];
+        this._formulaInputArray = new double[this._formulaVariableNames.size()];
+    }
+    
+    /**
+     * A method to initialize the variable names to be used by our exp4j expression.
+     * @return A list of variable names (ArrayList<String>)
+     */
+    private ArrayList<String> _initializeVarNames() {
+    	// Make a new ArrayList to populate with variable names we isolate via regex.
+    	ArrayList<String> _formulaVarNames = new ArrayList<String>();
+    	// Setup regex pattern we want to use to isolate formula variables from _formulaEquation string
+    	Pattern _formulaRegex = Pattern.compile("\\s?_[a-zA-z0-9_]*_\\s?");
+    	// Make a matcher to get the variables out of the formula equation string given, using above pattern
+    	Matcher _formulaVarMatcher = _formulaRegex.matcher(this._formulaEquation);
+    	// While regex matcher can find matching values, add them to the ArrayList
+    	while (_formulaVarMatcher.find()) {
+    		for (int i=0; i<=_formulaVarMatcher.groupCount();i++) {
+    			_formulaVarNames.add(_formulaVarMatcher.group(i));
+    		}
+    	}
+    	return _formulaVarNames;
     }
     
     /**
      * A method to build an exp4j expression for a formula object,
      * given that a valid formula equation was input by the configuration file.
-     * @throws An exception if _formulaEquation cannot be parsed.
-     * @return An Exp4j Expression object for use in calculating formulas.
+     * @return An Exp4j Expression object for use in calculating formulas (Expression).
      */
     //TODO: Add exceptions for nulls, bad ins, w.e.
     private Expression _buildExpression() {
     	// Make base Exp4j ExpressionBuilder using _formulaEquation string as input
     	ExpressionBuilder _formulaExpressionBuilder = new ExpressionBuilder(this._formulaEquation);
-    	// Setup regex pattern we want to use to isolate formula variables from _formulaEquation string
-    	// ==In terms of modularity, should we keep the regex string we use as a field for formulas that can be changed by config? Dunno, probably not, would be interesting though
-    	Pattern _formulaRegex = Pattern.compile("\\s?_[a-zA-z0-9_]*_\\s?");
-    	// Make a matcher to get the variables out of the formula equation string given, using above pattern
-    	Matcher _formulaVarMatcher = _formulaRegex.matcher(this._formulaEquation);
-    	// While regex matcher can find matching values, set them as variables in exp4j expressionbuilder
-    	while (_formulaVarMatcher.find()) {
-    		// While index i is less than matcher.groupCount(), which inherently does not include groupCount(0)
-			// Set ith match from regex as a variable in the formula expression builder
-    		for (int i=0; i<=_formulaVarMatcher.groupCount(); i++) {
-    			_formulaExpressionBuilder.variable(_formulaVarMatcher.group(i));
-    		}
+    	// For every string in our ArrayList<String> of formula variable names, 
+    	// set that string as a variable in our expression.
+    	for (String s : this._formulaVariableNames) {
+    		_formulaExpressionBuilder.variable(s);
     	}
     	// Once regex stuff is done and variables are set, properly build the expression.
     	Expression _formulaExpression = _formulaExpressionBuilder.build();
     	return _formulaExpression;
-    }
-    
-    /**
-    * Method that counts the input variables in an equation and returns that number.
-    * Used to initialize the formula input array size.
-    * @return An integer representing the amount of input variables in an equation.
-    */
-    private int _inputCount () {
-         /* Maybe every string in expression.getVariableNames() = one input expected
-         */
-        // TODO: Return an integer that is the number of inputs expected by a formula.
-        return 0;
     }
     
     /**
@@ -177,6 +180,10 @@ public class Formula {
     		// this.expression.setVariable(String, this._formulaInputArray[i])
     		// i++
     	// Return this.expression.evaluate()
+	   for (int i=0; i <= this._formulaVariableNames.size(); i++) {
+		   this._formulaExpression.setVariable(this._formulaVariableNames.get(i), this._formulaInputArray[i]);
+	   }
+	   return this._formulaExpression.evaluate();
     }
     
     /**
@@ -226,20 +233,15 @@ public class Formula {
      * @return The number of variables in the formula expression (int).
      */
     public int GetNumberOfExpressionVars() {
-    	return this._formulaExpression.getVariableNames().size();
+    	return this._formulaVariableNames.size();
     }
     
     /**
      * Gets the formula expression variable names.
-     * @return The names of variables in the formula expression (Set<String>)
+     * @return The names of variables in the formula expression (ArrayList<String>)
      */
-    public Set<String> GetExpressionVariableNames() {
-    	// This uses exp4j's built in method, getVariableNames(), to get a Set<String>
-    	// of variable names in the expression for this formula.
-    	// However, this method is known to not truly get the variable names in the order in which they were put in
-    	// Don't know if this is an issue, but be prepared for an unordered set returned.
-    	// This must be a set because of exp4j built-in methods.
-    	return this._formulaExpression.getVariableNames();
+    public ArrayList<String> GetExpressionVariableNames() {
+    	return this._formulaVariableNames;
     }
     /**
      * Gets the formula variable input array's size.

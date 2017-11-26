@@ -14,8 +14,6 @@ import java.util.Set;
 
 import java.lang.reflect.*;
 
-import java.util.*;
-
 import java.util.ArrayList;
 
 import java.util.regex.Pattern;
@@ -67,6 +65,27 @@ public class FormulaTest {
 		}
 		
 	}
+	
+	/**
+	 * Test creation of a formula object, then test getters for that formula object.
+	 * Expectation: success
+	 */
+	public void createTestFormula {
+		String testFormulaName = "testFormula";
+		String testFormulaDesc = "A test formula.";
+		String formulaID = "TSTFRM1";
+		String testFormulaEquation = "_varA_*_varB_+_varC_-_varD_";
+		Formula ourTestFormula = new Formula(testFormulaName, testFormulaDesc, formulaID, testFormulaEquation);
+		
+		/* TEST GETTERS */
+		ourTestFormula.GetName();
+		ourTestFormula.GetDesc();
+		ourTestFormula.GetId();
+		ourTestFormula.GetEquation();
+		ourTestFormula.GetNumberOfExpressionVars();
+		ourTestFormula.GetExpressionVariableNames();
+		ourTestFormula.GetInputArraySize();
+	}
 	/**
 	 * Test that assigning variables using _buildExpression() works
 	 * Expectation: success, lists expression vars
@@ -83,15 +102,9 @@ public class FormulaTest {
 		String formulaID = "TSTFRM1";
 		String testFormulaEquation = "_varA_*_varB_+_varC_-_varD_";
 		Formula ourTestFormula = new Formula(testFormulaName, testFormulaDesc, formulaID, testFormulaEquation);
-		// Now get a set of our expression's variable names for testing
-		Set<String> testFormulaVarNamesSet = ourTestFormula.GetExpressionVariableNames();
-		// Convert set to a list because a Set does not have get for elements and iterator would be annoying to work with
-		ArrayList<String> testFormulaVarNamesList = new ArrayList<String>(testFormulaVarNamesSet);
+		ArrayList<String> testFormulaVarNamesList = new ArrayList<String>(ourTestFormula.GetExpressionVariableNames());
 		// Now test if variables gotten are proper; test each
 		// variable name against what variables are expected.
-		// Must test each name against each variable name expected
-		// As the method used does not return an ordered set.
-		// See Formula.java comments on the method GetExpressionVariableNames() for details.
 		try {
 			for (int i=0; i<=ourTestFormula.GetNumberOfExpressionVars(); i++) {
 				assertTrue(testFormulaVarNamesList.get(i).equals("_varA_") ||
@@ -103,7 +116,7 @@ public class FormulaTest {
 				// If exception here, one variable did not match expected
 				assertFalse(true);
 		}
-		// Return the set of strings gotten by GetExpressionVariableNames.
+		// Return the ArrayList<String> gotten by GetExpressionVariableNames.
 		return testFormulaVarNamesList;
 	}
 	
