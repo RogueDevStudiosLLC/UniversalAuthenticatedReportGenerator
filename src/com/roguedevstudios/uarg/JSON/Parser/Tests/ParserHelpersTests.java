@@ -5,7 +5,6 @@ import org.junit.*;
 import java.util.*;
 import com.google.gson.*;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.ParserHelpers;
-import com.roguedevstudios.uarg.System.Core.Elements.Variables;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
 /**
@@ -85,7 +84,7 @@ public class ParserHelpersTests {
 		this._initialVariableCondBoolVals.add(false);
 		// 2 slot = false
 		this._initialVariableCondBoolVals.add(false);
-		//Populate initial int values
+		//Populate initial int[] values
 		this._initialVariableCondIntArrVals = new ArrayList<Integer[]>();
 		// 0 slot = [99,12,3]
 		this._initialVariableCondIntArrVals.add(new Integer[] {99,12,3});
@@ -93,7 +92,7 @@ public class ParserHelpersTests {
 		this._initialVariableCondIntArrVals.add(new Integer[] {10,11,12});
 		// 2 slot = [15,20,25]
 		this._initialVariableCondIntArrVals.add(new Integer[] {15,20,25});
-		//Populate initial String values
+		//Populate initial String[] values
 		this._initialVariableCondStringArrVals = new ArrayList<String[]>();
 		// 0 slot = [A,B,C]
 		this._initialVariableCondStringArrVals.add(new String[] {"A","B","C"});
@@ -101,7 +100,7 @@ public class ParserHelpersTests {
 		this._initialVariableCondStringArrVals.add(new String[] {"B","C","D"});
 		// 2 slot = [C,D,E]
 		this._initialVariableCondStringArrVals.add(new String[] {"C","D","E"});
-		//Populate initial Float values
+		//Populate initial Float[] values
 		this._initialVariableCondDoubleArrVals = new ArrayList<Double[]>();
 		// 0 slot = [990.2,30.5,.04]
 		this._initialVariableCondDoubleArrVals.add(new Double[] {990.2,30.5,.04});
@@ -109,7 +108,7 @@ public class ParserHelpersTests {
 		this._initialVariableCondDoubleArrVals.add(new Double[] {10.1,35.5,401.5});
 		// 2 slot = [15.36,5.2,4.8]
 		this._initialVariableCondDoubleArrVals.add(new Double[] {15.36,5.2,4.8});
-		//Populate initial Long values
+		//Populate initial Long[] values
 		this._initialVariableCondLongArrVals = new ArrayList<Long[]>();
 		// 0 slot = [99,50,8]
 		this._initialVariableCondLongArrVals.add(new Long[] {99L,50L,8L});
@@ -117,7 +116,7 @@ public class ParserHelpersTests {
 		this._initialVariableCondLongArrVals.add(new Long[] {10L,5L,8000L});
 		// 2 slot = [15,8,56]
 		this._initialVariableCondLongArrVals.add(new Long[] {15L,8L,56L});
-		//Populate initial Float values
+		//Populate initial Float[] values
 		this._initialVariableCondFloatArrVals = new ArrayList<Float[]>();
 		// 0 slot = [99, 12,5.2]
 		this._initialVariableCondFloatArrVals.add(new Float[] {99F, 12F,5.2F});
@@ -125,7 +124,7 @@ public class ParserHelpersTests {
 		this._initialVariableCondFloatArrVals.add(new Float[] {10F, 58.2F,500.1F});
 		// 2 slot = [15, 64.2,69.1]
 		this._initialVariableCondFloatArrVals.add(new Float[] {15F, 64.2F,69.1F});
-		//Populate initial Boolean values
+		//Populate initial Boolean[] values
 		this._initialVariableCondBoolArrVals = new ArrayList<Boolean[]>();
 		// 0 slot = [true, false, true]
 		this._initialVariableCondBoolArrVals.add(new Boolean[] {true, false, true});
@@ -608,22 +607,6 @@ public class ParserHelpersTests {
 	public void TestIntegerSectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse IntX, IntY, IntZ from the Integers section into an IVariable<Integer> compliant container
-		IVariable<Integer> testVar = ParserHelpers.
-										ParseIntegerVariable(
-												this.getVariableCondition(
-														"Integers", "IntX"), 
-														"IntX");
-		IVariable<Integer> testVar2 = ParserHelpers.
-										ParseIntegerVariable(
-												this.getVariableCondition(
-														"Integers", "IntY"), 
-														"IntY");
-		IVariable<Integer> testVar3 = ParserHelpers.
-										ParseIntegerVariable(
-												this.getVariableCondition(
-														"Integers", "IntZ"), 
-														"IntZ");
 		// Parse Integer Section into a TreeMap
 		TreeMap<String, IVariable<Integer>> section = ParserHelpers.
 														ParseIntegerVariableSection(
@@ -632,7 +615,6 @@ public class ParserHelpersTests {
 		// Fetch key information for variables
 		assertEquals("IntX", section.firstKey());
 		assertEquals("IntZ", section.lastKey());
-		
 		// Display results
 		System.out.println(g.toJson(section));
 	}
@@ -641,22 +623,6 @@ public class ParserHelpersTests {
 	public void TestIntegerArraySectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse IntX, IntY, IntZ from the Integers section into an IVariable<Integer> compliant container
-		IVariable<Integer[]> testVar = ParserHelpers.
-										ParseIntegerArrayVariable(
-												this.getVariableCondition(
-														"IntegerArrays", "Int[]X"), 
-														"Int[]X");
-		IVariable<Integer[]> testVar2 = ParserHelpers.
-										ParseIntegerArrayVariable(
-												this.getVariableCondition(
-														"IntegerArrays", "Int[]Y"), 
-														"Int[]Y");
-		IVariable<Integer[]> testVar3 = ParserHelpers.
-										ParseIntegerArrayVariable(
-												this.getVariableCondition(
-														"IntegerArrays", "Int[]Z"), 
-														"Int[]Z");
 		// Parse Integer Section into a TreeMap
 		TreeMap<String, IVariable<Integer[]>> section = ParserHelpers.
 														ParseIntegerArrayVariableSection(
@@ -750,22 +716,6 @@ public class ParserHelpersTests {
 	public void TestStringSectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse StringX, StringY, StringZ from the Strings section into an IVariable<String> compliant container
-		IVariable<String> testVar = ParserHelpers.
-										ParseStringVariable(
-												this.getVariableCondition(
-														"Strings", "StringX"), 
-														"StringX");
-		IVariable<String> testVar2 = ParserHelpers.
-										ParseStringVariable(
-												this.getVariableCondition(
-														"Strings", "StringY"), 
-														"StringY");
-		IVariable<String> testVar3 = ParserHelpers.
-										ParseStringVariable(
-												this.getVariableCondition(
-														"Strings", "StringZ"), 
-														"StringZ");
 		// Parse String Section into a TreeMap
 		TreeMap<String, IVariable<String>> section = ParserHelpers.
 														ParseStringVariableSection(
@@ -783,22 +733,6 @@ public class ParserHelpersTests {
 	public void TestStringArraySectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse StringX, StringY, StringZ from the Strings section into an IVariable<String> compliant container
-		IVariable<String[]> testVar = ParserHelpers.
-										ParseStringArrayVariable(
-												this.getVariableCondition(
-														"StringArrays", "String[]X"), 
-														"String[]X");
-		IVariable<String[]> testVar2 = ParserHelpers.
-										ParseStringArrayVariable(
-												this.getVariableCondition(
-														"StringArrays", "String[]Y"), 
-														"String[]Y");
-		IVariable<String[]> testVar3 = ParserHelpers.
-										ParseStringArrayVariable(
-												this.getVariableCondition(
-														"StringArrays", "String[]Z"), 
-														"String[]Z");
 		// Parse String Section into a TreeMap
 		TreeMap<String, IVariable<String[]>> section = ParserHelpers.
 														ParseStringArrayVariableSection(
@@ -894,22 +828,6 @@ public class ParserHelpersTests {
 		
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse DoubleX, DoubleY, DoubleZ from the Doubles section into an IVariable<Double> compliant container
-		IVariable<Double> testVar = ParserHelpers.
-										ParseDoubleVariable(
-												this.getVariableCondition(
-														"Doubles", "DoubleX"), 
-														"DoubleX");
-		IVariable<Double> testVar2 = ParserHelpers.
-										ParseDoubleVariable(
-												this.getVariableCondition(
-														"Doubles", "DoubleY"), 
-														"DoubleY");
-		IVariable<Double> testVar3 = ParserHelpers.
-										ParseDoubleVariable(
-												this.getVariableCondition(
-														"Doubles", "DoubleZ"), 
-														"DoubleZ");
 		// Parse Double Section into a TreeMap
 		TreeMap<String, IVariable<Double>> section = ParserHelpers.
 														ParseDoubleVariableSection(
@@ -927,22 +845,6 @@ public class ParserHelpersTests {
 	public void TestDoubleArraySectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse DoubleX, DoubleY, DoubleZ from the Doubles section into an IVariable<Double> compliant container
-		IVariable<Double[]> testVar = ParserHelpers.
-										ParseDoubleArrayVariable(
-												this.getVariableCondition(
-														"DoubleArrays", "Double[]X"), 
-														"Double[]X");
-		IVariable<Double[]> testVar2 = ParserHelpers.
-										ParseDoubleArrayVariable(
-												this.getVariableCondition(
-														"DoubleArrays", "Double[]Y"), 
-														"Double[]Y");
-		IVariable<Double[]> testVar3 = ParserHelpers.
-										ParseDoubleArrayVariable(
-												this.getVariableCondition(
-														"DoubleArrays", "Double[]Z"), 
-														"Double[]Z");
 		// Parse Double Section into a TreeMap
 		TreeMap<String, IVariable<Double[]>> section = ParserHelpers.
 														ParseDoubleArrayVariableSection(
@@ -1038,22 +940,6 @@ public class ParserHelpersTests {
 	public void TestLongSectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse LongX, LongY, LongZ from the Longs section into an IVariable<Long> compliant container
-		IVariable<Long> testVar = ParserHelpers.
-										ParseLongVariable(
-												this.getVariableCondition(
-														"Longs", "LongX"), 
-														"LongX");
-		IVariable<Long> testVar2 = ParserHelpers.
-										ParseLongVariable(
-												this.getVariableCondition(
-														"Longs", "LongY"), 
-														"LongY");
-		IVariable<Long> testVar3 = ParserHelpers.
-										ParseLongVariable(
-												this.getVariableCondition(
-														"Longs", "LongZ"), 
-														"LongZ");
 		// Parse Long Section into a TreeMap
 		TreeMap<String, IVariable<Long>> section = ParserHelpers.
 														ParseLongVariableSection(
@@ -1071,22 +957,6 @@ public class ParserHelpersTests {
 	public void TestLongArraySectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse LongX, LongY, LongZ from the Longs section into an IVariable<Long> compliant container
-		IVariable<Long[]> testVar = ParserHelpers.
-										ParseLongArrayVariable(
-												this.getVariableCondition(
-														"LongArrays", "Long[]X"), 
-														"Long[]X");
-		IVariable<Long[]> testVar2 = ParserHelpers.
-										ParseLongArrayVariable(
-												this.getVariableCondition(
-														"LongArrays", "Long[]Y"), 
-														"Long[]Y");
-		IVariable<Long[]> testVar3 = ParserHelpers.
-										ParseLongArrayVariable(
-												this.getVariableCondition(
-														"LongArrays", "Long[]Z"), 
-														"Long[]Z");
 		// Parse Long Section into a TreeMap
 		TreeMap<String, IVariable<Long[]>> section = ParserHelpers.
 														ParseLongArrayVariableSection(
@@ -1139,7 +1009,7 @@ public class ParserHelpersTests {
 	public void TestParseFloatArrayVariable() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();	
-		// Parse FloatX from the Floats section into an IVariable<Float> compliant container
+		// Parse Floats section into an IVariable<Float> compliant container
 		IVariable<Float[]> testVar = ParserHelpers.
 										ParseFloatArrayVariable(
 												this.getVariableCondition(
@@ -1182,22 +1052,6 @@ public class ParserHelpersTests {
 	public void TestFloatSectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse FloatX, FloatY, FloatZ from the Floats section into an IVariable<Float> compliant container
-		IVariable<Float> testVar = ParserHelpers.
-										ParseFloatVariable(
-												this.getVariableCondition(
-														"Floats", "FloatX"), 
-														"FloatX");
-		IVariable<Float> testVar2 = ParserHelpers.
-										ParseFloatVariable(
-												this.getVariableCondition(
-														"Floats", "FloatY"), 
-														"FloatY");
-		IVariable<Float> testVar3 = ParserHelpers.
-										ParseFloatVariable(
-												this.getVariableCondition(
-														"Floats", "FloatZ"), 
-														"FloatZ");
 		// Parse Float Section into a TreeMap
 		TreeMap<String, IVariable<Float>> section = ParserHelpers.
 														ParseFloatVariableSection(
@@ -1215,22 +1069,6 @@ public class ParserHelpersTests {
 	public void TestFloatArraySectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse FloatX, FloatY, FloatZ from the Floats section into an IVariable<Float> compliant container
-		IVariable<Float[]> testVar = ParserHelpers.
-										ParseFloatArrayVariable(
-												this.getVariableCondition(
-														"FloatArrays", "Float[]X"), 
-														"Float[]X");
-		IVariable<Float[]> testVar2 = ParserHelpers.
-										ParseFloatArrayVariable(
-												this.getVariableCondition(
-														"FloatArrays", "Float[]Y"), 
-														"Float[]Y");
-		IVariable<Float[]> testVar3 = ParserHelpers.
-										ParseFloatArrayVariable(
-												this.getVariableCondition(
-														"FloatArrays", "Float[]Z"), 
-														"Float[]Z");
 		// Parse Float Section into a TreeMap
 		TreeMap<String, IVariable<Float[]>> section = ParserHelpers.
 														ParseFloatArrayVariableSection(
@@ -1326,22 +1164,6 @@ public class ParserHelpersTests {
 	public void TestBooleanSectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse BoolX, BoolY, BoolZ from the Booleans section into an IVariable<Boolean> compliant container
-		IVariable<Boolean> testVar = ParserHelpers.
-										ParseBooleanVariable(
-												this.getVariableCondition(
-														"Booleans", "BoolX"), 
-														"BoolX");
-		IVariable<Boolean> testVar2 = ParserHelpers.
-										ParseBooleanVariable(
-												this.getVariableCondition(
-														"Booleans", "BoolY"), 
-														"BoolY");
-		IVariable<Boolean> testVar3 = ParserHelpers.
-										ParseBooleanVariable(
-												this.getVariableCondition(
-														"Booleans", "BoolZ"), 
-														"BoolZ");
 		// Parse Boolean Section into a TreeMap
 		TreeMap<String, IVariable<Boolean>> section = ParserHelpers.
 														ParseBooleanVariableSection(
@@ -1359,22 +1181,6 @@ public class ParserHelpersTests {
 	public void TestBooleanArraySectionMap() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse BoolX, BoolY, BoolZ from the Booleans section into an IVariable<Boolean> compliant container
-		IVariable<Boolean[]> testVar = ParserHelpers.
-										ParseBooleanArrayVariable(
-												this.getVariableCondition(
-														"BooleanArrays", "Bool[]X"), 
-														"Bool[]X");
-		IVariable<Boolean[]> testVar2 = ParserHelpers.
-										ParseBooleanArrayVariable(
-												this.getVariableCondition(
-														"BooleanArrays", "Bool[]Y"), 
-														"Bool[]Y");
-		IVariable<Boolean[]> testVar3 = ParserHelpers.
-										ParseBooleanArrayVariable(
-												this.getVariableCondition(
-														"BooleanArrays", "Bool[]Z"), 
-														"Bool[]Z");
 		// Parse Boolean Section into a TreeMap
 		TreeMap<String, IVariable<Boolean[]>> section = ParserHelpers.
 														ParseBooleanArrayVariableSection(
@@ -1395,7 +1201,6 @@ public class ParserHelpersTests {
 		// Parse JsonElement into a Variables compliant container
 		IVariables TestElement = ParserHelpers.ParseVariables(this._initialVariableCond);
 		// Fetch information about all variables inside Json Element
-		
 		assertEquals(
 				_initialVariableCondIntVals.get(0), TestElement.GetInteger("IntX").GetValue()
 					);
