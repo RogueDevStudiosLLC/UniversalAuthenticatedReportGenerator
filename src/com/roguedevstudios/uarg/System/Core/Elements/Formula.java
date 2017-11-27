@@ -22,10 +22,14 @@ import net.objecthunter.exp4j.operator.*;
 import net.objecthunter.exp4j.tokenizer.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
+
 import java.util.Set;
 import java.util.ArrayList;
 
-public class Formula {
+public class Formula implements IFormula
+{
     /* Class Attributes */
 
     /* The name meta of a formula */
