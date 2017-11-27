@@ -1392,82 +1392,191 @@ public class ParserHelpersTests {
 	public void TestVariables() {
 		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		// Parse each variable section into TreeMaps
-		TreeMap<String, IVariable<Integer>> IntSection = ParserHelpers.
-															ParseIntegerVariableSection(
-																	this.getSectionCondition(
-																			"Integers"
-																			)
-																	);
-		TreeMap<String, IVariable<String>> StringSection = ParserHelpers.
-															ParseStringVariableSection(
-																	this.getSectionCondition(
-																			"Strings"
-																			)
-																	);
-		TreeMap<String, IVariable<Double>> DoubleSection = ParserHelpers.
-															ParseDoubleVariableSection(
-																	this.getSectionCondition(
-																			"Doubles"
-																			)
-																	);
-		TreeMap<String, IVariable<Long>> LongSection = ParserHelpers.
-															ParseLongVariableSection(
-																	this.getSectionCondition(
-																			"Longs"
-																			)
-																	);
-		TreeMap<String, IVariable<Float>> FloatSection = ParserHelpers.
-															ParseFloatVariableSection(
-																	this.getSectionCondition(
-																			"Floats"
-																			)
-																	);
-		TreeMap<String, IVariable<Boolean>> BooleanSection = ParserHelpers.
-															ParseBooleanVariableSection(
-																	this.getSectionCondition(
-																			"Booleans"
-																			)
-																	);
-		TreeMap<String, IVariable<Integer[]>> IntArrSection = ParserHelpers.
-															ParseIntegerArrayVariableSection(
-																	this.getSectionCondition(
-																			"IntegerArrays"
-																			)
-																	);
-		TreeMap<String, IVariable<String[]>> StringArrSection = ParserHelpers.
-															ParseStringArrayVariableSection(
-																	this.getSectionCondition(
-																			"StringArrays"
-																			)
-																	);
-		TreeMap<String, IVariable<Double[]>> DoubleArrSection = ParserHelpers.
-															ParseDoubleArrayVariableSection(
-																	this.getSectionCondition(
-																			"DoubleArrays"
-																			)
-																	);
-		TreeMap<String, IVariable<Long[]>> LongArrSection = ParserHelpers.
-														ParseLongArrayVariableSection(
-																this.getSectionCondition(
-																		"LongArrays"
-																		)
-																);
-		TreeMap<String, IVariable<Float[]>> FloatArrSection = ParserHelpers.
-														ParseFloatArrayVariableSection(
-																this.getSectionCondition(
-																		"FloatArrays"
-																		)
-																);
-		TreeMap<String, IVariable<Boolean[]>> BooleanArrSection = ParserHelpers.
-														ParseBooleanArrayVariableSection(
-																this.getSectionCondition(
-																		"BooleanArrays"
-																		)
-																);
-		// Parse all Sections into a Variables Container
-		Variables TestContainer = ParserHelpers.ParseVariables(this.getSectionCondition(key));
-													
+		// Parse JsonElement into a Variables compliant container
+		IVariables TestElement = ParserHelpers.ParseVariables(this._initialVariableCond);
+		// Fetch information about all variables inside Json Element
 		
+		assertEquals(
+				_initialVariableCondIntVals.get(0), TestElement.GetInteger("IntX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondIntVals.get(1), TestElement.GetInteger("IntY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondIntVals.get(2), TestElement.GetInteger("IntZ").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondStringVals.get(0), TestElement.GetString("StringX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondStringVals.get(1), TestElement.GetString("StringY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondStringVals.get(2), TestElement.GetString("StringZ").GetValue()
+					);		
+		assertEquals(
+				_initialVariableCondDoubleVals.get(0), TestElement.GetDouble("DoubleX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondDoubleVals.get(1), TestElement.GetDouble("DoubleY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondDoubleVals.get(2), TestElement.GetDouble("DoubleZ").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondFloatVals.get(0), TestElement.GetFloat("FloatX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondFloatVals.get(1), TestElement.GetFloat("FloatY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondFloatVals.get(2), TestElement.GetFloat("FloatZ").GetValue()
+					);	
+		assertEquals(
+				_initialVariableCondBoolVals.get(0), TestElement.GetBoolean("BoolX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondBoolVals.get(1), TestElement.GetBoolean("BoolY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondBoolVals.get(2), TestElement.GetBoolean("BoolZ").GetValue()
+					);	
+		assertEquals(
+				_initialVariableCondIntArrVals.get(0)[0], TestElement.GetIntegerArray("Int[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(0)[1], TestElement.GetIntegerArray("Int[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(0)[2], TestElement.GetIntegerArray("Int[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(1)[0], TestElement.GetIntegerArray("Int[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(1)[1], TestElement.GetIntegerArray("Int[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(1)[2], TestElement.GetIntegerArray("Int[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(2)[0], TestElement.GetIntegerArray("Int[]Z").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(2)[1], TestElement.GetIntegerArray("Int[]Z").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(2)[2], TestElement.GetIntegerArray("Int[]Z").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(0)[0], TestElement.GetStringArray("String[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(0)[1], TestElement.GetStringArray("String[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(0)[2], TestElement.GetStringArray("String[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(1)[0], TestElement.GetStringArray("String[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(1)[1], TestElement.GetStringArray("String[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(1)[2], TestElement.GetStringArray("String[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(2)[0], TestElement.GetStringArray("String[]Z").GetValue()[0]
+					);	
+		assertEquals(
+				_initialVariableCondStringArrVals.get(2)[1], TestElement.GetStringArray("String[]Z").GetValue()[1]
+					);		
+		assertEquals(
+				_initialVariableCondStringArrVals.get(2)[2], TestElement.GetStringArray("String[]Z").GetValue()[2]
+					);		
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(0)[0], TestElement.GetDoubleArray("Double[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(0)[1], TestElement.GetDoubleArray("Double[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(0)[2], TestElement.GetDoubleArray("Double[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(1)[0], TestElement.GetDoubleArray("Double[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(1)[1], TestElement.GetDoubleArray("Double[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(1)[2], TestElement.GetDoubleArray("Double[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(2)[0], TestElement.GetDoubleArray("Double[]Z").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(2)[1], TestElement.GetDoubleArray("Double[]Z").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(2)[2], TestElement.GetDoubleArray("Double[]Z").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(0)[0], TestElement.GetFloatArray("Float[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(0)[1], TestElement.GetFloatArray("Float[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(0)[2], TestElement.GetFloatArray("Float[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(1)[0], TestElement.GetFloatArray("Float[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(1)[1], TestElement.GetFloatArray("Float[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(1)[2], TestElement.GetFloatArray("Float[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(2)[0], TestElement.GetFloatArray("Float[]Z").GetValue()[0]
+					);	
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(2)[1], TestElement.GetFloatArray("Float[]Z").GetValue()[1]
+					);	
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(2)[2], TestElement.GetFloatArray("Float[]Z").GetValue()[2]
+					);	
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(0)[0], TestElement.GetBooleanArray("Bool[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(0)[1], TestElement.GetBooleanArray("Bool[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(0)[2], TestElement.GetBooleanArray("Bool[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(1)[0], TestElement.GetBooleanArray("Bool[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(1)[1], TestElement.GetBooleanArray("Bool[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(1)[2], TestElement.GetBooleanArray("Bool[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(2)[0], TestElement.GetBooleanArray("Bool[]Z").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(2)[1], TestElement.GetBooleanArray("Bool[]Z").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(2)[2], TestElement.GetBooleanArray("Bool[]Z").GetValue()[2]
+					);
+		// Display results
+		System.out.println(g.toJson(TestElement));
 	}
 }
