@@ -15,6 +15,7 @@ import java.lang.reflect.Type;
 
 import com.google.gson.*;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 
 /**
  *
@@ -25,7 +26,7 @@ import com.roguedevstudios.uarg.System.Core.Elements.Variable;
  * @since 1.0
  */
 public class DoubleVariableDeserializer 
-	   implements JsonDeserializer<Variable<Double>> 
+	   implements JsonDeserializer<IVariable<Double>> 
 {
 	/**
 	 * Deserializes into a Variable<Double> type
@@ -36,7 +37,7 @@ public class DoubleVariableDeserializer
 	 * @return Variable<Double>
 	 */
 	
-	public Variable<Double> deserialize(
+	public IVariable<Double> deserialize(
 										JsonElement json, 
 										Type typeOfT, 
 										JsonDeserializationContext context
@@ -59,26 +60,29 @@ public class DoubleVariableDeserializer
 		boolean _requiresInput = false;
 		
 		/*Temp output object holder*/
-		Variable<Double> v;
+		IVariable<Double> v;
 		
 		// Convert JsonElement into JsonObject
 		JsonObject o = json.getAsJsonObject();
-		
-		// If the object has a name, then we grab it
-		if( o.has("name") )
-			_name = o.get("name").getAsString();
+
+		//If the object has a name, then we grab it
+		if(o.has("Name")) {
+			_name = o.get("Name").getAsString();
+		}
 		
 		// If the object has an ID, then we grab it
 		if( o.has("ID") ) 
 			_id = o.get("ID").getAsString();
 		
-		// If the object has a value, then we grab it
-		if( o.has("value") ) 
-			_value = o.get("value").getAsDouble();
+		//If the object has a value, then we grab it
+		if(o.has("Value")) {
+			_value = o.get("Value").getAsDouble();
+		}
 		
-		// If the object has a description, then we grab it
-		if( o.has("description") ) 
-			_description = o.get("description").getAsString();
+		//If the object has a description, then we grab it
+		if(o.has("Description")) {
+			_description = o.get("Description").getAsString();
+		}
 		
 		// Build the Variable object to return
 		v = new Variable<Double>(  _name,
