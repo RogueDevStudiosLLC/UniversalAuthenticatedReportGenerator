@@ -1,3 +1,4 @@
+//TODO: Cleanup #2 - After modification merge from @Terry
 package com.roguedevstudios.uarg.System.Core.Elements;
 
 /********************************

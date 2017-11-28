@@ -7,141 +7,238 @@
 *                               *
 *  ©2014 Rogue Dev Studios, LLC *
 ********************************/
+package com.roguedevstudios.uarg.System.Core.Elements;
+
 /**
-* <p>
-* This class is for parsing information from the
+* 
+* This class is for representing information from the
 * JSON file to java to use for UI configuration
-* </p>
+* 
 * 
 * @author Gabriel Rosales
+* @author Christopher E. Howard
 * @since 1.0
 */
-package com.roguedevstudios.uarg.System.Core.Elements;
+
 
 public class Page
 {
-	/**
-	 *   
-	 * @param Colors - any color called for styling
-	 * 
-	 */
+  
+	 /* Colors - any color called for styling */ 
 	private Integer _colors;
-	/**
-	 *   
-	 * @param Description - the description of the called workspace
-	 * 
-	 */
+	
+	/* Description - the description of the called workspace */
 	private String _description;
-	/**
-	 *   
-	 * @param Icon - the icon called for the workspace
-	 * 
-	 */
+	
+	/* Icon - the icon called for the workspace */
 	private String _icon;
-	/**
-	 *   
-	 * @param Logo - Logo from the client organization
-	 * 
-	 */
+	
+	/* Logo - Logo from the client organization */
 	private String _logo;
-	/**
-	 *   
-	 * @param PageName - name of the workspace that is called 
-	 * 
-	 */
+	
+	/* PageName - name of the workspace that is called */
 	private String _pageId;
-	/**
-	 *   
-	 * @param Template - the template used for the workspace
-	 * 
-	 */
+	
+	/* Template - the template used for the workspace */
 	private String _template;
-	/**
-	 *   
-	 * @param VariableId - the ID of the called workspace
-	 * 
-	 */
+	
+	/* VariableId - the ID of the called workspace */
 	private String _variableId;
 	
-	public Page (String Pageid, String Description, String Variableid ,String Icon ,String Template, 
-			 Integer Colors, String Logo) 
+	/**
+	 * 
+	 * Primary Constructor for Page
+	 * 
+	 * @param Pageid
+	 * @param Description
+	 * @param Variableid
+	 * @param Icon
+	 * @param Template
+	 * @param Colors
+	 * @param Logo
+	 */
+	public Page (   String Pageid, 
+					String Description, 
+					String Variableid,
+					String Icon,
+					String Template, 
+					Integer Colors, 
+					String Logo
+				) 
 		{
-			this.SetPageid(Pageid);
-			this.SetDescription(Description);
-			this.SetVariableId(Variableid);
-			this.SetIcon(Icon);
-			this.SetTemplate(Template);
-			this.SetColors(Colors);
-			this.SetLogo(Logo);
+			this.SetPageid( Pageid );
+			this.SetDescription( Description );
+			this.SetVariableId( Variableid );
+			this.SetIcon( Icon );
+			this.SetTemplate( Template );
+			this.SetColors( Colors );
+			this.SetLogo( Logo );
 		}
 
-	public int GetColors() 
+	/**
+	 * 
+	 * Gets the Colors Integer Code
+	 * 
+	 * @return Integer
+	 */
+	public Integer GetColors() 
 	{
 		return _colors;
 	}
 
-	public void SetColors(Integer Colors) 
+	/**
+	 * 
+	 * Sets the Colors Integer Code
+	 * 
+	 * @param Colors
+	 */
+	public void SetColors( Integer Colors ) 
 	{
 		this._colors = Colors;
 	}
 
+	/**
+	 * 
+	 * Gets the Description
+	 * 
+	 * @return String
+	 */
 	public String GetDescription() 
 	{
 		return _description;
 	}
 
-	public void SetDescription(String Description) 
+	/**
+	 * 
+	 * Sets the Description
+	 * 
+	 * @param Description
+	 */
+	public void SetDescription( String Description ) 
 	{
 		this._description = Description;
 	}
 
+	/**
+	 * 
+	 * Returns the Icon String
+	 * 
+	 * @return String
+	 */
 	public String GetIcon() 
 	{
 		return _icon;
 	}
 
-	public void SetIcon(String Icon) 
+	/**
+	 * 
+	 * Sets the Icon String
+	 * 
+	 * @param Icon
+	 */
+	public void SetIcon( String Icon ) 
 	{
 		this._icon = Icon;
 	}
 
+	/**
+	 * 
+	 * Gets the Logo String
+	 * 
+	 * @return String
+	 */
 	public String GetLogo() 
 	{
 		return _logo;
 	}
 
-	public void SetLogo(String Logo) 
+	/**
+	 * 
+	 * Sets the Logo String
+	 * 
+	 * @param Logo
+	 */
+	public void SetLogo( String Logo ) 
 	{
 		this._logo = Logo;
 	}
 
+	/**
+	 * 
+	 * Gets the Page ID String
+	 * 
+	 * @return String
+	 */
 	public String GetPageid() 
 	{
 		return _pageId;
 	}
 
-	public void SetPageid(String Pageid) 
+	/**
+	 * 
+	 * Sets the Page ID String
+	 * 
+	 * @param Pageid
+	 */
+	public void SetPageid( String Pageid ) 
 	{
 		this._pageId = Pageid;
 	}
 
+	/**
+	 * 
+	 * Gets the Template String
+	 * 
+	 * @return String
+	 */
 	public String GetTemplate() 
 	{
 		return _template;
 	}
 
-	public void SetTemplate(String Template) 
+	/**
+	 * 
+	 * Sets the Template String
+	 * 
+	 * @param Template
+	 */
+	public void SetTemplate( String Template ) 
 	{
 		this._template = Template;
 	}
 
+	//TODO: Determine the purpose of VariableId and clarify documentation
+	
+	/**
+	 * 
+	 * Gets the Variable ID String
+	 * 
+	 * @return String
+	 */
 	public String GetVariableId() 
 	{
 		return _variableId;
 	}
 
-	public void SetVariableId(String VariableId) 
+	/**
+	 * 
+	 * Sets the Variable ID String
+	 * 
+	 * @param VariableId
+	 */
+	public void SetVariableId( String VariableId ) 
 	{
 		this._variableId = VariableId;
+	}
+	
+	/**
+	 * 
+	 * Indicates if a color Integer code is present in the object
+	 * 
+	 */
+	public boolean HasColorCode() {
+		
+		return (this._colors != null);
+		
 	}
 }

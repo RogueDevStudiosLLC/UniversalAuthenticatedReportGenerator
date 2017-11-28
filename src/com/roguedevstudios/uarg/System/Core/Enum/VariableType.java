@@ -1,3 +1,4 @@
+//TODO: Cleanup #2
 package com.roguedevstudios.uarg.System.Core.Enum;
 /********************************
 *   VariableType Class          *

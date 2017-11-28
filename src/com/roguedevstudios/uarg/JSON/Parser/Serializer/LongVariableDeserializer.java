@@ -18,14 +18,16 @@ import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 
 /**
- * <p>
- * converts Variable.json information into Java Objects
- * <p>
+ * 
+ * Adapter class to Deserialize Variable objects of subtype Long
  * 
  * @author Terry Roberson
+ * @author Christopher E. Howard
  * @since 1.0
  */
-public class LongVariableDeserializer implements JsonDeserializer<IVariable<Long>> {
+public class LongVariableDeserializer 
+	   implements JsonDeserializer<IVariable<Long>> 
+{
 	/**
 	 * Deserializes into a Variable<Long> type
 	 * from a given JsonElement, Type, and context
@@ -34,23 +36,33 @@ public class LongVariableDeserializer implements JsonDeserializer<IVariable<Long
 	 * @param JsonDeserializationContext
 	 * @return Variable<Long>
 	 */
-	
-	public IVariable<Long> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-			throws JsonParseException {
+	public IVariable<Long> deserialize(
+										JsonElement json, 
+										Type typeOfT, 
+										JsonDeserializationContext context
+									 )
+									throws JsonParseException 
+	{
+		
 		/*Temp slot for variable name*/
 		String _name = null;
+		
 		/*Temp slot for variable ID*/
 		String _id = null;
+		
 		/*Temp slot for variable value*/
 		Long _value = null;
+		
 		/*Temp slot for variable description*/
 		String _description = null;
+		
 		/*Temp slot for variable requiresInput*/
 		boolean _requiresInput = false;
+		
 		/*Temp output object holder*/
 		IVariable<Long> v;
 		
-		/* Convert JsonElement into JsonObject */
+		// Convert JsonElement into JsonObject
 		JsonObject o = json.getAsJsonObject();
 		
 		//If the object has a name, then we grab it
@@ -58,10 +70,9 @@ public class LongVariableDeserializer implements JsonDeserializer<IVariable<Long
 			_name = o.get("Name").getAsString();
 		}
 		
-		//If the object has an ID, then we grab it
-		if(o.has("ID")) {
+		// If the object has an ID, then we grab it
+		if( o.has("ID") )
 			_id = o.get("ID").getAsString();
-		}
 		
 		//If the object has a value, then we grab it
 		if(o.has("Value")) {
@@ -73,9 +84,14 @@ public class LongVariableDeserializer implements JsonDeserializer<IVariable<Long
 			_description = o.get("Description").getAsString();
 		}
 		
-		//Build the Variable object to return
-		v = new Variable<Long>(_name, _id, _requiresInput, _description, _value);
-			
+		// Build the Variable object to return
+		v = new Variable<Long>(	_name, 
+								_id, 
+								_requiresInput, 
+								_description, 
+								_value
+							  );
+		// Return the constructed variable object	
 		return v;
 	}
 }
