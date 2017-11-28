@@ -70,14 +70,15 @@ public class FormulaTest {
 	 * Test creation of a formula object, then test getters for that formula object.
 	 * Expectation: success
 	 */
-	public void createTestFormula {
+	/*
+	public boolean createTestFormula {
 		String testFormulaName = "testFormula";
 		String testFormulaDesc = "A test formula.";
 		String formulaID = "TSTFRM1";
 		String testFormulaEquation = "_varA_*_varB_+_varC_-_varD_";
 		Formula ourTestFormula = new Formula(testFormulaName, testFormulaDesc, formulaID, testFormulaEquation);
 		
-		/* TEST GETTERS */
+		// TEST GETTERS \\
 		ourTestFormula.GetName();
 		ourTestFormula.GetDesc();
 		ourTestFormula.GetId();
@@ -85,7 +86,10 @@ public class FormulaTest {
 		ourTestFormula.GetNumberOfExpressionVars();
 		ourTestFormula.GetExpressionVariableNames();
 		ourTestFormula.GetInputArraySize();
+		return true;
 	}
+*/
+	
 	/**
 	 * Test that assigning variables using _buildExpression() works
 	 * Expectation: success, lists expression vars
@@ -93,7 +97,7 @@ public class FormulaTest {
 	 * @return An ArrayList<String> of the test expression's variable names
 	 */
 	@Test
-	public ArrayList<String> testBuildExpressionMethod() {
+	public void testBuildExpressionMethod() {
 		// Set up initial Formula object
 		// TODO: CURRENTLY TESTING ON CONSTRUCTOR ONLY UP TO _BUILDEXPRESSION(), AS CONSTRUCTOR
 		// 			GETS BUILT THIS TEST MUST BE UPDATED
@@ -111,13 +115,46 @@ public class FormulaTest {
 						testFormulaVarNamesList.get(i).equals("_varB_") ||
 						testFormulaVarNamesList.get(i).equals("_varC_") ||
 						testFormulaVarNamesList.get(i).equals("_varD_"));
+				System.out.println(i + ": " +testFormulaVarNamesList.get(i));
 			} 
 		} catch (Exception e) {
 				// If exception here, one variable did not match expected
 				assertFalse(true);
 		}
-		// Return the ArrayList<String> gotten by GetExpressionVariableNames.
-		return testFormulaVarNamesList;
+	}
+	
+	/**
+	 * Example optimization of the above method
+	 * 
+	 * @author Christopher Howard
+	 */
+	@Test
+	public void testBuildExpressionMethodOptimized() {
+		// Initial Conditions
+		String testFormulaName = "testFormula";
+		String testFormulaDesc = "testFormulaDesc";
+		String testFormulaID = "testFormulaID";
+		String testFormulaEquation = "_varA_*_varB_+_varC_-_varD_";
+		
+		// Build Formula Object
+		Formula FO = new Formula(testFormulaName, testFormulaDesc, testFormulaID, testFormulaEquation);
+		
+		// Expectations
+		ArrayList<String> ExpectedVars = new ArrayList<String>();
+		ExpectedVars.add("_varA_");
+		ExpectedVars.add("_varB_");
+		ExpectedVars.add("_varC_");
+		ExpectedVars.add("_varD_");
+		// Actuals
+		ArrayList<String> ActualVars = FO.GetExpressionVariableNames();
+		
+		// Check that Actuals are in Expectations
+		for(String Actual: ActualVars) {
+			assertTrue(ExpectedVars.contains(Actual));
+		}
+		
+		// Check that the Actual and Expected sets have equal cardinality
+		assertTrue(ActualVars.size() == ExpectedVars.size());
 	}
 	
 }
