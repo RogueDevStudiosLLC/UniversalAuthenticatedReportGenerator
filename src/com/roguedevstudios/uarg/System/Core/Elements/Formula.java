@@ -75,19 +75,19 @@ public class Formula implements IFormula
         /* Build and Validate Expression using Exp4j here*/
         this._formulaVariableNames = this._initializeVarNames();
         this._formulaExpression = this._buildExpression();
-        // Validate new exp4j expression here
-        // if validate unsuccessful then throw and abort?
-        // if success continue
-        // ==See what to do for this in terms of how to do
         this._formulaInputArray = new double[this._formulaVariableNames.size()];
         try {
+        	// Bind dummy values to our temp input array
         	for (int i=0; i<=this._formulaInputArray.length; i++) {
         		this._formulaInputArray[i] = 1;
-        		this._validateExpression();
         	}
+        	// Validate using our ._process() method
+        	this._process();
         } catch (Exception e) {
+        	// If an exception is thrown, constructor should abort
         		throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
         }
+        // Clear our temp array from our dummy values when we're done validating.
         this._clearTempArray();
     }
     
@@ -132,30 +132,6 @@ public class Formula implements IFormula
     }
     
     /**
-     * A method for validating a Formula object's Exp4j Expression.
-     * @author Chelsea Hunter
-     * @throws IllegalStateException	If the Formula's Expression object is invalid.
-     * @throws ArithmeticException		If the Formula's Expression object cannot be evaluated.
-     */
-    private void _validateExpression() throws Exception {
-    	// For every String in _formulaVariableNames, set the variable "String" to the corresponding element in the input array.
- 	   for (int i=0; i <= this._formulaVariableNames.size(); i++) {
-		   this._formulaExpression.setVariable(this._formulaVariableNames.get(i), this._formulaInputArray[i]);
-	   }
- 	   // Create a ValidationResult object for the formula expression to test upon.
- 	   ValidationResult _formulaExpressionValidation = this._formulaExpression.validate();
- 	   // If .isValid() returns false, the Expression is invalid and therefore illegal.
- 	   if (_formulaExpressionValidation.isValid() != true) {
- 		   throw new IllegalStateException();
- 	   }
- 	   // Try to evaluate the expression if basic validation is a success. If the evaluation fails here, it is mostly likely a mathematical issue.
- 	   try {
- 		   this._formulaExpression.evaluate();
- 	   } catch (Exception e) {
- 		   throw new ArithmeticException("Evaluation of Formula's Exp4j Expression has failed.");
- 	   }
-    }
-    /**
     * Gets the double result of calculating the Formula object's Exp4j Expression.
     * @author Chelsea Hunter
     * @author Christopher E. Howard
@@ -174,17 +150,16 @@ public class Formula implements IFormula
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
             try {
-                // Validate before processing - if validation fails, throw an illegal state exception.
-                this._validateExpression();
+            	// Validate expression, then evaluate expression and get double result
+            	double out = this._process();
+            	// Clear our temp array to 0d elements
+            	this._clearTempArray();
+            	// Return our double result for casting to other numerical objects
+            	return out;
             } catch (Exception v) {
+            	// If an exception was thrown, the Expression is invalid and something is wrong.
             	throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
             }
-            // Process the vars to an output of double
-            double out = this._process();
-            // Clean up our temp array to 0d elements
-            this._clearTempArray();
-            // Return output as double for casting into other numerical objects.
-            return out;
         }
         catch(Exception e){
             throw new IllegalArgumentException("The input array could not be parsed into a numerical value.");
@@ -260,7 +235,8 @@ public class Formula implements IFormula
     // == Almost always means we wrap our process in a try catch block and spit the exception back to the user
     
     /**
-     * Sets the Exp4j Expression variables to the proper values from the temporary input array, then evaluates the Expression.
+     * Sets the Exp4j Expression variables to the proper values from the temporary input array, validates the Expression,
+     * then returns the result of evaluating the expression.
      * @author Chelsea Hunter
      * @return	The result of evaluating the Formula object's Exp4j Expression, in double format.
      */
@@ -270,8 +246,18 @@ public class Formula implements IFormula
 	   for (int i=0; i <= this._formulaVariableNames.size(); i++) {
 		   this._formulaExpression.setVariable(this._formulaVariableNames.get(i), this._formulaInputArray[i]);
 	   }
-	   // Return result of evaluation, which should be ok.
-	   return this._formulaExpression.evaluate();
+ 	   // Create a ValidationResult object for the formula expression to test upon.
+ 	   ValidationResult _formulaExpressionValidation = this._formulaExpression.validate();
+ 	   // If .isValid() returns false, the Expression is invalid and therefore illegal.
+ 	   if (_formulaExpressionValidation.isValid() != true) {
+ 		   throw new IllegalStateException();
+ 	   }
+ 	   // Try to evaluate the expression if basic validation is a success. If the evaluation fails here, it is mostly likely a mathematical issue.
+ 	   try {
+ 		   return this._formulaExpression.evaluate();
+ 	   } catch (Exception e) {
+ 		   throw new ArithmeticException("Evaluation of Formula's Exp4j Expression has failed.");
+ 	   }
     }
     
     /**
