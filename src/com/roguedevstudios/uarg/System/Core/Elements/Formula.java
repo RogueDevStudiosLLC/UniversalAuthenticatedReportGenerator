@@ -81,6 +81,15 @@ public class Formula implements IFormula
         // if success continue
         // ==See what to do for this in terms of how to do
         this._formulaInputArray = new double[this._formulaVariableNames.size()];
+        try {
+        	for (int i=0; i<=this._formulaInputArray.length; i++) {
+        		this._formulaInputArray[i] = 1;
+        		this._validateExpression();
+        	}
+        } catch (Exception e) {
+        		throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
+        }
+        this._clearTempArray();
     }
     
     /**
@@ -121,7 +130,25 @@ public class Formula implements IFormula
     	Expression _formulaExpression = _formulaExpressionBuilder.build();
     	return _formulaExpression;
     }
-  
+    
+    /**
+     * Validates an expression.
+     * @throws An exception if the expression is invalid or cannot be evaluated.
+     */
+    private void _validateExpression() throws Exception {
+ 	   for (int i=0; i <= this._formulaVariableNames.size(); i++) {
+		   this._formulaExpression.setVariable(this._formulaVariableNames.get(i), this._formulaInputArray[i]);
+	   }
+ 	   ValidationResult _formulaExpressionValidation = this._formulaExpression.validate();
+ 	   if (_formulaExpressionValidation.isValid() != true) {
+ 		   throw new Exception();
+ 	   }
+ 	   try {
+ 		   this._formulaExpression.evaluate();
+ 	   } catch (Exception e) {
+ 		   throw e;
+ 	   }
+    }
     /**
     * Gets the double result of calculating the Formula object's Exp4j Expression.
     * 
@@ -139,6 +166,12 @@ public class Formula implements IFormula
         try{
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
+            try {
+                // Validate before processing
+                this._validateExpression();
+            } catch (Exception v) {
+            	throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
+            }
             // Process the vars to an output of Double
             double out = this._process();
             // Clean up our temp array
