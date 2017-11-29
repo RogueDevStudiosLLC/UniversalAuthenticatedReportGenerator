@@ -24,9 +24,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 
 import java.util.Set;
 import java.util.ArrayList;
+import java.lang.Double;
+import java.lang.Integer;
+import java.lang.Float;
+import java.lang.Long;
 
 public class Formula implements IFormula
 {
@@ -69,8 +74,8 @@ public class Formula implements IFormula
         this._formulaId = formulaId;
         this._formulaEquation = formulaEquation;
         /* Build and Validate Expression using Exp4j here*/
-        this._formulaVariableNames = _initializeVarNames();
-        this._formulaExpression = _buildExpression();
+        this._formulaVariableNames = this._initializeVarNames();
+        this._formulaExpression = this._buildExpression();
         // Validate new exp4j expression here
         // if validate unsuccessful then throw and abort?
         // if success continue
@@ -91,7 +96,7 @@ public class Formula implements IFormula
     	Matcher _formulaVarMatcher = _formulaRegex.matcher(this._formulaEquation);
     	// While regex matcher can find matching values, add them to the ArrayList
     	while (_formulaVarMatcher.find()) {
-    		for (int i=0; i<=_formulaVarMatcher.groupCount();i++) {
+    		for (int i=_formulaVarMatcher.groupCount(); i>=0;i--) {
     			_formulaVarNames.add(_formulaVarMatcher.group(i));
     		}
     	}
@@ -116,50 +121,82 @@ public class Formula implements IFormula
     	Expression _formulaExpression = _formulaExpressionBuilder.build();
     	return _formulaExpression;
     }
-    
+  
     /**
-    * Checks if array size is correct, then converts variable
-    * array elements into Double format. Then it outputs the variable
-    * array elements as Doubles to be processed by exp4j.
-    * Finally, it cleans out the temporary array.
+    * Gets the double result of calculating the Formula object's Exp4j Expression.
     * 
-    * @param vars	The Variable objects with the desired input values.
+    * @param vars	The Variable objects with the desired input values in array format.
     * @throws InvalidNumberOfArgumentsException	If the variable object array given does not have the correct amount of elements.
-    * @throws InvalidArgumentException	If array values cannot be parsed into a numerical value.
+    * @throws IllegalArgumentException	If array values cannot be parsed into a numerical value.
+    * @return The result of calculating the Formula object's Expression (double).
     */
-    public Integer GetIntegerResult(IVariable<?>[] vars){
-        // If the array is the wrong size throw an exception
+    private double _calculateExpression(IVariable<?>[] vars) {
+    	  // If the array is the wrong size throw an exception
         if(vars.length != this._formulaInputArray.length){
-            throw new InvalidNumberOfArgumentsExceptionPleaseWriteMe(); // TODO: Make exception
+            throw new IllegalArgumentException("Please write an invalid number of arguments exception Chel"); // TODO: Make exception
         }
         // If the array values can not be parsed to a numerical value, throw an invalid argument exception
         try{
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
             // Process the vars to an output of Double
-            Double out = this._process(); // TODO: 23 Oct 2017: process() currently undefined
+            double out = this._process();
             // Clean up our temp array
             this._clearTempArray();
             // Convert the output into what was asked for and return it
-            return Integer.parseInt(out);
+            return out;
         }
         catch(Exception e){
-            throw new InvalidArgumentException(); // TODO: Make exception
+            throw new IllegalArgumentException("The input array could not be parsed into a numerical value.");
         }
         //TODO:
         return null;
     }
     
+    public Double CalculateToDouble(IVariable<?>[] vars) {
+    	return new Double(this._calculateExpression(vars));
+    }
+    
     /**
-    * Populate the temporary input array with doubles of the input values
-    * @param vars		The Variable objects with the desired input values.
+     * Gets the Integer result of calculating the Formula object's Exp4j Expression.
+     * 
+     * @param vars	The Variable objects with the desired input values in array format.
+     * @return The result of calculating the Formula object's Expression in Integer format.
+     */
+    public Integer CalculateToInteger(IVariable<?>[] vars) {
+    	return new Integer((int)this._calculateExpression(vars));
+    }
+    
+    /**
+     * Gets the Float result of calculating the Formula object's Exp4j Expression.
+     * 
+     * @param vars	The Variable objects with the desired input values in array format.
+     * @return The result of calculating the Formula object's Expression in Float format.
+     */
+    public Float CalculateToFloat(IVariable<?>[] vars) {
+    	return new Float((float)this._calculateExpression(vars));
+    }
+    
+    /**
+     * Gets the Long result of calculating the Formula object's Exp4j Expression.
+     * 
+     * @param vars	The Variable objects with the desired input values in array format.
+     * @return The result of calculating the Formula object's Expression in Long format.
+     */
+    public Long CalculateToLong(IVariable<?>[] vars) {
+    	return new Long((long)this._calculateExpression(vars));
+    }
+    
+    /**
+    * Populates the temporary input array with doubles of the input values from the incoming Variable object array.
+    * @param vars		The Variable objects with the desired input values in array format.
     * @throws Exception	If one of the argument values given is not capable of being parsed into a Double.
     */
     private void _tempArrayDoubleConversion(IVariable<?>[] vars) throws Exception{
         int i = 0;
         try{
-        	for(Variable<?> var : vars){
-        		this._formulaInputArray[i] = Double.parseDouble(var.GetValue());
+        	for(IVariable<?> var : vars){
+        		this._formulaInputArray[i] = Double(var.GetValue()); //TODO: resolve this
         		i++;
         	}
         }
@@ -177,7 +214,11 @@ public class Formula implements IFormula
     // if there's a problem we need to throw an exception
     // == Almost always means we wrap our process in a try catch block and spit the exception back to the user
     
-   private double _process() {
+    /**
+     * Sets the Exp4j Expression variables to the proper values from the temporary input array, then evaluates the Expression.
+     * @return	The result
+     */
+    private double _process() {
     	// Exp4j processing here using expression
     	// For loop
     		// For string in this.expression.getVariableNames()
@@ -195,7 +236,7 @@ public class Formula implements IFormula
      * Called by processToInteger().
      */
     private void _clearTempArray(){
-        for( int i=0; i <= this._formulaInputArray.length; i++){
+        for(int i=0; i <= this._formulaInputArray.length; i++){
             this._formulaInputArray[i] = 0d; // Set element to Double 0
         }
     }
@@ -204,7 +245,7 @@ public class Formula implements IFormula
      * Gets the formula name.
      * @return The formula name (String).
      */
-    public String GetName(){
+    public String GetFormulaName(){
         return this._formulaName;
     }
     
@@ -212,7 +253,7 @@ public class Formula implements IFormula
      * Gets the formula description.
      * @return The formula description (String).
      */
-    public String GetDesc(){
+    public String GetFormulaDesc(){
         return this._formulaDesc;
     }
     
@@ -220,7 +261,7 @@ public class Formula implements IFormula
      * Gets the formula id.
      * @return The formula id (String).
      */
-    public String GetId(){
+    public String GetFormulaId(){
         return this._formulaId;
     }
     
@@ -228,30 +269,22 @@ public class Formula implements IFormula
      * Gets the formula base equation.
      * @return The formula base equation (String).
      */
-    public String GetEquation(){
+    public String GetFormulaEquation(){
         return this._formulaEquation;
-    }
-    
-    /**
-     * Gets the number of variables in the formula expression.
-     * @return The number of variables in the formula expression (int).
-     */
-    public int GetNumberOfExpressionVars() {
-    	return this._formulaVariableNames.size();
     }
     
     /**
      * Gets the formula expression variable names.
      * @return The names of variables in the formula expression (ArrayList<String>)
      */
-    public ArrayList<String> GetExpressionVariableNames() {
+    public ArrayList<String> GetFormulaExpressionVariableNames() {
     	return this._formulaVariableNames;
     }
     /**
      * Gets the formula variable input array's size.
-     * @return The size of the formula variable input array (int).
+     * @return The size of the formula variable input array (Integer).
      */
-    public int GetInputArraySize(){
-        return this._formulaInputArray.length;
+    public Integer GetFormulaInputArraySize(){
+        return Integer(this._formulaInputArray.length);
     }
 }
