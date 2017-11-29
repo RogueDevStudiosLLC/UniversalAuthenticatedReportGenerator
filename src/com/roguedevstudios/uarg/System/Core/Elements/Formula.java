@@ -6,14 +6,6 @@
 
 package com.roguedevstudios.uarg.System.Core.Elements;
 
-/**
- * This class is the formula class.
- * 
- * @author Chelsea Hunter
- * @author Christopher E. Howard
- * @since 1.0
- */
-
 import net.objecthunter.exp4j.*;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -32,7 +24,13 @@ import java.lang.Double;
 import java.lang.Integer;
 import java.lang.Float;
 import java.lang.Long;
-
+/**
+ * This class is the formula class.
+ * 
+ * @author Chelsea Hunter
+ * @author Christopher E. Howard
+ * @since 1.0
+ */
 public class Formula implements IFormula
 {
     /* Class Attributes */
@@ -61,7 +59,8 @@ public class Formula implements IFormula
     * equation given, and sets up
     * a Double array based off of the base equation
     * given for storing input variable object values.
-    *
+    * @author Chelsea Hunter
+    * @author Christopher E. Howard
     * @param formulaName	A formula's name, taken from _formulaName
     * @param formulaDesc	A formula's description, taken from _formulaDesc
     * @param formulaId		A formula's id, taken from _formulaId
@@ -94,6 +93,7 @@ public class Formula implements IFormula
     
     /**
      * A method to initialize the variable names to be used by our exp4j expression.
+     * @author Chelsea Hunter
      * @return A list of variable names (ArrayList<String>)
      */
     private ArrayList<String> _initializeVarNames() {
@@ -115,9 +115,9 @@ public class Formula implements IFormula
     /**
      * A method to build an exp4j expression for a formula object,
      * given that a valid formula equation was input by the configuration file.
+     * @author Chelsea Hunter
      * @return An Exp4j Expression object for use in calculating formulas (Expression).
      */
-    //TODO: Add exceptions for nulls, bad ins, w.e.
     private Expression _buildExpression() {
     	// Make base Exp4j ExpressionBuilder using _formulaEquation string as input
     	ExpressionBuilder _formulaExpressionBuilder = new ExpressionBuilder(this._formulaEquation);
@@ -132,26 +132,33 @@ public class Formula implements IFormula
     }
     
     /**
-     * Validates an expression.
-     * @throws An exception if the expression is invalid or cannot be evaluated.
+     * A method for validating a Formula object's Exp4j Expression.
+     * @author Chelsea Hunter
+     * @throws IllegalStateException	If the Formula's Expression object is invalid.
+     * @throws ArithmeticException		If the Formula's Expression object cannot be evaluated.
      */
     private void _validateExpression() throws Exception {
+    	// For every String in _formulaVariableNames, set the variable "String" to the corresponding element in the input array.
  	   for (int i=0; i <= this._formulaVariableNames.size(); i++) {
 		   this._formulaExpression.setVariable(this._formulaVariableNames.get(i), this._formulaInputArray[i]);
 	   }
+ 	   // Create a ValidationResult object for the formula expression to test upon.
  	   ValidationResult _formulaExpressionValidation = this._formulaExpression.validate();
+ 	   // If .isValid() returns false, the Expression is invalid and therefore illegal.
  	   if (_formulaExpressionValidation.isValid() != true) {
- 		   throw new Exception();
+ 		   throw new IllegalStateException();
  	   }
+ 	   // Try to evaluate the expression if basic validation is a success. If the evaluation fails here, it is mostly likely a mathematical issue.
  	   try {
  		   this._formulaExpression.evaluate();
  	   } catch (Exception e) {
- 		   throw e;
+ 		   throw new ArithmeticException("Evaluation of Formula's Exp4j Expression has failed.");
  	   }
     }
     /**
     * Gets the double result of calculating the Formula object's Exp4j Expression.
-    * 
+    * @author Chelsea Hunter
+    * @author Christopher E. Howard
     * @param vars	The Variable objects with the desired input values in array format.
     * @throws InvalidNumberOfArgumentsException	If the variable object array given does not have the correct amount of elements.
     * @throws IllegalArgumentException	If array values cannot be parsed into a numerical value.
@@ -167,32 +174,36 @@ public class Formula implements IFormula
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
             try {
-                // Validate before processing
+                // Validate before processing - if validation fails, throw an illegal state exception.
                 this._validateExpression();
             } catch (Exception v) {
             	throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
             }
-            // Process the vars to an output of Double
+            // Process the vars to an output of double
             double out = this._process();
-            // Clean up our temp array
+            // Clean up our temp array to 0d elements
             this._clearTempArray();
-            // Convert the output into what was asked for and return it
+            // Return output as double for casting into other numerical objects.
             return out;
         }
         catch(Exception e){
             throw new IllegalArgumentException("The input array could not be parsed into a numerical value.");
-        }
-        //TODO:
-        return null;
+        } // This is good enough right?
     }
     
+    /**
+     * Gets the Double result of calculating the Formula object's Exp4j Expression.
+     * @author Chelsea Hunter
+     * @param vars	The Variable objects with the desired input values in array format.
+     * @return The result of calculating the Formula object's Expression in Double format.
+     */
     public Double CalculateToDouble(IVariable<?>[] vars) {
     	return new Double(this._calculateExpression(vars));
     }
     
     /**
      * Gets the Integer result of calculating the Formula object's Exp4j Expression.
-     * 
+     * @author Chelsea Hunter
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Integer format.
      */
@@ -202,7 +213,7 @@ public class Formula implements IFormula
     
     /**
      * Gets the Float result of calculating the Formula object's Exp4j Expression.
-     * 
+     * @author Chelsea Hunter
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Float format.
      */
@@ -212,7 +223,7 @@ public class Formula implements IFormula
     
     /**
      * Gets the Long result of calculating the Formula object's Exp4j Expression.
-     * 
+     * @author Chelsea Hunter
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Long format.
      */
@@ -222,6 +233,7 @@ public class Formula implements IFormula
     
     /**
     * Populates the temporary input array with doubles of the input values from the incoming Variable object array.
+    * @author Christopher E. Howard
     * @param vars		The Variable objects with the desired input values in array format.
     * @throws Exception	If one of the argument values given is not capable of being parsed into a Double.
     */
@@ -229,7 +241,7 @@ public class Formula implements IFormula
         int i = 0;
         try{
         	for(IVariable<?> var : vars){
-        		this._formulaInputArray[i] = Double(var.GetValue()); //TODO: resolve this
+        		this._formulaInputArray[i] = Double((double)var.GetValue()); //TODO: resolve this
         		i++;
         	}
         }
@@ -249,24 +261,22 @@ public class Formula implements IFormula
     
     /**
      * Sets the Exp4j Expression variables to the proper values from the temporary input array, then evaluates the Expression.
-     * @return	The result
+     * @author Chelsea Hunter
+     * @return	The result of evaluating the Formula object's Exp4j Expression, in double format.
      */
     private double _process() {
-    	// Exp4j processing here using expression
-    	// For loop
-    		// For string in this.expression.getVariableNames()
-    		// this.expression.setVariable(String, this._formulaInputArray[i])
-    		// i++
-    	// Return this.expression.evaluate()
+    	// For every String in our ArrayList of variable names, set variablename to corresponding value in the input array.
+    	// These should be inherently ordered by the nature of the cascade map.
 	   for (int i=0; i <= this._formulaVariableNames.size(); i++) {
 		   this._formulaExpression.setVariable(this._formulaVariableNames.get(i), this._formulaInputArray[i]);
 	   }
+	   // Return result of evaluation, which should be ok.
 	   return this._formulaExpression.evaluate();
     }
     
     /**
-     * Method to clear the temporary variables array.
-     * Called by processToInteger().
+     * Method to clear the temporary variables array by setting all elements to double 0.
+     * @author Christopher E. Howard
      */
     private void _clearTempArray(){
         for(int i=0; i <= this._formulaInputArray.length; i++){
@@ -318,6 +328,6 @@ public class Formula implements IFormula
      * @return The size of the formula variable input array (Integer).
      */
     public Integer GetFormulaInputArraySize(){
-        return Integer(this._formulaInputArray.length);
+        return new Integer(this._formulaInputArray.length);
     }
 }
