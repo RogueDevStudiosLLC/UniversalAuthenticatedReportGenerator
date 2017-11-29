@@ -85,3 +85,4 @@ public interface IFormula {
 	 * @since 1.0
 	 */
 	String GetFormulaEquation();
+}
