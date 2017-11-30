@@ -65,9 +65,9 @@ public class Formula implements IFormula
     * @param formulaDesc	A formula's description, taken from _formulaDesc
     * @param formulaId		A formula's id, taken from _formulaId
     * @param formulaEquation	A formula's equation, taken from _formulaEquation
-    * @throws An exception if validation of the exp4j expression is unsuccessful.
+    * @throws IllegalStateException	If validation of the exp4j expression is unsuccessful.
     */
-    public Formula (String formulaName, String formulaDesc, String formulaId, String formulaEquation) {
+    public Formula (String formulaName, String formulaDesc, String formulaId, String formulaEquation) throws IllegalStateException{
         this._formulaName = formulaName;
         this._formulaDesc = formulaDesc;
         this._formulaId = formulaId;
@@ -137,34 +137,33 @@ public class Formula implements IFormula
     * @author Christopher E. Howard
     * @param vars	The Variable objects with the desired input values in array format.
     * @throws InvalidNumberOfArgumentsException	If the variable object array given does not have the correct amount of elements.
-    * @throws IllegalArgumentException	If array values cannot be parsed into a numerical value.
+    * @throws IllegalArgumentException	If the incoming array is the wrong size, or if values in the array cannot be parsed into a numerical value.
     * @return The result of calculating the Formula object's Expression (double).
     */
-    private double _calculateExpression(IVariable<?>[] vars) {
+    private double _calculateExpression(IVariable<?>[] vars) throws IllegalArgumentException {
     	  // If the array is the wrong size throw an exception
         if(vars.length != this._formulaInputArray.length){
-            throw new IllegalArgumentException("Please write an invalid number of arguments exception Chel"); // TODO: Make exception
+            throw new IllegalArgumentException("Invalid number of elements in the incoming input array.");
         }
         // If the array values can not be parsed to a numerical value, throw an invalid argument exception
         try{
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
-            try {
-            	// Validate expression, then evaluate expression and get double result
-            	double out = this._process();
-            	// Clear our temp array to 0d elements
-            	this._clearTempArray();
-            	// Return our double result for casting to other numerical objects
-            	return out;
-            } catch (Exception v) {
-            	// If an exception was thrown, the Expression is invalid and something is wrong.
-            	throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
-            }
-        }
-        catch(Exception e){
+        } catch(Exception e) {
             throw new IllegalArgumentException("The input array could not be parsed into a numerical value.");
-        } // This is good enough right?
-    }
+        }
+        try {
+            // Validate expression, then evaluate expression and get double result
+            double out = this._process();
+            // Clear our temp array to 0d elements
+            this._clearTempArray();
+            // Return our double result for casting to other numerical objects
+            return out;
+        } catch (Exception e) {
+            // If an exception was thrown, the Expression is invalid and something is wrong.
+            throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
+        }
+    } // This is good enough right?
     
     /**
      * Gets the Double result of calculating the Formula object's Exp4j Expression.
@@ -212,7 +211,7 @@ public class Formula implements IFormula
     * @param vars		The Variable objects with the desired input values in array format.
     * @throws Exception	If one of the argument values given is not capable of being parsed into a Double.
     */
-    private void _tempArrayDoubleConversion(IVariable<?>[] vars) throws Exception{
+    private void _tempArrayDoubleConversion(IVariable<?>[] vars) throws Exception {
         int i = 0;
         try{
         	for(IVariable<?> var : vars){
@@ -250,6 +249,7 @@ public class Formula implements IFormula
  	   ValidationResult _formulaExpressionValidation = this._formulaExpression.validate();
  	   // If .isValid() returns false, the Expression is invalid and therefore illegal.
  	   if (_formulaExpressionValidation.isValid() != true) {
+ 		   this._clearTempArray();
  		   throw new IllegalStateException();
  	   }
  	   // Try to evaluate the expression if basic validation is a success. If the evaluation fails here, it is mostly likely a mathematical issue.
@@ -257,6 +257,8 @@ public class Formula implements IFormula
  		   return this._formulaExpression.evaluate();
  	   } catch (Exception e) {
  		   throw new ArithmeticException("Evaluation of Formula's Exp4j Expression has failed.");
+ 	   } finally {
+ 		   this._clearTempArray();
  	   }
     }
     
