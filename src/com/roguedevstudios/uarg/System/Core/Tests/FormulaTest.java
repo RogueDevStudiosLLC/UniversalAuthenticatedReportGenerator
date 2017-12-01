@@ -106,11 +106,11 @@ public class FormulaTest {
 		String formulaID = "TSTFRM1";
 		String testFormulaEquation = "_varA_*_varB_+_varC_-_varD_";
 		Formula ourTestFormula = new Formula(testFormulaName, testFormulaDesc, formulaID, testFormulaEquation);
-		ArrayList<String> testFormulaVarNamesList = new ArrayList<String>(ourTestFormula.GetExpressionVariableNames());
+		ArrayList<String> testFormulaVarNamesList = new ArrayList<String>(ourTestFormula.GetFormulaExpressionVariableNames());
 		// Now test if variables gotten are proper; test each
 		// variable name against what variables are expected.
 		try {
-			for (int i=0; i<=ourTestFormula.GetNumberOfExpressionVars(); i++) {
+			for (int i=0; i<=ourTestFormula.GetFormulaInputArraySize(); i++) {
 				assertTrue(testFormulaVarNamesList.get(i).equals("_varA_") ||
 						testFormulaVarNamesList.get(i).equals("_varB_") ||
 						testFormulaVarNamesList.get(i).equals("_varC_") ||
@@ -146,7 +146,7 @@ public class FormulaTest {
 		ExpectedVars.add("_varC_");
 		ExpectedVars.add("_varD_");
 		// Actuals
-		ArrayList<String> ActualVars = FO.GetExpressionVariableNames();
+		ArrayList<String> ActualVars = FO.GetFormulaExpressionVariableNames();
 		
 		// Check that Actuals are in Expectations
 		for(String Actual: ActualVars) {

@@ -215,7 +215,7 @@ public class Formula implements IFormula
         int i = 0;
         try{
         	for(IVariable<?> var : vars){
-        		this._formulaInputArray[i] = Double((double)var.GetValue()); //TODO: resolve this
+        		this._formulaInputArray[i] = (double)var.GetValue(); //TODO: resolve this
         		i++;
         	}
         }
