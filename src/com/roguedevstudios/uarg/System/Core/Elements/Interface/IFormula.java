@@ -1,70 +1,89 @@
 package com.roguedevstudios.uarg.System.Core.Elements.Interface;
+/********************************
+*   Formula Interface		    *
+*   File Name: IFormula.java    *
+*                               *
+*   Inversion of Control		*
+*   for Formula 		 		*
+*                               *
+*  ©2017 Rogue Dev Studios, LLC *
+********************************/
+import java.util.ArrayList;
+/**
+ * Interface representing requirements for the Formula class
+ * @author Chelsea Hunter
+ * @author Christopher E. Howard
+ * @author Gabriel Rosales
+ *
+ */
 
 public interface IFormula {
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning an
 	 * Integer representation of the resulting answer.
-	 * @param args
+	 * @param vars	An array of Variable objects.
 	 * @return
 	 */
-	Integer CalculateToInteger(IVariable<?>[] args);
+
+	Integer CalculateToInteger(IVariable<?>[] vars);
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
-	 * Doble representation of the resulting answer.
-	 * @param args
+	 * Double representation of the resulting answer.
+	 * @param vars	An array of Variable objects.
 	 * @return
 	 */
-	Double CalculateToDouble(IVariable<?>[] args);
+	Double CalculateToDouble(IVariable<?>[] vars);
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
 	 * Float representation of the resulting answer.
-	 * @param args
+	 * @param vars	An array of Variable objects.
 	 * @return
 	 */
-	Float CalculateToFloat(IVariable<?>[] args);
+	Float CalculateToFloat(IVariable<?>[] vars);
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
 	 * Long representation of the resulting answer.
-	 * @param args
+	 * @param vars	An array of Variable objects.
 	 * @return
 	 */
-	Long CalculateToLong(IVariable<?>[] args);
-	/**
-	 * Gets the string representation of the
-	 * derived formula.
-	 * @return
-	 */
-	String GetFormula();
-	/**
-	 * Gets the original config string that this formula
-	 * was derived from.
-	 * @return
-	 */
-	String GetOriginalFormula();
+	Long CalculateToLong(IVariable<?>[] vars);
 	/**
 	 * Gets the array size expected when passing arguments
 	 * to be processed by this formula.
-	 * @return
+	 * @return The input array size.
 	 */
-	int GetArgumentsLength();
+	Integer GetFormulaInputArraySize();
 	/**
-	 * Gets the human readable name for this formula.
-	 * @return
+	 * Gets the variable names used in the Formula Expression object.
+	 * @return An ArrayList<String> of variable names.
 	 */
-	String GetName();
+	ArrayList<String> GetFormulaExpressionVariableNames();
 	/**
-	 * Gets a description of this formula.
-	 * @return
+	 * Gets name of this Formula
+	 * @return The formula name (String).
+	 * @since 1.0
 	 */
-	String GetDescription();
+	String GetFormulaName();
 	/**
-	 * Gets the ID of this formula.
-	 * @return
+	 * Gets the name of this Formula
+	 * @return The formula description (String).
+	 * @since 1.0
 	 */
-	String GetFormulaID();
-	
+	String GetFormulaDesc();
+	/**
+	 * Gets the description of this Formula
+	 * @return The formula ID (String).
+	 * @since 1.0
+	 */
+	String GetFormulaId();
+	/**
+	 * Gets the equation string for this formula.
+	 * @return The formula equation (String).
+	 * @since 1.0
+	 */
+	String GetFormulaEquation();
 }
