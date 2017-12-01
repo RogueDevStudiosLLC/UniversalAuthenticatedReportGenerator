@@ -1,3 +1,4 @@
+//TODO: Cleanup #2 - After modification merge from @Terry
 package com.roguedevstudios.uarg.System.Core.Elements;
 
 /********************************
@@ -53,19 +54,45 @@ public class Variables implements IVariables {
 
 	private TreeMap<String, IVariable<Boolean[]>> _booleanArrayMap;
 
-	/**Constructs the initial state of the Variables conatainer
+	/**Constructs the initial state of the Variables container
 	 *
 	 * @since 1.0
 	 */
 
 	public Variables() throws Exception {
-		try {
+		
 			this._build();
-		} catch (Exception e) {
-			throw e;
-		}
 	}
-
+	
+	
+	/**
+	 * Constructs the Variables container with all Variable Sections
+	 * 
+	 * @since 1.0
+	 */
+	public Variables(TreeMap<String, IVariable<Integer>> _integerMap, TreeMap<String, IVariable<Integer[]>> _integerArrayMap, 
+					TreeMap<String, IVariable<String>> _stringMap, TreeMap<String, IVariable<String[]>> _stringArrayMap, 
+					TreeMap<String, IVariable<Float>> _floatMap, TreeMap<String, IVariable<Float[]>> _floatArrayMap, 
+					TreeMap<String, IVariable<Long>> _longMap, TreeMap<String, IVariable<Long[]>> _longArrayMap, 
+					TreeMap<String, IVariable<Double>> _doubleMap, TreeMap<String, IVariable<Double[]>> _doubleArrayMap, 
+					TreeMap<String, IVariable<Boolean>> _booleanMap, TreeMap<String, IVariable<Boolean[]>> _booleanArrayMap) 
+					{
+	// For each of the twelve lines below. If a null Variable object is passed, a blank TreeMap is created
+					this._integerMap = (_integerMap != null)?_integerMap:new TreeMap<String, IVariable<Integer>>();
+					this._integerArrayMap = (_integerArrayMap != null)?_integerArrayMap:new TreeMap<String, IVariable<Integer[]>>();
+					this._stringMap = (_stringMap != null)?_stringMap:new TreeMap<String, IVariable<String>>();
+					this._stringArrayMap = (_stringArrayMap != null)?_stringArrayMap:new TreeMap<String, IVariable<String[]>>();
+					this._doubleMap = (_doubleMap != null)?_doubleMap:new TreeMap<String, IVariable<Double>>();
+					this._doubleArrayMap = (_doubleArrayMap != null)?_doubleArrayMap:new TreeMap<String, IVariable<Double[]>>();
+					this._longMap = (_longMap != null)?_longMap:new TreeMap<String, IVariable<Long>>();
+					this._longArrayMap = (_longArrayMap != null)?_longArrayMap:new TreeMap<String, IVariable<Long[]>>();
+					this._floatMap = (_floatMap != null)?_floatMap:new TreeMap<String, IVariable<Float>>();
+					this._floatArrayMap = (_floatArrayMap != null)?_floatArrayMap:new TreeMap<String, IVariable<Float[]>>();
+					this._booleanMap = (_booleanMap != null)?_booleanMap:new TreeMap<String, IVariable<Boolean>>();
+					this._booleanArrayMap = (_booleanArrayMap != null)?_booleanArrayMap:new TreeMap<String, IVariable<Boolean[]>>();
+					
+				}
+			
 /**
  * Initializes the TreeMaps for internal variable storage	
  */
