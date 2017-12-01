@@ -29,7 +29,7 @@ public interface IFormula {
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
-	 * Doble representation of the resulting answer.
+	 * Double representation of the resulting answer.
 	 * @param vars	An array of Variable objects.
 	 * @return
 	 */
