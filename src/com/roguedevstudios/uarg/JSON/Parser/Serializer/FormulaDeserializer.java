@@ -13,6 +13,7 @@ package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 import java.lang.reflect.Type;
 import com.google.gson.*;
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
 
 /**
  * <p>
@@ -22,7 +23,7 @@ import com.roguedevstudios.uarg.System.Core.Elements.Formula;
  * @author Terry Roberson
  * @since 1.0
  */
-public class FormulaDeserializer implements JsonDeserializer<Formula>{
+public class FormulaDeserializer implements JsonDeserializer<IFormula>{
 
 	/**
 	 * Deserializes into a Formula type

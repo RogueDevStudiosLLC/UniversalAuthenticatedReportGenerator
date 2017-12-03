@@ -13,8 +13,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
 import com.roguedevstudios.uarg.System.Core.Elements.FormulaSet;
+import com.roguedevstudios.uarg.System.Core.Elements.Formuli;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Elements.Variables;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
@@ -40,7 +42,7 @@ public class ParserHelpers {
 		// Start the GsonBuilder
 		GsonBuilder gsonBuild = new GsonBuilder();
 		// Grab custom deserializer and create an instance of it for use
-		JsonDeserializer<Formula> cDeserializer = new FormulaDeserializer();
+		JsonDeserializer<IFormula> cDeserializer = new FormulaDeserializer();
 		// Register the deserializer
 		gsonBuild.registerTypeAdapter(Formula.class, cDeserializer);
 		// Initialize out custom Gson object
@@ -60,13 +62,13 @@ public class ParserHelpers {
 	 * @author Terry Roberson
 	 * @since 1.0
 	 */
-	public static TreeMap<String, Formula> ParseFormulaSet(JsonElement json, String ID){
+	public static TreeMap<String, IFormula> ParseFormulaSet(JsonElement json, String ID){
 		// Take jsonElement and convert to jsonObject
 		JsonObject o = json.getAsJsonObject();
 		// Get the entry set of Formulas to parse
 		Set<Map.Entry<String, JsonElement>> JsonForm = o.entrySet();
 		// Start up the tree map of the formulas
-		TreeMap<String, Formula> map = new TreeMap<>();
+		TreeMap<String, IFormula> map = new TreeMap<>();
 		// Loop through the formulas
 		for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
 		// Construct the formula and put it in the tree map
@@ -75,7 +77,17 @@ public class ParserHelpers {
 		
 		return map;
 	}
-
+	
+	/**
+	 * 
+	 */
+	public static Formuli ParseFormuli(JsonElement json) {
+		// Convert passed jsonelement into json object
+		JsonObject o = json.getAsJsonObject();
+		// Initialize treemap for formula objects
+		TreeMap<String, IFormula> FormMap = new TreeMap<>();
+		
+	}
 
 
 	
