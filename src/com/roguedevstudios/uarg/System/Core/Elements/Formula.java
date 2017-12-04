@@ -243,6 +243,7 @@ public class Formula implements IFormula
     	if(!ArrayPresent) {
     		Double[] ret = new Double[1];
     		ret[0] = CalculateToDouble((IVariable<? extends Number>[]) vars);
+    		return ret;
     	}
     	// If the flag is true we need to start the nasty procedure of detecting mixed
     	// singles and arrays and handle accordingly.
