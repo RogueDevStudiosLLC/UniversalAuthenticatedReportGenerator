@@ -132,7 +132,7 @@ public class FormulaTest {
 		String formulaMultiply = "_VAR1_ * _VAR2_";
 		String formulaDivision = "_VAR1_ / _VAR2_";
 		String formulaAdd = "_VAR1_ + _VAR2_";
-		String formulaSub = "_VAR1_ + _VAR2_";
+		String formulaSub = "_VAR1_ - _VAR2_";
 		Formula formulaM = new Formula("T","T","T",formulaMultiply);
 		Formula formulaD = new Formula("T", "T", "T", formulaDivision);
 		Formula formulaA = new Formula("T", "T", "T", formulaAdd);
@@ -182,9 +182,11 @@ public class FormulaTest {
 		vl[1] = vl2;
 		via[0] = via1;
 		via[1] = via2;
-		Integer out = formulaM.CalculateToInteger(vi);
+		Integer iOut = formulaM.CalculateToInteger(vi);
+		Float fOut = formulaA.CalculateToFloat(vf);
 		//System.out.println(out);
-		assertTrue(out==50);
+		assertTrue(iOut==50);
+		assertTrue(fOut==17.7F);
 	}
 	
 	/**
