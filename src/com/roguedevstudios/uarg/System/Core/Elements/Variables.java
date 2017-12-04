@@ -1,6 +1,9 @@
 //TODO: Cleanup #2 - After modification merge from @Terry
 package com.roguedevstudios.uarg.System.Core.Elements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /********************************
 *   Variables Class             *
 *   File Name: Variables.java   *
@@ -53,6 +56,8 @@ public class Variables implements IVariables {
 	private TreeMap<String, IVariable<Boolean>> _booleanMap;
 
 	private TreeMap<String, IVariable<Boolean[]>> _booleanArrayMap;
+	
+	private TreeMap<String, VariableType> _variableTypeMap;
 
 	/**Constructs the initial state of the Variables container
 	 *
@@ -90,7 +95,8 @@ public class Variables implements IVariables {
 					this._floatArrayMap = (_floatArrayMap != null)?_floatArrayMap:new TreeMap<String, IVariable<Float[]>>();
 					this._booleanMap = (_booleanMap != null)?_booleanMap:new TreeMap<String, IVariable<Boolean>>();
 					this._booleanArrayMap = (_booleanArrayMap != null)?_booleanArrayMap:new TreeMap<String, IVariable<Boolean[]>>();
-					
+					this._variableTypeMap = new TreeMap<>();
+					this._populateTypeMap();
 				}
 			
 /**
@@ -109,7 +115,52 @@ public class Variables implements IVariables {
 		this._doubleArrayMap = new TreeMap<String, IVariable<Double[]>>();
 		this._booleanMap = new TreeMap<String, IVariable<Boolean>>();
 		this._booleanArrayMap = new TreeMap<String, IVariable<Boolean[]>>();
+		this._variableTypeMap = new TreeMap<>();
 
+	}
+	
+	/**
+	 * Takes pre-built containers from the construction process and registers
+	 * them in the type map.
+	 * @author Christopher Howard
+	 */
+	private void _populateTypeMap() {
+		for(String key: this._booleanArrayMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.BOOLEANARRAY);
+		}
+		for(String key: this._booleanMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.BOOLEAN);
+		}
+		for(String key: this._doubleArrayMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.DOUBLEARRAY);
+		}
+		for(String key: this._doubleMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.DOUBLE);
+		}
+		for(String key: this._floatArrayMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.FLOATARRAY);
+		}
+		for(String key: this._floatMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.FLOAT);
+		}
+		for(String key: this._integerArrayMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.INTEGERARRAY);
+		}
+		for(String key: this._integerMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.INTEGER);
+		}
+		for(String key: this._longArrayMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.LONGARRAY);
+		}
+		for(String key: this._longMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.LONG);
+		}
+		for(String key: this._stringArrayMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.STRINGARRAY);
+		}
+		for(String key: this._stringMap.keySet()) {
+			this._variableTypeMap.put(key, VariableType.STRING);
+		}
 	}
 
 	/**
@@ -119,8 +170,9 @@ public class Variables implements IVariables {
 	 * 
 	 **/
 
-	private void _setBooleanArrayMap(String key, IVariable<Boolean[]> variable) {
+	public void _setBooleanArrayMap(String key, IVariable<Boolean[]> variable) {
 		this._booleanArrayMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.BOOLEANARRAY);
 	}
 
 	/**
@@ -131,6 +183,7 @@ public class Variables implements IVariables {
 	 **/
 	private void _setBooleanMap(String key, IVariable<Boolean> variable) {
 		this._booleanMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.BOOLEAN);
 	}
 
 	/**
@@ -142,6 +195,7 @@ public class Variables implements IVariables {
 
 	private void _setDoubleArrayMap(String key, IVariable<Double[]> variable) {
 		this._doubleArrayMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.DOUBLEARRAY);
 	}
 
 	/**
@@ -152,6 +206,7 @@ public class Variables implements IVariables {
 	 **/
 	private void _setDoubleMap(String key, IVariable<Double> variable) {
 		this._doubleMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.DOUBLE);
 	}
 
 	/**
@@ -163,6 +218,7 @@ public class Variables implements IVariables {
 
 	private void _setFloatArrayMap(String key, IVariable<Float[]> variable) {
 		this._floatArrayMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.FLOATARRAY);
 	}
 
 	/**
@@ -174,6 +230,7 @@ public class Variables implements IVariables {
 
 	private void _setFloatMap(String key, IVariable<Float> variable) {
 		this._floatMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.FLOAT);
 	}
 
 	/**
@@ -184,6 +241,7 @@ public class Variables implements IVariables {
 	 **/
 	private void _setIntegerArrayMap(String key, IVariable<Integer[]> variable) {
 		this._integerArrayMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.INTEGERARRAY);
 	}
 
 	/**
@@ -195,6 +253,7 @@ public class Variables implements IVariables {
 
 	private void _setIntegerMap(String key, IVariable<Integer> variable) {
 		this._integerMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.INTEGER);
 	}
 
 	/**
@@ -206,6 +265,7 @@ public class Variables implements IVariables {
 
 	private void _setLongArrayMap(String key, IVariable<Long[]> variable) {
 		this._longArrayMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.LONGARRAY);
 	}
 
 	/**
@@ -217,6 +277,7 @@ public class Variables implements IVariables {
 
 	private void _setLongMap(String key, IVariable<Long> variable) {
 		this._longMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.LONG);
 	}
 
 	/**
@@ -228,6 +289,7 @@ public class Variables implements IVariables {
 
 	private void _setStringArrayMap(String key, IVariable<String[]> variable) {
 		this._stringArrayMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.STRINGARRAY);
 	}
 
 	/**
@@ -239,6 +301,7 @@ public class Variables implements IVariables {
 
 	private void _setStringMap(String key, IVariable<String> variable) {
 		this._stringMap.put(key, variable);
+		this._variableTypeMap.put(key, VariableType.STRING);
 	}
 
 	/**
@@ -533,6 +596,69 @@ public class Variables implements IVariables {
 	 */
 	public void UpdateValue(String key, String[] newValue) {
 		this._stringArrayMap.get(key).SetValue(newValue);
+	}
+
+
+	/**
+	 * Gets the registered type for a variable ID
+	 * @param ID The variable ID
+	 * @return VariableType The Type this Variable is registered under
+	 * @author Christopher Howard
+	 */
+	public VariableType GetVariableType(String ID) {
+		if(!this._variableTypeMap.containsKey(ID))
+			return VariableType.NULL;
+		//System.out.println("VarID: "+ID+", Type: "+this._variableTypeMap.get(ID));
+		return this._variableTypeMap.get(ID);
+	}
+	
+	public int GetIntegerCount() {
+		return this._integerMap.size();
+	}
+	
+	public IVariable<?> GetVariable(String ID){
+		switch(this.GetVariableType(ID)) {
+		case INTEGER:
+			return this.GetInteger(ID);
+			
+		case FLOAT:
+			return this.GetFloat(ID);
+			
+		case DOUBLE:
+			return this.GetDouble(ID);
+			
+		case LONG:
+			return this.GetLong(ID);
+			
+		case INTEGERARRAY:
+			return this.GetIntegerArray(ID);
+			
+		case FLOATARRAY:
+			return this.GetFloatArray(ID);
+			
+		case DOUBLEARRAY:
+			return this.GetDoubleArray(ID);
+			
+		case LONGARRAY:
+			return this.GetLongArray(ID);
+			
+		default:
+			return null;
+		}
+	}
+	
+	public List<IVariable<?>> GetVariables(List<String> IDSet){
+		List<IVariable<?>> out = new ArrayList<>();
+		for(String ID: IDSet) {
+			out.add(this.GetVariable(ID));
+		}
+		return out;
+	}
+	
+	public List<String> GetMasterIDList(){
+		ArrayList<String> out = new ArrayList<String>();
+		out.addAll(this._variableTypeMap.keySet());
+		return out;
 	}
 	
 }

@@ -127,7 +127,7 @@ public class Formula implements IFormula
     	while (_formulaVarMatcher.find()) {
     			_formulaVarNames.add(_formulaVarMatcher.group().replaceAll("\\s+",""));
     	}
-    	System.err.println("Var Names Array: "+_formulaVarNames.toString());
+    	//System.err.println("Var Names Array: "+_formulaVarNames.toString());
     	return _formulaVarNames;
     }
     
@@ -144,7 +144,7 @@ public class Formula implements IFormula
     	// For every string in our ArrayList<String> of formula variable names, 
     	// set that string as a variable in our expression.
     	for (String s : this._formulaVariableNames) {
-    		System.err.println("Var Name: "+s);
+    		//System.err.println("Var Name: "+s);
     		_formulaExpressionBuilder.variable(s);
     	}
     	// Once regex stuff is done and variables are set, properly build the expression.
@@ -171,7 +171,7 @@ public class Formula implements IFormula
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
         } catch(Exception e) {
-            throw new IllegalArgumentException("The input array could not be parsed into a numerical value.");
+            throw new IllegalArgumentException("The input variables array could not be parsed into a numerical value.");
         }
         try {
             // Validate expression, then evaluate expression and get double result
@@ -197,7 +197,7 @@ public class Formula implements IFormula
     private double _calculateExpression(Double[] vars) throws IllegalArgumentException {
   	  // If the array is the wrong size throw an exception
       if(vars.length != this._formulaInputArray.length){
-    	  System.err.println(vars.length + " =/= " + this._formulaInputArray.length + "Inputs: " + vars[2]);
+    	  //System.err.println(vars.length + " =/= " + this._formulaInputArray.length + "Inputs: " + vars[2]);
           throw new IllegalArgumentException("Invalid number of elements in the incoming input array.");
       }
       // If the array values can not be parsed to a numerical value, throw an invalid argument exception
@@ -205,7 +205,7 @@ public class Formula implements IFormula
           // Convert the vars to a format we can use
           this._tempArrayDoubleConversion(vars);
       } catch(Exception e) {
-          throw new IllegalArgumentException("The input array could not be parsed into a numerical value.");
+          throw new IllegalArgumentException("The input doubles array could not be parsed into a numerical value.");
       }
       try {
           // Validate expression, then evaluate expression and get double result
@@ -334,7 +334,7 @@ public class Formula implements IFormula
     		}else {
     			// If a non-compatable array is detected return false
     			if(item.length != len) {
-    				System.err.println("Length Max = "+len+", Length Found = "+item.length);
+    				//System.err.println("Length Max = "+len+", Length Found = "+item.length);
     				return false;
     			}
     		}
@@ -441,15 +441,19 @@ public class Formula implements IFormula
     * @throws Exception	If one of the argument values given is not capable of being parsed into a Double.
     */
     private void _tempArrayDoubleConversion(IVariable<? extends Number>[] vars) throws Exception {
+    	//System.err.println("VarsCount: "+vars.length);
         int i = 0;
         try{
         	for(IVariable<? extends Number> var : vars){
         		//System.out.println(var.GetValue());
-        		this._formulaInputArray[i] = var.GetValue().doubleValue(); //TODO: resolve this
+        		
+        		this._formulaInputArray[i] = var.GetValue().doubleValue(); 
+        		//System.err.println(this._formulaInputArray[i]);
         		i++;
         	}
         }
         catch(Exception e){
+        	e.printStackTrace();
         	System.err.println(e.getMessage());
         	throw e;
         }
@@ -494,7 +498,7 @@ public class Formula implements IFormula
     	// For every String in our ArrayList of variable names, set variablename to corresponding value in the input array.
     	// These should be inherently ordered by the nature of the cascade map.
 	   for (int i=0; i <= this._formulaVariableNames.size()-1; i++) {
-		   System.out.println("Var "+this._formulaVariableNames.get(i)+" to "+this._formulaInputArray[i]);
+		   //System.out.println("Var "+this._formulaVariableNames.get(i)+" to "+this._formulaInputArray[i]);
 		   this._formulaExpression.setVariable(this._formulaVariableNames.get(i), this._formulaInputArray[i]);
 	   }
  	   // Create a ValidationResult object for the formula expression to test upon.
@@ -506,8 +510,8 @@ public class Formula implements IFormula
  	   }
  	   // Try to evaluate the expression if basic validation is a success. If the evaluation fails here, it is mostly likely a mathematical issue.
  	   try {
- 		   System.out.println("Evaluation: "+this._formulaExpression.evaluate());
- 		   System.out.println("Data: "+this._formulaExpression.getVariableNames().toString());
+ 		   //System.out.println("Evaluation: "+this._formulaExpression.evaluate());
+ 		   //System.out.println("Data: "+this._formulaExpression.getVariableNames().toString());
  		  //System.out.println(this._formulaExpression.);
  		   return this._formulaExpression.evaluate();
  	   } catch (Exception e) {

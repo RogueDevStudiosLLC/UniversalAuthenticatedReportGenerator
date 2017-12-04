@@ -10,6 +10,8 @@ package com.roguedevstudios.uarg.System.Core.Elements.Interface;
 *  ©2017 Rogue Dev Studios, LLC *
 ********************************/
 
+import java.util.List;
+
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 //import section 
 
@@ -220,5 +222,11 @@ public interface IVariables {
 	 * @since 1.0
 	 */
 	void UpdateValue(String key, String[] value);
+	
+	VariableType GetVariableType(String ID);
+	int GetIntegerCount();
+	IVariable<?> GetVariable(String ID);
+	List<IVariable<?>> GetVariables(List<String> IDSet);
+	List<String> GetMasterIDList();
 	
 }

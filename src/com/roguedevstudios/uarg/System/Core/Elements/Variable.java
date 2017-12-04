@@ -84,22 +84,17 @@ public class Variable<V>
 					 Boolean requiresInput, 
 					 String description
 					) 
-					throws Exception 
+					 
 	{
-		
-		// Protect against non-nullable generic types
-		try {
-			
 			// Call the build method with null as the value
 			this._build(name, id, requiresInput, description, null);
-			
-		} catch ( Exception e ) {
-			
-			// Pass any thrown Exception back to the caller
-			throw e;
-			
-		}
 		
+	}
+
+	@Override
+	public String toString() {
+		return "Variable [_name=" + _name + ", _id=" + _id + ", _value=" + _value + ", _description=" + _description
+				+ ", _requiresInput=" + _requiresInput + "]";
 	}
 
 	/**

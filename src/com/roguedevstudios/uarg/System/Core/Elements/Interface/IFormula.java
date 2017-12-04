@@ -26,6 +26,7 @@ public interface IFormula {
 	 * @return
 	 */
 	Integer CalculateToInteger(IVariable<? extends Number>[] vars);
+	Integer[] CalculateToInteger(IVariable<?>[] vars, boolean ArrayPresent);
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
@@ -34,6 +35,7 @@ public interface IFormula {
 	 * @return
 	 */
 	Double CalculateToDouble(IVariable<? extends Number>[] vars);
+	Double[] CalculateToDouble(IVariable<?>[] vars, boolean ArrayPresent);
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
@@ -42,6 +44,7 @@ public interface IFormula {
 	 * @return
 	 */
 	Float CalculateToFloat(IVariable<? extends Number>[] vars);
+	Float[] CalculateToFloat(IVariable<?>[] vars, boolean ArrayPresent);
 	/**
 	 * Takes in an array of Number based Variables and
 	 * processes them through this formula returning a
@@ -50,6 +53,7 @@ public interface IFormula {
 	 * @return
 	 */
 	Long CalculateToLong(IVariable<? extends Number>[] vars);
+	Long[] CalculateToLong(IVariable<?>[] vars, boolean ArrayPresent);
 	/**
 	 * Gets the array size expected when passing arguments
 	 * to be processed by this formula.
