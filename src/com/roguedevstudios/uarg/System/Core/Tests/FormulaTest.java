@@ -6,14 +6,6 @@ import org.junit.Test;
 
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
 
-import net.objecthunter.exp4j.Expression;
-
-import net.objecthunter.exp4j.ExpressionBuilder;
-
-import java.util.Set;
-
-import java.lang.reflect.*;
-
 import java.util.ArrayList;
 
 import java.util.regex.Pattern;
@@ -38,16 +30,20 @@ public class FormulaTest {
 	public void testFormulaRegex() {
 		// Set up initial regex and string to splice with regex.
 		Pattern formulaRegex = Pattern.compile("\\s?_[a-zA-z0-9_]*_\\s?");
-		String stringToSplice = "_varA_*_varB_+_varC_someSALAD-!?_varD_";
+		String stringToSplice = "_varA_ * _varB_ + _varC_ someSALAD -!? _varD_";
 		// Set up a matcher for our pattern
 		Matcher goodStringMatcher = formulaRegex.matcher(stringToSplice);
 		// Make an ArrayList and fill it with results of test values
 		ArrayList<String> testStrings = new ArrayList<String>();
 		while(goodStringMatcher.find()) {
+			/*
 			for (int i=0; i<=goodStringMatcher.groupCount(); i++) {
 				testStrings.add(goodStringMatcher.group(i));
 			}
+			*/
+			testStrings.add(goodStringMatcher.group().replaceAll("\\s+",""));
 		}
+		//System.out.println(testStrings.toString());
 		// Make ArrayList for expected values
 		ArrayList<String> expectedStrings = new ArrayList<String>();
 		expectedStrings.add("_varA_");
@@ -56,11 +52,16 @@ public class FormulaTest {
 		expectedStrings.add("_varD_");
 		// Make try/catch for exception handling
 		try {
-			for (int i=0; i<=expectedStrings.size(); i++) {
-				assertTrue(testStrings.get(i).equals(expectedStrings.get(i)));
+			for (String entry: testStrings) {
+				//System.err.println("String: "+entry);
+				//System.err.println("Array: "+expectedStrings.toString());
+				//System.err.println(expectedStrings.contains(entry));
+				assertTrue(expectedStrings.contains(entry));
 			}
+			assertTrue(testStrings.size() == expectedStrings.size());
 		} catch (Exception e) {
 			// If exception tossed, test failed
+			System.err.println(e.getMessage());
 			assertFalse(true);
 		}
 		
@@ -110,12 +111,12 @@ public class FormulaTest {
 		// Now test if variables gotten are proper; test each
 		// variable name against what variables are expected.
 		try {
-			for (int i=0; i<=ourTestFormula.GetFormulaInputArraySize(); i++) {
+			for (int i=0; i<=ourTestFormula.GetFormulaInputArraySize()-1; i++) {
 				assertTrue(testFormulaVarNamesList.get(i).equals("_varA_") ||
 						testFormulaVarNamesList.get(i).equals("_varB_") ||
 						testFormulaVarNamesList.get(i).equals("_varC_") ||
 						testFormulaVarNamesList.get(i).equals("_varD_"));
-				System.out.println(i + ": " +testFormulaVarNamesList.get(i));
+				//System.out.println(i + ": " +testFormulaVarNamesList.get(i));
 			} 
 		} catch (Exception e) {
 				// If exception here, one variable did not match expected
@@ -134,7 +135,7 @@ public class FormulaTest {
 		String testFormulaName = "testFormula";
 		String testFormulaDesc = "testFormulaDesc";
 		String testFormulaID = "testFormulaID";
-		String testFormulaEquation = "_varA_*_varB_+_varC_-_varD_";
+		String testFormulaEquation = "_varA_ * _varB_ + _varC_ - _varD_";
 		
 		// Build Formula Object
 		Formula FO = new Formula(testFormulaName, testFormulaDesc, testFormulaID, testFormulaEquation);

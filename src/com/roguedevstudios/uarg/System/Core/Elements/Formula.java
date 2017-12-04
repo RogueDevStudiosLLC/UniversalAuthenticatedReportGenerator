@@ -68,24 +68,38 @@ public class Formula implements IFormula
     * @throws IllegalStateException	If validation of the exp4j expression is unsuccessful.
     */
     public Formula (String formulaName, String formulaDesc, String formulaId, String formulaEquation) throws IllegalStateException{
-        this._formulaName = formulaName;
+        // Set the Formula Name
+    	this._formulaName = formulaName;
+    	// Set the Formula Description
         this._formulaDesc = formulaDesc;
+        // Set the Formula ID
         this._formulaId = formulaId;
+        // Consume the Formula origin String
         this._formulaEquation = formulaEquation;
+        
         /* Build and Validate Expression using Exp4j here*/
         this._formulaVariableNames = this._initializeVarNames();
+        
+        // TODO: Check necessity of this?
         this._formulaExpression = this._buildExpression();
+        
+        // Input Array Size
         this._formulaInputArray = new double[this._formulaVariableNames.size()];
+        
+        //System.err.println("Double Array Size: "+this._formulaInputArray.length);
         try {
         	// Bind dummy values to our temp input array
-        	for (int i=0; i<=this._formulaInputArray.length; i++) {
+        	for (int i=0; i<=this._formulaInputArray.length-1; i++) {
+        		//System.out.println("Setting index "+i);
         		this._formulaInputArray[i] = 1;
         	}
         	// Validate using our ._process() method
         	this._process();
         } catch (Exception e) {
+        	//System.err.println(e.getMessage());
         	// If an exception is thrown, constructor should abort
-        		throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
+        	throw e;
+        	//	throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
         }
         // Clear our temp array from our dummy values when we're done validating.
         this._clearTempArray();
@@ -99,15 +113,15 @@ public class Formula implements IFormula
     private ArrayList<String> _initializeVarNames() {
     	// Make a new ArrayList to populate with variable names we isolate via regex.
     	ArrayList<String> _formulaVarNames = new ArrayList<String>();
+    	
     	// Setup regex pattern we want to use to isolate formula variables from _formulaEquation string
     	Pattern _formulaRegex = Pattern.compile("\\s?_[a-zA-z0-9_]*_\\s?");
+    	
     	// Make a matcher to get the variables out of the formula equation string given, using above pattern
     	Matcher _formulaVarMatcher = _formulaRegex.matcher(this._formulaEquation);
-    	// While regex matcher can find matching values, add them to the ArrayList
+    	// While regex matcher can find matching values, add them to the ArrayList stripping out excess whitespace
     	while (_formulaVarMatcher.find()) {
-    		for (int i=_formulaVarMatcher.groupCount(); i>=0;i--) {
-    			_formulaVarNames.add(_formulaVarMatcher.group(i));
-    		}
+    			_formulaVarNames.add(_formulaVarMatcher.group().replaceAll("\\s+",""));
     	}
     	return _formulaVarNames;
     }
@@ -120,6 +134,7 @@ public class Formula implements IFormula
      */
     private Expression _buildExpression() {
     	// Make base Exp4j ExpressionBuilder using _formulaEquation string as input
+    	//System.out.println(this._formulaEquation);
     	ExpressionBuilder _formulaExpressionBuilder = new ExpressionBuilder(this._formulaEquation);
     	// For every string in our ArrayList<String> of formula variable names, 
     	// set that string as a variable in our expression.
@@ -242,7 +257,7 @@ public class Formula implements IFormula
     private double _process() {
     	// For every String in our ArrayList of variable names, set variablename to corresponding value in the input array.
     	// These should be inherently ordered by the nature of the cascade map.
-	   for (int i=0; i <= this._formulaVariableNames.size(); i++) {
+	   for (int i=0; i <= this._formulaVariableNames.size()-1; i++) {
 		   this._formulaExpression.setVariable(this._formulaVariableNames.get(i), this._formulaInputArray[i]);
 	   }
  	   // Create a ValidationResult object for the formula expression to test upon.
@@ -256,7 +271,9 @@ public class Formula implements IFormula
  	   try {
  		   return this._formulaExpression.evaluate();
  	   } catch (Exception e) {
- 		   throw new ArithmeticException("Evaluation of Formula's Exp4j Expression has failed.");
+ 		   //System.err.println(e.getMessage());
+ 		   throw e;
+ 		   //throw new ArithmeticException("Evaluation of Formula's Exp4j Expression has failed." + e.getMessage());
  	   } finally {
  		   this._clearTempArray();
  	   }
@@ -267,7 +284,8 @@ public class Formula implements IFormula
      * @author Christopher E. Howard
      */
     private void _clearTempArray(){
-        for(int i=0; i <= this._formulaInputArray.length; i++){
+    	// Set all values to 0, indexes are valued 0..n-1
+        for(int i=0; i <= this._formulaInputArray.length-1; i++){
             this._formulaInputArray[i] = 0d; // Set element to Double 0
         }
     }
