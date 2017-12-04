@@ -48,36 +48,38 @@ public class CascadeEntry implements ICascadeEntry {
 		
 		// Get each variable from the Variables container using the correct Getter
 		for(int i = 0; i <= this._inputIDList.size() - 1; i++) {
+			varsOut[i] = vars.GetVariable(this._inputIDList.get(i));
+			System.out.println(varsOut[i].GetValue().getClass().isArray() + " | " + varsOut[i].GetId());
 			//System.out.println("Gathering Variable ID: "+this._inputIDList.get(i));
-			switch(vars.GetVariableType(this._inputIDList.get(i))) {
-			case INTEGER:
-				varsOut[i] = vars.GetInteger(this._inputIDList.get(i));
-				break;
-			case FLOAT:
-				varsOut[i] = vars.GetFloat(this._inputIDList.get(i));
-				break;
-			case DOUBLE:
-				varsOut[i] = vars.GetDouble(this._inputIDList.get(i));
-				break;
-			case LONG:
-				varsOut[i] = vars.GetLong(this._inputIDList.get(i));
-				break;
-			case INTEGERARRAY:
-				varsOut[i] = vars.GetIntegerArray(this._inputIDList.get(i));
-				break;
-			case FLOATARRAY:
-				varsOut[i] = vars.GetFloatArray(this._inputIDList.get(i));
-				break;
-			case DOUBLEARRAY:
-				varsOut[i] = vars.GetDoubleArray(this._inputIDList.get(i));
-				break;
-			case LONGARRAY:
-				varsOut[i] = vars.GetLongArray(this._inputIDList.get(i));
-				break;
-			default:
-				// An invalid type has been detected throw an exception
-				throw new IllegalStateException("Invalid Variable detected in ICascadeEntry.");
-			}
+//			switch(vars.GetVariableType(this._inputIDList.get(i))) {
+//			case INTEGER:
+//				varsOut[i] = vars.GetInteger(this._inputIDList.get(i));
+//				break;
+//			case FLOAT:
+//				varsOut[i] = vars.GetFloat(this._inputIDList.get(i));
+//				break;
+//			case DOUBLE:
+//				varsOut[i] = vars.GetDouble(this._inputIDList.get(i));
+//				break;
+//			case LONG:
+//				varsOut[i] = vars.GetLong(this._inputIDList.get(i));
+//				break;
+//			case INTEGERARRAY:
+//				varsOut[i] = vars.GetIntegerArray(this._inputIDList.get(i));
+//				break;
+//			case FLOATARRAY:
+//				varsOut[i] = vars.GetFloatArray(this._inputIDList.get(i));
+//				break;
+//			case DOUBLEARRAY:
+//				varsOut[i] = vars.GetDoubleArray(this._inputIDList.get(i));
+//				break;
+//			case LONGARRAY:
+//				varsOut[i] = vars.GetLongArray(this._inputIDList.get(i));
+//				break;
+//			default:
+//				// An invalid type has been detected throw an exception
+//				throw new IllegalStateException("Invalid Variable detected in ICascadeEntry.");
+//			}
 		}
 		return varsOut;
 	}
@@ -139,6 +141,7 @@ public class CascadeEntry implements ICascadeEntry {
 		// Protect from null children during shake process
 		if(this._shakeProtect(vars))
 			return;
+		System.out.println(vars.GetVariableType(this._outputID) + " || " + this._outputID);
 		switch(vars.GetVariableType(this._outputID)) {
 		case INTEGER:
 			vars.
@@ -279,6 +282,7 @@ public class CascadeEntry implements ICascadeEntry {
 								true
 								)
 						);
+			break;
 		default:
 			// Illegal output detected, throw IllegalStateException
 			throw new IllegalStateException("Output type not supported by Shake mechanism.");

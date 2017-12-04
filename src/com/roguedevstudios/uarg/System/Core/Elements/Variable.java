@@ -93,7 +93,23 @@ public class Variable<V>
 
 	@Override
 	public String toString() {
-		return "Variable [_name=" + _name + ", _id=" + _id + ", _value=" + _value + ", _description=" + _description
+		String val;
+		if(_value.getClass().isArray()) {
+			val = "( Array of "+ _value.getClass().getComponentType()+" )[ ";
+			int i = 0;
+			if(((Object[])_value).length>0) {
+			for(Object o : (Object[])_value){
+				val = val + o.toString();
+				i++;
+				if(i != ((Object[])_value).length)
+					val = val + ", ";
+			}
+			}
+			val = val + " ]";
+		}else {
+			val = _value.toString();
+		}
+		return "Variable [_name=" + _name + ", _id=" + _id + ", _value=" + val + ", _description=" + _description
 				+ ", _requiresInput=" + _requiresInput + "]";
 	}
 

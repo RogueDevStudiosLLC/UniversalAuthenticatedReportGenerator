@@ -253,9 +253,11 @@ public class Formula implements IFormula
     	int len = -1;
     	// Find the first array and grab it's length value
     	for(IVariable<?> var: vars) {
-    		if(var.GetValue().getClass().isArray())
+    		System.out.println("FormulaClass.256 | var IsArray: "+var.GetValue().getClass().isArray());
+    		if(var.GetValue().getClass().isArray()) {
     			len = ((Object[])var.GetValue()).length;
-    		break;
+    			break;
+    		}
     	}
     	// If no array detected we are in an illegal state.
     	if(len == -1)
