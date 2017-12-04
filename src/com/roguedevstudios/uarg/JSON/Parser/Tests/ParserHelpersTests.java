@@ -1,14 +1,13 @@
+//TODO: Cleanup #2 - After primary parsers completed
 package com.roguedevstudios.uarg.JSON.Parser.Tests;
 
 import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import org.junit.*;
+import java.util.*;
+import com.google.gson.*;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.ParserHelpers;
-import com.roguedevstudios.uarg.System.Core.Elements.Variable;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
 /**
  * <p>
  * This will test the ParserHelper.java file
@@ -17,238 +16,1373 @@ import com.roguedevstudios.uarg.System.Core.Elements.Variable;
  * @author Terry Roberson
  * @since 1.0
  */
+
 public class ParserHelpersTests {
+	
+	//***** Variables Initial Condition Properties *****\\
+	private JsonElement _initialVariableCond;
+	private ArrayList<Integer> _initialVariableCondIntVals;
+	private ArrayList<Float> _initialVariableCondFloatVals;
+	private ArrayList<String> _initialVariableCondStringVals;
+	private ArrayList<Double> _initialVariableCondDoubleVals;
+	private ArrayList<Long> _initialVariableCondLongVals;
+	private ArrayList<Boolean> _initialVariableCondBoolVals;
+	private ArrayList<Integer[]> _initialVariableCondIntArrVals;
+	private ArrayList<Float[]> _initialVariableCondFloatArrVals;
+	private ArrayList<Double[]> _initialVariableCondDoubleArrVals;
+	private ArrayList<String[]> _initialVariableCondStringArrVals;
+	private ArrayList<Long[]> _initialVariableCondLongArrVals;
+	private ArrayList<Boolean[]> _initialVariableCondBoolArrVals;
+	
+	//***** INITIAL BUILDERS *****\\
+	@Before 
+	public void VariablesStart() {
+		//Populate initial int values
+		this._initialVariableCondIntVals = new ArrayList<Integer>();
+		// 0 slot = 99
+		this._initialVariableCondIntVals.add(99);
+		// 1 slot = 10
+		this._initialVariableCondIntVals.add(10);
+		// 2 slot = 15
+		this._initialVariableCondIntVals.add(15);
+		//Populate initial String values
+		this._initialVariableCondStringVals = new ArrayList<String>();
+		// 0 slot = A
+		this._initialVariableCondStringVals.add("A");
+		// 1 slot = B
+		this._initialVariableCondStringVals.add("B");
+		// 2 slot = C
+		this._initialVariableCondStringVals.add("C");
+		//Populate initial Float values
+		this._initialVariableCondDoubleVals = new ArrayList<Double>();
+		// 0 slot = 990.2
+		this._initialVariableCondDoubleVals.add(990.2);
+		// 1 slot = 10.1
+		this._initialVariableCondDoubleVals.add(10.1);
+		// 2 slot = 15.36
+		this._initialVariableCondDoubleVals.add(15.36);
+		//Populate initial Long values
+		this._initialVariableCondLongVals = new ArrayList<Long>();
+		// 0 slot = 99
+		this._initialVariableCondLongVals.add(99L);
+		// 1 slot = 10
+		this._initialVariableCondLongVals.add(10L);
+		// 2 slot = 15
+		this._initialVariableCondLongVals.add(15L);
+		//Populate initial Float values
+		this._initialVariableCondFloatVals = new ArrayList<Float>();
+		// 0 slot = 99
+		this._initialVariableCondFloatVals.add(99F);
+		// 1 slot = 10
+		this._initialVariableCondFloatVals.add(10F);
+		// 2 slot = 15
+		this._initialVariableCondFloatVals.add(15F);
+		//Populate initial Float values
+		this._initialVariableCondBoolVals = new ArrayList<Boolean>();
+		// 0 slot = true
+		this._initialVariableCondBoolVals.add(true);
+		// 1 slot = false
+		this._initialVariableCondBoolVals.add(false);
+		// 2 slot = false
+		this._initialVariableCondBoolVals.add(false);
+		//Populate initial int[] values
+		this._initialVariableCondIntArrVals = new ArrayList<Integer[]>();
+		// 0 slot = [99,12,3]
+		this._initialVariableCondIntArrVals.add(new Integer[] {99,12,3});
+		// 1 slot = [10,11,12]
+		this._initialVariableCondIntArrVals.add(new Integer[] {10,11,12});
+		// 2 slot = [15,20,25]
+		this._initialVariableCondIntArrVals.add(new Integer[] {15,20,25});
+		//Populate initial String[] values
+		this._initialVariableCondStringArrVals = new ArrayList<String[]>();
+		// 0 slot = [A,B,C]
+		this._initialVariableCondStringArrVals.add(new String[] {"A","B","C"});
+		// 1 slot = [B,C,D]
+		this._initialVariableCondStringArrVals.add(new String[] {"B","C","D"});
+		// 2 slot = [C,D,E]
+		this._initialVariableCondStringArrVals.add(new String[] {"C","D","E"});
+		//Populate initial Float[] values
+		this._initialVariableCondDoubleArrVals = new ArrayList<Double[]>();
+		// 0 slot = [990.2,30.5,.04]
+		this._initialVariableCondDoubleArrVals.add(new Double[] {990.2,30.5,.04});
+		// 1 slot = [10.1,35.5,401.5]
+		this._initialVariableCondDoubleArrVals.add(new Double[] {10.1,35.5,401.5});
+		// 2 slot = [15.36,5.2,4.8]
+		this._initialVariableCondDoubleArrVals.add(new Double[] {15.36,5.2,4.8});
+		//Populate initial Long[] values
+		this._initialVariableCondLongArrVals = new ArrayList<Long[]>();
+		// 0 slot = [99,50,8]
+		this._initialVariableCondLongArrVals.add(new Long[] {99L,50L,8L});
+		// 1 slot = [10,5,8000]
+		this._initialVariableCondLongArrVals.add(new Long[] {10L,5L,8000L});
+		// 2 slot = [15,8,56]
+		this._initialVariableCondLongArrVals.add(new Long[] {15L,8L,56L});
+		//Populate initial Float[] values
+		this._initialVariableCondFloatArrVals = new ArrayList<Float[]>();
+		// 0 slot = [99, 12,5.2]
+		this._initialVariableCondFloatArrVals.add(new Float[] {99F, 12F,5.2F});
+		// 1 slot = [10, 58.2,500.1]
+		this._initialVariableCondFloatArrVals.add(new Float[] {10F, 58.2F,500.1F});
+		// 2 slot = [15, 64.2,69.1]
+		this._initialVariableCondFloatArrVals.add(new Float[] {15F, 64.2F,69.1F});
+		//Populate initial Boolean[] values
+		this._initialVariableCondBoolArrVals = new ArrayList<Boolean[]>();
+		// 0 slot = [true, false, true]
+		this._initialVariableCondBoolArrVals.add(new Boolean[] {true, false, true});
+		// 1 slot = [false, true, false]
+		this._initialVariableCondBoolArrVals.add(new Boolean[] {false, true, false});
+		// 2 slot = [false, true, true]
+		this._initialVariableCondBoolArrVals.add(new Boolean[] {false, true, true});
+		// Let us create 1 large JsonElement using the format that
+		// we would actually see in a config file.
+		String initVars =
+				"{"+
+						"\"Integers\":"+
+						"{"+
+							"\"IntX\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondIntVals.get(0)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"IntY\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondIntVals.get(1)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"IntZ\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondIntVals.get(2)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"Strings\":"+
+						"{"+
+							"\"StringX\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondStringVals.get(0)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"StringY\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondStringVals.get(1)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"StringZ\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondStringVals.get(2)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"Doubles\":"+
+						"{"+
+							"\"DoubleX\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondDoubleVals.get(0)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"DoubleY\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondDoubleVals.get(1)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"DoubleZ\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondDoubleVals.get(2)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"Longs\":"+
+						"{"+
+							"\"LongX\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondLongVals.get(0)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"LongY\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondLongVals.get(1)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"LongZ\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondLongVals.get(2)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"Floats\":"+
+						"{"+
+							"\"FloatX\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondFloatVals.get(0)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"FloatY\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondFloatVals.get(1)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"FloatZ\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondFloatVals.get(2)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"Booleans\":"+
+						"{"+
+							"\"BoolX\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondBoolVals.get(0)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":true"+
+								"},"+
+							"\"BoolY\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondBoolVals.get(1)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"BoolZ\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":"+this._initialVariableCondBoolVals.get(2)+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"IntegerArrays\":"+
+						"{"+
+							"\"Int[]X\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondIntArrVals.get(0)[0]+","+
+									this._initialVariableCondIntArrVals.get(0)[1]+","+
+									this._initialVariableCondIntArrVals.get(0)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"Int[]Y\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondIntArrVals.get(1)[0]+","+
+									this._initialVariableCondIntArrVals.get(1)[1]+","+
+									this._initialVariableCondIntArrVals.get(1)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"Int[]Z\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondIntArrVals.get(2)[0]+","+
+									this._initialVariableCondIntArrVals.get(2)[1]+","+
+									this._initialVariableCondIntArrVals.get(2)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"StringArrays\":"+
+							"{"+
+						"\"String[]X\":"+
+							"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondStringArrVals.get(0)[0]+","+
+									this._initialVariableCondStringArrVals.get(0)[1]+","+
+									this._initialVariableCondStringArrVals.get(0)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+							"},"+
+						"\"String[]Y\":"+
+							"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondStringArrVals.get(1)[0]+","+
+									this._initialVariableCondStringArrVals.get(1)[1]+","+
+									this._initialVariableCondStringArrVals.get(1)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+							"},"+
+						"\"String[]Z\":"+
+							"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondStringArrVals.get(2)[0]+","+
+									this._initialVariableCondStringArrVals.get(2)[1]+","+
+									this._initialVariableCondStringArrVals.get(2)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"DoubleArrays\":"+
+						"{"+
+							"\"Double[]X\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondDoubleArrVals.get(0)[0]+","+
+									this._initialVariableCondDoubleArrVals.get(0)[1]+","+
+									this._initialVariableCondDoubleArrVals.get(0)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"Double[]Y\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondDoubleArrVals.get(1)[0]+","+
+									this._initialVariableCondDoubleArrVals.get(1)[1]+","+
+									this._initialVariableCondDoubleArrVals.get(1)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"Double[]Z\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondDoubleArrVals.get(2)[0]+","+
+									this._initialVariableCondDoubleArrVals.get(2)[1]+","+
+									this._initialVariableCondDoubleArrVals.get(2)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"LongArrays\":"+
+						"{"+
+							"\"Long[]X\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondLongArrVals.get(0)[0]+","+
+									this._initialVariableCondLongArrVals.get(0)[1]+","+
+									this._initialVariableCondLongArrVals.get(0)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"Long[]Y\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondLongArrVals.get(1)[0]+","+
+									this._initialVariableCondLongArrVals.get(1)[1]+","+
+									this._initialVariableCondLongArrVals.get(1)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"Long[]Z\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondLongArrVals.get(2)[0]+","+
+									this._initialVariableCondLongArrVals.get(2)[1]+","+
+									this._initialVariableCondLongArrVals.get(2)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"FloatArrays\":"+
+						"{"+
+							"\"Float[]X\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondFloatArrVals.get(0)[0]+","+
+									this._initialVariableCondFloatArrVals.get(0)[1]+","+
+									this._initialVariableCondFloatArrVals.get(0)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"Float[]Y\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondFloatArrVals.get(1)[0]+","+
+									this._initialVariableCondFloatArrVals.get(1)[1]+","+
+									this._initialVariableCondFloatArrVals.get(1)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"Float[]Z\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondFloatArrVals.get(2)[0]+","+
+									this._initialVariableCondFloatArrVals.get(2)[1]+","+
+									this._initialVariableCondFloatArrVals.get(2)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"},"+
+						"\"BooleanArrays\":"+
+						"{"+
+							"\"Bool[]X\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondBoolArrVals.get(0)[0]+","+
+									this._initialVariableCondBoolArrVals.get(0)[1]+","+
+									this._initialVariableCondBoolArrVals.get(0)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":true"+
+								"},"+
+							"\"Bool[]Y\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondBoolArrVals.get(1)[0]+","+
+									this._initialVariableCondBoolArrVals.get(1)[1]+","+
+									this._initialVariableCondBoolArrVals.get(1)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"},"+
+							"\"Bool[]Z\":"+
+								"{"+
+									"\"Name\":\"TestName\","+
+									"\"Value\":["+
+									this._initialVariableCondBoolArrVals.get(2)[0]+","+
+									this._initialVariableCondBoolArrVals.get(1)[1]+","+
+									this._initialVariableCondBoolArrVals.get(2)[2]+
+									"]"+","+
+									"\"Description\":\"TestDescription\","+
+									"\"Requires Input\":false"+
+								"}"+
+						"}"+
+				"}";
+		// System.out.println(initVars);
+		// Convert the text to a JsonElement just as we will get
+		// in the programs loading stages. This emulates actual
+		// initial condition states.
+		JsonParser p = new JsonParser();
+		this._initialVariableCond = p.parse(initVars);
+	}
+	
+	//***** HELPERS *****\\
+	/**
+	 * Grabs a section from the Variable conditions for use in tests
+	 * @param key
+	 * @return JsonElement
+	 */
+	public JsonElement getSectionCondition(String key){
+			return this._initialVariableCond.getAsJsonObject().get(key);
+		}
+	/**
+	 * Gets a specific variable from a section in the Variable conditions for use in teset
+	 * @param sectionKey
+	 * @param variableKey
+	 * @return JsonElement
+	 */
+	public JsonElement getVariableCondition(String sectionKey, String variableKey) {
+		return this.getSectionCondition(sectionKey).getAsJsonObject().get(variableKey);
+	}
 	
 	//***** INTEGER TESTING SECTION ******\\
 	@Test
-	public void ParseIntegerVariableTest() {
-		// Set up initial conditions
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description"; 
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		int valueValue = 500;
-		
-		// Create a test variable object
-		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		j.addProperty(value, valueValue);
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
-		
-		// Assign  elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
-		
-		// Assign Variable<> to testVar and Parse
-		Variable<Integer> testVar = ParserHelpers.ParseIntegerVariable(testElement, "TestID");
-		
+	public void TestParseIntegerVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse IntX from the Integers section into an IVariable<Integer> compliant container
+		IVariable<Integer> testVar = ParserHelpers.
+										ParseIntegerVariable(
+												this.getVariableCondition(
+														"Integers", "IntX"), 
+														"IntX");
 		// Fetch Information about Integer Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue,(int)testVar.GetValue());
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
 		
+		assertEquals(
+						"IntX",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondIntVals.get(0), 
+						testVar.GetValue()
+					);
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(testVar));
 	}
 	
+
+	@Test
+	public void TestParseIntegerArrayVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse IntX from the Integers section into an IVariable<Integer> compliant container
+		IVariable<Integer[]> testVar = ParserHelpers.
+										ParseIntegerArrayVariable(
+												this.getVariableCondition(
+														"IntegerArrays", "Int[]X"), 
+														"Int[]X");
+		
+		// Fetch Information about Integer Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"Int[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondIntArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondIntArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondIntArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+	@Test
+	public void TestIntegerSectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse Integer Section into a TreeMap
+		TreeMap<String, IVariable<Integer>> section = ParserHelpers.
+														ParseIntegerVariableSection(
+																this.getSectionCondition(
+																		"Integers"));
+		// Fetch key information for variables
+		assertEquals("IntX", section.firstKey());
+		assertEquals("IntZ", section.lastKey());
+		// Display results
+		System.out.println(g.toJson(section));
+	}
+
+	@Test
+	public void TestIntegerArraySectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse Integer Section into a TreeMap
+		TreeMap<String, IVariable<Integer[]>> section = ParserHelpers.
+														ParseIntegerArrayVariableSection(
+																this.getSectionCondition(
+																		"IntegerArrays"));
+		// Fetch key information for variables
+		assertEquals("Int[]X", section.firstKey());
+		assertEquals("Int[]Z", section.lastKey());
+		// Display results
+		System.out.println(g.toJson(section));
+	}
+
 	//***** STRING TESTING SECTION *****\\
 	@Test
-	public void ParseStringVariableTest() {
-		
-		// Set up initial conditions
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description";
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		String valueValue = "A";
-		
-		// Create a test variable object
-		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		j.addProperty(value, valueValue);
-		// Convert it to a JsonElement tree
+	public void TestParseStringVariable() {
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
+		// Parse StringX, StringY, StringZ from the Strings section into an IVariable<String> compliant container
+		IVariable<String> testVar = ParserHelpers.
+										ParseStringVariable(
+												this.getVariableCondition(
+														"Strings", "StringX"), 
+														"StringX");
 		
-		// Assign elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
-		
-		// Assign Variable<> to testVar and Parse
-		Variable<String> testVar = ParserHelpers.ParseStringVariable(testElement, "TestID");
+		// Fetch key information for variables
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		assertEquals(
+						"StringX",
+						testVar.GetId()
+					);
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		assertEquals(
+						this._initialVariableCondStringVals.get(0),
+						testVar.GetValue()
+					);
+	
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+	@Test
+	public void TestParseStringArrayVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse StringX from the Strings section into an IVariable<String> compliant container
+		IVariable<String[]> testVar = ParserHelpers.
+										ParseStringArrayVariable(
+												this.getVariableCondition(
+														"StringArrays", "String[]X"), 
+														"String[]X");
 		
 		// Fetch Information about String Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue, testVar.GetValue());
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"String[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondStringArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondStringArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondStringArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+
+	@Test
+	public void TestStringSectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse String Section into a TreeMap
+		TreeMap<String, IVariable<String>> section = ParserHelpers.
+														ParseStringVariableSection(
+																this.getSectionCondition(
+																		"Strings"));
+		// Fetch key information for variables
+		assertEquals("StringX", section.firstKey());
+		assertEquals("StringZ", section.lastKey());
 		
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(section));
+	}
+	
+	@Test
+	public void TestStringArraySectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse String Section into a TreeMap
+		TreeMap<String, IVariable<String[]>> section = ParserHelpers.
+														ParseStringArrayVariableSection(
+																this.getSectionCondition(
+																		"StringArrays"));
+		// Fetch key information for variables
+		assertEquals("String[]X", section.firstKey());
+		assertEquals("String[]Z", section.lastKey());
+		// Display results
+		System.out.println(g.toJson(section));
 	}
 	
 	//***** DOUBLE TESTING SECTION *****\\
 	@Test
-	public void ParseDoubleVariableTest() {
+	public void TestParseDoubleVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse DoubleX from the Doubles section into an IVariable<Double> compliant container
+		IVariable<Double> testVar = ParserHelpers.
+										ParseDoubleVariable(
+												this.getVariableCondition(
+														"Doubles", "DoubleX"), 
+														"DoubleX");
+		// Fetch Information about Integer Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
 		
-		//Set up initial conditions
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description"; 
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		Double valueValue = 5.4;
+		assertEquals(
+						"DoubleX",
+						testVar.GetId()
+					);
 		
-		// Create a test variable object
-		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		j.addProperty(value, valueValue);
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
 		
-		// Assign elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
-		
-		// Assign Variable<> to testVar and Parse
-		Variable<Double> testVar = ParserHelpers.ParseDoubleVariable(testElement, "TestID");
+		assertEquals(
+						this._initialVariableCondDoubleVals.get(0), 
+						testVar.GetValue()
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+	@Test
+	public void TestParseDoubleArrayVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse IntX from the Doubles section into an IVariable<Double> compliant container
+		IVariable<Double[]> testVar = ParserHelpers.
+										ParseDoubleArrayVariable(
+												this.getVariableCondition(
+														"DoubleArrays", "Double[]X"), 
+														"Double[]X");
 		
 		// Fetch Information about Double Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue, testVar.GetValue());
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
 		
-		//Display results
-		System.out.println(g.toJson(testElement));
+		assertEquals(
+						"Double[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondDoubleArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondDoubleArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondDoubleArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+
+	@Test
+	public void TestDoubleSectionMap() {
+		
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse Double Section into a TreeMap
+		TreeMap<String, IVariable<Double>> section = ParserHelpers.
+														ParseDoubleVariableSection(
+																this.getSectionCondition(
+																		"Doubles"));
+		// Fetch key information for variables
+		assertEquals("DoubleX", section.firstKey());
+		assertEquals("DoubleZ", section.lastKey());
+		
+		// Display results
+		System.out.println(g.toJson(section));
+	}
+	
+	@Test
+	public void TestDoubleArraySectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse Double Section into a TreeMap
+		TreeMap<String, IVariable<Double[]>> section = ParserHelpers.
+														ParseDoubleArrayVariableSection(
+																this.getSectionCondition(
+																		"DoubleArrays"));
+		// Fetch key information for variables
+		assertEquals("Double[]X", section.firstKey());
+		assertEquals("Double[]Z", section.lastKey());
+		// Display results
+		System.out.println(g.toJson(section));
 	}
 	
 	//***** LONG TESTING SECTION *****\\
 	@Test
-	public void ParseLongVariableTest() {
+	public void TestParseLongVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse LongX from the Longs section into an IVariable<Long> compliant container
+		IVariable<Long> testVar = ParserHelpers.
+										ParseLongVariable(
+												this.getVariableCondition(
+														"Longs", "LongX"), 
+														"LongX");
+		// Fetch Information about Long Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
 		
-		// Set up initial conditions 
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description"; 
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		Long valueValue = 54L;
+		assertEquals(
+						"LongX",
+						testVar.GetId()
+					);
 		
-		// Create a test variable object
-		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		j.addProperty(value, valueValue);
-		// Convert it to a JsonElement tree
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondLongVals.get(0), 
+						testVar.GetValue()
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+
+	@Test
+	public void TestParseLongArrayVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse LongX from the Longs section into an IVariable<Long> compliant container
+		IVariable<Long[]> testVar = ParserHelpers.
+										ParseLongArrayVariable(
+												this.getVariableCondition(
+														"LongArrays", "Long[]X"), 
+														"Long[]X");
+		
+		// Fetch Information about Long Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"Long[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondLongArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondLongArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondLongArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+	@Test
+	public void TestLongSectionMap() {
+		// Convert elements to a JsonTree
 		Gson g = new Gson();
-		
-		// Assign elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
-		
-		// Assign Variable<> to testVar and Parse
-		Variable<Long> testVar = ParserHelpers.ParseLongVariable(testElement, "TestID");
-		
-		// Fetch Information about Double Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue, testVar.GetValue());
+		// Parse Long Section into a TreeMap
+		TreeMap<String, IVariable<Long>> section = ParserHelpers.
+														ParseLongVariableSection(
+																this.getSectionCondition(
+																		"Longs"));
+		// Fetch key information for variables
+		assertEquals("LongX", section.firstKey());
+		assertEquals("LongZ", section.lastKey());
 		
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(section));
+	}
+
+	@Test
+	public void TestLongArraySectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse Long Section into a TreeMap
+		TreeMap<String, IVariable<Long[]>> section = ParserHelpers.
+														ParseLongArrayVariableSection(
+																this.getSectionCondition(
+																		"LongArrays"));
+		// Fetch key information for variables
+		assertEquals("Long[]X", section.firstKey());
+		assertEquals("Long[]Z", section.lastKey());
+		// Display results
+		System.out.println(g.toJson(section));
 	}
 	
 	//***** FLOAT TESTING SECTION *****\\
 	@Test
-	public void ParseFloatVariableTest() {
+	public void TestParseFloatVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse FloatX from the Floats section into an IVariable<Float> compliant container
+		IVariable<Float> testVar = ParserHelpers.
+										ParseFloatVariable(
+												this.getVariableCondition(
+														"Floats", "FloatX"), 
+														"FloatX");
+		// Fetch Information about Float Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
 		
-		// Set up initial conditions
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description"; 
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		Float valueValue = 67F;
+		assertEquals(
+						"FloatX",
+						testVar.GetId()
+					);
 		
-		// Create a test variable object
-		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		j.addProperty(value, valueValue);
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
 		
-		// Assign elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
-		
-		// Assign Variable<> to testVar and Parse
-		Variable<Float> testVar = ParserHelpers.ParseFloatVariable(testElement, "TestID");
+		assertEquals(
+						this._initialVariableCondFloatVals.get(0), 
+						testVar.GetValue()
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+
+	@Test
+	public void TestParseFloatArrayVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse Floats section into an IVariable<Float> compliant container
+		IVariable<Float[]> testVar = ParserHelpers.
+										ParseFloatArrayVariable(
+												this.getVariableCondition(
+														"FloatArrays", "Float[]X"), 
+														"Float[]X");
 		
 		// Fetch Information about Float Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue, testVar.GetValue());
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"Float[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondFloatArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondFloatArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondFloatArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+	@Test
+	public void TestFloatSectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse Float Section into a TreeMap
+		TreeMap<String, IVariable<Float>> section = ParserHelpers.
+														ParseFloatVariableSection(
+																this.getSectionCondition(
+																		"Floats"));
+		// Fetch key information for variables
+		assertEquals("FloatX", section.firstKey());
+		assertEquals("FloatZ", section.lastKey());
 		
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(section));
+	}
+
+	@Test
+	public void TestFloatArraySectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse Float Section into a TreeMap
+		TreeMap<String, IVariable<Float[]>> section = ParserHelpers.
+														ParseFloatArrayVariableSection(
+																this.getSectionCondition(
+																		"FloatArrays"));
+		// Fetch key information for variables
+		assertEquals("Float[]X", section.firstKey());
+		assertEquals("Float[]Z", section.lastKey());
+		// Display results
+		System.out.println(g.toJson(section));
 	}
 	
 	//***** BOOLEAN TESTING SECTION *****\\
 	@Test
-	public void ParseBooleanVariableTest() {
+	public void TestParseBooleanVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse BoolX from the Booleans section into an IVariable<Boolean> compliant container
+		IVariable<Boolean> testVar = ParserHelpers.
+										ParseBooleanVariable(
+												this.getVariableCondition(
+														"Booleans", "BoolX"), 
+														"BoolX");
+		// Fetch Information about Boolean Variable
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
 		
-		// Set up initial conditions
-		String name = "name";
-		String nameValue = "TestName";
-		String ID = "ID";
-		String idValue = "TestID";
-		String description = "description"; 
-		String descriptionValue = "TestDescription";
-		String value = "value";
-		Boolean valueValue = true;
+		assertEquals(
+						"BoolX",
+						testVar.GetId()
+					);
 		
-		// Create a test variable object
-		JsonObject j = new JsonObject();
-		j.addProperty(name, nameValue);
-		j.addProperty(ID, idValue);
-		j.addProperty(description, descriptionValue);
-		j.addProperty(value, valueValue);
-		// Convert it to a JsonElement tree
-		Gson g = new Gson();
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
 		
-		// Assign elements to JsonElement tree
-		JsonElement testElement = g.toJsonTree(j);
-		
-		// Assign Variable<> to testVar and Parse
-		Variable<Boolean> testVar = ParserHelpers.ParseBooleanVariable(testElement, "TestID");
+		assertEquals(
+						this._initialVariableCondBoolVals.get(0), 
+						testVar.GetValue()
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+
+	@Test
+	public void TestParseBooleanArrayVariable() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();	
+		// Parse BoolX from the Booleans section into an IVariable<Boolean> compliant container
+		IVariable<Boolean[]> testVar = ParserHelpers.
+										ParseBooleanArrayVariable(
+												this.getVariableCondition(
+														"BooleanArrays", "Bool[]X"), 
+														"Bool[]X");
 		
 		// Fetch Information about Boolean Variable
-		assertEquals(nameValue ,testVar.GetName());
-		assertEquals(idValue ,testVar.GetId());
-		assertEquals(descriptionValue ,testVar.GetDescription());
-		assertEquals(valueValue, testVar.GetValue());
+		assertEquals(
+						"TestName",
+						testVar.GetName()
+					);
+		
+		assertEquals(
+						"Bool[]X",
+						testVar.GetId()
+					);
+		
+		assertEquals(
+						"TestDescription",
+						testVar.GetDescription()
+					);
+		
+		assertEquals(
+						this._initialVariableCondBoolArrVals.get(0)[0], 
+						testVar.GetValue()[0]
+					);
+		assertEquals(
+						this._initialVariableCondBoolArrVals.get(0)[1], 
+						testVar.GetValue()[1]
+					);
+		assertEquals(
+						this._initialVariableCondBoolArrVals.get(0)[2], 
+						testVar.GetValue()[2]
+					);
+		// Display results
+		System.out.println(g.toJson(testVar));
+	}
+	
+	@Test
+	public void TestBooleanSectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse Boolean Section into a TreeMap
+		TreeMap<String, IVariable<Boolean>> section = ParserHelpers.
+														ParseBooleanVariableSection(
+																this.getSectionCondition(
+																		"Booleans"));
+		// Fetch key information for variables
+		assertEquals("BoolX", section.firstKey());
+		assertEquals("BoolZ", section.lastKey());
 		
 		// Display results
-		System.out.println(g.toJson(testElement));
+		System.out.println(g.toJson(section));
+	}
+
+	@Test
+	public void TestBooleanArraySectionMap() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse Boolean Section into a TreeMap
+		TreeMap<String, IVariable<Boolean[]>> section = ParserHelpers.
+														ParseBooleanArrayVariableSection(
+																this.getSectionCondition(
+																		"BooleanArrays"));
+		// Fetch key information for variables
+		assertEquals("Bool[]X", section.firstKey());
+		assertEquals("Bool[]Z", section.lastKey());
+		// Display results
+		System.out.println(g.toJson(section));
+	}
+	
+	//***** VARIABLES TESTING SECTION *****\\
+	@Test
+	public void TestVariables() {
+		// Convert elements to a JsonTree
+		Gson g = new Gson();
+		// Parse JsonElement into a Variables compliant container
+		IVariables TestElement = ParserHelpers.ParseVariables(this._initialVariableCond);
+		// Fetch information about all variables inside Json Element
+		assertEquals(
+				_initialVariableCondIntVals.get(0), TestElement.GetInteger("IntX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondIntVals.get(1), TestElement.GetInteger("IntY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondIntVals.get(2), TestElement.GetInteger("IntZ").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondStringVals.get(0), TestElement.GetString("StringX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondStringVals.get(1), TestElement.GetString("StringY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondStringVals.get(2), TestElement.GetString("StringZ").GetValue()
+					);		
+		assertEquals(
+				_initialVariableCondDoubleVals.get(0), TestElement.GetDouble("DoubleX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondDoubleVals.get(1), TestElement.GetDouble("DoubleY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondDoubleVals.get(2), TestElement.GetDouble("DoubleZ").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondFloatVals.get(0), TestElement.GetFloat("FloatX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondFloatVals.get(1), TestElement.GetFloat("FloatY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondFloatVals.get(2), TestElement.GetFloat("FloatZ").GetValue()
+					);	
+		assertEquals(
+				_initialVariableCondBoolVals.get(0), TestElement.GetBoolean("BoolX").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondBoolVals.get(1), TestElement.GetBoolean("BoolY").GetValue()
+					);
+		assertEquals(
+				_initialVariableCondBoolVals.get(2), TestElement.GetBoolean("BoolZ").GetValue()
+					);	
+		assertEquals(
+				_initialVariableCondIntArrVals.get(0)[0], TestElement.GetIntegerArray("Int[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(0)[1], TestElement.GetIntegerArray("Int[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(0)[2], TestElement.GetIntegerArray("Int[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(1)[0], TestElement.GetIntegerArray("Int[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(1)[1], TestElement.GetIntegerArray("Int[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(1)[2], TestElement.GetIntegerArray("Int[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(2)[0], TestElement.GetIntegerArray("Int[]Z").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(2)[1], TestElement.GetIntegerArray("Int[]Z").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondIntArrVals.get(2)[2], TestElement.GetIntegerArray("Int[]Z").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(0)[0], TestElement.GetStringArray("String[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(0)[1], TestElement.GetStringArray("String[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(0)[2], TestElement.GetStringArray("String[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(1)[0], TestElement.GetStringArray("String[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(1)[1], TestElement.GetStringArray("String[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(1)[2], TestElement.GetStringArray("String[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondStringArrVals.get(2)[0], TestElement.GetStringArray("String[]Z").GetValue()[0]
+					);	
+		assertEquals(
+				_initialVariableCondStringArrVals.get(2)[1], TestElement.GetStringArray("String[]Z").GetValue()[1]
+					);		
+		assertEquals(
+				_initialVariableCondStringArrVals.get(2)[2], TestElement.GetStringArray("String[]Z").GetValue()[2]
+					);		
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(0)[0], TestElement.GetDoubleArray("Double[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(0)[1], TestElement.GetDoubleArray("Double[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(0)[2], TestElement.GetDoubleArray("Double[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(1)[0], TestElement.GetDoubleArray("Double[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(1)[1], TestElement.GetDoubleArray("Double[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(1)[2], TestElement.GetDoubleArray("Double[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(2)[0], TestElement.GetDoubleArray("Double[]Z").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(2)[1], TestElement.GetDoubleArray("Double[]Z").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondDoubleArrVals.get(2)[2], TestElement.GetDoubleArray("Double[]Z").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(0)[0], TestElement.GetFloatArray("Float[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(0)[1], TestElement.GetFloatArray("Float[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(0)[2], TestElement.GetFloatArray("Float[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(1)[0], TestElement.GetFloatArray("Float[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(1)[1], TestElement.GetFloatArray("Float[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(1)[2], TestElement.GetFloatArray("Float[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(2)[0], TestElement.GetFloatArray("Float[]Z").GetValue()[0]
+					);	
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(2)[1], TestElement.GetFloatArray("Float[]Z").GetValue()[1]
+					);	
+		assertEquals(
+				_initialVariableCondFloatArrVals.get(2)[2], TestElement.GetFloatArray("Float[]Z").GetValue()[2]
+					);	
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(0)[0], TestElement.GetBooleanArray("Bool[]X").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(0)[1], TestElement.GetBooleanArray("Bool[]X").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(0)[2], TestElement.GetBooleanArray("Bool[]X").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(1)[0], TestElement.GetBooleanArray("Bool[]Y").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(1)[1], TestElement.GetBooleanArray("Bool[]Y").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(1)[2], TestElement.GetBooleanArray("Bool[]Y").GetValue()[2]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(2)[0], TestElement.GetBooleanArray("Bool[]Z").GetValue()[0]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(2)[1], TestElement.GetBooleanArray("Bool[]Z").GetValue()[1]
+					);
+		assertEquals(
+				_initialVariableCondBoolArrVals.get(2)[2], TestElement.GetBooleanArray("Bool[]Z").GetValue()[2]
+					);
+		// Display results
+		System.out.println(g.toJson(TestElement));
 	}
 }
