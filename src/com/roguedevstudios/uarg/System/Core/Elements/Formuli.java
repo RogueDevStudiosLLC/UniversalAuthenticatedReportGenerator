@@ -22,8 +22,9 @@ import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormuli;
 
 /**
  * <p>
- * This class implements IFormuli and constructs formulas for the class formula
+ * This class implements IFormuli and tracks formulas and formula sets
  * @author Terry Roberson
+ * @author Christopher Howard
  * @since 1.0
  */
 public class Formuli implements IFormuli {
@@ -57,12 +58,21 @@ public class Formuli implements IFormuli {
 		this._formulaSetMap = new TreeMap<String, List<String>>();
 	}
 
-	@Override
+	/**
+	 * Gets the formula ID's for the given formula set
+	 * @param ID
+	 * @return List<String>
+	 * @author Christopher Howard
+	 */
 	public List<String> GetFormulaSet(String ID) {
 		return this._formulaSetMap.get(ID);
 	}
 
-	@Override
+	/**
+	 * Sets a new Formula Set in the map
+	 * @param ID
+	 * @author Christopher Howard
+	 */
 	public void SetFormulaSet(String ID) {
 		if(this._formulaSetMap.containsKey(ID))
 			return;
@@ -70,12 +80,22 @@ public class Formuli implements IFormuli {
 		
 	}
 
-	@Override
+	/**
+	 * Gets a formula by ID
+	 * @param ID
+	 * @return IFormula
+	 * @author Christopher Howard
+	 */
 	public IFormula GetFormula(String ID) {
 		return this._formulaMap.get(ID);
 	}
 
-	@Override
+	/**
+	 * Adds a Formula to a set
+	 * @param SetID
+	 * @param FormulaID
+	 * @author Christopher Howard
+	 */
 	public void AddFormulaToSet(String SetID, String FormulaID) {
 		if(!this._formulaSetMap.containsKey(SetID))
 			this.SetFormulaSet(SetID);
@@ -85,7 +105,12 @@ public class Formuli implements IFormuli {
 		
 	}
 
-	@Override
+	/**
+	 * Adds a Formula
+	 * @param ID
+	 * @param formula
+	 * @author Christopher Howard
+	 */
 	public void AddFormula(String ID, IFormula formula) {
 		if(this._formulaMap.containsKey(ID))
 			return;
