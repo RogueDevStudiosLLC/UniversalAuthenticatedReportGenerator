@@ -24,7 +24,7 @@ import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
  * @author Terry Roberson
  * @since 1.0
  */
-public class Formuli implements IFormula {
+public class Formuli {
 	private TreeMap<String, IFormula> _formulaMap;
 	private TreeMap<String, List<String>> _formulaSetMap;
 
