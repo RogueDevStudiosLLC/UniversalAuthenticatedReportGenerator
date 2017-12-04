@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
+import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 
 import java.util.ArrayList;
 
@@ -65,6 +66,20 @@ public class FormulaTest {
 			assertFalse(true);
 		}
 		
+	}
+	
+	@Test
+	public void testFormulaProcessing() {
+		String formulaExpression = "_VAR1_ * _VAR2_";
+		Formula formula = new Formula("T","T","T",formulaExpression);
+		Variable<Integer> v1 = new Variable<Integer>("T", "T", false, "T", 10);
+		Variable<Integer> v2 = new Variable<Integer>("T","T",false,"T", 5);
+		Variable<? extends Number>[] v = (Variable<? extends Number>[]) new Variable<?>[2];
+		v[0] = v1;
+		v[1] = v2;
+		Integer out = formula.CalculateToInteger(v);
+		//System.out.println(out);
+		assertTrue(out==50);
 	}
 	
 	/**

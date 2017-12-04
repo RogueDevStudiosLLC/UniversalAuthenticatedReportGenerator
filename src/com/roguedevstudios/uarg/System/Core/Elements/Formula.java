@@ -155,7 +155,7 @@ public class Formula implements IFormula
     * @throws IllegalArgumentException	If the incoming array is the wrong size, or if values in the array cannot be parsed into a numerical value.
     * @return The result of calculating the Formula object's Expression (double).
     */
-    private double _calculateExpression(IVariable<?>[] vars) throws IllegalArgumentException {
+    private double _calculateExpression(IVariable<? extends Number>[] vars) throws IllegalArgumentException {
     	  // If the array is the wrong size throw an exception
         if(vars.length != this._formulaInputArray.length){
             throw new IllegalArgumentException("Invalid number of elements in the incoming input array.");
@@ -186,7 +186,7 @@ public class Formula implements IFormula
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Double format.
      */
-    public Double CalculateToDouble(IVariable<?>[] vars) {
+    public Double CalculateToDouble(IVariable<? extends Number>[] vars) {
     	return new Double(this._calculateExpression(vars));
     }
     
@@ -196,7 +196,7 @@ public class Formula implements IFormula
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Integer format.
      */
-    public Integer CalculateToInteger(IVariable<?>[] vars) {
+    public Integer CalculateToInteger(IVariable<? extends Number>[] vars) {
     	return new Integer((int)this._calculateExpression(vars));
     }
     
@@ -206,7 +206,7 @@ public class Formula implements IFormula
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Float format.
      */
-    public Float CalculateToFloat(IVariable<?>[] vars) {
+    public Float CalculateToFloat(IVariable<? extends Number>[] vars) {
     	return new Float((float)this._calculateExpression(vars));
     }
     
@@ -216,7 +216,7 @@ public class Formula implements IFormula
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Long format.
      */
-    public Long CalculateToLong(IVariable<?>[] vars) {
+    public Long CalculateToLong(IVariable<? extends Number>[] vars) {
     	return new Long((long)this._calculateExpression(vars));
     }
     
@@ -226,15 +226,17 @@ public class Formula implements IFormula
     * @param vars		The Variable objects with the desired input values in array format.
     * @throws Exception	If one of the argument values given is not capable of being parsed into a Double.
     */
-    private void _tempArrayDoubleConversion(IVariable<?>[] vars) throws Exception {
+    private void _tempArrayDoubleConversion(IVariable<? extends Number>[] vars) throws Exception {
         int i = 0;
         try{
-        	for(IVariable<?> var : vars){
-        		this._formulaInputArray[i] = (double)var.GetValue(); //TODO: resolve this
+        	for(IVariable<? extends Number> var : vars){
+        		//System.out.println(var.GetValue());
+        		this._formulaInputArray[i] = var.GetValue().doubleValue(); //TODO: resolve this
         		i++;
         	}
         }
         catch(Exception e){
+        	System.err.println(e.getMessage());
         	throw e;
         }
     }
