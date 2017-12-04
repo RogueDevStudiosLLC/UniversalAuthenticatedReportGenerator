@@ -129,14 +129,60 @@ public class FormulaTest {
 	
 	@Test
 	public void testFormulaProcessing() {
-		String formulaExpression = "_VAR1_ * _VAR2_";
-		Formula formula = new Formula("T","T","T",formulaExpression);
-		Variable<Integer> v1 = new Variable<Integer>("T", "T", false, "T", 10);
-		Variable<Integer> v2 = new Variable<Integer>("T","T",false,"T", 5);
-		Variable<? extends Number>[] v = (Variable<? extends Number>[]) new Variable<?>[2];
-		v[0] = v1;
-		v[1] = v2;
-		Integer out = formula.CalculateToInteger(v);
+		String formulaMultiply = "_VAR1_ * _VAR2_";
+		String formulaDivision = "_VAR1_ / _VAR2_";
+		String formulaAdd = "_VAR1_ + _VAR2_";
+		String formulaSub = "_VAR1_ + _VAR2_";
+		Formula formulaM = new Formula("T","T","T",formulaMultiply);
+		Formula formulaD = new Formula("T", "T", "T", formulaDivision);
+		Formula formulaA = new Formula("T", "T", "T", formulaAdd);
+		Formula formulaS = new Formula("T", "T", "T", formulaSub);
+		Variable<Integer> vi1 = new Variable<Integer>("T", "T", false, "T", 10);
+		Variable<Integer> vi2 = new Variable<Integer>("T","T",false,"T", 5);
+		Variable<String> vs1 = new Variable<String>("T", "T", false, "T", "TestString");
+		Variable<String> vs2 = new Variable<String>("T", "T", false, "T", "TestString2");
+		Variable<Float> vf1 = new Variable<Float>("T", "T", false, "T", 5.4F);
+		Variable<Float> vf2 = new Variable<Float>("T", "T", false, "T", 12.3F);
+		Variable<Double> vd1 = new Variable<Double>("T", "T", false, "T", 10.5);
+		Variable<Double> vd2 = new Variable<Double>("T","T",false,"T", 80.2);
+		Variable<Long> vl1 = new Variable<Long>("T", "T", false, "T", 5L);
+		Variable<Long> vl2 = new Variable<Long>("T", "T", false, "T", 10000000000L);
+		Variable<Boolean> vb1 = new Variable<Boolean>("T", "T", false, "T", false);
+		Variable<Boolean> vb2 = new Variable<Boolean>("T", "T", false, "T", false);
+		Variable<Integer[]> via1 = new Variable<Integer[]>("T", "T", false, "T", _initialVariableCondIntArrVals.get(0));
+		Variable<Integer[]> via2 = new Variable<Integer[]>("T", "T", false, "T", _initialVariableCondIntArrVals.get(1));
+		Variable<String[]> vsa1 = new Variable<String[]>("T", "T", false, "T", _initialVariableCondStringArrVals.get(0));
+		Variable<String[]> vsa2 = new Variable<String[]>("T", "T", false, "T", _initialVariableCondStringArrVals.get(1));
+		Variable<Float[]> vfa1 = new Variable<Float[]>("T", "T", false, "T", _initialVariableCondFloatArrVals.get(0));
+		Variable<Float[]> vfa2 = new Variable<Float[]>("T", "T", false, "T", _initialVariableCondFloatArrVals.get(1));
+		Variable<Double[]> vda1 = new Variable<Double[]>("T", "T", false, "T", _initialVariableCondDoubleArrVals.get(0));
+		Variable<Double[]> vda2 = new Variable<Double[]>("T", "T", false, "T", _initialVariableCondDoubleArrVals.get(1));
+		Variable<Long[]> vla1 = new Variable<Long[]>("T", "T", false, "T", _initialVariableCondLongArrVals.get(0));
+		Variable<Long[]> vla2 = new Variable<Long[]>("T", "T", false, "T", _initialVariableCondLongArrVals.get(1));
+		Variable<Boolean[]> vba1 = new Variable<Boolean[]>("T", "T", false, "T", _initialVariableCondBoolArrVals.get(0));
+		Variable<Boolean[]> vba2 = new Variable<Boolean[]>("T", "T", false, "T", _initialVariableCondBoolArrVals.get(1));
+		Variable<? extends Number>[] vi = (Variable<? extends Number>[]) new Variable<?>[2];
+		Variable<? extends Number>[] vf = (Variable<? extends Number>[]) new Variable<?>[2];
+		Variable<? extends Number>[] vd = (Variable<? extends Number>[]) new Variable<?>[2];
+		Variable<? extends Number>[] vl = (Variable<? extends Number>[]) new Variable<?>[2];
+		//Variable<? extends Number>[] vb = (Variable<? extends Number>[]) new Variable<?>[2];
+		Variable<? extends Number>[] via = (Variable<? extends Number>[]) new Variable<?>[2];
+		Variable<? extends Number>[] vfa = (Variable<? extends Number>[]) new Variable<?>[2];
+		Variable<? extends Number>[] vda = (Variable<? extends Number>[]) new Variable<?>[2];
+		Variable<? extends Number>[] vla = (Variable<? extends Number>[]) new Variable<?>[2];
+		//Variable<? extends Number>[] vba = (Variable<? extends Number>[]) new Variable<?>[2];
+		
+		vi[0] = vi1;
+		vi[1] = vi2;
+		vf[0] = vf1;
+		vf[1] = vf2;
+		vd[0] = vd1;
+		vd[1] = vd2;
+		vl[0] = vl1;
+		vl[1] = vl2;
+		via[0] = via1;
+		via[1] = via2;
+		Integer out = formulaM.CalculateToInteger(vi);
 		//System.out.println(out);
 		assertTrue(out==50);
 	}
