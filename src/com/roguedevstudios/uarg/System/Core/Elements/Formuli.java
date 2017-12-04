@@ -1,5 +1,7 @@
 package com.roguedevstudios.uarg.System.Core.Elements;
 
+
+
 /********************************
 *   Formuli Class               *
 *   File Name: Formuli.java     *
@@ -13,6 +15,8 @@ package com.roguedevstudios.uarg.System.Core.Elements;
 
 // Import Section
 import java.util.TreeMap;
+import java.util.List;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
 
 /**
  * <p>
@@ -20,67 +24,37 @@ import java.util.TreeMap;
  * @author Terry Roberson
  * @since 1.0
  */
-public class Formuli {
-	private TreeMap<String, Formula> _volumeMap;
-	private TreeMap<String, Formula[]> _volumeArrayMap;
+public class Formuli implements IFormula {
+	private TreeMap<String, IFormula> _formulaMap;
+	private TreeMap<String, List<String>> _formulaSetMap;
 
 	/**
 	 * Constructs the initial state if the Formuli container
 	 * @since 1.0
 	 */
-	public Formuli() throws Exception {
-		try {
-			this._build();
-		} catch (Exception e) {
-			throw e;
-		}
+	public Formuli() {
+		this._build();
 	}
 	
 	/**
-	 * Initializes the TreeMaps for internal formula storage
+	 * Constructs the formuli container with formula variables and formula map
+	 * @since 1.0
+	 */
+	public Formuli(TreeMap<String, IFormula> _formulaMap, TreeMap<String, List<String>> _formulaSetMap) {
+		
+	}
+	
+	
+	/**
+	 * Initializes the formuli maps for internal formula storage
+	 * @since 1.0
 	 */
 	private void _build() {
-		this._volumeMap = new TreeMap<String, Formula>();
-		this._volumeArrayMap = new TreeMap<String, Formula[]>();
+		this._formulaMap = new TreeMap<String, IFormula>();
+		this._formulaSetMap = new TreeMap<String, List<String>>();
 	}
 	
-	/**
-	 * _setVolumeArrayMap method
-	 * puts the specified formula with its specified key in the map
-	 * @since 1.0
-	 */
-	private void _setVolumeArrayMap(String key, Formula[] formula) {
-		this._volumeArrayMap.put(key, formula);
-	}
 	
-	/**
-	 * _setVolumeMap method
-	 * puts the specified formula with its specified key in the map
-	 * @since 1.0
-	 */
-	private void _setVolumeMap(String key, Formula formula) {
-		this._volumeMap.put(key, formula);
-	}
-	
-	/**
-	 * Gets the id for _volumeArrayMap
-	 * @param id	the ID associated with the map
-	 * @return id
-	 * @since 1.0
-	 */
-	public Formula[] GetVolumeArray(String id) {
-		return this._volumeArrayMap.get(id);
-	}
-	
-	/**
-	 * Gets the id for _volumeMap
-	 * @param id	the ID associated with the map
-	 * @return id
-	 * @since 1.0
-	 */
-	public Formula GetVolume(String id) {
-		return this._volumeMap.get(id);
-	}
 	
 }
 

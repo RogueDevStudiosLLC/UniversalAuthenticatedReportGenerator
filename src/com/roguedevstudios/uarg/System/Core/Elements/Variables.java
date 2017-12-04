@@ -59,7 +59,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 
-	public Variables() throws Exception {
+	public Variables() {
 		
 			this._build();
 	}
