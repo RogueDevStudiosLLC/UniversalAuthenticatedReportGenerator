@@ -42,7 +42,7 @@ public class CascadeEntry implements ICascadeEntry {
 	 * @return IVariable<?>[] Gathered variables from the Variables container
 	 * @author Christopher Howard
 	 */
-	private IVariable<?>[] _getVariables(IVariables vars) throws IllegalStateException{
+	private IVariable<?>[] _getVariables(IVariables vars) {
 		// Setup the output variables container
 		IVariable<?>[] varsOut = new IVariable<?>[this._inputIDList.size()];
 		
@@ -50,36 +50,6 @@ public class CascadeEntry implements ICascadeEntry {
 		for(int i = 0; i <= this._inputIDList.size() - 1; i++) {
 			varsOut[i] = vars.GetVariable(this._inputIDList.get(i));
 			System.out.println(varsOut[i].GetValue().getClass().isArray() + " | " + varsOut[i].GetId());
-			//System.out.println("Gathering Variable ID: "+this._inputIDList.get(i));
-//			switch(vars.GetVariableType(this._inputIDList.get(i))) {
-//			case INTEGER:
-//				varsOut[i] = vars.GetInteger(this._inputIDList.get(i));
-//				break;
-//			case FLOAT:
-//				varsOut[i] = vars.GetFloat(this._inputIDList.get(i));
-//				break;
-//			case DOUBLE:
-//				varsOut[i] = vars.GetDouble(this._inputIDList.get(i));
-//				break;
-//			case LONG:
-//				varsOut[i] = vars.GetLong(this._inputIDList.get(i));
-//				break;
-//			case INTEGERARRAY:
-//				varsOut[i] = vars.GetIntegerArray(this._inputIDList.get(i));
-//				break;
-//			case FLOATARRAY:
-//				varsOut[i] = vars.GetFloatArray(this._inputIDList.get(i));
-//				break;
-//			case DOUBLEARRAY:
-//				varsOut[i] = vars.GetDoubleArray(this._inputIDList.get(i));
-//				break;
-//			case LONGARRAY:
-//				varsOut[i] = vars.GetLongArray(this._inputIDList.get(i));
-//				break;
-//			default:
-//				// An invalid type has been detected throw an exception
-//				throw new IllegalStateException("Invalid Variable detected in ICascadeEntry.");
-//			}
 		}
 		return varsOut;
 	}
@@ -139,9 +109,9 @@ public class CascadeEntry implements ICascadeEntry {
 		// Check the output variables type and call the correct process
 		// to calculate.
 		// Protect from null children during shake process
-		if(this._shakeProtect(vars))
+		if(!this._shakeProtect(vars))
 			return;
-		System.out.println(vars.GetVariableType(this._outputID) + " || " + this._outputID);
+		
 		switch(vars.GetVariableType(this._outputID)) {
 		case INTEGER:
 			vars.
