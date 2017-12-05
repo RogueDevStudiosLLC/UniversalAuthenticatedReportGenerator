@@ -87,6 +87,11 @@ public class CascadeEntry implements ICascadeEntry {
 		return this._outputID;
 	}
 	
+	/**
+	 * Detects null value variable wrappers
+	 * @param vars IVariables compliant container object
+	 * @return Null value detected in input set
+	 */
 	private boolean _shakeProtect(IVariables vars) {
 		IVariable<?>[] varsList = this._getVariables(vars);
 		for(IVariable<?> var: varsList) {
