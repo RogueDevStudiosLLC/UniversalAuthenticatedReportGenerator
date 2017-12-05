@@ -165,8 +165,9 @@ public class Formula implements IFormula
     /**
      * A method to build an exp4j expression for a formula object,
      * given that a valid formula equation was input by the configuration file.
-     * @author Chelsea Hunter
      * @return An Exp4j Expression object for use in calculating formulas (Expression).
+     * @author Chelsea Hunter
+     * 
      */
     private Expression _buildExpression() 
     {
@@ -176,17 +177,21 @@ public class Formula implements IFormula
     	
     	// For every string in our ArrayList<String> of formula variable names, 
     	// set that string as a variable in our expression.
-    	for ( String s: 
-    		         this._formulaVariableNames
-    		) 
-    	{
-    		_formulaExpressionBuilder.variable(s);
+    	try {
+	    	for ( String s: 
+	    		         this._formulaVariableNames
+	    		) 
+	    	{
+	    		_formulaExpressionBuilder.variable(s);
+	    	}
+	    	
+	    	// Once regex is done and variables are set, properly build the expression.
+	    	Expression _formulaExpression = _formulaExpressionBuilder.build();
+	    	
+	    	return _formulaExpression;
+    	} catch (IllegalArgumentException eIAE) {
+    		throw eIAE("IN FORMULA: " + this._formulaId + " -- The variable names could not be bound to the formula expression.")
     	}
-    	
-    	// Once regex is done and variables are set, properly build the expression.
-    	Expression _formulaExpression = _formulaExpressionBuilder.build();
-    	
-    	return _formulaExpression;
     	
     }
     
@@ -213,7 +218,7 @@ public class Formula implements IFormula
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
             
-        } catch( Exception e ) {
+        } catch( IllegalArgumentException e ) { //TODO: Is this okay?
         	
             throw new IllegalArgumentException("The input variables array could not be parsed into a numerical value. Message: " + e.getMessage());
         
@@ -303,8 +308,13 @@ public class Formula implements IFormula
     /**
      * Gets a Double Array result of calculating the Formula object's Exp4j Expression
      * @param vars	The Variable objects with the desired input values in array format.
-     * @param ArrayPresent
-     * @return Double[]
+     * @param ArrayPresent	A boolean that says whether or not an input of array-type is present in an array of Variables to be used for input.
+     * @return Double[]	The Double array result of calculating the formula's expression.
+     * @throws ClassCastException	If some array cannot be classified as a Double array.
+     * @throws IllegalStateException	If there is no array input type detected in the Variable object input array when the ArrayPresent boolean is true.
+     * @throws IllegalArgumentException	If some Variable's input, of type Array, has a type that is not numerical, or if array-type inputs from the Variable object array are not all of the same size.
+     * @throws NullPointerException	If the pointer to an array or an index is null.
+     * @throws IndexOutOfBoundsException	If, when making an argument matrix, there is some error with the indices. 
      * @author Christopher Howard
      */
     public Double[] CalculateToDouble( IVariable<?>[] vars, 
@@ -491,8 +501,9 @@ public class Formula implements IFormula
     /**
      * Verifies that array lengths are the same for matrix
      * processing preparation.
-     * @param items
-     * @return boolean
+     * @param items	A collection of Double arrays.
+     * @return boolean	true	If all the arrays in the collection "items" are of the same size and therefore are compatible.
+     * @return boolean	false	If an array in the collection "items" is not the same size as the other arrays given, and is therefore incompatible.
      */
     private boolean _lenCompatCheck( Collection<Double[]> items ) 
     {
@@ -537,7 +548,7 @@ public class Formula implements IFormula
      * for ease of use in formula processing of mixed variable types.
      * @param value	A single Double value to start with that will populate the entire Double array.
      * @param size	An integer that declares what size the Double array should be.
-     * @return Double[]	A double array populated with the single Double value.
+     * @return Double[]	A double array populated with the single Double value for use in processing mixed-type Variable inputs.
      * @author Christopher Howard
      */
     private Double[] _singleToDoubleArray( Double value, int size ) 
@@ -576,7 +587,7 @@ public class Formula implements IFormula
     		return new Integer( ( new Double( this._calculateExpression(vars) ) ).intValue() );
     	}
     	catch( IllegalArgumentException eIAE ) {
-    		throw eIAE;
+    		throw eIAE("IN FORMULA: " + this._formulaId + " -- The formula's expression cannot be evaluated.");
     	}
     	
     	
