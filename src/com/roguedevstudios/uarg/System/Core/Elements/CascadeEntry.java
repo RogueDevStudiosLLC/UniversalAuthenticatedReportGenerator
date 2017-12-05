@@ -49,7 +49,6 @@ public class CascadeEntry implements ICascadeEntry {
 		// Get each variable from the Variables container using the correct Getter
 		for(int i = 0; i <= this._inputIDList.size() - 1; i++) {
 			varsOut[i] = vars.GetVariable(this._inputIDList.get(i));
-			System.out.println(varsOut[i].GetValue().getClass().isArray() + " | " + varsOut[i].GetId());
 		}
 		return varsOut;
 	}
