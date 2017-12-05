@@ -233,22 +233,31 @@ public class ParserHelpers {
 	 * @author Christopher E. Howard
 	 * @since 1.0
 	 */
-	public static Variable<Integer> ParseIntegerVariable(JsonElement json, String ID){
-		// Start the GsonBuilder so we can customize it with out custom deserializer
-		GsonBuilder gsonBuild = new GsonBuilder();
-		// Grab our custom deserializer and create an instance of
-		JsonDeserializer<IVariable<Integer>> cDeserializer = new IntegerVariableDeserializer();
+	public static < T extends Integer, E extends IVariable<T> > 
+				  E 
+				  ParseIntegerVariable(
+						  				JsonElement json, 
+						  				String ID,
+						  				JsonDeserializer<E> IVariableDeserializer,
+						  				Class<E> IVariableConcrete,
+						  				GsonBuilder gsonBuilder
+						  			   )
+	{
+		
 		// Register the deserializer
-		gsonBuild.registerTypeAdapter(Variable.class, cDeserializer);
+		gsonBuilder.registerTypeAdapter( IVariableConcrete, IVariableDeserializer );
+		
 		//Initialize our custom Gson object
-		Gson customGson = gsonBuild.create();
+		Gson customGson = gsonBuilder.create();
+		
 		// Deserialize the object to a Variable<String> object
-		Variable<Integer> retVar = customGson.fromJson(json, Variable.class);
+		E retVar = customGson.fromJson( json, IVariableConcrete );
+		
 		// Manually set the ID as deserializer can not do so normally
 		retVar.SetId(ID);
-		// Clean up
-		gsonBuild = null;
+
 		customGson = null;
+		
 		// Return the constructed object to the caller
 		return retVar;
 	}
