@@ -9,25 +9,20 @@ package com.roguedevstudios.uarg.System.Core.Elements;
 import net.objecthunter.exp4j.*;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
-import net.objecthunter.exp4j.function.*;
-import net.objecthunter.exp4j.operator.*;
-import net.objecthunter.exp4j.tokenizer.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import java.lang.Double;
 import java.lang.Integer;
 import java.lang.Float;
 import java.lang.Long;
+
 /**
  * This class is the formula class.
  * 
@@ -287,11 +282,18 @@ public class Formula implements IFormula
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Double format.
      */
-    public Double CalculateToDouble( IVariable<? extends Number>[] vars ) {
-    	
-    	return new Double(this._calculateExpression(vars));
-    	
-    }
+    public Double CalculateToDouble( IVariable<? extends Number>[] vars )
+		   throws IllegalArgumentException
+	    {
+	    	try {
+	    		return new Double( this._calculateExpression(vars) );
+	    	}
+	    	catch( IllegalArgumentException eIAE ) {
+	    		throw eIAE;
+	    	}
+	    	
+	    	
+	    }
     
     /**
      * Gets a Double Array result of calculating the Formula object's Exp4j Expression
@@ -487,27 +489,40 @@ public class Formula implements IFormula
      * @param items
      * @return boolean
      */
-    private boolean _lenCompatCheck(Collection<Double[]> items) {
+    private boolean _lenCompatCheck( Collection<Double[]> items ) 
+    {
+    	
     	// Initialize len check as negative to
     	// tell the loop the first len hasn't been detected
     	int len = -1;
+    	
     	// Iterate over all the arrays
-    	for(Double[] item: items) {
+    	for( Double[] item: items ) 
+    	{
+    		
     		// If the len is less than 0 then set it
     		// to the first arrays length
-    		if(len < 0) {
+    		if(len < 0) 
+    		{
+    			
     			len = item.length;
     			continue;
-    		}else {
+    			
+    		} else {
+    			
     			// If a non-compatable array is detected return false
-    			if(item.length != len) {
-    				//System.err.println("Length Max = "+len+", Length Found = "+item.length);
+    			if( item.length != len ) 
+    			{
+    				
     				return false;
+    				
     			}
     		}
     	}
+    	
     	// All arrays compatible, return true;
     	return true;
+    	
     }
     
     
@@ -520,15 +535,26 @@ public class Formula implements IFormula
      * @return Double[]
      * @author Christopher Howard
      */
-    private Double[] _singleToDoubleArray(Double value, int size) {
+    private Double[] _singleToDoubleArray( Double value, int size ) 
+    {
+    	
     	// Set up the double array
     	Double[] d = new Double[size];
+    	
     	// Populate with the singleton
-    	for(int i=0;i<=size-1;i++) {
+    	for( int i=0;
+    			 i<=size-1;
+    			 i++
+    	   ) 
+    	{
+    		
     		d[i] = value;
+    		
     	}
+    	
     	// Return the array
     	return d;
+    	
     }
     
     /**
@@ -537,8 +563,17 @@ public class Formula implements IFormula
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Integer format.
      */
-    public Integer CalculateToInteger(IVariable<? extends Number>[] vars) {
-    	return new Integer((int)this._calculateExpression(vars));
+    public Integer CalculateToInteger( IVariable<? extends Number>[] vars ) 
+    	   throws IllegalArgumentException
+    {
+    	try {
+    		return new Integer( ( new Double( this._calculateExpression(vars) ) ).intValue() );
+    	}
+    	catch( IllegalArgumentException eIAE ) {
+    		throw eIAE;
+    	}
+    	
+    	
     }
     
     /**
@@ -548,13 +583,38 @@ public class Formula implements IFormula
      * @return Integer[]
      * @author Christopher Howard
      */
-    public Integer[] CalculateToInteger(IVariable<?>[] vars, boolean ArrayPresent) {
-    	Double[] d = this.CalculateToDouble(vars, ArrayPresent);
-    	Integer[] out = new Integer[d.length];
-    	for(int i = 0; i <= d.length-1; i++) {
-    		out[i] = d[i].intValue();
+    public Integer[] CalculateToInteger( IVariable<?>[] vars, 
+						   				 boolean ArrayPresent
+						   			   ) 
+			throws  ClassCastException,
+					IllegalStateException,
+					IllegalArgumentException,
+					NullPointerException,
+					IndexOutOfBoundsException
+    {
+    	try {
+    		
+	    	Double[] d = this.CalculateToDouble(vars, ArrayPresent);
+	    	
+	    	Integer[] out = new Integer[d.length];
+	    	
+	    	for(int i = 0; i <= d.length-1; i++) 
+	    	{
+	    		
+	    		out[i] = d[i].intValue();
+	    		
+	    	}
+	    	
+	    	return out;
     	}
-    	return out;
+    	catch ( ClassCastException eCCE) 			{ throw eCCE;   }
+    	catch ( IllegalStateException eISE ) 		{ throw eISE;   }
+    	catch ( IllegalArgumentException eIAE )		{ throw eIAE;   }
+    	catch ( NullPointerException eNPE )			{ throw eNPE;   }
+    	catch ( IndexOutOfBoundsException eIOOBE)	{ throw eIOOBE; }
+    		
+    	
+    	
     }
     
     /**
@@ -563,23 +623,55 @@ public class Formula implements IFormula
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Float format.
      */
-    public Float CalculateToFloat(IVariable<? extends Number>[] vars) {
-    	return new Float((float)this._calculateExpression(vars));
-    }
-    
+    public Float CalculateToFloat(IVariable<? extends Number>[] vars)
+		   throws IllegalArgumentException
+	    {
+	    	try {
+	    		return new Float( ( new Double( this._calculateExpression(vars) ) ).floatValue() );
+	    	}
+	    	catch( IllegalArgumentException eIAE ) {
+	    		throw eIAE;
+	    	}
+	    	
+	    	
+	    }
     /**
      * Gets a Float Array result from the Formula Results
      * @param vars
      * @param ArrayPresent
      * @return
      */
-    public Float[] CalculateToFloat(IVariable<?>[] vars, boolean ArrayPresent) {
-    	Double[] d = this.CalculateToDouble(vars, ArrayPresent);
-    	Float[] out = new Float[d.length];
-    	for(int i = 0; i <= d.length-1; i++) {
-    		out[i] = d[i].floatValue();
+    public Float[] CalculateToFloat( IVariable<?>[] vars, 
+								 	 boolean ArrayPresent
+    							   ) 
+    	   throws   ClassCastException,
+					IllegalStateException,
+					IllegalArgumentException,
+					NullPointerException,
+					IndexOutOfBoundsException
+    {
+    	try {
+    		
+	    	Double[] d = this.CalculateToDouble( vars, ArrayPresent ); 
+	    	
+	    	Float[] out = new Float[d.length];
+	    	
+	    	for(int i = 0; i <= d.length-1; i++) 
+	    	{
+	    		
+	    		out[i] = d[i].floatValue();
+	    		
+	    	}
+	    	
+	    	return out;
+	    	
     	}
-    	return out;
+    	catch ( ClassCastException eCCE) 			{ throw eCCE;   }
+    	catch ( IllegalStateException eISE ) 		{ throw eISE;   }
+    	catch ( IllegalArgumentException eIAE )		{ throw eIAE;   }
+    	catch ( NullPointerException eNPE )			{ throw eNPE;   }
+    	catch ( IndexOutOfBoundsException eIOOBE)	{ throw eIOOBE; }
+    
     }
     
     /**
@@ -588,17 +680,50 @@ public class Formula implements IFormula
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Long format.
      */
-    public Long CalculateToLong(IVariable<? extends Number>[] vars) {
-    	return new Long((long)this._calculateExpression(vars));
-    }
+    public Long CalculateToLong(IVariable<? extends Number>[] vars)
+		   throws IllegalArgumentException
+	    {
+	    	try {
+	    		return new Long( ( new Double( this._calculateExpression(vars) ) ).longValue() );
+	    	}
+	    	catch( IllegalArgumentException eIAE ) {
+	    		throw eIAE;
+	    	}
+	    	
+	    	
+	    }
     
-    public Long[] CalculateToLong(IVariable<?>[] vars, boolean ArrayPresent) {
+    public Long[] CalculateToLong( IVariable<?>[] vars, 
+		 	 					   boolean ArrayPresent
+			   				     ) 
+		   throws   ClassCastException,
+		   			IllegalStateException,
+		   			IllegalArgumentException,
+		   			NullPointerException,
+		   			IndexOutOfBoundsException
+    {
+    	try {
+    		
     	Double[] d = this.CalculateToDouble(vars, ArrayPresent);
+    	
     	Long[] out = new Long[d.length];
-    	for(int i = 0; i <= d.length-1; i++) {
+    	
+    	for(int i = 0; i <= d.length-1; i++) 
+    	{
+    		
     		out[i] = d[i].longValue();
+    		
     	}
+    	
     	return out;
+    	
+    	}
+    	catch ( ClassCastException eCCE) 			{ throw eCCE;   }
+    	catch ( IllegalStateException eISE ) 		{ throw eISE;   }
+    	catch ( IllegalArgumentException eIAE )		{ throw eIAE;   }
+    	catch ( NullPointerException eNPE )			{ throw eNPE;   }
+    	catch ( IndexOutOfBoundsException eIOOBE)	{ throw eIOOBE; }
+    	
     }
     
     /**
@@ -639,19 +764,26 @@ public class Formula implements IFormula
      * @author Christopher Howard
      * @author Chelsea Hunter
      */
-    private void _tempArrayDoubleConversion(Double[] vars) {
+    private void _tempArrayDoubleConversion(Double[] vars)
+    		throws NullPointerException,
+    			   IndexOutOfBoundsException
+    {
+    	
         int i = 0;
+        
         try{
+        	
         	for(Double var : vars){
+        		
         		this._formulaInputArray[i] = var;
+        		
         		i++;
+        		
         	}
-        }
-        catch(Exception e){
-        	
-        	throw e;
         	
         }
+        catch( IndexOutOfBoundsException eIOOBE )	{ throw eIOOBE; }
+        catch( NullPointerException eNPE )			{ throw eNPE; 	}
     }
         
     // Initialize a loop counter so we can tell which index we are on
@@ -719,18 +851,24 @@ public class Formula implements IFormula
      * Method to clear the temporary variables array by setting all elements to double 0.
      * @author Christopher E. Howard
      */
-    private void _clearTempArray(){
+    private void _clearTempArray()
+    {
+    	
     	// Set all values to 0, indexes are valued 0..n-1
         for(int i=0; i <= this._formulaInputArray.length-1; i++){
-            this._formulaInputArray[i] = 0d; // Set element to Double 0
+        	
+            this._formulaInputArray[i] = 0d; 
+            
         }
+        
     }
     
     /**
      * Gets the formula name.
      * @return The formula name (String).
      */
-    public String GetFormulaName(){
+    public String GetFormulaName()
+    {
         return this._formulaName;
     }
     
@@ -738,7 +876,8 @@ public class Formula implements IFormula
      * Gets the formula description.
      * @return The formula description (String).
      */
-    public String GetFormulaDesc(){
+    public String GetFormulaDesc()
+    {
         return this._formulaDesc;
     }
     
@@ -746,7 +885,8 @@ public class Formula implements IFormula
      * Gets the formula id.
      * @return The formula id (String).
      */
-    public String GetFormulaId(){
+    public String GetFormulaId()
+    {
         return this._formulaId;
     }
     
@@ -754,7 +894,8 @@ public class Formula implements IFormula
      * Gets the formula base equation.
      * @return The formula base equation (String).
      */
-    public String GetFormulaEquation(){
+    public String GetFormulaEquation()
+    {
         return this._formulaEquation;
     }
     
@@ -762,14 +903,17 @@ public class Formula implements IFormula
      * Gets the formula expression variable names.
      * @return The names of variables in the formula expression (ArrayList<String>)
      */
-    public ArrayList<String> GetFormulaExpressionVariableNames() {
+    public ArrayList<String> GetFormulaExpressionVariableNames() 
+    {
     	return this._formulaVariableNames;
     }
+    
     /**
      * Gets the formula variable input array's size.
      * @return The size of the formula variable input array (Integer).
      */
-    public Integer GetFormulaInputArraySize(){
-        return new Integer(this._formulaInputArray.length);
+    public Integer GetFormulaInputArraySize()
+    {
+        return new Integer( this._formulaInputArray.length );
     }
 }
