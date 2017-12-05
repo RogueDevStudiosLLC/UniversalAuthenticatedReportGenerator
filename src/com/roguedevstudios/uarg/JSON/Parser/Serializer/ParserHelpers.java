@@ -233,7 +233,7 @@ public class ParserHelpers {
 	 * @author Christopher E. Howard
 	 * @since 1.0
 	 */
-	public static < T extends Integer, E extends IVariable<T> > 
+	public static <E extends IVariable<Integer> > 
 				  E 
 				  ParseIntegerVariable(
 						  				JsonElement json, 
@@ -242,46 +242,93 @@ public class ParserHelpers {
 						  				Class<E> IVariableConcrete,
 						  				GsonBuilder gsonBuilder
 						  			   )
+				  throws NullPointerException,
+				  		 IllegalArgumentException,
+				  		 ClassCastException,
+				  		 UnknownError
 	{
-		
-		// Register the deserializer
-		gsonBuilder.registerTypeAdapter( IVariableConcrete, IVariableDeserializer );
-		
-		//Initialize our custom Gson object
-		Gson customGson = gsonBuilder.create();
-		
-		// Deserialize the object to a Variable<String> object
-		E retVar = customGson.fromJson( json, IVariableConcrete );
-		
-		// Manually set the ID as deserializer can not do so normally
-		retVar.SetId(ID);
+		// Check for null values in params
+		if(	json == null || 
+			ID == null || 
+			IVariableDeserializer == null || 
+			IVariableConcrete == null || 
+			gsonBuilder == null )
+			throw new NullPointerException( "All parameters given must be initialized.");
 
-		customGson = null;
-		
-		// Return the constructed object to the caller
-		return retVar;
+		try {
+			// Register the deserializer
+			gsonBuilder.registerTypeAdapter( IVariableConcrete, IVariableDeserializer );
+			
+			//Initialize our custom Gson object
+			Gson customGson = gsonBuilder.create();
+			
+			// Deserialize the object to a Variable<String> object
+			E retVar = customGson.fromJson( json, IVariableConcrete );
+			
+			// Manually set the ID as deserializer can not do so normally
+			retVar.SetId(ID);
+	
+			customGson = null;
+			
+			// Return the constructed object to the caller
+			return retVar;
+		}
+		catch ( NullPointerException eNPE )				{ throw eNPE; }
+		catch ( IllegalArgumentException eIAE )			{ throw eIAE; }
+		catch ( ClassCastException eCCE )				{ throw eCCE; }
+		catch ( Exception e )
+					{ throw new UnknownError(); }
 	}
+	
 	/**		
 	 * Parses a Variable<> Object into a Variable TreeMap
 	 * @return map
 	 * @author Terry Roberson 
+	 * 
 	 * @since 1.0
 	 */
-	public static TreeMap<String, IVariable<Integer>> ParseIntegerVariableSection(JsonElement json){
-		//take jsonElement and convert to jsonObject
-		JsonObject o = json.getAsJsonObject();
-		// Get the entry set of variables to parse
-		Set<Map.Entry<String,JsonElement>> JsonVars = o.entrySet();
-		// Start up the tree map for these variables
-		TreeMap<String, IVariable<Integer>> map = new TreeMap<>();
-		// Loop through the variables
-		for(Map.Entry<String,JsonElement> entry: o.entrySet()){
-		// Construct the variable and put it in the tree map
-		map.put(entry.getKey(), ParserHelpers.ParseIntegerVariable(entry.getValue(), entry.getKey()));
-		
+	public static < E extends IVariable<Integer> > 
+				  TreeMap<String, E> 
+			      ParseIntegerVariableSection(
+			    		  JsonElement json,
+			    		  JsonDeserializer<E> IVariableDeserializer,
+			    		  Class<E> IVariableConcrete,
+			    		  GsonBuilder gsonBuilder			    		  
+			    		  )
+			      throws NullPointerException,
+			      		 IllegalArgumentException,
+			      		 ClassCastException,
+			      		 UnknownError
+	{
+		try {
+			
+			// Start up the tree map for these variables
+			TreeMap<String, E> map = new TreeMap<>();
+			
+			// Loop through the variables
+			for( Map.Entry<String,JsonElement> entry: 
+											   json.getAsJsonObject().entrySet())
+			{
+			// Construct the variable and put it in the tree map
+			map.put( entry.getKey(), 
+					ParserHelpers.
+						<E>ParseIntegerVariable( entry.getValue(),
+												 entry.getKey(),
+												 IVariableDeserializer,
+												 IVariableConcrete,
+												 gsonBuilder
+												 )
+					);
+			
+			}
+			return map;
+		}
+		catch ( NullPointerException eNPE )			{ throw eNPE; }
+		catch ( IllegalArgumentException eIAE )		{ throw eIAE; }
+		catch ( ClassCastException eCCE )			{ throw eCCE; }
+		catch ( Exception e )
+					{ throw new UnknownError(); }
 	}
-		return map;
-}
 	
 	/**
 	 * Parses a variable into a Variable<> object
