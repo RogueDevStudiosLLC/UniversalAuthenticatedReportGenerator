@@ -15,9 +15,16 @@ import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
  */
 public class CascadeEntry implements ICascadeEntry {
 
+	/* List of input ID's for this vector */
 	private List<String> _inputIDList;
+	
+	/* The output ID for this vector */
 	private String _outputID;
+	
+	/* The function for this vector */
 	private String _formulaID;
+	
+	/* A description of this vector */
 	private String _description;
 	
 	/**
@@ -27,7 +34,12 @@ public class CascadeEntry implements ICascadeEntry {
 	 * @param _formulaID
 	 * @param _description
 	 */
-	public CascadeEntry(List<String> _inputIDList, String _outputID, String _formulaID, String _description) {
+	public CascadeEntry( List<String> _inputIDList,
+						 String _outputID, 
+						 String _formulaID, 
+						 String _description
+					   ) 
+	{
 		super();
 		this._inputIDList = _inputIDList;
 		this._outputID = _outputID;
@@ -42,14 +54,20 @@ public class CascadeEntry implements ICascadeEntry {
 	 * @return IVariable<?>[] Gathered variables from the Variables container
 	 * @author Christopher Howard
 	 */
-	private IVariable<?>[] _getVariables(IVariables vars) {
+	private IVariable<?>[] _getVariables( IVariables vars ) 
+	{
 		// Setup the output variables container
-		IVariable<?>[] varsOut = new IVariable<?>[this._inputIDList.size()];
+		IVariable<?>[] varsOut = new IVariable<?>[ this._inputIDList.size() ];
 		
 		// Get each variable from the Variables container using the correct Getter
-		for(int i = 0; i <= this._inputIDList.size() - 1; i++) {
+		for( int i = 0;
+			     i <= this._inputIDList.size() - 1;
+				 i++
+				 ) 
+		{
 			varsOut[i] = vars.GetVariable(this._inputIDList.get(i));
 		}
+		
 		return varsOut;
 	}
 
@@ -58,7 +76,8 @@ public class CascadeEntry implements ICascadeEntry {
 	 * @return String Descrtiption
 	 * @author Christopher Howard
 	 */
-	public String GetDescription() {
+	public String GetDescription() 
+	{
 		return this._description;
 	}
 
@@ -67,7 +86,8 @@ public class CascadeEntry implements ICascadeEntry {
 	 * @return String Formula ID
 	 * @author Christopher Howard
 	 */
-	public String GetFormulaID() {
+	public String GetFormulaID() 
+	{
 		return this._formulaID;
 	}
 
@@ -75,7 +95,8 @@ public class CascadeEntry implements ICascadeEntry {
 	 * Gets the list of input ID's for this entry
 	 * @return List<String> List of Variable ID's
 	 */
-	public List<String> GetInputVariableIDList() {
+	public List<String> GetInputVariableIDList() 
+	{
 		return this._inputIDList;
 	}
 
@@ -83,7 +104,8 @@ public class CascadeEntry implements ICascadeEntry {
 	 * Gets the Output Variable ID
 	 * @return String Variable ID
 	 */
-	public String GetOutputVariableID() {
+	public String GetOutputVariableID() 
+	{
 		return this._outputID;
 	}
 	
@@ -92,10 +114,13 @@ public class CascadeEntry implements ICascadeEntry {
 	 * @param vars IVariables compliant container object
 	 * @return Null value detected in input set
 	 */
-	private boolean _shakeProtect(IVariables vars) {
+	private boolean _shakeProtect( IVariables vars ) 
+	{
 		IVariable<?>[] varsList = this._getVariables(vars);
-		for(IVariable<?> var: varsList) {
-			if(var.GetValue() == null)
+		
+		for( IVariable<?> var: varsList ) 
+		{
+			if( var.GetValue() == null )
 				return true;
 		}
 		return false;
@@ -109,14 +134,20 @@ public class CascadeEntry implements ICascadeEntry {
 	 * @param formulas Formuli container to work against
 	 * @author Christopher Howard
 	 */
-	public void Shake(IVariables vars, IFormuli formulas) throws IllegalStateException {
+	public void Shake( IVariables vars, 
+					   IFormuli formulas
+					   ) 
+		   throws IllegalStateException 
+	{
+		
 		// Check the output variables type and call the correct process
 		// to calculate.
 		// Protect from null children during shake process
 		if(!this._shakeProtect(vars))
 			return;
 		
-		switch(vars.GetVariableType(this._outputID)) {
+		switch( vars.GetVariableType( this._outputID ) ) 
+		{
 		case INTEGER:
 			vars.
 				GetInteger(
