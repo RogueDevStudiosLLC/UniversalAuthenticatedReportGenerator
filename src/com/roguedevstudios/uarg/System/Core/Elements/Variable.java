@@ -99,6 +99,8 @@ public class Variable<V>
 			int i = 0;
 			if(((Object[])_value).length>0) {
 			for(Object o : (Object[])_value){
+				if(o == null)
+					break;
 				val = val + o.toString();
 				i++;
 				if(i != ((Object[])_value).length)
