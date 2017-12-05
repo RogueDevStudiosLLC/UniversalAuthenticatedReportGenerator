@@ -41,16 +41,22 @@ public class Formula implements IFormula
 
     /* The name meta of a formula */
     private String _formulaName;
+    
     /* The description of a formula */
     private String _formulaDesc;
+    
     /* The ID of a formula */
     private String _formulaId;
+    
     /* The equation string this formula uses to build an exp4j expression */
     private String _formulaEquation;
+    
     /* An ArrayList<String> of formula input variable names*/
     private ArrayList<String> _formulaVariableNames;
+    
     /* The Exp4j Expression this formula builds from _formulaEquation*/
     private Expression _formulaExpression;
+    
     /* Input array of variables converted to doubles*/
     private double[] _formulaInputArray;
 
@@ -71,40 +77,56 @@ public class Formula implements IFormula
     * @param formulaEquation	A formula's equation, taken from _formulaEquation
     * @throws IllegalStateException	If validation of the exp4j expression is unsuccessful.
     */
-    public Formula (String formulaName, String formulaDesc, String formulaId, String formulaEquation) throws IllegalStateException{
+    public Formula ( String formulaName, 
+    				 String formulaDesc, 
+    				 String formulaId, 
+    				 String formulaEquation
+    				 ) 
+    		throws IllegalArgumentException,
+    			   RuntimeException
+    {
         // Set the Formula Name
     	this._formulaName = formulaName;
+    	
     	// Set the Formula Description
         this._formulaDesc = formulaDesc;
+        
         // Set the Formula ID
         this._formulaId = formulaId;
+        
         // Consume the Formula origin String
         this._formulaEquation = formulaEquation;
         
         /* Build and Validate Expression using Exp4j here*/
         this._formulaVariableNames = this._initializeVarNames();
         
-        // TODO: Check necessity of this?
+        //TODO: Check necessity of this?
         this._formulaExpression = this._buildExpression();
         
         // Input Array Size
         this._formulaInputArray = new double[this._formulaVariableNames.size()];
-        
-        //System.err.println("Double Array Size: "+this._formulaInputArray.length);
+
         try {
+        	
         	// Bind dummy values to our temp input array
-        	for (int i=0; i<=this._formulaInputArray.length-1; i++) {
-        		//System.out.println("Setting index "+i);
+        	for ( int i=0; 
+        			  i<=this._formulaInputArray.length-1; 
+        			  i++
+        		)
+        	{
         		this._formulaInputArray[i] = 1;
         	}
+        	
         	// Validate using our ._process() method
         	this._process();
-        } catch (Exception e) {
-        	//System.err.println(e.getMessage());
-        	// If an exception is thrown, constructor should abort
-        	throw e;
-        	//	throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
+        	
         }
+        catch ( IllegalArgumentException eIAE ) {
+        	throw eIAE;
+        }catch (RuntimeException eRTE ) {
+        	throw eRTE;
+        }
+        
         // Clear our temp array from our dummy values when we're done validating.
         this._clearTempArray();
     }
@@ -114,21 +136,31 @@ public class Formula implements IFormula
      * @author Chelsea Hunter
      * @return A list of variable names (ArrayList<String>)
      */
-    private ArrayList<String> _initializeVarNames() {
+    private ArrayList< String > _initializeVarNames() 
+    {
+    	
     	// Make a new ArrayList to populate with variable names we isolate via regex.
     	ArrayList<String> _formulaVarNames = new ArrayList<String>();
     	
     	// Setup regex pattern we want to use to isolate formula variables from _formulaEquation string
-    	Pattern _formulaRegex = Pattern.compile("\\s?_[a-zA-z0-9_]*_\\s?");
+    	Pattern _formulaRegex = Pattern.compile( "\\s?_[a-zA-z0-9_]*_\\s?" );
     	
     	// Make a matcher to get the variables out of the formula equation string given, using above pattern
-    	Matcher _formulaVarMatcher = _formulaRegex.matcher(this._formulaEquation);
+    	Matcher _formulaVarMatcher = _formulaRegex.matcher( this._formulaEquation );
+    	
     	// While regex matcher can find matching values, add them to the ArrayList stripping out excess whitespace
-    	while (_formulaVarMatcher.find()) {
-    			_formulaVarNames.add(_formulaVarMatcher.group().replaceAll("\\s+",""));
+    	while ( _formulaVarMatcher.find() ) 
+    	{
+    			_formulaVarNames.add( _formulaVarMatcher.
+    													group().
+    													replaceAll( "\\s+", 
+    																"" )
+    								);
     	}
+    	
     	//System.err.println("Var Names Array: "+_formulaVarNames.toString());
     	return _formulaVarNames;
+    	
     }
     
     /**
@@ -137,19 +169,25 @@ public class Formula implements IFormula
      * @author Chelsea Hunter
      * @return An Exp4j Expression object for use in calculating formulas (Expression).
      */
-    private Expression _buildExpression() {
+    private Expression _buildExpression() 
+    {
     	// Make base Exp4j ExpressionBuilder using _formulaEquation string as input
-    	//System.out.println(this._formulaEquation);
-    	ExpressionBuilder _formulaExpressionBuilder = new ExpressionBuilder(this._formulaEquation);
+    	ExpressionBuilder _formulaExpressionBuilder = new ExpressionBuilder( this._formulaEquation );
+    	
     	// For every string in our ArrayList<String> of formula variable names, 
     	// set that string as a variable in our expression.
-    	for (String s : this._formulaVariableNames) {
-    		//System.err.println("Var Name: "+s);
+    	for ( String s: 
+    		         this._formulaVariableNames
+    		) 
+    	{
     		_formulaExpressionBuilder.variable(s);
     	}
-    	// Once regex stuff is done and variables are set, properly build the expression.
+    	
+    	// Once regex is done and variables are set, properly build the expression.
     	Expression _formulaExpression = _formulaExpressionBuilder.build();
+    	
     	return _formulaExpression;
+    	
     }
     
     /**
@@ -161,28 +199,42 @@ public class Formula implements IFormula
     * @throws IllegalArgumentException	If the incoming array is the wrong size, or if values in the array cannot be parsed into a numerical value.
     * @return The result of calculating the Formula object's Expression (double).
     */
-    private double _calculateExpression(IVariable<? extends Number>[] vars) throws IllegalArgumentException {
+    private double _calculateExpression( IVariable<? extends Number>[] vars ) 
+    		throws IllegalArgumentException 
+    
+    {
     	  // If the array is the wrong size throw an exception
-        if(vars.length != this._formulaInputArray.length){
+        if( vars.length != this._formulaInputArray.length )
             throw new IllegalArgumentException("Invalid number of elements in the incoming input array.");
-        }
+        
         // If the array values can not be parsed to a numerical value, throw an invalid argument exception
         try{
+        	
             // Convert the vars to a format we can use
             this._tempArrayDoubleConversion(vars);
-        } catch(Exception e) {
-            throw new IllegalArgumentException("The input variables array could not be parsed into a numerical value.");
+            
+        } catch( Exception e ) {
+        	
+            throw new IllegalArgumentException("The input variables array could not be parsed into a numerical value. Message: " + e.getMessage());
+        
         }
+        
         try {
+        	
             // Validate expression, then evaluate expression and get double result
             double out = this._process();
+            
             // Clear our temp array to 0d elements
             this._clearTempArray();
+            
             // Return our double result for casting to other numerical objects
             return out;
-        } catch (Exception e) {
+            
+        } catch ( Exception e ) {
+        	
             // If an exception was thrown, the Expression is invalid and something is wrong.
-            throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
+            throw new IllegalStateException( "The Formula's Exp4j Expression is invalid. Message: " + e.getMessage() );
+            
         }
     } 
     
@@ -194,29 +246,38 @@ public class Formula implements IFormula
      * @author Christopher Howard
      * @author Chelsea Hunter
      */
-    private double _calculateExpression(Double[] vars) throws IllegalArgumentException {
+    private double _calculateExpression( Double[] vars ) 
+    		throws IllegalArgumentException 
+    {
+    	
   	  // If the array is the wrong size throw an exception
-      if(vars.length != this._formulaInputArray.length){
-    	  //System.err.println(vars.length + " =/= " + this._formulaInputArray.length + "Inputs: " + vars[2]);
+      if( vars.length != this._formulaInputArray.length )
+      {
+
           throw new IllegalArgumentException("Invalid number of elements in the incoming input array.");
+          
       }
+      
       // If the array values can not be parsed to a numerical value, throw an invalid argument exception
       try{
+    	  
           // Convert the vars to a format we can use
-          this._tempArrayDoubleConversion(vars);
-      } catch(Exception e) {
-          throw new IllegalArgumentException("The input doubles array could not be parsed into a numerical value.");
-      }
-      try {
+          this._tempArrayDoubleConversion(vars); 
+
           // Validate expression, then evaluate expression and get double result
           double out = this._process();
+          
           // Clear our temp array to 0d elements
           this._clearTempArray();
+          
           // Return our double result for casting to other numerical objects
           return out;
-      } catch (Exception e) {
+          
+      }catch (Exception e) {
+    	  
           // If an exception was thrown, the Expression is invalid and something is wrong.
           throw new IllegalStateException("The Formula's Exp4j Expression is invalid.");
+          
       }
   } 
     
@@ -226,8 +287,10 @@ public class Formula implements IFormula
      * @param vars	The Variable objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Double format.
      */
-    public Double CalculateToDouble(IVariable<? extends Number>[] vars) {
+    public Double CalculateToDouble( IVariable<? extends Number>[] vars ) {
+    	
     	return new Double(this._calculateExpression(vars));
+    	
     }
     
     /**
@@ -237,61 +300,136 @@ public class Formula implements IFormula
      * @return Double[]
      * @author Christopher Howard
      */
-    public Double[] CalculateToDouble(IVariable<?>[] vars, boolean ArrayPresent) {
+    public Double[] CalculateToDouble( IVariable<?>[] vars, 
+    								   boolean ArrayPresent
+    								   ) 
+    	   throws ClassCastException,
+    	   		  IllegalStateException,
+    	   		  IllegalArgumentException,
+    	   		  NullPointerException,
+    	   		  IndexOutOfBoundsException
+    {
+    	
     	// If the flag is false then we need to just generate a Double
     	// and place in a single item array to complete the contract.
-    	if(!ArrayPresent) {
+    	if( !ArrayPresent ) 
+    	{
     		Double[] ret = new Double[1];
-    		ret[0] = CalculateToDouble((IVariable<? extends Number>[]) vars);
+    		
+    		try {
+    			
+    			ret[0] = CalculateToDouble( ( (IVariable<? extends Number>[]) vars ) );
+    			
+    		}catch ( ClassCastException eCCE ) {
+    			
+    			throw eCCE;
+    			
+    		}
+    		
     		return ret;
     	}
+    	
     	// If the flag is true we need to start the nasty procedure of detecting mixed
     	// singles and arrays and handle accordingly.
     	
     	// Ordered mapping to track processing through iteration
-    	TreeMap<Integer, Double[]> setup = new TreeMap<>();
+    	TreeMap< Integer, Double[] > setup = new TreeMap<>();
+    	
     	int len = -1;
+    	
     	// Find the first array and grab it's length value
     	for(IVariable<?> var: vars) {
-    		System.out.println("FormulaClass.256 | var IsArray: "+var.GetValue().getClass().isArray());
-    		if(var.GetValue().getClass().isArray()) {
-    			len = ((Object[])var.GetValue()).length;
+    		
+    		if( var.GetValue().getClass().isArray() ) 
+    		{
+    			
+    			len = ( (Object[]) var.GetValue()).length;
+    			
     			break;
+    			
     		}
+    		
     	}
+    	
     	// If no array detected we are in an illegal state.
     	if(len == -1)
     		throw new IllegalStateException("Call to CalculateToDouble for Array Type has no Arrays.");
+    	
     	// Initialize the ordering counter
     	Integer order = 0;
+    	
     	// Detect and handle the setup of arrays for matrix processing
-    	for(IVariable<?> var: vars) {
+    	for(IVariable<?> var: vars) 
+    	{
+    		
     		// Array Detection
-    		if(var.GetValue().getClass().isArray()) {
+    		if( var.GetValue().getClass().isArray() ) 
+    		{
+    			
     			// Check that the array is numerical in nature using reflection
-    			if(!Number.class.isAssignableFrom(var.GetValue().getClass().getComponentType()))
+    			if( !Number.class.isAssignableFrom( var.GetValue().getClass().getComponentType() ) )
+    				
     				//if not throw IllegalArgumentException
     				throw new IllegalArgumentException("Array of non-numerical type detected.");
+    			
     			// generate the Double array in the force casted value size
     			Double[] d = new Double[((Number[])var.GetValue()).length];
-    			for(int i=0;i<=((Number[])var.GetValue()).length-1;i++) {
+    			
+    			for( int i=0;
+    					 i<= ( (Number[]) var.GetValue() ).length-1;
+    					 i++
+    				) 
+    			{
+    				
     				// Force cast and convert to double storing in the temp array
-    				d[i] = ((Number[])var.GetValue())[i].doubleValue();
+    				d[i] = ( (Number[]) var.GetValue() )[i].doubleValue();
+    				
     			}
-    			// add to the setup map
-    			setup.put(order, d);
-    		}else {
+    			
+    			try {
+    				
+    				// add to the setup map
+        			setup.put(order, d);
+        			
+    			}
+    			catch( ClassCastException eCCE ) {
+    				throw eCCE;
+    			}
+    			catch( NullPointerException eNPE ) {
+    				throw eNPE;
+    			}
+    			
+    			
+    		} else {
+    			
     			// Convert singleton to array double
     			Double[] single = this._singleToDoubleArray(((Number)var.GetValue()).doubleValue(), len);
-    			setup.put(order, single);
+    			
+    			try {
+    				
+    				setup.put(order, single);
+    			
+	    		}
+				catch( ClassCastException eCCE ) {
+					throw eCCE;
+				}
+				catch( NullPointerException eNPE ) {
+					throw eNPE;
+				}
+    			
+    			
     		}
+    		
     		// increment the order counter
     		order++;
+    		
     	}
     	
     	// Check matrix calculation compatibility
-    	if(!this._lenCompatCheck(setup.values()))
+    	if( !this._lenCompatCheck( setup.values() ) )
+    		
     		throw new IllegalArgumentException("Incompatible Matricies Detected.");
+    	
     	
     	// Setup the output double array
     	Double[] out = new Double[len];
@@ -299,21 +437,48 @@ public class Formula implements IFormula
     	// Setup the array of arguments to process
     	Double[][] in = new Double[len][setup.size()];
 
-    	// Loop the map ordering to create an arguments matrix of IxJ size
-    	int i = 0, j = 0;
-    	for( i = 0; i <= setup.size() - 1; i++) {
-    		for( j = 0; j <= setup.get(i).length - 1; j++) {
-    			in[j][i] = setup.get(i)[j];
-    		}
+    	try {
+    		
+	    	// Loop the map ordering to create an arguments matrix of IxJ size
+	    	int i = 0, j = 0;
+	    	
+	    	for( i = 0; 
+	    		 i <= setup.size() - 1; 
+	    		 i++
+	    	   ) 
+	    	{
+	    		
+	    		for( j = 0; 
+	    			 j <= setup.get(i).length - 1; 
+	    			 j++
+	    		   ) 
+	    		{
+	    			in[j][i] = setup.get(i)[j];
+	    		}
+	    		
+	    	}
+	    	
+	    	// Process each argument row into the output array
+	    	for( i=0; 
+	    		 i<=in.length-1; 
+	    		 i++
+	    	   ) {
+	    		
+	    		out[i] = this._calculateExpression(in[i]);
+	    		
+	    	}
+	    	
     	}
-    	
-    	// Process each argument row into the output array
-    	for( i=0; i<=in.length-1; i++) {
-    		out[i] = this._calculateExpression(in[i]);
+    	catch ( NullPointerException eNPE ) {
+    		throw eNPE;
+    	}
+    	catch ( IndexOutOfBoundsException eIOOBE ) {
+    		throw eIOOBE;
     	}
     	
     	// Return the matrix answer
     	return out;
+    	
     }
     
     /**
@@ -442,23 +607,29 @@ public class Formula implements IFormula
     * @param vars		The Variable objects with the desired input values in array format.
     * @throws Exception	If one of the argument values given is not capable of being parsed into a Double.
     */
-    private void _tempArrayDoubleConversion(IVariable<? extends Number>[] vars) throws Exception {
-    	//System.err.println("VarsCount: "+vars.length);
+    private void _tempArrayDoubleConversion( IVariable<? extends Number>[] vars ) 
+    		throws NullPointerException 
+    {
+   
         int i = 0;
         try{
-        	for(IVariable<? extends Number> var : vars){
-        		//System.out.println(var.GetValue());
+        	for( IVariable<? extends Number> var: 
+        									 vars
+        		)
+        	{
         		
         		this._formulaInputArray[i] = var.GetValue().doubleValue(); 
-        		//System.err.println(this._formulaInputArray[i]);
+
         		i++;
+        		
         	}
         }
-        catch(Exception e){
-        	e.printStackTrace();
-        	System.err.println(e.getMessage());
-        	throw e;
+        catch( NullPointerException eNPE ){
+        	throw eNPE;
+        }catch( IndexOutOfBoundsException eIOOBE ) {
+        	throw eIOOBE;
         }
+        
     }
     
     /**
@@ -468,16 +639,18 @@ public class Formula implements IFormula
      * @author Christopher Howard
      * @author Chelsea Hunter
      */
-    private void _tempArrayDoubleConversion(Double[] vars) throws Exception {
+    private void _tempArrayDoubleConversion(Double[] vars) {
         int i = 0;
         try{
         	for(Double var : vars){
-        		this._formulaInputArray[i] = var; //TODO: resolve this
+        		this._formulaInputArray[i] = var;
         		i++;
         	}
         }
         catch(Exception e){
+        	
         	throw e;
+        	
         }
     }
         
@@ -496,32 +669,49 @@ public class Formula implements IFormula
      * @author Chelsea Hunter
      * @return	The result of evaluating the Formula object's Exp4j Expression, in double format.
      */
-    private double _process() {
+    private double _process() 
+    		throws IllegalStateException,
+    			   IllegalArgumentException,
+    			   RuntimeException
+    {
+    	
     	// For every String in our ArrayList of variable names, set variablename to corresponding value in the input array.
     	// These should be inherently ordered by the nature of the cascade map.
-	   for (int i=0; i <= this._formulaVariableNames.size()-1; i++) {
+	   for (int i=0; i <= this._formulaVariableNames.size()-1; i++) 
+	   {
+		   
 		   //System.out.println("Var "+this._formulaVariableNames.get(i)+" to "+this._formulaInputArray[i]);
 		   this._formulaExpression.setVariable(this._formulaVariableNames.get(i), this._formulaInputArray[i]);
+		   
 	   }
+	   
  	   // Create a ValidationResult object for the formula expression to test upon.
  	   ValidationResult _formulaExpressionValidation = this._formulaExpression.validate();
+ 	   
  	   // If .isValid() returns false, the Expression is invalid and therefore illegal.
- 	   if (_formulaExpressionValidation.isValid() != true) {
+ 	   if (_formulaExpressionValidation.isValid() != true) 
+ 	   {
  		   this._clearTempArray();
- 		   throw new IllegalStateException();
+ 		   throw new IllegalStateException( "Expression failed to validate.");
  	   }
+ 	   
  	   // Try to evaluate the expression if basic validation is a success. If the evaluation fails here, it is mostly likely a mathematical issue.
  	   try {
- 		   //System.out.println("Evaluation: "+this._formulaExpression.evaluate());
- 		   //System.out.println("Data: "+this._formulaExpression.getVariableNames().toString());
- 		  //System.out.println(this._formulaExpression.);
+ 		   
  		   return this._formulaExpression.evaluate();
- 	   } catch (Exception e) {
- 		   //System.err.println(e.getMessage());
- 		   throw e;
- 		   //throw new ArithmeticException("Evaluation of Formula's Exp4j Expression has failed." + e.getMessage());
- 	   } finally {
+ 		   
+ 	   } catch(IllegalArgumentException eRTE) {
+ 		   
+ 		   throw eRTE;
+ 		   
+ 	   } catch( RuntimeException eIAE) {
+ 		   
+ 		   throw eIAE;
+ 		   
+       }finally {
+    	   
  		   this._clearTempArray();
+ 		   
  	   }
     }
     
