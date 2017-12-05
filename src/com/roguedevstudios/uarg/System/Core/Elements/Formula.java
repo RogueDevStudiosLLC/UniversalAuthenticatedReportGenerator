@@ -64,13 +64,17 @@ public class Formula implements IFormula
     * equation given, and sets up
     * a Double array based off of the base equation
     * given for storing input variable object values.
-    * @author Chelsea Hunter
-    * @author Christopher E. Howard
+    * 
     * @param formulaName	A formula's name, taken from _formulaName
     * @param formulaDesc	A formula's description, taken from _formulaDesc
     * @param formulaId		A formula's id, taken from _formulaId
     * @param formulaEquation	A formula's equation, taken from _formulaEquation
-    * @throws IllegalStateException	If validation of the exp4j expression is unsuccessful.
+    * 
+    * @throws IllegalArgumentException	If the constructed formula expression is invalid or cannot be evaluated.
+    * @throws RuntimeException	If the constructed formula expression is invalid or cannot be evaluated.
+    * 
+    * @author Chelsea Hunter
+    * @author Christopher E. Howard
     */
     public Formula ( String formulaName, 
     				 String formulaDesc, 
@@ -127,9 +131,9 @@ public class Formula implements IFormula
     }
     
     /**
-     * A method to initialize the variable names to be used by our exp4j expression.
-     * @author Chelsea Hunter
+     * A method to initialize the variable names to be used by the formula's Exp4j expression.
      * @return A list of variable names (ArrayList<String>)
+     * @author Chelsea Hunter
      */
     private ArrayList< String > _initializeVarNames() 
     {
@@ -166,6 +170,7 @@ public class Formula implements IFormula
      */
     private Expression _buildExpression() 
     {
+    	//TODO: Add exceptions for this class
     	// Make base Exp4j ExpressionBuilder using _formulaEquation string as input
     	ExpressionBuilder _formulaExpressionBuilder = new ExpressionBuilder( this._formulaEquation );
     	
@@ -187,12 +192,12 @@ public class Formula implements IFormula
     
     /**
     * Gets the double result of calculating the Formula object's Exp4j Expression.
+    * @param vars	The Variable Number objects with the desired input values in array format.
+    * @return The result of calculating the Formula object's Expression (double).
+    * @throws IllegalArgumentException	If the incoming array is the wrong size, or if values in the Variable array cannot be parsed into a numerical value.
+    * @throws IllegalStateException	If the formula's Exp4j Expression is invalid.
     * @author Chelsea Hunter
     * @author Christopher E. Howard
-    * @param vars	The Variable objects with the desired input values in array format.
-    * @throws InvalidNumberOfArgumentsException	If the variable object array given does not have the correct amount of elements.
-    * @throws IllegalArgumentException	If the incoming array is the wrong size, or if values in the array cannot be parsed into a numerical value.
-    * @return The result of calculating the Formula object's Expression (double).
     */
     private double _calculateExpression( IVariable<? extends Number>[] vars ) 
     		throws IllegalArgumentException 
@@ -235,9 +240,10 @@ public class Formula implements IFormula
     
     /**
      * Adapted expression calculator using Double Arrays
-     * @param vars
-     * @return
-     * @throws IllegalArgumentException
+     * @param vars	A Double array of the input values for the formula's expression.
+     * @return The result of evaluating the formula's expression in double format.
+     * @throws IllegalArgumentException	If there is an invalid number of elements in the incoming input array.
+     * @throws IllegalStateException	If the formula's expression object is invalid.
      * @author Christopher Howard
      * @author Chelsea Hunter
      */
@@ -278,9 +284,10 @@ public class Formula implements IFormula
     
     /**
      * Gets the Double result of calculating the Formula object's Exp4j Expression.
-     * @author Chelsea Hunter
-     * @param vars	The Variable objects with the desired input values in array format.
+     * @param vars	The Variable Number objects with the desired input values in array format.
      * @return The result of calculating the Formula object's Expression in Double format.
+     * @throws IllegalArgumentException	If the evaluation of the formula's expression fails.
+     * @author Chelsea Hunter
      */
     public Double CalculateToDouble( IVariable<? extends Number>[] vars )
 		   throws IllegalArgumentException
@@ -291,13 +298,11 @@ public class Formula implements IFormula
 	    	catch( IllegalArgumentException eIAE ) {
 	    		throw eIAE;
 	    	}
-	    	
-	    	
 	    }
     
     /**
      * Gets a Double Array result of calculating the Formula object's Exp4j Expression
-     * @param vars
+     * @param vars	The Variable objects with the desired input values in array format.
      * @param ArrayPresent
      * @return Double[]
      * @author Christopher Howard
@@ -485,7 +490,7 @@ public class Formula implements IFormula
     
     /**
      * Verifies that array lengths are the same for matrix
-     * processing prep.
+     * processing preparation.
      * @param items
      * @return boolean
      */
@@ -530,9 +535,9 @@ public class Formula implements IFormula
     /**
      * Converts a single value item into a Double Array for equal items
      * for ease of use in formula processing of mixed variable types.
-     * @param value
-     * @param size
-     * @return Double[]
+     * @param value	A single Double value to start with that will populate the entire Double array.
+     * @param size	An integer that declares what size the Double array should be.
+     * @return Double[]	A double array populated with the single Double value.
      * @author Christopher Howard
      */
     private Double[] _singleToDoubleArray( Double value, int size ) 
@@ -560,8 +565,9 @@ public class Formula implements IFormula
     /**
      * Gets the Integer result of calculating the Formula object's Exp4j Expression.
      * @author Chelsea Hunter
-     * @param vars	The Variable objects with the desired input values in array format.
-     * @return The result of calculating the Formula object's Expression in Integer format.
+     * @param vars	The Variable Number objects with the desired input values in array format.
+     * @return Integer	The result of calculating the Formula object's Expression in Integer format.
+     * @throws IllegalArgumentException	If the formula's expression cannot be evaluated.
      */
     public Integer CalculateToInteger( IVariable<? extends Number>[] vars ) 
     	   throws IllegalArgumentException
@@ -578,9 +584,14 @@ public class Formula implements IFormula
     
     /**
      * Gets an Integer Array result from the Formula Results
-     * @param vars
+     * @param vars	The Variable objects with the desired input values in array format.
      * @param ArrayPresent
      * @return Integer[]
+     * @throws ClassCastException
+     * @throws IllegalStateException
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     * @throws IndexOutOfBoundsException
      * @author Christopher Howard
      */
     public Integer[] CalculateToInteger( IVariable<?>[] vars, 
@@ -798,8 +809,12 @@ public class Formula implements IFormula
     /**
      * Sets the Exp4j Expression variables to the proper values from the temporary input array, validates the Expression,
      * then returns the result of evaluating the expression.
-     * @author Chelsea Hunter
+     * 
      * @return	The result of evaluating the Formula object's Exp4j Expression, in double format.
+     * 
+     * @throws IllegalStateException	If the expression fails to validate.
+     * @throws IllegalArgumentException	If the expression fails to evaluate.
+     * @throws RuntimeException	If the expression fails to evaluate.
      */
     private double _process() 
     		throws IllegalStateException,
