@@ -87,20 +87,17 @@ public class FormulaTest {
 					);
 			List<String> V1 = new ArrayList<>();
 			V1.add("IntegerArrayVariable1");
-			V1.add("Multiply");
 			V1.add("IntegerArrayVariable2");
+			
 			List<String> V2 = new ArrayList<>();
-			V1.add("FloatArrayVariable1");
-			V1.add("Multiply");
-			V1.add("FloatArrayVariable2");
+			V2.add("FloatArrayVariable1");
+			V2.add("FloatArrayVariable2");
 			List<String> V3 = new ArrayList<>();
-			V1.add("DoubleArrayVariable1");
-			V1.add("Multiply");
-			V1.add("DoubleArrayVariable2");
+			V3.add("DoubleArrayVariable1");
+			V3.add("DoubleArrayVariable2");
 			List<String> V4 = new ArrayList<>();
-			V1.add("LongArrayVariable1");
-			V1.add("Multiply");
-			V1.add("LongArrayVariable2");
+			V4.add("LongArrayVariable1");
+			V4.add("LongArrayVariable2");
 			
 		}
 	// METHOD TESTS \\
@@ -197,12 +194,18 @@ public class FormulaTest {
 	}
 	@Test 
 	public void TestVariableArray() {
-		for(String ID: this.vars.GetMasterIDList()) {
-			IVariable<?> var = this.vars.GetVariable(ID);
-			System.out.println(var.toString());
-		}
+		try {	
+			for(String ID: this.vars.GetMasterIDList()) {
+				IVariable<?> var = this.vars.GetVariable(ID);
+				System.out.println(var.toString());
+				}
+		
+			}catch(Exception e) {
+				System.err.println(e.getMessage());
+			}
 		assertTrue(true);
 	}
+	
 	@Test
 	public void testFormulaProcessingLog() {
 		String formulaExpression = "log(_var_)";
