@@ -220,17 +220,6 @@ public class ParserHelpers {
 		catch (Exception e)						
 			{throw new UnknownError(e.getMessage());}
 	}
-
-
-	
-	public static <V> Variable<V> ParseVariable(JsonElement json, String ID, VariableType Type){
-		// Get the inner portion of this json
-		// Deserialize this into the variable
-		// Set the ID of this variable
-		// Return the constructed variable
-		
-		return null;
-	}
 	
 	//***** INTEGER SECTION ******\\
 
