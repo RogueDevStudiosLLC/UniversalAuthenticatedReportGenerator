@@ -22,7 +22,9 @@ import java.util.regex.Matcher;
 
 /**
  * This will test various methods of the formula.java file
- * @author Chel
+ * @author Chelsea Hunter
+ * @author Terry Roberson
+ * @author Christopher E. Howard
  * @since 1.0
  */
 public class FormulaTest {
@@ -34,55 +36,71 @@ public class FormulaTest {
 	public void Setup() {
 			this.vars = new Variables();
 			this.formuli = new Formuli();
-			this.vars.SetVariable("IntegerArrayVariable",
+			this.formuli.AddFormula("Multiply", new Formula("T","T","T","_VAR1_ * _VAR2_"));
+			this.vars.SetVariable("IntegerArrayVariable1",
 					new Variable<Integer[]>("TI1","TI1",false,"TI1", new Integer[] {1,2,3}),
 					VariableType.INTEGERARRAY
 					);
-			this.vars.SetVariable("IntegerArrayVariable",
+			this.vars.SetVariable("IntegerArrayVariable2",
 					new Variable<Integer[]>("TI2","TI2",false,"TI2", new Integer[] {4,5,6}),
 					VariableType.INTEGERARRAY
 					);
-			this.vars.SetVariable("FloatArrayVariable",
+			this.vars.SetVariable("FloatArrayVariable1",
 					new Variable<Float[]>("TF1","TF1",false,"TF1", new Float[] {1.2f,2.5f,3.7f}),
 					VariableType.FLOATARRAY
 					);
-			this.vars.SetVariable("FloatArrayVariable",
+			this.vars.SetVariable("FloatArrayVariable2",
 					new Variable<Float[]>("TF2","TF2",false,"TF2", new Float[] {4.7f,5.8f,6.3f}),
 					VariableType.FLOATARRAY
 					);
-			this.vars.SetVariable("DoubleArrayVariable",
+			this.vars.SetVariable("DoubleArrayVariable1",
 					new Variable<Double[]>("TD1","TD1",false,"TD1", new Double[] {10d,20d,30d}),
 					VariableType.DOUBLEARRAY
 					);
-			this.vars.SetVariable("DoubleArrayVariable",
+			this.vars.SetVariable("DoubleArrayVariable2",
 					new Variable<Double[]>("TD2","TD2",false,"TD2", new Double[] {4d,5d,6d}),
 					VariableType.DOUBLEARRAY
 					);
-			this.vars.SetVariable("LongArrayVariable",
+			this.vars.SetVariable("LongArrayVariable1",
 					new Variable<Long[]>("TL1","TL1",false,"TL1", new Long[] {100l,200l,300l}),
 					VariableType.LONGARRAY
 					);
-			this.vars.SetVariable("LongArrayVariable",
+			this.vars.SetVariable("LongArrayVariable2",
 					new Variable<Long[]>("TL2","TL2",false,"TL2", new Long[] {4l,5l,6l}),
 					VariableType.LONGARRAY
 					);
-			this.vars.SetVariable("IntegerArray",
+			this.vars.SetVariable("IntegerArrayResult",
 					new Variable<Integer[]>("TI","TI",false,"TI", new Integer[3]),
 					VariableType.INTEGERARRAY
 					);
-			this.vars.SetVariable("FloatArray",
+			this.vars.SetVariable("FloatArrayResult",
 					new Variable<Float[]>("TF","TF",false,"TF", new Float[3]),
 					VariableType.FLOATARRAY
 					);
-			this.vars.SetVariable("DoubleArray",
+			this.vars.SetVariable("DoubleArrayResult",
 					new Variable<Double[]>("TD","TD",false,"TD", new Double[3]),
 					VariableType.DOUBLEARRAY
 					);
-			this.vars.SetVariable("LongArray",
+			this.vars.SetVariable("LongArrayResult",
 					new Variable<Long[]>("TL","TL",false,"TL", new Long[3]),
 					VariableType.LONGARRAY
 					);
-			
+			List<String> V1 = new ArrayList<>();
+			V1.add("IntegerArrayVariable1");
+			V1.add("Multiply");
+			V1.add("IntegerArrayVariable2");
+			List<String> V2 = new ArrayList<>();
+			V1.add("FloatArrayVariable1");
+			V1.add("Multiply");
+			V1.add("FloatArrayVariable2");
+			List<String> V3 = new ArrayList<>();
+			V1.add("DoubleArrayVariable1");
+			V1.add("Multiply");
+			V1.add("DoubleArrayVariable2");
+			List<String> V4 = new ArrayList<>();
+			V1.add("LongArrayVariable1");
+			V1.add("Multiply");
+			V1.add("LongArrayVariable2");
 			
 		}
 	// METHOD TESTS \\
@@ -179,7 +197,11 @@ public class FormulaTest {
 	}
 	@Test 
 	public void TestVariableArray() {
-		
+		for(String ID: this.vars.GetMasterIDList()) {
+			IVariable<?> var = this.vars.GetVariable(ID);
+			System.out.println(var.toString());
+		}
+		assertTrue(true);
 	}
 	@Test
 	public void testFormulaProcessingLog() {
