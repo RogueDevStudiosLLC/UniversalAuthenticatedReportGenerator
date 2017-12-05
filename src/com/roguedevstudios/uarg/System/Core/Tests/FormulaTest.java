@@ -70,34 +70,22 @@ public class FormulaTest {
 					VariableType.LONGARRAY
 					);
 			this.vars.SetVariable("IntegerArrayResult",
-					new Variable<Integer[]>("TI","TI",false,"TI", new Integer[3]),
+					new Variable<Integer[]>("TI","TI",false,"TI", new Integer[2]),
 					VariableType.INTEGERARRAY
 					);
 			this.vars.SetVariable("FloatArrayResult",
-					new Variable<Float[]>("TF","TF",false,"TF", new Float[3]),
+					new Variable<Float[]>("TF","TF",false,"TF", new Float[2]),
 					VariableType.FLOATARRAY
 					);
 			this.vars.SetVariable("DoubleArrayResult",
-					new Variable<Double[]>("TD","TD",false,"TD", new Double[3]),
+					new Variable<Double[]>("TD","TD",false,"TD", new Double[2]),
 					VariableType.DOUBLEARRAY
 					);
 			this.vars.SetVariable("LongArrayResult",
-					new Variable<Long[]>("TL","TL",false,"TL", new Long[3]),
+					new Variable<Long[]>("TL","TL",false,"TL", new Long[2]),
 					VariableType.LONGARRAY
 					);
-			List<String> V1 = new ArrayList<>();
-			V1.add("IntegerArrayVariable1");
-			V1.add("IntegerArrayVariable2");
 			
-			List<String> V2 = new ArrayList<>();
-			V2.add("FloatArrayVariable1");
-			V2.add("FloatArrayVariable2");
-			List<String> V3 = new ArrayList<>();
-			V3.add("DoubleArrayVariable1");
-			V3.add("DoubleArrayVariable2");
-			List<String> V4 = new ArrayList<>();
-			V4.add("LongArrayVariable1");
-			V4.add("LongArrayVariable2");
 			
 		}
 	// METHOD TESTS \\
@@ -158,18 +146,18 @@ public class FormulaTest {
 		Formula formulaD = new Formula("T", "T", "T", formulaDivision);
 		Formula formulaA = new Formula("T", "T", "T", formulaAdd);
 		Formula formulaS = new Formula("T", "T", "T", formulaSub);
-		Variable<Integer> vi1 = new Variable<Integer>("T", "T", false, "T", 10);
-		Variable<Integer> vi2 = new Variable<Integer>("T","T",false,"T", 5);
-		Variable<Float> vf1 = new Variable<Float>("T", "T", false, "T", 5.4F);
-		Variable<Float> vf2 = new Variable<Float>("T", "T", false, "T", 12.3F);
-		Variable<Double> vd1 = new Variable<Double>("T", "T", false, "T", 80.5);
-		Variable<Double> vd2 = new Variable<Double>("T","T",false,"T", 10.2);
-		Variable<Long> vl1 = new Variable<Long>("T", "T", false, "T", 50L);
-		Variable<Long> vl2 = new Variable<Long>("T", "T", false, "T", 5L);
-		Variable<? extends Number>[] vi = (Variable<? extends Number>[]) new Variable<?>[2];
-		Variable<? extends Number>[] vf = (Variable<? extends Number>[]) new Variable<?>[2];
-		Variable<? extends Number>[] vd = (Variable<? extends Number>[]) new Variable<?>[2];
-		Variable<? extends Number>[] vl = (Variable<? extends Number>[]) new Variable<?>[2];
+		IVariable<Integer> vi1 = new Variable<Integer>("T", "T", false, "T", 10);
+		IVariable<Integer> vi2 = new Variable<Integer>("T","T",false,"T", 5);
+		IVariable<Float> vf1 = new Variable<Float>("T", "T", false, "T", 5.4F);
+		IVariable<Float> vf2 = new Variable<Float>("T", "T", false, "T", 12.3F);
+		IVariable<Double> vd1 = new Variable<Double>("T", "T", false, "T", 80.5);
+		IVariable<Double> vd2 = new Variable<Double>("T","T",false,"T", 10.2);
+		IVariable<Long> vl1 = new Variable<Long>("T", "T", false, "T", 50L);
+		IVariable<Long> vl2 = new Variable<Long>("T", "T", false, "T", 5L);
+		IVariable<? extends Number>[] vi = (IVariable<? extends Number>[]) new IVariable<?>[2];
+		IVariable<? extends Number>[] vf = (IVariable<? extends Number>[]) new IVariable<?>[2];
+		IVariable<? extends Number>[] vd = (IVariable<? extends Number>[]) new IVariable<?>[2];
+		IVariable<? extends Number>[] vl = (IVariable<? extends Number>[]) new IVariable<?>[2];
 		
 		vi[0] = vi1;
 		vi[1] = vi2;
@@ -193,16 +181,12 @@ public class FormulaTest {
 		assertTrue(lOut==45L);
 	}
 	@Test 
-	public void TestVariableArray() {
-		try {	
+	public void TestVariableArray() {	
 			for(String ID: this.vars.GetMasterIDList()) {
-				IVariable<?> var = this.vars.GetVariable(ID);
-				System.out.println(var.toString());
+				IVariable<?extends Number>[] retIntArr = (IVariable<? extends Number>[]) new IVariable<?>[2];
+				this.vars.GetIntegerArray("IntegerArray1");
+				
 				}
-		
-			}catch(Exception e) {
-				System.err.println(e.getMessage());
-			}
 		assertTrue(true);
 	}
 	
