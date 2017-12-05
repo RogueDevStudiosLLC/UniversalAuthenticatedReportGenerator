@@ -31,29 +31,44 @@ public class ParserHelpers {
 	
 	/**
 	 * Parses a Formula into a Formula object
-	 * @param JsonElement JsonElement Representation of this Formula
-	 * @param ID String ID of this Formula
-	 * @param Type FormulaType of this Formula
+	 * @param JsonElement The JSON for the IFormula Object to be created
+	 * @param JsonDeserializer<? extends IFormula> The custom deserializer for the IFormula compatible Concrete Class parsing to
+	 * @param T The concrete IFormula compliant class to turn this JSON into
 	 * @return Formula The specific Formula object of this formula
 	 * @author Terry Roberson
 	 * @since 1.0
 	 */
-	public static Formula ParseFormula(JsonElement json) {
-		// Start the GsonBuilder
-		GsonBuilder gsonBuild = new GsonBuilder();
-		// Grab custom deserializer and create an instance of it for use
-		JsonDeserializer<IFormula> cDeserializer = new FormulaDeserializer();
+	public static <T extends IFormula> T ParseFormula(JsonElement json, Class<T> IFormulaDeserializer, Class<? extends IFormula> IFormulaConcrete, GsonBuilder gsonBuilder) {
+		
+		// Check if any arguments were passed as null and throw exception if necessary
+		if( json == null || IFormulaDeserializer == null || IFormulaConcrete == null || gsonBuilder == null)
+			throw new NullPointerException("Parameters must be instantiated for ParseFormula.");
+		
+		// Check if IFormulaConcrete is a legal form of IFormula
+		if( !IFormulaConcrete.isAssignableFrom(IFormula.class) )
+			throw new IllegalArgumentException("IFormulaConcrete must implement IFormula interface.");
+		
 		// Register the deserializer
-		gsonBuild.registerTypeAdapter(Formula.class, cDeserializer);
+		gsonBuilder.registerTypeAdapter(IFormulaConcrete, IFormulaDeserializer);
+		
 		// Initialize out custom Gson object
-		Gson customGson = gsonBuild.create();
+		Gson customGson = gsonBuilder.create();
+		
 		// Deserialize the object to a Formula object
-		Formula retForm = customGson.fromJson(json, Formula.class);
-		// Clean up
-		gsonBuild = null;
-		customGson = null;
+		try {
+			T retForm = (T) customGson.fromJson(json, IFormulaConcrete);
+			return retForm;
+		}
+		catch ( ClassCastException eCCE ) {
+			throw eCCE;
+		}finally {
+			customGson = null;
+		}
+		
+		
+		
 		// Return the constructed object to the caller
-		return retForm;
+		
 	}
 	
 	/**
