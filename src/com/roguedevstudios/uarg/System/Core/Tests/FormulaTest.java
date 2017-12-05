@@ -6,11 +6,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
+import com.roguedevstudios.uarg.System.Core.Elements.Formuli;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
+import com.roguedevstudios.uarg.System.Core.Elements.Variables;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormuli;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
+import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.regex.Pattern;
 
 import java.util.regex.Matcher;
@@ -22,63 +27,63 @@ import java.util.regex.Matcher;
  */
 public class FormulaTest {
 	//***** Variables Initial Condition Properties *****\\
-	private ArrayList<Integer[]> _initialVariableCondIntArrVals;
-	private ArrayList<Float[]> _initialVariableCondFloatArrVals;
-	private ArrayList<Double[]> _initialVariableCondDoubleArrVals;
-	private ArrayList<String[]> _initialVariableCondStringArrVals;
-	private ArrayList<Long[]> _initialVariableCondLongArrVals;
-	private ArrayList<Boolean[]> _initialVariableCondBoolArrVals;
+	private IVariables vars;
+	private IFormuli formuli;
 	//***** INITIAL BUILDERS *****\\
-		@Before 
-		public void VariablesStart() {
-			//Populate initial int[] values
-			this._initialVariableCondIntArrVals = new ArrayList<Integer[]>();
-			// 0 slot = [99,12,3]
-			this._initialVariableCondIntArrVals.add(new Integer[] {99,12,3});
-			// 1 slot = [10,11,12]
-			this._initialVariableCondIntArrVals.add(new Integer[] {10,11,12});
-			// 2 slot = [15,20,25]
-			this._initialVariableCondIntArrVals.add(new Integer[] {15,20,25});
-			//Populate initial String[] values
-			this._initialVariableCondStringArrVals = new ArrayList<String[]>();
-			// 0 slot = [A,B,C]
-			this._initialVariableCondStringArrVals.add(new String[] {"A","B","C"});
-			// 1 slot = [B,C,D]
-			this._initialVariableCondStringArrVals.add(new String[] {"B","C","D"});
-			// 2 slot = [C,D,E]
-			this._initialVariableCondStringArrVals.add(new String[] {"C","D","E"});
-			//Populate initial Float[] values
-			this._initialVariableCondDoubleArrVals = new ArrayList<Double[]>();
-			// 0 slot = [990.2,30.5,.04]
-			this._initialVariableCondDoubleArrVals.add(new Double[] {990.2,30.5,.04});
-			// 1 slot = [10.1,35.5,401.5]
-			this._initialVariableCondDoubleArrVals.add(new Double[] {10.1,35.5,401.5});
-			// 2 slot = [15.36,5.2,4.8]
-			this._initialVariableCondDoubleArrVals.add(new Double[] {15.36,5.2,4.8});
-			//Populate initial Long[] values
-			this._initialVariableCondLongArrVals = new ArrayList<Long[]>();
-			// 0 slot = [99,50,8]
-			this._initialVariableCondLongArrVals.add(new Long[] {99L,50L,8L});
-			// 1 slot = [10,5,8000]
-			this._initialVariableCondLongArrVals.add(new Long[] {10L,5L,8000L});
-			// 2 slot = [15,8,56]
-			this._initialVariableCondLongArrVals.add(new Long[] {15L,8L,56L});
-			//Populate initial Float[] values
-			this._initialVariableCondFloatArrVals = new ArrayList<Float[]>();
-			// 0 slot = [99, 12,5.2]
-			this._initialVariableCondFloatArrVals.add(new Float[] {99F, 12F,5.2F});
-			// 1 slot = [10, 58.2,500.1]
-			this._initialVariableCondFloatArrVals.add(new Float[] {10F, 58.2F,500.1F});
-			// 2 slot = [15, 64.2,69.1]
-			this._initialVariableCondFloatArrVals.add(new Float[] {15F, 64.2F,69.1F});
-			//Populate initial Boolean[] values
-			this._initialVariableCondBoolArrVals = new ArrayList<Boolean[]>();
-			// 0 slot = [true, false, true]
-			this._initialVariableCondBoolArrVals.add(new Boolean[] {true, false, true});
-			// 1 slot = [false, true, false]
-			this._initialVariableCondBoolArrVals.add(new Boolean[] {false, true, false});
-			// 2 slot = [false, true, true]
-			this._initialVariableCondBoolArrVals.add(new Boolean[] {false, true, true});
+	@Before 
+	public void Setup() {
+			this.vars = new Variables();
+			this.formuli = new Formuli();
+			this.vars.SetVariable("IntegerArrayVariable",
+					new Variable<Integer[]>("TI1","TI1",false,"TI1", new Integer[] {1,2,3}),
+					VariableType.INTEGERARRAY
+					);
+			this.vars.SetVariable("IntegerArrayVariable",
+					new Variable<Integer[]>("TI2","TI2",false,"TI2", new Integer[] {4,5,6}),
+					VariableType.INTEGERARRAY
+					);
+			this.vars.SetVariable("FloatArrayVariable",
+					new Variable<Float[]>("TF1","TF1",false,"TF1", new Float[] {1.2f,2.5f,3.7f}),
+					VariableType.FLOATARRAY
+					);
+			this.vars.SetVariable("FloatArrayVariable",
+					new Variable<Float[]>("TF2","TF2",false,"TF2", new Float[] {4.7f,5.8f,6.3f}),
+					VariableType.FLOATARRAY
+					);
+			this.vars.SetVariable("DoubleArrayVariable",
+					new Variable<Double[]>("TD1","TD1",false,"TD1", new Double[] {10d,20d,30d}),
+					VariableType.DOUBLEARRAY
+					);
+			this.vars.SetVariable("DoubleArrayVariable",
+					new Variable<Double[]>("TD2","TD2",false,"TD2", new Double[] {4d,5d,6d}),
+					VariableType.DOUBLEARRAY
+					);
+			this.vars.SetVariable("LongArrayVariable",
+					new Variable<Long[]>("TL1","TL1",false,"TL1", new Long[] {100l,200l,300l}),
+					VariableType.LONGARRAY
+					);
+			this.vars.SetVariable("LongArrayVariable",
+					new Variable<Long[]>("TL2","TL2",false,"TL2", new Long[] {4l,5l,6l}),
+					VariableType.LONGARRAY
+					);
+			this.vars.SetVariable("IntegerArray",
+					new Variable<Integer[]>("TI","TI",false,"TI", new Integer[3]),
+					VariableType.INTEGERARRAY
+					);
+			this.vars.SetVariable("FloatArray",
+					new Variable<Float[]>("TF","TF",false,"TF", new Float[3]),
+					VariableType.FLOATARRAY
+					);
+			this.vars.SetVariable("DoubleArray",
+					new Variable<Double[]>("TD","TD",false,"TD", new Double[3]),
+					VariableType.DOUBLEARRAY
+					);
+			this.vars.SetVariable("LongArray",
+					new Variable<Long[]>("TL","TL",false,"TL", new Long[3]),
+					VariableType.LONGARRAY
+					);
+			
+			
 		}
 	// METHOD TESTS \\
 	
@@ -140,38 +145,16 @@ public class FormulaTest {
 		Formula formulaS = new Formula("T", "T", "T", formulaSub);
 		Variable<Integer> vi1 = new Variable<Integer>("T", "T", false, "T", 10);
 		Variable<Integer> vi2 = new Variable<Integer>("T","T",false,"T", 5);
-		Variable<String> vs1 = new Variable<String>("T", "T", false, "T", "TestString");
-		Variable<String> vs2 = new Variable<String>("T", "T", false, "T", "TestString2");
 		Variable<Float> vf1 = new Variable<Float>("T", "T", false, "T", 5.4F);
 		Variable<Float> vf2 = new Variable<Float>("T", "T", false, "T", 12.3F);
-		Variable<Double> vd1 = new Variable<Double>("T", "T", false, "T", 10.5);
-		Variable<Double> vd2 = new Variable<Double>("T","T",false,"T", 80.2);
-		Variable<Long> vl1 = new Variable<Long>("T", "T", false, "T", 5L);
-		Variable<Long> vl2 = new Variable<Long>("T", "T", false, "T", 10000000000L);
-		Variable<Boolean> vb1 = new Variable<Boolean>("T", "T", false, "T", false);
-		Variable<Boolean> vb2 = new Variable<Boolean>("T", "T", false, "T", false);
-		Variable<Integer[]> via1 = new Variable<Integer[]>("T", "T", false, "T", _initialVariableCondIntArrVals.get(0));
-		Variable<Integer[]> via2 = new Variable<Integer[]>("T", "T", false, "T", _initialVariableCondIntArrVals.get(1));
-		Variable<String[]> vsa1 = new Variable<String[]>("T", "T", false, "T", _initialVariableCondStringArrVals.get(0));
-		Variable<String[]> vsa2 = new Variable<String[]>("T", "T", false, "T", _initialVariableCondStringArrVals.get(1));
-		Variable<Float[]> vfa1 = new Variable<Float[]>("T", "T", false, "T", _initialVariableCondFloatArrVals.get(0));
-		Variable<Float[]> vfa2 = new Variable<Float[]>("T", "T", false, "T", _initialVariableCondFloatArrVals.get(1));
-		Variable<Double[]> vda1 = new Variable<Double[]>("T", "T", false, "T", _initialVariableCondDoubleArrVals.get(0));
-		Variable<Double[]> vda2 = new Variable<Double[]>("T", "T", false, "T", _initialVariableCondDoubleArrVals.get(1));
-		Variable<Long[]> vla1 = new Variable<Long[]>("T", "T", false, "T", _initialVariableCondLongArrVals.get(0));
-		Variable<Long[]> vla2 = new Variable<Long[]>("T", "T", false, "T", _initialVariableCondLongArrVals.get(1));
-		Variable<Boolean[]> vba1 = new Variable<Boolean[]>("T", "T", false, "T", _initialVariableCondBoolArrVals.get(0));
-		Variable<Boolean[]> vba2 = new Variable<Boolean[]>("T", "T", false, "T", _initialVariableCondBoolArrVals.get(1));
+		Variable<Double> vd1 = new Variable<Double>("T", "T", false, "T", 80.5);
+		Variable<Double> vd2 = new Variable<Double>("T","T",false,"T", 10.2);
+		Variable<Long> vl1 = new Variable<Long>("T", "T", false, "T", 50L);
+		Variable<Long> vl2 = new Variable<Long>("T", "T", false, "T", 5L);
 		Variable<? extends Number>[] vi = (Variable<? extends Number>[]) new Variable<?>[2];
 		Variable<? extends Number>[] vf = (Variable<? extends Number>[]) new Variable<?>[2];
 		Variable<? extends Number>[] vd = (Variable<? extends Number>[]) new Variable<?>[2];
 		Variable<? extends Number>[] vl = (Variable<? extends Number>[]) new Variable<?>[2];
-		//Variable<? extends Number>[] vb = (Variable<? extends Number>[]) new Variable<?>[2];
-		Variable<? extends Number>[] via = (Variable<? extends Number>[]) new Variable<?>[2];
-		Variable<? extends Number>[] vfa = (Variable<? extends Number>[]) new Variable<?>[2];
-		Variable<? extends Number>[] vda = (Variable<? extends Number>[]) new Variable<?>[2];
-		Variable<? extends Number>[] vla = (Variable<? extends Number>[]) new Variable<?>[2];
-		//Variable<? extends Number>[] vba = (Variable<? extends Number>[]) new Variable<?>[2];
 		
 		vi[0] = vi1;
 		vi[1] = vi2;
@@ -181,15 +164,23 @@ public class FormulaTest {
 		vd[1] = vd2;
 		vl[0] = vl1;
 		vl[1] = vl2;
-		via[0] = via1;
-		via[1] = via2;
 		Integer iOut = formulaM.CalculateToInteger(vi);
 		Float fOut = formulaA.CalculateToFloat(vf);
-		//System.out.println(out);
+		Double dOut = formulaD.CalculateToDouble(vd);
+		Long lOut = formulaS.CalculateToLong(vl);
+		System.out.println(iOut);
+		System.out.println(fOut);
+		System.out.println(dOut);
+		System.out.println(lOut);
 		assertTrue(iOut==50);
 		assertTrue(fOut==17.7F);
+		assertTrue(dOut==7.892156862745098);
+		assertTrue(lOut==45L);
 	}
-	
+	@Test 
+	public void TestVariableArray() {
+		
+	}
 	@Test
 	public void testFormulaProcessingLog() {
 		String formulaExpression = "log(_var_)";
