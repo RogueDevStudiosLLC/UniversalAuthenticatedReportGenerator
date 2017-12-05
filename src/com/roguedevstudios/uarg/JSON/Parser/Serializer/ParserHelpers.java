@@ -38,7 +38,19 @@ public class ParserHelpers {
 	 * @author Terry Roberson
 	 * @since 1.0
 	 */
-	public static <T extends IFormula> T ParseFormula(JsonElement json, Class<T> IFormulaDeserializer, Class<? extends IFormula> IFormulaConcrete, GsonBuilder gsonBuilder) {
+	public static 
+					<T extends IFormula> 
+					T 
+					ParseFormula(
+									JsonElement json, 
+									JsonDeserializer<T> IFormulaDeserializer, 
+									Class<T> IFormulaConcrete, 
+									GsonBuilder gsonBuilder
+								) 
+					throws	NullPointerException,
+							IllegalArgumentException,
+							ClassCastException
+	{
 		
 		// Check if any arguments were passed as null and throw exception if necessary
 		if( json == null || IFormulaDeserializer == null || IFormulaConcrete == null || gsonBuilder == null)
