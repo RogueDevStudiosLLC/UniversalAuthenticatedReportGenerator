@@ -15,14 +15,18 @@ import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
  * @author Christopher Howard
  *
  */
-public class CascadeMap implements ICascadeMap {
+public class CascadeMap 
+	   implements ICascadeMap 
+{
 
 	/* Child Node Entry Tree */
-	private TreeMap<String,List<ICascadeEntry>> _childOfNodes;
-	/* Parent Node Reverse Entry Tree */
-	private TreeMap<String, List<ICascadeEntry>> _parentOfNodes;
+	private TreeMap< String, List< ICascadeEntry > > _childOfNodes;
 	
-	public CascadeMap() {
+	/* Parent Node Reverse Entry Tree */
+	private TreeMap< String, List< ICascadeEntry > > _parentOfNodes;
+	
+	public CascadeMap() 
+	{
 		this._childOfNodes = new TreeMap<>();
 		this._parentOfNodes = new TreeMap<>();
 	}
@@ -35,28 +39,46 @@ public class CascadeMap implements ICascadeMap {
 	 * @return List<String> A list of all the variables that cascade updated.
 	 * @author Christopher Howard
 	 */
-	public List<String> ShakeTree(String UpdatedVariableID, IVariables vars, IFormuli formulas) {
+	public List<String> ShakeTree(
+							String UpdatedVariableID, 
+							IVariables vars, 
+							IFormuli formulas
+							) 
+	{
+		
 		// Start the affect ID list
 		List<String> affect = new ArrayList<String>();
+		
 		// Add this variable to the affect ID list
 		affect.add(UpdatedVariableID);
+		
 		// If this variable does not effect another we are at a root, return the affect list
 		// this is the base case for the recursion.
 		if(!this._childOfNodes.containsKey(UpdatedVariableID))
 			return affect;
+		
 		// If this variable has a parent we need to dive deeper, get its effects list.
 		List<ICascadeEntry> effects = this.GetCascadesForVariable(UpdatedVariableID);
+		
 		// Cascade all the effects of this child
-		for(ICascadeEntry effect: effects) {
+		for(ICascadeEntry effect: effects) 
+		{
 			// Cause the effect.
 			effect.Shake(vars, formulas);
+			
 			// Vibrate the tree down to the roots recursively and add to the affect list.
 			affect.addAll(
-					this.ShakeTree(effect.GetOutputVariableID(), vars, formulas)
+					this.ShakeTree(
+							effect.GetOutputVariableID(), 
+							vars, 
+							formulas
+							)
 					);
 		}
+		
 		// Return the affect list on unwind.
 		return affect;
+		
 	}
 
 	/**
@@ -65,8 +87,13 @@ public class CascadeMap implements ICascadeMap {
 	 * @return List<ICascadeEntry> List of Cascades
 	 * @author Christopher Howard
 	 */
-	public List<ICascadeEntry> GetCascadesForVariable(String VariableID) {
-		return this._childOfNodes.get(VariableID);
+	public List< ICascadeEntry > GetCascadesForVariable( String VariableID ) 
+	{
+		return this.
+					_childOfNodes.
+					get(
+						  VariableID
+						);
 	}
 	
 	/**
@@ -77,8 +104,13 @@ public class CascadeMap implements ICascadeMap {
 	 * @return List<ICascadeEntry> List of reverse cascades
 	 * @author Christopher Howard
 	 */
-	public List<ICascadeEntry> GetReverseCascadesForVariable(String VariableID){
-		return this._parentOfNodes.get(VariableID);
+	public List< ICascadeEntry > GetReverseCascadesForVariable(	String VariableID )
+	{
+		return this.
+				_parentOfNodes.
+				get(
+					  VariableID
+					);
 	}
 
 	/**
@@ -86,33 +118,49 @@ public class CascadeMap implements ICascadeMap {
 	 * @param Entry The entry to be added.
 	 * @author Christopher Howard
 	 */
-	public void AddEntry(ICascadeEntry Entry) {
+	public void AddEntry( ICascadeEntry Entry ) 
+	{
 		// For each child register it in the child mapping
-		for(String input: Entry.GetInputVariableIDList()) {
+		for( String input:
+					Entry.GetInputVariableIDList()
+			) 
+		{
 			// If this is a new child add it's key to the index
-			if(!this._childOfNodes.containsKey(input)) {
-				this._childOfNodes.put(input, new ArrayList<ICascadeEntry>());
+			if( !this._childOfNodes.containsKey(input) ) 
+			{
+				this._childOfNodes.put( input, new ArrayList<ICascadeEntry>() );
 			}
+			
 			// Check that this is not a duplication before adding the entry
-			if(!this.GetCascadesForVariable(input).contains(Entry)) {
-				this.GetCascadesForVariable(input).add(Entry);
+			if( !this.GetCascadesForVariable( input ).contains( Entry ) ) 
+			{
+				this.GetCascadesForVariable( input ).add( Entry );
 			}	
+			
 		}
 		
 		// If the parent is not registered in the parent reverse tree, do so now
-		if(!this._parentOfNodes.containsKey(Entry.GetOutputVariableID())) {
-			this._parentOfNodes.put(Entry.GetOutputVariableID(), new ArrayList<ICascadeEntry>());
+		if( !this._parentOfNodes.containsKey( Entry.GetOutputVariableID() ) ) 
+		{
+			this._parentOfNodes.put( Entry.GetOutputVariableID(), 
+									 new ArrayList< ICascadeEntry >()
+									 );
 		}
 		// Add the entry to the parent reverse tree
-		if(!this._parentOfNodes.get(Entry.GetOutputVariableID()).contains(Entry)) {
-			this._parentOfNodes.get(Entry.GetOutputVariableID()).add(Entry);
+		if( !this._parentOfNodes.get( Entry.GetOutputVariableID() ).contains( Entry ) ) 
+		{
+			this._parentOfNodes.get( Entry.GetOutputVariableID() ).add( Entry );
 		}
 		
 	}
 	
-	public void AddAllEntries(List<ICascadeEntry> Entries) {
-		for(ICascadeEntry Entry: Entries) {
-			this.AddEntry(Entry);
+	public void AddAllEntries( List< ICascadeEntry > Entries ) 
+	{
+		for(ICascadeEntry Entry: 
+						  Entries
+			) 
+		{
+			this.AddEntry( Entry );
 		}
 	}
 
