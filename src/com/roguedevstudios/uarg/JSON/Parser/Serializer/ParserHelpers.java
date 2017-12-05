@@ -2,6 +2,8 @@
 package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 
 import java.security.KeyStore.Entry;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -17,12 +19,13 @@ import com.roguedevstudios.uarg.System.Core.Elements.Formuli;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Elements.Variables;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormuli;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
- * Helper class for static methods
+ * Helper class for static parsing methods
  * @author Terry Roberson
  * @author Christopher E. Howard
  *
@@ -30,12 +33,22 @@ import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 public class ParserHelpers {
 	
 	/**
-	 * Parses a Formula into a Formula object
-	 * @param JsonElement The JSON for the IFormula Object to be created
-	 * @param JsonDeserializer<? extends IFormula> The custom deserializer for the IFormula compatible Concrete Class parsing to
-	 * @param T The concrete IFormula compliant class to turn this JSON into
-	 * @return Formula The specific Formula object of this formula
+	 * Parses an Formula JSON representation into an IFormula compliant object
+	 * 
+	 * @param <T> The specific concrete IFormula return type requested.
+	 * @param json The JSON for the IFormula Object to be created
+	 * @param IFormulaDeserializer The custom deserializer for the IFormula compatible Concrete Class parsing to
+	 * @param IFormulaConcrete The concrete IFormula compliant class to turn this JSON into
+	 * 
+	 * @return T The specific IFormula object of this formula
+	 * 
+	 * @throws NullPointerException Exception thrown if any passed parameters are null.
+	 * @throws IllegalArgumentException Exception thrown if the arguments do not follow the bounded constraints.
+	 * @throws ClassCastException Exception thrown if casting the IFormula to T fails for any reason.
+	 * 
 	 * @author Terry Roberson
+	 * @author Christopher Howard
+	 * 
 	 * @since 1.0
 	 */
 	public static 
@@ -77,43 +90,135 @@ public class ParserHelpers {
 			customGson = null;
 		}
 		
-		
-		
-		// Return the constructed object to the caller
-		
 	}
 	
 	/**
 	 * Parses a Formula object into a Formula TreeMap
-	 * @return map
+	 * 
+	 * @param <T> IFormula compliant class desired as a return
+	 * @param json The JSON for the IFormula Object to be created
+	 * @param IFormulaDeserializer The custom deserializer for the IFormula compatible Concrete Class parsing to
+	 * @param IFormulaConcrete The concrete IFormula compliant class to turn this JSON into
+	 * 
+	 * @return Map<String,T>	The Formula Set Mapping of IFormula compliant objects
+	 * @throws NullPointerException Exception thrown if any passed parameters are null.
+	 * @throws IllegalArgumentException Exception thrown if the arguments do not follow the bounded constraints.
+	 * @throws ClassCastException Exception thrown if casting the IFormula to T fails for any reason.
+	 * @throws UnknownError Unknown Exception has been thrown
 	 * @author Terry Roberson
 	 * @since 1.0
 	 */
-	public static TreeMap<String, IFormula> ParseFormulaSet(JsonElement json, String ID){
-		// Take jsonElement and convert to jsonObject
-		JsonObject o = json.getAsJsonObject();
-		// Get the entry set of Formulas to parse
-		Set<Map.Entry<String, JsonElement>> JsonForm = o.entrySet();
-		// Start up the tree map of the formulas
-		TreeMap<String, IFormula> map = new TreeMap<>();
-		// Loop through the formulas
-		for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
-		// Construct the formula and put it in the tree map
-			map.put(entry.getKey(), ParserHelpers.ParseFormula(entry.getValue()));
+	public static 	<T extends IFormula> 
+					TreeMap<String, T> 
+					ParseFormulaSet(
+									JsonElement json, 
+									JsonDeserializer<T> IFormulaDeserializer, 
+									Class<T> IFormulaConcrete, 
+									GsonBuilder gsonBuilder
+								   )
+					throws IllegalStateException,
+						   NullPointerException,
+						   IllegalArgumentException,
+						   ClassCastException,
+						   UnknownError
+			
+	{
+		try {
+			// Take jsonElement and convert to jsonObject
+			JsonObject o = json.getAsJsonObject();
+			
+			// Get the entry set of Formulas to parse
+			Set<Map.Entry<String, JsonElement>> JsonForm = o.entrySet();
+			
+			// Start up the tree map of the formulas
+			TreeMap<String, T> map = new TreeMap<>();
+			
+			// Loop through the formulas
+			for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
+				
+			// Construct the formula and put it in the tree map
+				map.put(entry.getKey(), (T) ParserHelpers.<T>ParseFormula( entry.getValue(), IFormulaDeserializer, IFormulaConcrete, gsonBuilder));
+			}
+			return map;
 		}
-		
-		return map;
+		catch (IllegalStateException eISE)		{throw eISE;}
+		catch (NullPointerException eNPE)		{throw eNPE;}
+		catch (IllegalArgumentException eIAE)	{throw eIAE;}
+		catch (ClassCastException eCCE)			{throw eCCE;}
+		catch (UnknownError eUE)				{throw eUE;	}
+		catch (Exception e)						
+			{throw new UnknownError(e.getMessage());}
 	}
 	
 	/**
 	 * 
 	 */
-	public static Formuli ParseFormuli(JsonElement json) {
-		// Convert passed jsonelement into json object
-		JsonObject o = json.getAsJsonObject();
-		// Initialize treemap for formula objects
-		TreeMap<String, IFormula> FormMap = new TreeMap<>();
-		
+	public static <T extends IFormula, E extends IFormuli>
+				  E 
+				  ParseFormuli(
+				  JsonElement json, 
+				  JsonDeserializer<T> IFormulaDeserializer, 
+				  Class<T> IFormulaConcrete,
+				  E IFormuliContainer,
+				  GsonBuilder gsonBuilder
+			) 
+			throws IllegalStateException,
+			   	   NullPointerException,
+			       IllegalArgumentException,
+			       ClassCastException,
+			       UnknownError
+	{
+
+		try {
+			
+			// Temp maps to use in loading the Formuli parsed
+			TreeMap<String, List<String>> SetLinks = new TreeMap<>();
+			TreeMap<String,T> FormulaObjects = new TreeMap<>();
+			
+			// For every section we need the formulas parsed, and the set they link to
+			for(Map.Entry<String, JsonElement> section: 
+											   json.getAsJsonObject().entrySet()
+				) 
+			{
+				// Container for this sets tracked formula ID's
+				List<String> FormulasProcessed = new ArrayList<>();
+				
+				// Pass the parsing job to our section parser
+				TreeMap<String,T> FormulasFromSection =
+										ParserHelpers.ParseFormulaSet(
+																	section.getValue(),
+																	IFormulaDeserializer,
+																	IFormulaConcrete,
+																	gsonBuilder
+																	);
+				
+				// Add all the formulas created to the master list
+				FormulaObjects.putAll(FormulasFromSection);
+				
+				// Add all the formula ID's to the section link list
+				FormulasProcessed.addAll(FormulasFromSection.keySet());
+				
+				// Enter the formula set record to the set links
+				SetLinks.put(section.getKey(), FormulasProcessed);
+			}
+			
+			// Load the formulas into the IFormuli compliant passed object
+			IFormuliContainer.LoadFormulas(FormulaObjects);
+			
+			// Load the set links into the passed IFormuli compliant passed object
+			IFormuliContainer.LoadFormulaSets(SetLinks);
+	
+			// The formuli have been parsed and loaded into the existing object, pass it back to the caller.
+			return IFormuliContainer;
+			
+		}
+		catch (IllegalStateException eISE)		{throw eISE;}
+		catch (NullPointerException eNPE)		{throw eNPE;}
+		catch (IllegalArgumentException eIAE)	{throw eIAE;}
+		catch (ClassCastException eCCE)			{throw eCCE;}
+		catch (UnknownError eUE)				{throw eUE;	}
+		catch (Exception e)						
+			{throw new UnknownError(e.getMessage());}
 	}
 
 
