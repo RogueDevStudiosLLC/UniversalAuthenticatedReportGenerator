@@ -662,7 +662,13 @@ public class Formula implements IFormula
     /**
      * Gets a Float Array result from the Formula Results
      * @param vars	The Variable objects with the desired input values in array format.
-     * @param ArrayPresent
+     * @param ArrayPresent	A boolean that says whether or not an input of array-type is present in an array of Variables to be used for input.
+     * @return Float[]	The Float array result of calculating the formula's expression.
+     * @throws ClassCastException	If some array cannot be classified as a Double or Float array.
+     * @throws IllegalStateException	If there is no array input type detected in the Variable object input array when the ArrayPresent boolean is true.
+     * @throws IllegalArgumentException	If some Variable's input, of type Array, has a type that is not numerical, or if array-type inputs from the Variable object array are not all of the same size.
+     * @throws NullPointerException	If the pointer to an array or an index is null.
+     * @throws IndexOutOfBoundsException	If, when making an argument matrix, there is some error with the indices. 
      * @return
      */
     public Float[] CalculateToFloat( IVariable<?>[] vars, 
@@ -700,10 +706,10 @@ public class Formula implements IFormula
     
     /**
      * Gets the Long result of calculating the Formula object's Exp4j Expression.
-     * @author Chelsea Hunter
      * @param vars	The Variable objects with the desired input values in array format.
      * @return Long	The result of calculating the Formula object's Expression in Long format.
      * @throws IllegalArgumentException	If the evaluation of the formula's expression fails.
+     * @author Chelsea Hunter
      */
     public Long CalculateToLong(IVariable<? extends Number>[] vars)
 		   throws IllegalArgumentException
@@ -718,6 +724,17 @@ public class Formula implements IFormula
 	    	
 	    }
     
+    /**
+     * Gets a Long Array result from the Formula Results
+     * @param ArrayPresent	A boolean that says whether or not an input of array-type is present in an array of Variables to be used for input.
+     * @return Float[]	The Float array result of calculating the formula's expression.
+     * @throws ClassCastException	If some array cannot be classified as a Double or Float array.
+     * @throws IllegalStateException	If there is no array input type detected in the Variable object input array when the ArrayPresent boolean is true.
+     * @throws IllegalArgumentException	If some Variable's input, of type Array, has a type that is not numerical, or if array-type inputs from the Variable object array are not all of the same size.
+     * @throws NullPointerException	If the pointer to an array or an index is null.
+     * @throws IndexOutOfBoundsException	If, when making an argument matrix, there is some error with the indices. 
+     * @author Christopher Howard
+     */
     public Long[] CalculateToLong( IVariable<?>[] vars, 
 		 	 					   boolean ArrayPresent
 			   				     ) 
@@ -829,6 +846,8 @@ public class Formula implements IFormula
      * @throws IllegalStateException	If the expression fails to validate.
      * @throws IllegalArgumentException	If the expression fails to evaluate.
      * @throws RuntimeException	If the expression fails to evaluate.
+     * @author Chelsea Hunter
+     * @author Christopher Howard
      */
     private double _process() 
     		throws IllegalStateException,
