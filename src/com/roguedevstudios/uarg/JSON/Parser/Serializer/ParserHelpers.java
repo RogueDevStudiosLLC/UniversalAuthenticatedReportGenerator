@@ -902,8 +902,7 @@ public class ParserHelpers {
 		TreeMap<String, IVariable< Boolean[] > > 	boolArrayMap 	= new TreeMap<>();
 		
 		// Loop over entries in the jsonobjects entry sets 
-		for(Map.Entry<String, JsonElement> sectionEntry: 
-										   JSON.getAsJsonObject().entrySet()) 
+		for(Map.Entry<String, JsonElement> sectionEntry: JSON.getAsJsonObject().entrySet()) 
 		{
 			
 		// switch based on key of this entry
@@ -915,15 +914,14 @@ public class ParserHelpers {
 			// Case Integer for all possible variations of input
 			case "INTEGER":
 			case "INTEGERS":
-				
-				Class<? extends IVariable<Integer>> IV = 
+				Class<? extends IVariable<Integer>> IVi = 
 					(Class<? extends IVariable<Integer>>) 
 					IVariableConcretes.
 						get(
 								VariableType.INTEGER
 							);
 				
-				JsonDeserializer<? extends IVariable<Integer>> IVD = 
+				JsonDeserializer<? extends IVariable<Integer>> IVDi = 
 					(JsonDeserializer<? extends IVariable<Integer>>)
 					IVariableDeserializersConcretes.
 						get(
@@ -935,8 +933,8 @@ public class ParserHelpers {
 														  ParserHelpers.
 														  ParseIntegerVariableSection(
 																  					  sectionEntry.getValue(),
-																  					  IVD,
-																  					  IV,
+																  					  IVDi,
+																  					  IVi,
 																  					  gsonBuilder
 																  					 ).entrySet()
 					) 
@@ -955,10 +953,34 @@ public class ParserHelpers {
 			case "INTEGERS ARRAY":
 			case "INTEGER ARRAYS":
 			case "INTEGERS ARRAYS":
+				Class<? extends IVariable<Integer[]>> IVia = 
+				(Class<? extends IVariable<Integer[]>>) 
+				IVariableConcretes.
+					get(
+							VariableType.INTEGERARRAY
+						);
+			
+				JsonDeserializer<? extends IVariable<Integer[]>> IVDia = 
+				(JsonDeserializer<? extends IVariable<Integer[]>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.INTEGERARRAY
+						);
 				// Take the previous temp map created from previous section parser and loop over its entries 
-				for(Map.Entry<String, IVariable<Integer[]>> variableEntry: ParseIntegerArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-					// Call the first temp Integer[] map from top and put key and value as this entries value
+				for(Map.Entry<String, IVariable<Integer[]>> variableEntry: 
+					  ParserHelpers.
+					  ParseIntegerArrayVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDia,
+							  					  IVia,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						)
+				// Call the first temp Integer[] map from top and put key and value as this entries value
+				{
+					
 					intArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+			
 				}
 				break;
 				
@@ -966,7 +988,30 @@ public class ParserHelpers {
 			case "STRING":
 			case "STRINGS":
 				// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, IVariable<String>> variableEntry: ParseStringVariableSection(sectionEntry.getValue()).entrySet()) {
+				Class<? extends IVariable<String>> IVs = 
+				(Class<? extends IVariable<String>>) 
+				IVariableConcretes.
+					get(
+							VariableType.STRING
+						);
+			
+				JsonDeserializer<? extends IVariable<String>> IVDs = 
+				(JsonDeserializer<? extends IVariable<String>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.STRING
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<String>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDs,
+							  					  IVs,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						)				
+				{
 					// Call the first temp String map from the top and put key and value as this entries value
 					stringMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
@@ -982,7 +1027,31 @@ public class ParserHelpers {
 			case "STRING ARRAYS":
 			case "STRINGS ARRAYS":
 				// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, IVariable<String[]>> variableEntry: ParseStringArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+				// Take the previous temp map created from previous section parser and loop over its entries
+				Class<? extends IVariable<String[]>> IVsa = 
+				(Class<? extends IVariable<String[]>>) 
+				IVariableConcretes.
+					get(
+							VariableType.STRINGARRAY
+						);
+			
+				JsonDeserializer<? extends IVariable<String[]>> IVDsa = 
+				(JsonDeserializer<? extends IVariable<String[]>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.STRINGARRAY
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<String[]>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDsa,
+							  					  IVsa,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						)
+				{
 					// Call the first temp String[] map from top and put key and value as this entries value
 					stringArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
@@ -992,7 +1061,31 @@ public class ParserHelpers {
 			case "DOUBLE":
 			case "DOUBLES":
 				// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, IVariable<Double>> variableEntry: ParseDoubleVariableSection(sectionEntry.getValue()).entrySet()) {
+				// Take the previous temp map created from previous section parser and loop over its entries
+				Class<? extends IVariable<Double>> IVd = 
+				(Class<? extends IVariable<Double>>) 
+				IVariableConcretes.
+					get(
+							VariableType.DOUBLE
+						);
+			
+				JsonDeserializer<? extends IVariable<Double>> IVDd = 
+				(JsonDeserializer<? extends IVariable<Double>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.DOUBLE
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Double>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDd,
+							  					  IVd,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						)
+				{
 					// Call the first temp double map from the top and put key and value as this entries value
 					doubleMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
@@ -1002,7 +1095,31 @@ public class ParserHelpers {
 			case "FLOAT":
 			case "FLOATS":
 				// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, IVariable<Float>> variableEntry: ParseFloatVariableSection(sectionEntry.getValue()).entrySet()) {
+				// Take the previous temp map created from previous section parser and loop over its entries
+				Class<? extends IVariable<Float>> IVf = 
+				(Class<? extends IVariable<Float>>) 
+				IVariableConcretes.
+					get(
+							VariableType.FLOAT
+						);
+			
+				JsonDeserializer<? extends IVariable<Float>> IVDf = 
+				(JsonDeserializer<? extends IVariable<Float>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.FLOAT
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Float>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDf,
+							  					  IVf,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						) 
+				{
 					// Call the first temp Float map from the tope and put key and value as this entries value
 					floatMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
@@ -1018,8 +1135,33 @@ public class ParserHelpers {
 			case "FLOAT ARRAYS":
 			case "FLOATS ARRAYS":
 				// Take the previous temp map created from previous section parser and loop over its entries 
-				for(Map.Entry<String, IVariable<Float[]>> variableEntry: ParseFloatArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-					// Call the first temp Float[] map from top and put key and value as this entries value
+				// Take the previous temp map created from previous section parser and loop over its entries
+				// Take the previous temp map created from previous section parser and loop over its entries
+				Class<? extends IVariable<Float[]>> IVfa = 
+				(Class<? extends IVariable<Float[]>>) 
+				IVariableConcretes.
+					get(
+							VariableType.FLOATARRAY
+						);
+			
+				JsonDeserializer<? extends IVariable<Float[]>> IVDfa = 
+				(JsonDeserializer<? extends IVariable<Float[]>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.FLOATARRAY
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Float[]>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDfa,
+							  					  IVfa,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						) 
+				{
+				// Call the first temp Float[] map from top and put key and value as this entries value
 					floatArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
@@ -1060,7 +1202,32 @@ public class ParserHelpers {
 			case "DOUBLE ARRAYS":
 			case "DOUBLES ARRAYS":
 				// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, IVariable<Double[]>> variableEntry: ParseDoubleArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+				// Take the previous temp map created from previous section parser and loop over its entries
+				// Take the previous temp map created from previous section parser and loop over its entries
+				Class<? extends IVariable<Double[]>> IVda = 
+				(Class<? extends IVariable<Double[]>>) 
+				IVariableConcretes.
+					get(
+							VariableType.DOUBLEARRAY
+						);
+			
+				JsonDeserializer<? extends IVariable<Double[]>> IVDda = 
+				(JsonDeserializer<? extends IVariable<Double[]>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.DOUBLEARRAY
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Double[]>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDda,
+							  					  IVda,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						) 
+				{
 					// Call the first temp double[] map from top and put key and value as this entries value
 					doubleArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
