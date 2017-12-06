@@ -61,7 +61,8 @@ public class Formula implements IFormula
     * Constructor for Formula class
     * Sets values for object fields, establishes
     * an exp4j compatible expression using the base
-    * equation given, and sets up
+    * equation given, creates an ArrayList of variable
+    * names to use in the formula's expression, and sets up
     * a Double array based off of the base equation
     * given for storing input variable object values.
     * 
@@ -121,9 +122,9 @@ public class Formula implements IFormula
         	
         }
         catch ( IllegalArgumentException eIAE ) {
-        	throw eIAE;
+        	throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- The formula expression is invalid or cannot be evaluated.");
         }catch (RuntimeException eRTE ) {
-        	throw eRTE;
+        	throw new RuntimeException("IN FORMULA: " + this.GetFormulaId() + " -- The formula expression is invalid or cannot be evaluated.");
         }
         
         // Clear our temp array from our dummy values when we're done validating.
@@ -166,12 +167,12 @@ public class Formula implements IFormula
      * A method to build an exp4j expression for a formula object,
      * given that a valid formula equation was input by the configuration file.
      * @return Expression	An Exp4j Expression object for use in calculating formulas.
+     * @throws IllegalArgumentException	If the formula's expression fails to build because there are bad variables or because the equation is bad and operators/functions failed to parse.
      * @author Chelsea Hunter
      * 
      */
     private Expression _buildExpression() 
     {
-    	//TODO: Add exceptions for this class
     	// Make base Exp4j ExpressionBuilder using _formulaEquation string as input
     	ExpressionBuilder _formulaExpressionBuilder = new ExpressionBuilder( this._formulaEquation );
     	
@@ -190,7 +191,7 @@ public class Formula implements IFormula
 	    	
 	    	return _formulaExpression;
     	} catch (IllegalArgumentException eIAE) {
-    		throw eIAE("IN FORMULA: " + this._formulaId + " -- The variable names could not be bound to the formula expression.")
+    		throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- Failed to build the formula's expression.");
     	}
     	
     }
@@ -210,7 +211,7 @@ public class Formula implements IFormula
     {
     	  // If the array is the wrong size throw an exception
         if( vars.length != this._formulaInputArray.length )
-            throw new IllegalArgumentException("Invalid number of elements in the incoming input array.");
+            throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- Invalid number of elements in the incoming input array.");
         
         // If the array values can not be parsed to a numerical value, throw an invalid argument exception
         try{
@@ -220,7 +221,7 @@ public class Formula implements IFormula
             
         } catch( IllegalArgumentException e ) { //TODO: Is this okay?
         	
-            throw new IllegalArgumentException("The input variables array could not be parsed into a numerical value. Message: " + e.getMessage());
+            throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- The input variables array could not be parsed into a numerical value. Message: " + e.getMessage());
         
         }
         
@@ -238,7 +239,7 @@ public class Formula implements IFormula
         } catch ( Exception e ) {
         	
             // If an exception was thrown, the Expression is invalid and something is wrong.
-            throw new IllegalStateException( "The Formula's Exp4j Expression is invalid. Message: " + e.getMessage() );
+            throw new IllegalStateException( "IN FORMULA: " + this.GetFormulaId() + " -- The formula's Exp4j expression is invalid. Message: " + e.getMessage() );
             
         }
     } 
@@ -301,7 +302,7 @@ public class Formula implements IFormula
 	    		return new Double( this._calculateExpression(vars) );
 	    	}
 	    	catch( IllegalArgumentException eIAE ) {
-	    		throw eIAE("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
+	    		throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
 	    	}
 	    }
     
@@ -370,7 +371,7 @@ public class Formula implements IFormula
     	
     	// If no array detected we are in an illegal state.
     	if(len == -1)
-    		throw new IllegalStateException("Call to CalculateToDouble for Array Type has no Arrays.");
+    		throw new IllegalStateException("IN FORMULA: " + this.GetFormulaId() + " -- Call to CalculateToDouble for Array Type has no Arrays.");
     	
     	// Initialize the ordering counter
     	Integer order = 0;
@@ -387,7 +388,7 @@ public class Formula implements IFormula
     			if( !Number.class.isAssignableFrom( var.GetValue().getClass().getComponentType() ) )
     				
     				//if not throw IllegalArgumentException
-    				throw new IllegalArgumentException("Array of non-numerical type detected.");
+    				throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- Array of non-numerical type detected.");
     			
     			// generate the Double array in the force casted value size
     			Double[] d = new Double[((Number[])var.GetValue()).length];
@@ -445,7 +446,7 @@ public class Formula implements IFormula
     	// Check matrix calculation compatibility
     	if( !this._lenCompatCheck( setup.values() ) )
     		
-    		throw new IllegalArgumentException("Incompatible Matricies Detected.");
+    		throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- Incompatible Matricies Detected.");
     	
     	
     	// Setup the output double array
@@ -587,7 +588,7 @@ public class Formula implements IFormula
     		return new Integer( ( new Double( this._calculateExpression(vars) ) ).intValue() );
     	}
     	catch( IllegalArgumentException eIAE ) {
-    		throw eIAE("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
+    		throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
     	}
     	
     	
@@ -653,7 +654,7 @@ public class Formula implements IFormula
 	    		return new Float( ( new Double( this._calculateExpression(vars) ) ).floatValue() );
 	    	}
 	    	catch( IllegalArgumentException eIAE ) {
-	    		throw eIAE("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
+	    		throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
 	    	}
 	    	
 	    	
@@ -711,7 +712,7 @@ public class Formula implements IFormula
 	    		return new Long( ( new Double( this._calculateExpression(vars) ) ).longValue() );
 	    	}
 	    	catch( IllegalArgumentException eIAE ) {
-	    		throw eIAE("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
+	    		throw new IllegalArgumentException("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
 	    	}
 	    	
 	    	
