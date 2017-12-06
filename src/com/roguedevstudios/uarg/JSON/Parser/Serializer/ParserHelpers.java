@@ -292,7 +292,7 @@ public class ParserHelpers {
 	 * @since 1.0
 	 */
 	public static 
-				  TreeMap<String, ? extends IVariable<Integer> > 
+				  TreeMap<String, IVariable<Integer> > 
 			      ParseIntegerVariableSection(
 			    		  JsonElement json,
 			    		  JsonDeserializer<? extends IVariable<Integer> > IVariableDeserializer,
@@ -882,24 +882,24 @@ public class ParserHelpers {
 											JsonElement JSON,
 											Map<VariableType, JsonDeserializer<? extends IVariable<?>>> IVariableDeserializersConcretes,
 											Map<VariableType, Class<? extends IVariable<?>>> IVariableConcretes,
-											T IVariablesConcrete,
+											T IVariablesContainer,
 											GsonBuilder gsonBuilder
 										  )
 	{
 		
 		// Initialize 12 temp treemaps to match req treemaps for variables.java constructor
-		TreeMap<String, ? extends IVariable< Integer   > > 	intMap 			= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< Integer[] > > 	intArrayMap 	= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< String    > >	stringMap 		= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< String[]  > > 	stringArrayMap 	= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< Float     > >	floatMap 		= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< Float[]   > > 	floatArrayMap 	= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< Long      > >	longMap 		= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< Long[]    > >	longArrayMap 	= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< Double    > >	doubleMap 		= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< Double[]  > > 	doubleArrayMap 	= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< Boolean   > > 	boolMap 		= new TreeMap<>();
-		TreeMap<String, ? extends IVariable< Boolean[] > > 	boolArrayMap 	= new TreeMap<>();
+		TreeMap<String, IVariable< Integer   > > 	intMap 			= new TreeMap<>();
+		TreeMap<String, IVariable< Integer[] > > 	intArrayMap 	= new TreeMap<>();
+		TreeMap<String, IVariable< String    > >	stringMap 		= new TreeMap<>();
+		TreeMap<String, IVariable< String[]  > > 	stringArrayMap 	= new TreeMap<>();
+		TreeMap<String, IVariable< Float     > >	floatMap 		= new TreeMap<>();
+		TreeMap<String, IVariable< Float[]   > > 	floatArrayMap 	= new TreeMap<>();
+		TreeMap<String, IVariable< Long      > >	longMap 		= new TreeMap<>();
+		TreeMap<String, IVariable< Long[]    > >	longArrayMap 	= new TreeMap<>();
+		TreeMap<String, IVariable< Double    > >	doubleMap 		= new TreeMap<>();
+		TreeMap<String, IVariable< Double[]  > > 	doubleArrayMap 	= new TreeMap<>();
+		TreeMap<String, IVariable< Boolean   > > 	boolMap 		= new TreeMap<>();
+		TreeMap<String, IVariable< Boolean[] > > 	boolArrayMap 	= new TreeMap<>();
 		
 		// Loop over entries in the jsonobjects entry sets 
 		for(Map.Entry<String, JsonElement> sectionEntry: 
@@ -931,7 +931,7 @@ public class ParserHelpers {
 							);
 				
 				// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, ? extends IVariable<?>> variableEntry: 
+				for(Map.Entry<String, IVariable<Integer>> variableEntry: 
 														  ParserHelpers.
 														  ParseIntegerVariableSection(
 																  					  sectionEntry.getValue(),
@@ -1099,14 +1099,12 @@ public class ParserHelpers {
 		
 		}
 		// Build the Variables Object 
-				Variables v = new Variables(intMap, intArrayMap, 
-											stringMap, stringArrayMap, 
-											floatMap, floatArrayMap, 
-											longMap, longArrayMap,
-											doubleMap, doubleArrayMap, 
-											boolMap, boolArrayMap);
-				// Return Variables Object
-				return v;
+				IVariablesContainer.SetMaps(intMap,intArrayMap,stringMap,stringArrayMap,
+											floatMap, floatArrayMap, longMap, longArrayMap,
+											doubleMap, doubleArrayMap, boolMap, boolArrayMap
+											);
+				
+				return IVariablesContainer;
 				
 	}
 }
