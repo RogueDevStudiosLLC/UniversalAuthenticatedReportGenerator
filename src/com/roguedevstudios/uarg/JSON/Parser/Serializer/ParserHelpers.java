@@ -13,6 +13,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.BooleanArrayVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.BooleanVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.DoubleArrayVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.DoubleVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.FloatArrayVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.FloatVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.IntegerArrayVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.LongArrayVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.LongVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.StringArrayVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.StringVariableDeserializer;
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
 import com.roguedevstudios.uarg.System.Core.Elements.FormulaSet;
 import com.roguedevstudios.uarg.System.Core.Elements.Formuli;
@@ -51,13 +62,11 @@ public class ParserHelpers {
 	 * 
 	 * @since 1.0
 	 */
-	public static 
-					<T extends IFormula> 
-					T 
+	public static 	IFormula
 					ParseFormula(
 									JsonElement json, 
-									JsonDeserializer<T> IFormulaDeserializer, 
-									Class<T> IFormulaConcrete, 
+									JsonDeserializer<? extends IFormula> IFormulaDeserializer, 
+									Class<? extends IFormula> IFormulaConcrete, 
 									GsonBuilder gsonBuilder
 								) 
 					throws	NullPointerException,
@@ -81,7 +90,7 @@ public class ParserHelpers {
 		
 		// Deserialize the object to a Formula object
 		try {
-			T retForm = (T) customGson.fromJson(json, IFormulaConcrete);
+			IFormula retForm = customGson.fromJson(json, IFormulaConcrete);
 			return retForm;
 		}
 		catch ( ClassCastException eCCE ) {
@@ -108,12 +117,11 @@ public class ParserHelpers {
 	 * @author Terry Roberson
 	 * @since 1.0
 	 */
-	public static 	<T extends IFormula> 
-					TreeMap<String, T> 
+	public static 	TreeMap<String, ? extends IFormula> 
 					ParseFormulaSet(
 									JsonElement json, 
-									JsonDeserializer<T> IFormulaDeserializer, 
-									Class<T> IFormulaConcrete, 
+									JsonDeserializer<? extends IFormula> IFormulaDeserializer, 
+									Class<? extends IFormula> IFormulaConcrete, 
 									GsonBuilder gsonBuilder
 								   )
 					throws IllegalStateException,
@@ -131,13 +139,13 @@ public class ParserHelpers {
 			Set<Map.Entry<String, JsonElement>> JsonForm = o.entrySet();
 			
 			// Start up the tree map of the formulas
-			TreeMap<String, T> map = new TreeMap<>();
+			TreeMap<String, IFormula> map = new TreeMap<>();
 			
 			// Loop through the formulas
 			for(Map.Entry<String, JsonElement> entry: o.entrySet()) {
 				
 			// Construct the formula and put it in the tree map
-				map.put(entry.getKey(), (T) ParserHelpers.<T>ParseFormula( entry.getValue(), IFormulaDeserializer, IFormulaConcrete, gsonBuilder));
+				map.put(entry.getKey(), ParserHelpers.<IFormula>ParseFormula( entry.getValue(), IFormulaDeserializer, (Class<? extends IFormula>)IFormulaConcrete, gsonBuilder));
 			}
 			return map;
 		}
@@ -153,12 +161,12 @@ public class ParserHelpers {
 	/**
 	 * 
 	 */
-	public static <T extends IFormula, E extends IFormuli>
-				  E 
+	public static <E extends IFormuli>
+				  void
 				  ParseFormuli(
 				  JsonElement json, 
-				  JsonDeserializer<T> IFormulaDeserializer, 
-				  Class<T> IFormulaConcrete,
+				  JsonDeserializer<? extends IFormula> IFormulaDeserializer, 
+				  Class<? extends IFormula> IFormulaConcrete,
 				  E IFormuliContainer,
 				  GsonBuilder gsonBuilder
 			) 
@@ -173,7 +181,7 @@ public class ParserHelpers {
 			
 			// Temp maps to use in loading the Formuli parsed
 			TreeMap<String, List<String>> SetLinks = new TreeMap<>();
-			TreeMap<String,T> FormulaObjects = new TreeMap<>();
+			TreeMap<String,IFormula> FormulaObjects = new TreeMap<>();
 			
 			// For every section we need the formulas parsed, and the set they link to
 			for(Map.Entry<String, JsonElement> section: 
@@ -184,7 +192,7 @@ public class ParserHelpers {
 				List<String> FormulasProcessed = new ArrayList<>();
 				
 				// Pass the parsing job to our section parser
-				TreeMap<String,T> FormulasFromSection =
+				TreeMap<String,? extends IFormula> FormulasFromSection =
 										ParserHelpers.ParseFormulaSet(
 																	section.getValue(),
 																	IFormulaDeserializer,
@@ -207,9 +215,6 @@ public class ParserHelpers {
 			
 			// Load the set links into the passed IFormuli compliant passed object
 			IFormuliContainer.LoadFormulaSets(SetLinks);
-	
-			// The formuli have been parsed and loaded into the existing object, pass it back to the caller.
-			return IFormuliContainer;
 			
 		}
 		catch (IllegalStateException eISE)		{throw eISE;}
@@ -233,13 +238,12 @@ public class ParserHelpers {
 	 * @author Christopher E. Howard
 	 * @since 1.0
 	 */
-	public static <E extends IVariable<Integer> > 
-				  E 
+	public static IVariable<Integer>
 				  ParseIntegerVariable(
 						  				JsonElement json, 
 						  				String ID,
-						  				JsonDeserializer<E> IVariableDeserializer,
-						  				Class<E> IVariableConcrete,
+						  				JsonDeserializer<? extends IVariable<Integer> > IVariableDeserializer,
+						  				Class<? extends IVariable<Integer>> IVariableConcrete,
 						  				GsonBuilder gsonBuilder
 						  			   )
 				  throws NullPointerException,
@@ -263,7 +267,7 @@ public class ParserHelpers {
 			Gson customGson = gsonBuilder.create();
 			
 			// Deserialize the object to a Variable<String> object
-			E retVar = customGson.fromJson( json, IVariableConcrete );
+			IVariable<Integer> retVar = customGson.fromJson( json, IVariableConcrete );
 			
 			// Manually set the ID as deserializer can not do so normally
 			retVar.SetId(ID);
@@ -287,12 +291,12 @@ public class ParserHelpers {
 	 * 
 	 * @since 1.0
 	 */
-	public static < E extends IVariable<Integer> > 
-				  TreeMap<String, E> 
+	public static 
+				  TreeMap<String, ? extends IVariable<Integer> > 
 			      ParseIntegerVariableSection(
 			    		  JsonElement json,
-			    		  JsonDeserializer<E> IVariableDeserializer,
-			    		  Class<E> IVariableConcrete,
+			    		  JsonDeserializer<? extends IVariable<Integer> > IVariableDeserializer,
+			    		  Class<? extends IVariable<Integer>> IVariableConcrete,
 			    		  GsonBuilder gsonBuilder			    		  
 			    		  )
 			      throws NullPointerException,
@@ -303,7 +307,7 @@ public class ParserHelpers {
 		try {
 			
 			// Start up the tree map for these variables
-			TreeMap<String, E> map = new TreeMap<>();
+			TreeMap<String, IVariable<Integer> > map = new TreeMap<>();
 			
 			// Loop through the variables
 			for( Map.Entry<String,JsonElement> entry: 
@@ -312,7 +316,7 @@ public class ParserHelpers {
 			// Construct the variable and put it in the tree map
 			map.put( entry.getKey(), 
 					ParserHelpers.
-						<E>ParseIntegerVariable( entry.getValue(),
+						ParseIntegerVariable( entry.getValue(),
 												 entry.getKey(),
 												 IVariableDeserializer,
 												 IVariableConcrete,
@@ -872,38 +876,77 @@ public class ParserHelpers {
 	 * @author Christopher Howard
 	 * @since 1.0
 	 */
-	public static Variables ParseVariables(JsonElement json) {
-		// Convert passed jsonelement into json object
-		JsonObject o = json.getAsJsonObject();
+	public static <T extends IVariables>
+				   T
+				   ParseVariables(
+											JsonElement JSON,
+											Map<VariableType, JsonDeserializer<? extends IVariable<?>>> IVariableDeserializersConcretes,
+											Map<VariableType, Class<? extends IVariable<?>>> IVariableConcretes,
+											T IVariablesConcrete,
+											GsonBuilder gsonBuilder
+										  )
+	{
+		
 		// Initialize 12 temp treemaps to match req treemaps for variables.java constructor
-		TreeMap<String, IVariable<Integer>> intMap = new TreeMap<>();
-		TreeMap<String, IVariable<Integer[]>> intArrayMap = new TreeMap<>();
-		TreeMap<String, IVariable<String>> stringMap = new TreeMap<>();
-		TreeMap<String, IVariable<String[]>> stringArrayMap = new TreeMap<>();
-		TreeMap<String, IVariable<Float>> floatMap = new TreeMap<>();
-		TreeMap<String, IVariable<Float[]>> floatArrayMap = new TreeMap<>();
-		TreeMap<String, IVariable<Long>> longMap = new TreeMap<>();
-		TreeMap<String, IVariable<Long[]>> longArrayMap = new TreeMap<>();
-		TreeMap<String, IVariable<Double>> doubleMap = new TreeMap<>();
-		TreeMap<String, IVariable<Double[]>> doubleArrayMap = new TreeMap<>();
-		TreeMap<String, IVariable<Boolean>> boolMap = new TreeMap<>();
-		TreeMap<String, IVariable<Boolean[]>> boolArrayMap = new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Integer   > > 	intMap 			= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Integer[] > > 	intArrayMap 	= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< String    > >	stringMap 		= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< String[]  > > 	stringArrayMap 	= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Float     > >	floatMap 		= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Float[]   > > 	floatArrayMap 	= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Long      > >	longMap 		= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Long[]    > >	longArrayMap 	= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Double    > >	doubleMap 		= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Double[]  > > 	doubleArrayMap 	= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Boolean   > > 	boolMap 		= new TreeMap<>();
+		TreeMap<String, ? extends IVariable< Boolean[] > > 	boolArrayMap 	= new TreeMap<>();
 		
 		// Loop over entries in the jsonobjects entry sets 
-		for(Map.Entry<String, JsonElement> sectionEntry: o.entrySet()) {
-		// switch based on key of this entry
+		for(Map.Entry<String, JsonElement> sectionEntry: 
+										   JSON.getAsJsonObject().entrySet()) 
+		{
 			
-			switch(sectionEntry.getKey().toUpperCase()) {
-		// Case Integer for all possible variations of input
+		// switch based on key of this entry
+			switch(sectionEntry.
+								getKey().
+								toUpperCase()
+				  ) 
+			{
+			// Case Integer for all possible variations of input
 			case "INTEGER":
 			case "INTEGERS":
-		// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, IVariable<Integer>> variableEntry: ParseIntegerVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp integer map from top and put key and value as this entries value
+				
+				Class<? extends IVariable<Integer>> IV = 
+					(Class<? extends IVariable<Integer>>) 
+					IVariableConcretes.
+						get(
+								VariableType.INTEGER
+							);
+				
+				JsonDeserializer<? extends IVariable<Integer>> IVD = 
+					(JsonDeserializer<? extends IVariable<Integer>>)
+					IVariableDeserializersConcretes.
+						get(
+								VariableType.INTEGER
+							);
+				
+				// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, ? extends IVariable<?>> variableEntry: 
+														  ParserHelpers.
+														  ParseIntegerVariableSection(
+																  					  sectionEntry.getValue(),
+																  					  IVD,
+																  					  IV,
+																  					  gsonBuilder
+																  					 ).entrySet()
+					) 
+				{
+					// Call the first temp integer map from top and put key and value as this entries value
 					intMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
-		// Case IntegerArray for all possible variations of input
+				
+			// Case IntegerArray for all possible variations of input
 			case "INTEGERARRAY":
 			case "INTEGERSARRAY":
 			case "INTEGERARRAYS":
@@ -912,22 +955,24 @@ public class ParserHelpers {
 			case "INTEGERS ARRAY":
 			case "INTEGER ARRAYS":
 			case "INTEGERS ARRAYS":
-		// Take the previous temp map created from previous section parser and loop over its entries 
+				// Take the previous temp map created from previous section parser and loop over its entries 
 				for(Map.Entry<String, IVariable<Integer[]>> variableEntry: ParseIntegerArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp Integer[] map from top and put key and value as this entries value
+					// Call the first temp Integer[] map from top and put key and value as this entries value
 					intArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
-		// Case String for all possible variations of input
+				
+				// Case String for all possible variations of input
 			case "STRING":
 			case "STRINGS":
-		// Take the previous temp map created from previous section parser and loop over its entries
+				// Take the previous temp map created from previous section parser and loop over its entries
 				for(Map.Entry<String, IVariable<String>> variableEntry: ParseStringVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp String map from the top and put key and value as this entries value
+					// Call the first temp String map from the top and put key and value as this entries value
 					stringMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
-		// Case String[] for all possible variations of input
+				
+			// Case String[] for all possible variations of input
 			case "STRINGARRAY":
 			case "STRINGSARRAY":
 			case "STRINGARRAYS":
@@ -936,31 +981,34 @@ public class ParserHelpers {
 			case "STRINGS ARRAY":
 			case "STRING ARRAYS":
 			case "STRINGS ARRAYS":
-		// Take the previous temp map created from previous section parser and loop over its entries
+				// Take the previous temp map created from previous section parser and loop over its entries
 				for(Map.Entry<String, IVariable<String[]>> variableEntry: ParseStringArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp String[] map from top and put key and value as this entries value
+					// Call the first temp String[] map from top and put key and value as this entries value
 					stringArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
-		// Case Double for all possible variations of input
+				
+			// Case Double for all possible variations of input
 			case "DOUBLE":
 			case "DOUBLES":
-		// Take the previous temp map created from previous section parser and loop over its entries
+				// Take the previous temp map created from previous section parser and loop over its entries
 				for(Map.Entry<String, IVariable<Double>> variableEntry: ParseDoubleVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp double map from the top and put key and value as this entries value
+					// Call the first temp double map from the top and put key and value as this entries value
 					doubleMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
-		// Case Float for all possible variations of input
+				
+			// Case Float for all possible variations of input
 			case "FLOAT":
 			case "FLOATS":
-		// Take the previous temp map created from previous section parser and loop over its entries
+				// Take the previous temp map created from previous section parser and loop over its entries
 				for(Map.Entry<String, IVariable<Float>> variableEntry: ParseFloatVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp Float map from the tope and put key and value as this entries value
+					// Call the first temp Float map from the tope and put key and value as this entries value
 					floatMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
-		// Case Long[] for all possible variations of input
+				
+			// Case Long[] for all possible variations of input
 			case "FLOATARRAY":
 			case "FLOATSARRAY":
 			case "FLOATARRAYS":
@@ -969,22 +1017,24 @@ public class ParserHelpers {
 			case "FLOATS ARRAY":
 			case "FLOAT ARRAYS":
 			case "FLOATS ARRAYS":
-		// Take the previous temp map created from previous section parser and loop over its entries 
-			for(Map.Entry<String, IVariable<Float[]>> variableEntry: ParseFloatArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp Float[] map from top and put key and value as this entries value
-				floatArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
-			}
-			break;
-		// Case Long for all possible variations of input
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Float[]>> variableEntry: ParseFloatArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+					// Call the first temp Float[] map from top and put key and value as this entries value
+					floatArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+				
+			// Case Long for all possible variations of input
 			case "LONG":
 			case "LONGS":
-		// Take the previous temp map created from previous section parser and loop over its entries
-			for(Map.Entry<String, IVariable<Long>> variableEntry: ParseLongVariableSection(sectionEntry.getValue()).entrySet()) {
-		// call the first temp long map from top and put key and value as this entries value
-				longMap.put(variableEntry.getKey(), variableEntry.getValue());
-			}
-			break;
-		// Case Long[] for all possible variations of input
+				// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, IVariable<Long>> variableEntry: ParseLongVariableSection(sectionEntry.getValue()).entrySet()) {
+					// call the first temp long map from top and put key and value as this entries value
+					longMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+				
+			// Case Long[] for all possible variations of input
 			case "LONGARRAY":
 			case "LONGSARRAY":
 			case "LONGARRAYS":
@@ -993,13 +1043,14 @@ public class ParserHelpers {
 			case "LONGS ARRAY":
 			case "LONG ARRAYS":
 			case "LONGS ARRAYS":
-		// Take the previous temp map created from previous section parser and loop over its entries 
-			for(Map.Entry<String, IVariable<Long[]>> variableEntry: ParseLongArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp Integer[] map from top and put key and value as this entries value
-					longArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
-			}
-			break;			
-		// Case Double[] for all possible variations of input
+					// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Long[]>> variableEntry: ParseLongArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+						// Call the first temp Integer[] map from top and put key and value as this entries value
+						longArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;		
+				
+			// Case Double[] for all possible variations of input
 			case "DOUBLEARRAY":
 			case "DOUBLESARRAY":
 			case "DOUBLEARRAYS":
@@ -1008,22 +1059,24 @@ public class ParserHelpers {
 			case "DOUBLES ARRAY":
 			case "DOUBLE ARRAYS":
 			case "DOUBLES ARRAYS":
-		// Take the previous temp map created from previous section parser and loop over its entries
+				// Take the previous temp map created from previous section parser and loop over its entries
 				for(Map.Entry<String, IVariable<Double[]>> variableEntry: ParseDoubleArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp double[] map from top and put key and value as this entries value
+					// Call the first temp double[] map from top and put key and value as this entries value
 					doubleArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
-		// Case Boolean for all possible variations of input
+				
+			// Case Boolean for all possible variations of input
 			case "BOOLEAN":
 			case "BOOLEANS":
-		// Take the previous temp map created from previous section parser and loop over its entries
-			for(Map.Entry<String, IVariable<Boolean>> variableEntry: ParseBooleanVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp Boolean map from top and put key and value as this entries value		
-				boolMap.put(variableEntry.getKey(), variableEntry.getValue());
-			}
-			break;
-		// Case Long[] for all possible variations of input
+				// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, IVariable<Boolean>> variableEntry: ParseBooleanVariableSection(sectionEntry.getValue()).entrySet()) {
+					// Call the first temp Boolean map from top and put key and value as this entries value		
+					boolMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+			
+			// Case Long[] for all possible variations of input
 			case "BOOLEANARRAY":
 			case "BOOLEANSARRAY":
 			case "BOOLEANARRAYS":
@@ -1032,15 +1085,16 @@ public class ParserHelpers {
 			case "BOOLEANS ARRAY":
 			case "BOOLEAN ARRAYS":
 			case "BOOLEANS ARRAYS":
-		// Take the previous temp map created from previous section parser and loop over its entries
-			for(Map.Entry<String, IVariable<Boolean[]>> variableEntry: ParseBooleanArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-		// Call the first temp Boolean[] map from top and put key and value as this entries value				
-				boolArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
-			}
-			break;
-		// Break from the switch statement
+				// Take the previous temp map created from previous section parser and loop over its entries
+				for(Map.Entry<String, IVariable<Boolean[]>> variableEntry: ParseBooleanArrayVariableSection(sectionEntry.getValue()).entrySet()) {
+					// Call the first temp Boolean[] map from top and put key and value as this entries value				
+					boolArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
+				}
+				break;
+				
+			// Break from the switch statement
 			default:
-			break;
+				break;
 			}
 		
 		}
