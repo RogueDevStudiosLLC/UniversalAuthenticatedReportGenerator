@@ -1,4 +1,4 @@
-package com.roguedevstudios.uarg.JSON.Parser.Serializer;
+package com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete;
 /****************************************
 *  Formula Deserializer					*
 *   File Name: 							*

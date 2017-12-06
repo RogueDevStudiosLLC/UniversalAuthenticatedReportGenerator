@@ -10,7 +10,7 @@
 *  ©2017 Rogue Dev Studios, LLC *
 ********************************/
 
-package com.roguedevstudios.uarg.JSON.Parser.Serializer;
+package com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete;
 import java.lang.reflect.Type;
 import com.google.gson.*;
 import com.roguedevstudios.uarg.System.Core.Elements.Meta;

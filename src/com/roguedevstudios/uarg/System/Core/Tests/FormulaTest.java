@@ -181,8 +181,6 @@ public class FormulaTest {
 		vd[1] = vd2;
 		vl[0] = vl1;
 		vl[1] = vl2;
-		via[0] = via1;
-		via[1] = via2;
 		Integer iOut = formulaM.CalculateToInteger(vi);
 		Float fOut = formulaA.CalculateToFloat(vf);
 		//System.out.println(out);
