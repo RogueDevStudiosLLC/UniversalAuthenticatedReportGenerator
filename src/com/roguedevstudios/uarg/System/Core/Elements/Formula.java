@@ -132,7 +132,7 @@ public class Formula implements IFormula
     
     /**
      * A method to initialize the variable names to be used by the formula's Exp4j expression.
-     * @return A list of variable names (ArrayList<String>)
+     * @return ArrayList<String>	A list of variable names to be used in the formula's expression.
      * @author Chelsea Hunter
      */
     private ArrayList< String > _initializeVarNames() 
@@ -165,7 +165,7 @@ public class Formula implements IFormula
     /**
      * A method to build an exp4j expression for a formula object,
      * given that a valid formula equation was input by the configuration file.
-     * @return An Exp4j Expression object for use in calculating formulas (Expression).
+     * @return Expression	An Exp4j Expression object for use in calculating formulas.
      * @author Chelsea Hunter
      * 
      */
@@ -198,7 +198,7 @@ public class Formula implements IFormula
     /**
     * Gets the double result of calculating the Formula object's Exp4j Expression.
     * @param vars	The Variable Number objects with the desired input values in array format.
-    * @return The result of calculating the Formula object's Expression (double).
+    * @return double	The result of calculating the Formula object's Expression.
     * @throws IllegalArgumentException	If the incoming array is the wrong size, or if values in the Variable array cannot be parsed into a numerical value.
     * @throws IllegalStateException	If the formula's Exp4j Expression is invalid.
     * @author Chelsea Hunter
@@ -246,9 +246,9 @@ public class Formula implements IFormula
     /**
      * Adapted expression calculator using Double Arrays
      * @param vars	A Double array of the input values for the formula's expression.
-     * @return The result of evaluating the formula's expression in double format.
+     * @return double	The result of evaluating the formula's expression in double format.
      * @throws IllegalArgumentException	If there is an invalid number of elements in the incoming input array.
-     * @throws IllegalStateException	If the formula's expression object is invalid.
+     * @throws IllegalStateException	If the formula's Exp4j Expression is invalid.
      * @author Christopher Howard
      * @author Chelsea Hunter
      */
@@ -290,7 +290,7 @@ public class Formula implements IFormula
     /**
      * Gets the Double result of calculating the Formula object's Exp4j Expression.
      * @param vars	The Variable Number objects with the desired input values in array format.
-     * @return The result of calculating the Formula object's Expression in Double format.
+     * @return Double	The result of calculating the Formula object's Expression in Double format.
      * @throws IllegalArgumentException	If the evaluation of the formula's expression fails.
      * @author Chelsea Hunter
      */
@@ -301,7 +301,7 @@ public class Formula implements IFormula
 	    		return new Double( this._calculateExpression(vars) );
 	    	}
 	    	catch( IllegalArgumentException eIAE ) {
-	    		throw eIAE;
+	    		throw eIAE("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
 	    	}
 	    }
     
@@ -578,7 +578,7 @@ public class Formula implements IFormula
      * @author Chelsea Hunter
      * @param vars	The Variable Number objects with the desired input values in array format.
      * @return Integer	The result of calculating the Formula object's Expression in Integer format.
-     * @throws IllegalArgumentException	If the formula's expression cannot be evaluated.
+     * @throws IllegalArgumentException	If the evaluation of the formula's expression fails.
      */
     public Integer CalculateToInteger( IVariable<? extends Number>[] vars ) 
     	   throws IllegalArgumentException
@@ -587,7 +587,7 @@ public class Formula implements IFormula
     		return new Integer( ( new Double( this._calculateExpression(vars) ) ).intValue() );
     	}
     	catch( IllegalArgumentException eIAE ) {
-    		throw eIAE("IN FORMULA: " + this._formulaId + " -- The formula's expression cannot be evaluated.");
+    		throw eIAE("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
     	}
     	
     	
@@ -596,13 +596,13 @@ public class Formula implements IFormula
     /**
      * Gets an Integer Array result from the Formula Results
      * @param vars	The Variable objects with the desired input values in array format.
-     * @param ArrayPresent
-     * @return Integer[]
-     * @throws ClassCastException
-     * @throws IllegalStateException
-     * @throws IllegalArgumentException
-     * @throws NullPointerException
-     * @throws IndexOutOfBoundsException
+	 * @param ArrayPresent	A boolean that says whether or not an input of array-type is present in an array of Variables to be used for input.
+     * @return Integer[]	The Integer array result of calculating the formula's expression.
+     * @throws ClassCastException	If some array cannot be classified as a Double or Integer array.
+     * @throws IllegalStateException	If there is no array input type detected in the Variable object input array when the ArrayPresent boolean is true.
+     * @throws IllegalArgumentException	If some Variable's input, of type Array, has a type that is not numerical, or if array-type inputs from the Variable object array are not all of the same size.
+     * @throws NullPointerException	If the pointer to an array or an index is null.
+     * @throws IndexOutOfBoundsException	If, when making an argument matrix, there is some error with the indices. 
      * @author Christopher Howard
      */
     public Integer[] CalculateToInteger( IVariable<?>[] vars, 
@@ -643,7 +643,8 @@ public class Formula implements IFormula
      * Gets the Float result of calculating the Formula object's Exp4j Expression.
      * @author Chelsea Hunter
      * @param vars	The Variable objects with the desired input values in array format.
-     * @return The result of calculating the Formula object's Expression in Float format.
+     * @return Float	The result of calculating the Formula object's Expression in Float format.
+     * @throws IllegalArgumentException If the evaluation of the formula's expression fails.
      */
     public Float CalculateToFloat(IVariable<? extends Number>[] vars)
 		   throws IllegalArgumentException
@@ -652,14 +653,14 @@ public class Formula implements IFormula
 	    		return new Float( ( new Double( this._calculateExpression(vars) ) ).floatValue() );
 	    	}
 	    	catch( IllegalArgumentException eIAE ) {
-	    		throw eIAE;
+	    		throw eIAE("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
 	    	}
 	    	
 	    	
 	    }
     /**
      * Gets a Float Array result from the Formula Results
-     * @param vars
+     * @param vars	The Variable objects with the desired input values in array format.
      * @param ArrayPresent
      * @return
      */
@@ -700,7 +701,8 @@ public class Formula implements IFormula
      * Gets the Long result of calculating the Formula object's Exp4j Expression.
      * @author Chelsea Hunter
      * @param vars	The Variable objects with the desired input values in array format.
-     * @return The result of calculating the Formula object's Expression in Long format.
+     * @return Long	The result of calculating the Formula object's Expression in Long format.
+     * @throws IllegalArgumentException	If the evaluation of the formula's expression fails.
      */
     public Long CalculateToLong(IVariable<? extends Number>[] vars)
 		   throws IllegalArgumentException
@@ -709,7 +711,7 @@ public class Formula implements IFormula
 	    		return new Long( ( new Double( this._calculateExpression(vars) ) ).longValue() );
 	    	}
 	    	catch( IllegalArgumentException eIAE ) {
-	    		throw eIAE;
+	    		throw eIAE("IN FORMULA: " + this.GetFormulaId() + " -- The formula's expression could not be evaluated.");
 	    	}
 	    	
 	    	
@@ -750,12 +752,13 @@ public class Formula implements IFormula
     
     /**
     * Populates the temporary input array with doubles of the input values from the incoming Variable object array.
+    * @param vars	The Variable objects with the desired input values in array format.
+    * @throws NullPointerException	If a pointer to some variable is null.
+    * @throws IndexOutOfBoundsException	If there is an error in the temporary input array's indices.
     * @author Christopher E. Howard
-    * @param vars		The Variable objects with the desired input values in array format.
-    * @throws Exception	If one of the argument values given is not capable of being parsed into a Double.
     */
     private void _tempArrayDoubleConversion( IVariable<? extends Number>[] vars ) 
-    		throws NullPointerException 
+    		throws NullPointerException, IndexOutOfBoundsException 
     {
    
         int i = 0;
@@ -780,9 +783,10 @@ public class Formula implements IFormula
     }
     
     /**
-     * Populates the temporary array with doubles of the input values from incoming Doubles Array
-     * @param vars
-     * @throws Exception
+     * Populates the temporary array with doubles of the input values from incoming Double array
+     * @param vars	The Double objects with the desired input values in array format.
+     * @throws NullPointerException	If a pointer to some variable is null.
+     * @throws IndexOutOfBoundsException	If there is an error in the temporary input array's indices.
      * @author Christopher Howard
      * @author Chelsea Hunter
      */
@@ -820,9 +824,7 @@ public class Formula implements IFormula
     /**
      * Sets the Exp4j Expression variables to the proper values from the temporary input array, validates the Expression,
      * then returns the result of evaluating the expression.
-     * 
-     * @return	The result of evaluating the Formula object's Exp4j Expression, in double format.
-     * 
+     * @return double	The result of evaluating the formula's expression, in double format.
      * @throws IllegalStateException	If the expression fails to validate.
      * @throws IllegalArgumentException	If the expression fails to evaluate.
      * @throws RuntimeException	If the expression fails to evaluate.
@@ -850,7 +852,7 @@ public class Formula implements IFormula
  	   if (_formulaExpressionValidation.isValid() != true) 
  	   {
  		   this._clearTempArray();
- 		   throw new IllegalStateException( "Expression failed to validate.");
+ 		   throw new IllegalStateException("IN FORMULA: " + this.GetFormulaId() + " -- Expression failed to validate.");
  	   }
  	   
  	   // Try to evaluate the expression if basic validation is a success. If the evaluation fails here, it is mostly likely a mathematical issue.
