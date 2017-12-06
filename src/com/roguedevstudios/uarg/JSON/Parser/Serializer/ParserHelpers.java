@@ -1134,9 +1134,6 @@ public class ParserHelpers {
 			case "FLOATS ARRAY":
 			case "FLOAT ARRAYS":
 			case "FLOATS ARRAYS":
-				// Take the previous temp map created from previous section parser and loop over its entries 
-				// Take the previous temp map created from previous section parser and loop over its entries
-				// Take the previous temp map created from previous section parser and loop over its entries
 				Class<? extends IVariable<Float[]>> IVfa = 
 				(Class<? extends IVariable<Float[]>>) 
 				IVariableConcretes.
@@ -1170,7 +1167,30 @@ public class ParserHelpers {
 			case "LONG":
 			case "LONGS":
 				// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, IVariable<Long>> variableEntry: ParseLongVariableSection(sectionEntry.getValue()).entrySet()) {
+				Class<? extends IVariable<Long>> IVl = 
+				(Class<? extends IVariable<Long>>) 
+				IVariableConcretes.
+					get(
+							VariableType.LONG
+						);
+			
+				JsonDeserializer<? extends IVariable<Long>> IVDl = 
+				(JsonDeserializer<? extends IVariable<Long>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.LONG
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Long>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDl,
+							  					  IVl,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						) 
+				{
 					// call the first temp long map from top and put key and value as this entries value
 					longMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
@@ -1185,9 +1205,30 @@ public class ParserHelpers {
 			case "LONGS ARRAY":
 			case "LONG ARRAYS":
 			case "LONGS ARRAYS":
-					// Take the previous temp map created from previous section parser and loop over its entries 
-				for(Map.Entry<String, IVariable<Long[]>> variableEntry: ParseLongArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-						// Call the first temp Integer[] map from top and put key and value as this entries value
+				Class<? extends IVariable<Long[]>> IVla = 
+				(Class<? extends IVariable<Long[]>>) 
+				IVariableConcretes.
+					get(
+							VariableType.LONGARRAY
+						);
+			
+				JsonDeserializer<? extends IVariable<Long[]>> IVDla = 
+				(JsonDeserializer<? extends IVariable<Long[]>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.LONGARRAY
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Long[]>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDla,
+							  					  IVla,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						) 
+				{						// Call the first temp Integer[] map from top and put key and value as this entries value
 						longArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;		
@@ -1201,8 +1242,6 @@ public class ParserHelpers {
 			case "DOUBLES ARRAY":
 			case "DOUBLE ARRAYS":
 			case "DOUBLES ARRAYS":
-				// Take the previous temp map created from previous section parser and loop over its entries
-				// Take the previous temp map created from previous section parser and loop over its entries
 				// Take the previous temp map created from previous section parser and loop over its entries
 				Class<? extends IVariable<Double[]>> IVda = 
 				(Class<? extends IVariable<Double[]>>) 
@@ -1237,7 +1276,30 @@ public class ParserHelpers {
 			case "BOOLEAN":
 			case "BOOLEANS":
 				// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, IVariable<Boolean>> variableEntry: ParseBooleanVariableSection(sectionEntry.getValue()).entrySet()) {
+				Class<? extends IVariable<Boolean>> IVb = 
+				(Class<? extends IVariable<Boolean>>) 
+				IVariableConcretes.
+					get(
+							VariableType.BOOLEAN
+						);
+			
+				JsonDeserializer<? extends IVariable<Double[]>> IVDb = 
+				(JsonDeserializer<? extends IVariable<Double[]>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.BOOLEAN
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Boolean>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDb,
+							  					  IVb,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						) 
+				{
 					// Call the first temp Boolean map from top and put key and value as this entries value		
 					boolMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
@@ -1252,9 +1314,31 @@ public class ParserHelpers {
 			case "BOOLEANS ARRAY":
 			case "BOOLEAN ARRAYS":
 			case "BOOLEANS ARRAYS":
-				// Take the previous temp map created from previous section parser and loop over its entries
-				for(Map.Entry<String, IVariable<Boolean[]>> variableEntry: ParseBooleanArrayVariableSection(sectionEntry.getValue()).entrySet()) {
-					// Call the first temp Boolean[] map from top and put key and value as this entries value				
+				Class<? extends IVariable<Boolean[]>> IVba = 
+				(Class<? extends IVariable<Boolean[]>>) 
+				IVariableConcretes.
+					get(
+							VariableType.BOOLEANARRAY
+						);
+			
+				JsonDeserializer<? extends IVariable<Boolean[]>> IVDba = 
+				(JsonDeserializer<? extends IVariable<Boolean[]>>)
+				IVariableDeserializersConcretes.
+					get(
+							VariableType.BOOLEANARRAY
+						);
+				// Take the previous temp map created from previous section parser and loop over its entries 
+				for(Map.Entry<String, IVariable<Boolean[]>> variableEntry: 
+					  ParserHelpers.
+					  ParseStringVariableSection(
+							  					  sectionEntry.getValue(),
+							  					  IVDba,
+							  					  IVba,
+							  					  gsonBuilder
+							  					 ).entrySet()
+						) 
+				{
+				// Call the first temp Boolean[] map from top and put key and value as this entries value				
 					boolArrayMap.put(variableEntry.getKey(), variableEntry.getValue());
 				}
 				break;
