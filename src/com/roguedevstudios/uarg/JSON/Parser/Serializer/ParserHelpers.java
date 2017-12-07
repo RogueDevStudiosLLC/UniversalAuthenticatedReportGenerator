@@ -31,11 +31,13 @@ import com.roguedevstudios.uarg.System.Core.Elements.Formuli;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Elements.Variables;
 import com.roguedevstudios.uarg.System.Core.Elements.CascadeEntry;
+import com.roguedevstudios.uarg.System.Core.Elements.CascadeMap;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormuli;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.ICascadeEntry;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.ICascadeMap;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
@@ -243,10 +245,10 @@ public class ParserHelpers {
 	 * @author Chelsea Hunter
 	 */
 	//TODO: This class
-	public static ICascadeEntry ParseCascadeEntry(JsonElement json, JsonDeserializer<? extends ICascadeEntry> ICascadeEntryDeserializer, Class<? extends CascadeEntry> ICascadeEntryConcrete, GsonBuilder gsonBuilder) throws NullPointerException, IllegalArgumentException, ClassCastException {
+	public static ICascadeEntry ParseCascadeEntry(JsonElement json, JsonDeserializer<? extends ICascadeEntry> ICascadeEntryDeserializer, Class<? extends ICascadeEntry> ICascadeEntryConcrete, GsonBuilder gsonBuilder) throws NullPointerException, IllegalArgumentException, ClassCastException {
 		// Check if any arguments were parsed as null and throw exception if so
 		if (json == null || ICascadeEntryDeserializer == null || ICascadeEntryConcrete == null || gsonBuilder == null) {
-			throw new NullPointerException("All parameters given must be initialized.");
+			throw new NullPointerException("All parameters given to the ICascadeEntry parser must be initialized.");
 		}
 		// Check if ICascadeEntryConcrete is assignable to the ICascadeEntry interface
 		if (!ICascadeEntryConcrete.isAssignableFrom(ICascadeEntry.class)) {
@@ -258,14 +260,56 @@ public class ParserHelpers {
 		Gson customGson = gsonBuilder.create();
 		// Deserialize object to ICascadeEntry-compliant object
 		try {
-			ICascadeEntry retCE = customGson.fromJson(json, ICascadeEntryConcrete);
-			return retCE;
+			ICascadeEntry retCasEnt = customGson.fromJson(json, ICascadeEntryConcrete);
+			return retCasEnt;
 		} catch(ClassCastException eCCE) {
 			throw eCCE;
 		} finally {
 			//cleanup
 			customGson = null;
 		}
+	}
+	
+	/**
+	 * Parses a CascadeMap JSON representation into
+	 * an ICascadeMap-compliant object.
+	 * @param json	The JSON for the ICascadeMap object to be created
+	 * @param ICascadeEntryDeserializer	The custom deserializer for the ICascadeEntry compatible concrete class being parsed to
+	 * @param ICascadeMapConcrete	The concrete ICascadeMap complaint class to turn this JSON into
+	 * @param ICascadeEntryConcrete The concrete ICascadeEntry compliant class to add to our ICascadeMap-complaint object
+	 * @param gsonBuilder
+	 * @throws NullPointerException	If parameters given to the method are null.
+	 * @throws IllegalArgumentException	If the concrete class does not implement the ICascadeMap interface.
+	 * @throws ClassCastException
+	 * @throws Exception
+	 * @return ICascadeMap	An object that implements the ICascadeMap interface.
+	 * @author Chelsea Hunter
+	 */
+	//TODO: This class too
+	public static ICascadeMap ParseCascadeMap(JsonElement json, JsonDeserializer<? extends ICascadeEntry> ICascadeEntryDeserializer, Class<? extends ICascadeMap> ICascadeMapConcrete, Class<? extends ICascadeEntry> ICascadeEntryConcrete, GsonBuilder gsonBuilder) throws NullPointerException, IllegalArgumentException, ClassCastException, Exception {
+		
+		// Check if any arguments were parsed as null and throw exception if so
+		if (json == null || ICascadeEntryDeserializer == null ||  ICascadeMapConcrete == null || gsonBuilder == null) {
+			throw new NullPointerException("All parameters given to the ICascadeMap parser must be initialized.");
+		}
+		// Check if ICascadeMapConcrete is assignable to the ICascadeEntry interface
+		if (!ICascadeMapConcrete.isAssignableFrom(ICascadeMap.class)) {
+			throw new IllegalArgumentException("ICascadeMapConcrete must implement the ICascadeMap interface.");
+		}
+		try {
+			// Set up ICascadeMap
+			ICascadeMap retCasMap = new CascadeMap();	
+			// For each entry in the JSON object, whose elements should be a CascadeEntry
+			for (Map.Entry<String,JsonElement> entry : json.getAsJsonObject().entrySet()) {
+				// Construct CMEntries and put in CascadeMap
+				retCasMap.AddEntry(ParserHelpers.ParseCascadeEntry(entry.getValue(), ICascadeEntryDeserializer, ICascadeEntryConcrete, gsonBuilder));
+			}
+			return retCasMap;
+		}
+		catch (NullPointerException eNPE) { throw eNPE; }
+		catch (IllegalArgumentException eIAE) { throw eIAE; }
+		catch (ClassCastException eCCE) { throw eCCE; }
+		catch (Exception e) { throw e; }	
 	}
 	
 	//***** INTEGER SECTION ******\\
