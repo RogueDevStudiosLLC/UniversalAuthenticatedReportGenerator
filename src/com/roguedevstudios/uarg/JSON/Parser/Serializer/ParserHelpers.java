@@ -24,15 +24,18 @@ import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.LongArrayVariabl
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.LongVariableDeserializer;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.StringArrayVariableDeserializer;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.StringVariableDeserializer;
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.CascadeEntryDeserializer; //TODO: Alter this to concrete?
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
 import com.roguedevstudios.uarg.System.Core.Elements.FormulaSet;
 import com.roguedevstudios.uarg.System.Core.Elements.Formuli;
 import com.roguedevstudios.uarg.System.Core.Elements.Variable;
 import com.roguedevstudios.uarg.System.Core.Elements.Variables;
+import com.roguedevstudios.uarg.System.Core.Elements.CascadeEntry;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormula;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IFormuli;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariable;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.IVariables;
+import com.roguedevstudios.uarg.System.Core.Elements.Interface.ICascadeEntry;
 import com.roguedevstudios.uarg.System.Core.Enum.VariableType;
 
 /**
@@ -224,6 +227,45 @@ public class ParserHelpers {
 		catch (UnknownError eUE)				{throw eUE;	}
 		catch (Exception e)						
 			{throw new UnknownError(e.getMessage());}
+	}
+	
+	/**
+	 * Parses a CascadeEntry JSON representation into
+	 * an ICascadeEntry-compliant object.
+	 * @param json	The JSON for the ICascadeEntry object to be created
+	 * @param ICascadeEntryDeserializer	The custom deserializer for the ICascadeEntry compatible concrete class being parsed to
+	 * @param ICascadeEntryConcrete	The concrete ICascadeEntry compliant class to turn this JSON into
+	 * @param gsonBuilder
+	 * @throws NullPointerException	If parameters given are not initialized properly.
+	 * @throws IllegalArgumentException	If the concrete ICascadeEntry class given does not properly implement the ICascadeEntry interface.
+	 * @throws ClassCastException	If casting of the concrete class fails.
+	 * @return ICascadeEntry	An object that implements the ICascadeEntry interface.
+	 * @author Chelsea Hunter
+	 */
+	//TODO: This class
+	public static ICascadeEntry ParseCascadeEntry(JsonElement json, JsonDeserializer<? extends ICascadeEntry> ICascadeEntryDeserializer, Class<? extends CascadeEntry> ICascadeEntryConcrete, GsonBuilder gsonBuilder) throws NullPointerException, IllegalArgumentException, ClassCastException {
+		// Check if any arguments were parsed as null and throw exception if so
+		if (json == null || ICascadeEntryDeserializer == null || ICascadeEntryConcrete == null || gsonBuilder == null) {
+			throw new NullPointerException("All parameters given must be initialized.");
+		}
+		// Check if ICascadeEntryConcrete is assignable to the ICascadeEntry interface
+		if (!ICascadeEntryConcrete.isAssignableFrom(ICascadeEntry.class)) {
+			throw new IllegalArgumentException("ICascadeEntryConcrete must implement the ICascadeEntry interface.");
+		}
+		// Register deserializer
+		gsonBuilder.registerTypeAdapter(ICascadeEntryConcrete, ICascadeEntryDeserializer);
+		// Initialize custom Gson object
+		Gson customGson = gsonBuilder.create();
+		// Deserialize object to ICascadeEntry-compliant object
+		try {
+			ICascadeEntry retCE = customGson.fromJson(json, ICascadeEntryConcrete);
+			return retCE;
+		} catch(ClassCastException eCCE) {
+			throw eCCE;
+		} finally {
+			//cleanup
+			customGson = null;
+		}
 	}
 	
 	//***** INTEGER SECTION ******\\

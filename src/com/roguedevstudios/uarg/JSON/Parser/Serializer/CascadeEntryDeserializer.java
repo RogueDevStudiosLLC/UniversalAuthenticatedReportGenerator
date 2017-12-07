@@ -19,11 +19,22 @@ import java.lang.reflect.Type;
 /**
  * A class for deserializing CascadeEntry information from a JSON
  * into a Java object.
- * @author Chel
+ * @author Chelsea Hunter
  */
 public class CascadeEntryDeserializer implements JsonDeserializer<ICascadeEntry> {
 	
-	public CascadeEntry deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+	/**
+	 * Deserializes into a CascadeEntry type object
+	 * from a given JsonElement, Type, and
+	 * JsonDeserializationContext.
+	 * @param json	The JSON being parsed
+	 * @param typeOfT	
+	 * @param context
+	 * @throws JsonParseException	If an error occurs during parsing.
+	 * @return ICascadeEntry
+	 * @author Chel
+	 */
+	public ICascadeEntry deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 		ArrayList<String> _inputIDList = new ArrayList<String>();
 		String _outputID = null;
 		String _formulaID = null;
@@ -51,7 +62,7 @@ public class CascadeEntryDeserializer implements JsonDeserializer<ICascadeEntry>
 		if(o.has("Description")) {
 			_description = o.get("Description").getAsString();
 		}
-		CascadeEntry c = new CascadeEntry(_inputIDList, _outputID, _formulaID, _description);
+		ICascadeEntry c = new CascadeEntry(_inputIDList, _outputID, _formulaID, _description);
 		
 		return c;
 	}

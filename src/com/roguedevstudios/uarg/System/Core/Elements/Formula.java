@@ -1,7 +1,7 @@
 /************************************************
  * Formula Class File                           *
  * File name: Formula.java                      *
- * The class file for formulas.                *
+ * The class file for formulas.                 *
  ***********************************************/
 
 package com.roguedevstudios.uarg.System.Core.Elements;
