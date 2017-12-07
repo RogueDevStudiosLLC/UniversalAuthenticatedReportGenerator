@@ -24,7 +24,7 @@ import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.LongArrayVariabl
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.LongVariableDeserializer;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.StringArrayVariableDeserializer;
 import com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete.StringVariableDeserializer;
-import com.roguedevstudios.uarg.JSON.Parser.Serializer.CascadeEntryDeserializer; //TODO: Alter this to concrete?
+import com.roguedevstudios.uarg.JSON.Parser.Serializer.CascadeEntryDeserializer; //TODO: Alter CascadeEntryDeserializer to concrete?
 import com.roguedevstudios.uarg.System.Core.Elements.Formula;
 import com.roguedevstudios.uarg.System.Core.Elements.FormulaSet;
 import com.roguedevstudios.uarg.System.Core.Elements.Formuli;
@@ -244,11 +244,11 @@ public class ParserHelpers {
 	 * @return ICascadeEntry	An object that implements the ICascadeEntry interface.
 	 * @author Chelsea Hunter
 	 */
-	//TODO: This class
+	//TODO: Review ParseCascadeEntry method
 	public static ICascadeEntry ParseCascadeEntry(JsonElement json, JsonDeserializer<? extends ICascadeEntry> ICascadeEntryDeserializer, Class<? extends ICascadeEntry> ICascadeEntryConcrete, GsonBuilder gsonBuilder) throws NullPointerException, IllegalArgumentException, ClassCastException {
 		// Check if any arguments were parsed as null and throw exception if so
 		if (json == null || ICascadeEntryDeserializer == null || ICascadeEntryConcrete == null || gsonBuilder == null) {
-			throw new NullPointerException("All parameters given to the ICascadeEntry parser must be initialized.");
+			throw new NullPointerException("All parameters given to the ParseCascadeEntry() method must be initialized.");
 		}
 		// Check if ICascadeEntryConcrete is assignable to the ICascadeEntry interface
 		if (!ICascadeEntryConcrete.isAssignableFrom(ICascadeEntry.class)) {
@@ -279,18 +279,18 @@ public class ParserHelpers {
 	 * @param ICascadeEntryConcrete The concrete ICascadeEntry compliant class to add to our ICascadeMap-complaint object
 	 * @param gsonBuilder
 	 * @throws NullPointerException	If parameters given to the method are null.
-	 * @throws IllegalArgumentException	If the concrete class does not implement the ICascadeMap interface.
+	 * @throws IllegalArgumentException	If the concrete class given does not properly implement the ICascadeMap interface.
 	 * @throws ClassCastException
 	 * @throws Exception
 	 * @return ICascadeMap	An object that implements the ICascadeMap interface.
 	 * @author Chelsea Hunter
 	 */
-	//TODO: This class too
+	//TODO: Review ParseCascadeMap method
 	public static ICascadeMap ParseCascadeMap(JsonElement json, JsonDeserializer<? extends ICascadeEntry> ICascadeEntryDeserializer, Class<? extends ICascadeMap> ICascadeMapConcrete, Class<? extends ICascadeEntry> ICascadeEntryConcrete, GsonBuilder gsonBuilder) throws NullPointerException, IllegalArgumentException, ClassCastException, Exception {
 		
 		// Check if any arguments were parsed as null and throw exception if so
 		if (json == null || ICascadeEntryDeserializer == null ||  ICascadeMapConcrete == null || gsonBuilder == null) {
-			throw new NullPointerException("All parameters given to the ICascadeMap parser must be initialized.");
+			throw new NullPointerException("All parameters given to the ParseCascadeMap() method must be initialized.");
 		}
 		// Check if ICascadeMapConcrete is assignable to the ICascadeEntry interface
 		if (!ICascadeMapConcrete.isAssignableFrom(ICascadeMap.class)) {
@@ -299,7 +299,7 @@ public class ParserHelpers {
 		try {
 			// Set up ICascadeMap
 			ICascadeMap retCasMap = new CascadeMap();	
-			// For each entry in the JSON object, whose elements should be a CascadeEntry
+			// For each entry in the JSON object, whose elements should be CascadeEntries
 			for (Map.Entry<String,JsonElement> entry : json.getAsJsonObject().entrySet()) {
 				// Construct CMEntries and put in CascadeMap
 				retCasMap.AddEntry(ParserHelpers.ParseCascadeEntry(entry.getValue(), ICascadeEntryDeserializer, ICascadeEntryConcrete, gsonBuilder));
@@ -309,7 +309,7 @@ public class ParserHelpers {
 		catch (NullPointerException eNPE) { throw eNPE; }
 		catch (IllegalArgumentException eIAE) { throw eIAE; }
 		catch (ClassCastException eCCE) { throw eCCE; }
-		catch (Exception e) { throw e; }	
+		catch (Exception e) { throw new UnknownError(e.getMessage()); }	
 	}
 	
 	//***** INTEGER SECTION ******\\
