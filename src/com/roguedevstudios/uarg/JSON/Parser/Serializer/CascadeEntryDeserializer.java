@@ -13,37 +13,56 @@ package com.roguedevstudios.uarg.JSON.Parser.Serializer;
 import com.google.gson.*;
 import com.roguedevstudios.uarg.System.Core.Elements.Interface.ICascadeEntry;
 import com.roguedevstudios.uarg.System.Core.Elements.CascadeEntry;
-import java.util.List;
+import java.util.ArrayList;
+import java.lang.reflect.Type;
 
+/**
+ * A class for deserializing CascadeEntry information from a JSON
+ * into a Java object.
+ * @author Chelsea Hunter
+ */
 public class CascadeEntryDeserializer implements JsonDeserializer<ICascadeEntry> {
 	
-	public CascadeEntry deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException() {
-		List<String> _inputIDList = null;
+	/**
+	 * Deserializes into a CascadeEntry type object
+	 * from a given JsonElement, Type, and
+	 * JsonDeserializationContext.
+	 * @param json	The JSON being parsed
+	 * @param typeOfT	
+	 * @param context
+	 * @throws JsonParseException	If an error occurs during parsing.
+	 * @return ICascadeEntry
+	 * @author Chel
+	 */
+	public ICascadeEntry deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+		ArrayList<String> _inputIDList = new ArrayList<String>();
 		String _outputID = null;
 		String _formulaID = null;
 		String _description = null;
 		
 		JsonObject o = json.getAsJsonObject();
 		
-		if(o.has("InputIDList")) {
-			if (o.get("InputIDList").isJsonObject()) {
-				JsonObject t = o.get("InputIDList").getAsJsonObject();
-				_inputIDList = new List<String>();
-				for (String s : t.keyset()) {
-					_inputIDList.add(t.get(s));
+		if(o.has("Inputs")) {
+			if (o.get("Inputs").isJsonObject()) {
+				JsonObject t = o.get("Inputs").getAsJsonObject();
+				for (String s : t.keySet()) {
+					_inputIDList.add(t.get(s).getAsString());
 				}
 			}
+			else {
+				_inputIDList.add(o.get("Inputs").getAsString());
+			}
 		}
-		if(o.has("OutputID")) {
-			_outputId = o.get("OutputID").getAsString();
+		if(o.has("Output")) {
+			_outputID = o.get("Output").getAsString();
 		}
-		if(o.has("FormulaID")) {
-			_formulaID = o.get("FormulaID").getAsString();
+		if(o.has("Formula")) {
+			_formulaID = o.get("Formula").getAsString();
 		}
 		if(o.has("Description")) {
 			_description = o.get("Description").getAsString();
 		}
-		c = new CascadeEntry(_inputIDList, _outputID, _formulaID, _description);
+		ICascadeEntry c = new CascadeEntry(_inputIDList, _outputID, _formulaID, _description);
 		
 		return c;
 	}

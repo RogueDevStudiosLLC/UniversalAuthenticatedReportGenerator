@@ -1,4 +1,4 @@
-package com.roguedevstudios.uarg.JSON.Parser.Serializer;
+package com.roguedevstudios.uarg.JSON.Parser.Serializer.Concrete;
 /****************************************
 *  Boolean Variable Deserializer		*
 *   File Name: 							*
