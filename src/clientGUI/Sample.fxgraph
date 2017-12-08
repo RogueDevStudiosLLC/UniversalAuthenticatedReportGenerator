@@ -1,0 +1,10 @@
+package application
+
+import javafx.scene.layout.BorderPane
+import application.SampleController
+
+component Sample controlledby SampleController {
+	BorderPane {
+		//TODO Add Nodes
+	}
+}
