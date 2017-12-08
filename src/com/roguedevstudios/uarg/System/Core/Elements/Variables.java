@@ -424,7 +424,6 @@ public class Variables implements IVariables {
 	public IVariable<String[]> GetStringArray(String id) {
 		return this._stringArrayMap.get(id);
 	}
-
 	/**
 	 * Determines the value type for a Variable
 	 * 
@@ -483,6 +482,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Boolean newValue) {
+		
 		this._booleanMap.get(key).SetValue(newValue);
 	}
 	
@@ -493,6 +493,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Boolean[] newValue) {
+		
 		this._booleanArrayMap.get(key).SetValue(newValue);
 	}
 	
@@ -503,6 +504,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Double newValue) {
+		
 		this._doubleMap.get(key).SetValue(newValue);
 	}
 	
@@ -513,6 +515,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Double[] newValue) {
+		
 		this._doubleArrayMap.get(key).SetValue(newValue);
 	}
 	
@@ -523,6 +526,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Float newValue) {
+		
 		this._floatMap.get(key).SetValue(newValue);
 	}
 	
@@ -533,6 +537,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Float[] newValue) {
+		
 		this._floatArrayMap.get(key).SetValue(newValue);
 	}
 	
@@ -554,6 +559,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Integer[] newValue) {
+		
 		this._integerArrayMap.get(key).SetValue(newValue);
 
 	}
@@ -565,6 +571,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Long newValue) {
+		
 		this._longMap.get(key).SetValue(newValue);
 	}
 	
@@ -575,6 +582,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, Long[] newValue) {
+		
 		this._longArrayMap.get(key).SetValue(newValue);
 	}
 	
@@ -585,6 +593,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, String newValue) {
+		
 		this._stringMap.get(key).SetValue(newValue);
 	}
 	
@@ -595,6 +604,7 @@ public class Variables implements IVariables {
 	 * @since 1.0
 	 */
 	public void UpdateValue(String key, String[] newValue) {
+		
 		this._stringArrayMap.get(key).SetValue(newValue);
 	}
 
@@ -611,6 +621,12 @@ public class Variables implements IVariables {
 		//System.out.println("VarID: "+ID+", Type: "+this._variableTypeMap.get(ID));
 		return this._variableTypeMap.get(ID);
 	}
+	
+	//TODO remove this
+	public VariableType GetRawVariableType(String id) {
+		return this._variableTypeMap.get(id);
+	}
+
 	
 	public int GetIntegerCount() {
 		return this._integerMap.size();
