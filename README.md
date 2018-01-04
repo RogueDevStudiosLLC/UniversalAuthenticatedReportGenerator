@@ -1,8 +1,11 @@
 # README #
+### Purpose ###
+
+This project was a joint effort in order to give real experience to interns at colleges and universities in Texas and Oregon.
 
 ### Universal Authorized Report Generator ###
 
-* This program will generate business reports from properly formated .xls, .xlsx, .xbrl, .csv, and .txt files. 
+* This program will generate business reports from properly formated .xls, .xlsx, .xbrl, .csv, and .txt files.
 * Current Version: 0.0.1
 
 ### How do I get set up? ###
@@ -10,15 +13,20 @@
 * Summary of set up
 * Configuration
 * Dependencies
-* Database configuration
-* How to run tests
+** Gson
+** Maven
+** Java 8
+** JUnit 4
 * Deployment instructions
 
 ### Contribution guidelines ###
 
 * Writing tests
+- Each method or class written for this project should be unit tested using JUnit 4.
 * Code review
+- Code that is submitted for pull request into any branch of the primary repositories will be reviewed by a staff member. Rejections will be given a reason as to why the request was not accepted.
 * Other guidelines
+- Students that are in an active state of internship maintain priority on pull requests, requests that conflict with current development or significantly break current development will be rejected or commented to in order to remedy the issue.
 
 ### Who do I talk to? ###
 
